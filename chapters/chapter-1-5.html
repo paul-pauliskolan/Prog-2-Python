@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 1.5 - Sammanfattning</title>
+    <title>Kap 1.5 - Loopar och upprepning</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 1.5: Loopar och upprepning med for, while, break och continue.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,155 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 1.5: Sammanfattning</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 1.5 – Loopar och upprepning</h1>
+                <p class="subtitle">Använd for- och while-loopar för att upprepa kod på ett kontrollerat sätt.</p>
             </header>
+
             <section class="content-section">
-                <p>Sammanfattning och nästa steg.</p>
+                <h2>Mål med lektionen</h2>
+                <ul>
+                    <li>Förstå skillnaden mellan for- och while-loopar.</li>
+                    <li>Veta när du ska använda vilken typ av loop.</li>
+                    <li>Kunna kombinera loopar med funktioner och villkor.</li>
+                    <li>Använda break och continue på ett medvetet sätt.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Börja med att titta på vad koden försöker upprepa - vad är mönstret? Skriv egna exempel, men ändra
+                    siffror, ordning och logik för att se hur programflödet påverkas. Det är så du tränar upp förmågan
+                    att använda loopar med självförtroende.</p>
+
+                <h2>Vad är en loop?</h2>
+                <p>En loop används när du vill upprepa något - till exempel skriva ut flera rader, fråga flera gånger
+                    eller gå igenom en lista.</p>
+
+                <h2>for-loop - När du vet hur många gånger</h2>
+                <pre><code>for i in range(5):
+    print(f"This is line {i}")</code></pre>
+                <p>Denna loop kör fem gånger (från 0 till 4). Variabeln <code>i</code> ökar automatiskt varje varv.</p>
+
+                <p>Exempel - summera tal:</p>
+                <pre><code>total = 0
+for i in range(1, 6):
+    total += i
+print(f"Sum: {total}")</code></pre>
+
+                <h2>while-loop - När du inte vet hur många gånger</h2>
+                <p>En while-loop kör så länge ett villkor är sant.</p>
+                <pre><code>password = ""
+while password != "secret":
+    password = input("Enter password: ")
+print("Access granted.")</code></pre>
+                <p>Det här används ofta för inmatning eller oklara förlopp där du inte vet i förväg hur många
+                    iterationer som behövs.</p>
+
+                <h2>break och continue</h2>
+                <ul>
+                    <li><strong>break</strong> avslutar loopen direkt.</li>
+                    <li><strong>continue</strong> hoppar över resten av ett varv och går till nästa.</li>
+                </ul>
+
+                <p>Exempel:</p>
+                <pre><code>for i in range(10):
+    if i == 7:
+        break
+    if i % 2 == 0:
+        continue
+    print(i)</code></pre>
+                <p>Denna kod skriver ut alla udda tal före 7.</p>
+
+                <h2>Kombinera loopar och funktioner</h2>
+                <p>Loopar blir tydligare när du bryter ut delar i funktioner.</p>
+                <pre><code>def print_menu():
+    print("1. Say hello")
+    print("2. Exit")
+
+def run():
+    while True:
+        print_menu()
+        choice = input("Choose option: ")
+        if choice == "1":
+            print("Hello!")
+        elif choice == "2":
+            break
+        else:
+            print("Invalid option.")
+
+run()</code></pre>
+                <p>Här används while True för en meny som körs tills användaren vill avsluta.</p>
+
+                <h2>Öva själv</h2>
+                <ol>
+                    <li>Skriv en for-loop som skriver ut alla tal från 1 till 20 som är delbara med 3.</li>
+                    <li>Skapa en while-loop som fortsätter att fråga användaren om en gissning tills hen gissar rätt
+                        på ett förutbestämt tal.</li>
+                    <li>Kombinera en meny och funktioner som i exemplet ovan men med tre alternativ: skriv ett namn,
+                        räkna upp till ett tal, avsluta.</li>
+                </ol>
+
+                <h2>Reflektion</h2>
+                <ul>
+                    <li>När använder du for och när passar while bättre?</li>
+                    <li>Hur kan du göra en loop mer läsbar?</li>
+                    <li>Har du testat att bryta en loop med break? Hur påverkade det flödet?</li>
+                </ul>
             </section>
+
+            <div id="quiz-1-5" aria-label="Quiz Kap 1.5"></div>
+
             <p><a href="chapter-1.html">Tillbaka till Kapitel 1</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-1-5'), {
+                    title: 'Quiz: Kap 1.5 - Loopar och upprepning',
+                    questions: [
+                        {
+                            question: 'När passar en for-loop bäst?',
+                            options: [
+                                'När du vet ungefär hur många varv loopen ska göra',
+                                'När du alltid vill köra exakt ett varv',
+                                'När du aldrig vill upprepa något',
+                                'När du vill skapa en variabel automatiskt'
+                            ],
+                            correct: 0,
+                            feedback: 'for-loopar används ofta när antalet iterationer är känt i förväg.',
+                            explanation: 'for passar när du vet hur många gånger något ska upprepas.'
+                        },
+                        {
+                            question: 'Vad gör break i en loop?',
+                            options: [
+                                'Hoppar över nästa rad kod men fortsätter alltid',
+                                'Avslutar loopen direkt',
+                                'Startar om programmet',
+                                'Skapar en ny loop'
+                            ],
+                            correct: 1,
+                            feedback: 'break bryter loopen direkt och går vidare efter loopen.',
+                            explanation: 'break avslutar loopens körning.'
+                        },
+                        {
+                            question: 'Vad är en vanlig användning av while-loop?',
+                            options: [
+                                'Att skriva ut en enda textsträng',
+                                'Att upprepa något tills ett villkor ändras',
+                                'Att byta namn på variabler',
+                                'Att räkna bokstäver i en kommentar'
+                            ],
+                            correct: 1,
+                            feedback: 'while används när du inte vet exakt hur många varv som behövs från början.',
+                            explanation: 'while passar när ett villkor styr när loopen ska sluta.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>
