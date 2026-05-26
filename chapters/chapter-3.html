@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Kapitel 3 - Analys och planering</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <meta name="description"
+    content="Analys och planering: bryt ned problem, använd flödesscheman och pseudokod innan kod skrivs.">
+</head>
+
+<body class="chapter-page">
+  <nav class="navbar">
+    <a href="../index.html" class="logo">Programmering 2 i Python</a>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Öppna kapitelmeny">☰</button>
+  </nav>
+
+  <aside class="side-menu" id="side-menu" aria-label="Kapitelmeny">
+    <a href="../index.html" class="menu-close" id="menu-close" aria-label="Stäng kapitelmeny">✕</a>
+    <h2>Kapitel</h2>
+    <nav class="chapter-menu" id="chapters-menu"></nav>
+  </aside>
+
+  <main class="container chapter-shell">
+    <article class="chapter-main">
+      <header class="chapter-hero">
+        <p class="eyebrow">Programmering nivå 2 med HTML, CSS och JavaScript</p>
+        <h1>Kapitel 3: Objektorientering och modellering</h1>
+        <p class="subtitle">Introduktion till objektorienterade principer och hur modelleringsverktyg som UML hjälper
+          till vid design.</p>
+      </header>
+
+      <section class="toc-section">
+        <div class="section-heading">
+          <h2>Innehåll</h2>
+          <p class="section-note">Lär dig att modellera problem med klasser, relationer och användningsfall (use cases).
+          </p>
+        </div>
+        <ul>
+          <li><a href="#s31">3.1 Grundläggande objektorientering</a></li>
+          <li><a href="#s32">3.2 Klassdiagram (UML)</a></li>
+          <li><a href="#s33">3.3 Användningsfall och use-cases</a></li>
+          <li><a href="#s34">3.4 Sekvensdiagram och interaktion</a></li>
+          <li><a href="#s35">3.5 Design och överföring till kod</a></li>
+          <li><a href="#s36">Quiz</a></li>
+        </ul>
+      </section>
+
+      <section class="content-section" id="s31">
+        <h2>3.1 Grundläggande objektorientering</h2>
+        <p>Objektorientering (OOP) organiserar kod runt objekt som har ansvar, data och beteenden. Kärnidéerna är
+          klasser, instanser, metoder och attribut.</p>
+        <h3>Mål</h3>
+        <ul>
+          <li>förstå klasser och instanser</li>
+          <li>kunna beskriva ansvar och gränssnitt för ett objekt</li>
+          <li>använda enkla exempel för att modellera en domän</li>
+        </ul>
+        <h3>Övning</h3>
+        <p>Identifiera tre klasser i ett enkelt system (t.ex. quiz, användare, fråga) och beskriv deras ansvar.</p>
+      </section>
+
+      <section class="content-section" id="s32">
+        <h2>3.2 Klassdiagram (UML)</h2>
+        <p>Klassdiagram visar klasser, deras attribut, metoder och relationer (association, arv, beroende). UML är ett
+          standardiserat sätt att dokumentera design.</p>
+        <h3>Exempel</h3>
+        <p>Rita ett klassdiagram där en `Quiz` innehåller flera `Question`-objekt och varje `Question` har text,
+          alternativ och korrekt svar.</p>
+        <pre><code class="language-mermaid">classDiagram
+      class Course {
+        +String title
+        +String description
+        +List~Chapter~ chapters
+        +addChapter(chapter)
+      }
+      class Chapter {
+        +String title
+        +String content
+        +List~Quiz~ quizzes
+      }
+      class Quiz {
+        +String id
+        +List~Question~ questions
+        +checkAnswers()
+      }
+      class Question {
+        +String prompt
+        +List~String~ options
+        +int correctIndex
+      }
+      Course "1" o-- "*" Chapter : contains
+      Chapter "1" o-- "*" Quiz : contains
+      Quiz "1" o-- "*" Question : contains
+    </code></pre>
+        <h3>Övning</h3>
+        <p>Skapa ett enkelt klassdiagram för din tidigare identifierade klasser.</p>
+      </section>
+
+      <section class="content-section" id="s33">
+        <h2>3.3 Användningsfall och use-cases</h2>
+        <p>Användningsfall (use cases) beskriver hur en användare interagerar med systemet. De hjälper till att fånga
+          krav och scenarier innan detaljerad design.</p>
+        <h3>Exempel</h3>
+        <p>Use case: 'Ta quiz' — beskriver steg: starta quiz, välj svar, skicka in, se resultat.</p>
+        <h3>Övning</h3>
+        <p>Skriv ett use-case för ett scenario där en användare skapar ett nytt konto och genomför ett quiz.</p>
+      </section>
+
+      <section class="content-section" id="s34">
+        <h2>3.4 Sekvensdiagram och interaktion</h2>
+        <p>Sekvensdiagram visar hur objekt interagerar över tid. Det är användbart för att beskriva flödet av
+          meddelanden mellan objekt vid t.ex. ett quiz.</p>
+        <h3>Övning</h3>
+        <p>Rita ett sekvensdiagram för när användaren skickar in ett quiz och systemet räknar poäng.</p>
+        <pre><code class="language-mermaid">sequenceDiagram
+      participant Student
+      participant Browser
+      participant Server
+      Student->>Browser: öppnar kapitel
+      Browser->>Server: GET /chapters/chapter-3.html
+      Server-->>Browser: levererar HTML-sida
+      Student->>Browser: svarar på quiz och klickar 'Skicka'
+      Browser->>Browser: initializeQuizzes() validerar svar
+      alt alla svar korrekta
+        Browser-->>Student: Visa korrekt feedback och sammanfattning
+      else några felaktiga svar
+        Browser-->>Student: Visa förklaring för felaktiga frågor
+      end
+    </code></pre>
+      </section>
+
+      <section class="content-section" id="s35">
+        <h2>3.5 Design och överföring till kod</h2>
+        <p>När modellen är klar omvandlas klassdiagram och use-cases till kod: skapa klasser, metoder och definiera
+          ansvar. Håll designen enkel och testbar.</p>
+        <h3>Övning</h3>
+        <p>Implementera de viktigaste klasserna för quiz-exemplet i JavaScript och skriv korta enhetstester för centrala
+          metoder.</p>
+      </section>
+
+      <section class="content-section" id="project-quizapp">
+        <h2>Projekt: Quizapp — Uppgift för Kapitel 3</h2>
+        <p>I detta kapitel börjar ni implementera den genomgående quizappen. Nedan följer de konkreta uppgifterna som
+          eleverna förväntas göra nu. Se även den fullständiga projektbeskrivningen: <a
+            href="../md-files/QUIZ_APP_PROJECT.md">QUIZ_APP_PROJECT.md</a>.</p>
+        <h3>Mål för kapitlets projektarbete</h3>
+        <ul>
+          <li>Implementera JavaScript-klasserna `Quiz`, `Question` och `QuizStore` enligt ert klassdiagram.</li>
+          <li>Skriv ett enkelt UML-klassdiagram och ett sekvensdiagram för scenariot "Ta quiz" (använd Mermaid eller
+            rita för hand och ladda upp).</li>
+          <li>Gör en enkel implementation av `initializeQuizzes()` i JavaScript som validerar svar och visar feedback
+            (återanvänds i kursen).</li>
+          <li>Skriv minst två enhetstester för centrala metoder (t.ex. poängräkning och validering av svar).</li>
+          <li>Commit och beskriv era diagram och kod i en kort teknisk rapport (README eller kort dokument).</li>
+        </ul>
+        <h3>Förslag på filer att skapa</h3>
+        <ul>
+          <li>`quiz-project/src/quiz.js` — JavaScript-implementation av klasser</li>
+          <li>`quiz-project/index.html` — Enkel sida som använder klasserna</li>
+          <li>`quiz-project/css/quiz.css` — Kapitelstil för quiz</li>
+          <li>`quiz-project/tests/quiz.test.ts` — Enhetstester</li>
+        </ul>
+        <h3>Bedömning (kapitelmoment)</h3>
+        <p>Denna del bedöms främst på att klasserna finns och följer designen, UML‑diagrammet visar viktiga relationer,
+          samt att grundläggande tester finns.</p>
+      </section>
+
+      <section class="content-section" id="s36">
+        <h2>Quiz</h2>
+        <p>Testa din förståelse av objektorientering och UML.</p>
+        <form id="chapter3-quiz" class="quiz-form">
+          <fieldset class="quiz-question" data-correct="A"
+            data-explanation="En klass är en mall; en instans är ett objekt skapat från den mallen.">
+            <legend>1. Vad är skillnaden mellan en klass och en instans?</legend>
+            <label><input type="radio" name="q1" value="A"> A. Klass är mall, instans är ett objekt av mallen</label>
+            <label><input type="radio" name="q1" value="B"> B. Klass är samma som en funktion</label>
+            <label><input type="radio" name="q1" value="C"> C. Instans är en typ av diagram</label>
+            <label><input type="radio" name="q1" value="D"> D. Ingen skillnad</label>
+            <p class="quiz-feedback" aria-live="polite"></p>
+          </fieldset>
+
+          <fieldset class="quiz-question" data-correct="B"
+            data-explanation="Association och arv visar relationer; arv indikerar en 'är en' relation.">
+            <legend>2. Vad visar ett klassdiagram vanligtvis?</legend>
+            <label><input type="radio" name="q2" value="A"> A. Heltäckande användargränssnitt</label>
+            <label><input type="radio" name="q2" value="B"> B. Klasser, attribut, metoder och relationer</label>
+            <label><input type="radio" name="q2" value="C"> C. Endast databasfält</label>
+            <label><input type="radio" name="q2" value="D"> D. Färgschema för UI</label>
+            <p class="quiz-feedback" aria-live="polite"></p>
+          </fieldset>
+
+          <fieldset class="quiz-question" data-correct="C"
+            data-explanation="Use-cases beskriver hur en användare interagerar med systemet för att nå ett mål.">
+            <legend>3. Vad beskriver ett use-case?</legend>
+            <label><input type="radio" name="q3" value="A"> A. Klassdiagrammets layout</label>
+            <label><input type="radio" name="q3" value="B"> B. Databasens index</label>
+            <label><input type="radio" name="q3" value="C"> C. En användares mål och interaktioner med systemet</label>
+            <label><input type="radio" name="q3" value="D"> D. Färgval för UI</label>
+            <p class="quiz-feedback" aria-live="polite"></p>
+          </fieldset>
+
+          <fieldset class="quiz-question" data-correct="D"
+            data-explanation="Sekvensdiagram visar meddelanden mellan objekt över tid, vilket hjälper förstå interaktionen.">
+            <legend>4. Vad visar ett sekvensdiagram?</legend>
+            <label><input type="radio" name="q4" value="A"> A. Klassernas attribut</label>
+            <label><input type="radio" name="q4" value="B"> B. Färgkodning för element</label>
+            <label><input type="radio" name="q4" value="C"> C. Databasens struktur</label>
+            <label><input type="radio" name="q4" value="D"> D. Meddelanden mellan objekt över tid</label>
+            <p class="quiz-feedback" aria-live="polite"></p>
+          </fieldset>
+
+          <button type="submit" class="quiz-submit">Rätta quizet</button>
+          <p id="quiz-status" class="quiz-status" aria-live="polite"></p>
+          <div id="quiz-summary" class="quiz-summary" hidden></div>
+        </form>
+      </section>
+    </article>
+
+    <aside class="chapter-aside">
+      <section class="aside-card">
+        <p class="eyebrow">Kapitel 3</p>
+        <h2>Planera innan du kodar</h2>
+        <p>Att planera minskar risken för fel och gör det enklare att testa och förbättra lösningar.</p>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="site-footer site-footer-wide">
+    <p>© Paul Belfrage. Anpassad för Programmering 2 med HTML, CSS och JavaScript.</p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+    mermaid.initialize({ startOnLoad: false })
+    function renderMermaidForRoot(root = document) {
+      const codes = (root.querySelectorAll)
+        ? root.querySelectorAll('code.language-mermaid')
+        : []
+      const toRender = []
+      codes.forEach(code => {
+        if (code.dataset.mermaidProcessed) return
+        const txt = code.textContent.trim()
+        if (!txt) return
+        const container = document.createElement('div')
+        container.className = 'mermaid'
+        container.textContent = txt
+        code.parentNode.insertBefore(container, code)
+        code.dataset.mermaidProcessed = '1'
+        toRender.push(container)
+      })
+      if (toRender.length) mermaid.init(undefined, toRender)
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      renderMermaidForRoot(document)
+      const observer = new MutationObserver(mutations => {
+        mutations.forEach(m => {
+          m.addedNodes.forEach(node => {
+            if (node.nodeType !== 1) return
+            if (node.matches && node.matches('code.language-mermaid')) renderMermaidForRoot(node.parentNode || node)
+            else if (node.querySelectorAll) renderMermaidForRoot(node)
+          })
+        })
+      })
+      observer.observe(document.body, { childList: true, subtree: true })
+    });
+  </script>
+</body>
+
+</html>

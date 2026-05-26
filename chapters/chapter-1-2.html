@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kap 1.2 - Repetera CSS</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 1.2: Repetera CSS - färg, typografi och layout.">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero">
+                <h1>Kap 1.2: Kom igång med Python</h1>
+            </header>
+            <section class="content-section">
+                <h2>Mål med lektionen</h2>
+                <ul>
+                    <li>Ha installerat Python och kunnat starta IDLE.</li>
+                    <li>Veta hur du skriver, sparar och kör Python-program lokalt.</li>
+                    <li>Ha skrivit och testat ett första program.</li>
+                    <li>Veta varför du ska undvika att programmera i online-miljöer.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Följ installationsinstruktionerna noggrant. Använd alltid en <strong>lokal miljö</strong> – det vill
+                    säga ett program installerat på din dator. <strong>Undvik onlineverktyg</strong> (t.ex. repl.it
+                    eller liknande) eftersom de är begränsade och inte fungerar för hela kursens innehåll. Programmering
+                    på riktigt görs lokalt, precis som i arbetslivet.</p>
+
+                <p>För instruktioner om hur du installerar Python på macOS, se <a
+                        href="https://paul-pauliskolan.github.io/prog1-python/chapters/chapter-1.html">denna
+                        installationsguide för Mac</a>. Följ också kapitel 1.7–1.10 i kursen Programmering 1 innan du
+                    fortsätter med övningarna här.</p>
+
+                <p>Du kan också repetera innehållet i <a
+                        href="https://paul-pauliskolan.github.io/prog1-python/index.html">Programmering 1 - Python</a>
+                    om du vill fräscha upp grunderna.</p>
+
+                <p><strong>Rekommendation:</strong> Vi rekommenderar att du använder VS Code som kodeditor, men du får
+                    använda IDLE också.</p>
+
+                <p>Skriv din första kod:</p>
+                <pre><code>print("Hello, world!")</code></pre>
+
+                <p>Spara filen som <code>hello.py</code>, tryck på F5 eller välj “Run” &gt; “Run Module”.</p>
+
+                <h2>Undvik detta</h2>
+                <ul>
+                    <li>Använd <strong>inte online-lösningar</strong> som repl.it eller liknande.</li>
+                    <li>Dessa fungerar inte med filhantering, UI-program, eller när du ska använda moduler som kräver
+                        lokalt stöd.</li>
+                </ul>
+
+                <h2>Reflektion</h2>
+                <p>Du har nu installerat Python, startat en programmeringsmiljö och kört ett första program. Det kan
+                    verka enkelt, men det är ett viktigt steg: du har börjat ta kontroll över datorn som verktyg, inte
+                    bara som användare utan som utvecklare.</p>
+            </section>
+            <div id="quiz-1-2" aria-label="Quiz Kap 1.2"></div>
+
+            <p><a href="chapter-1.html">Tillbaka till Kapitel 1</a></p>
+        </article>
+    </main>
+    <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-1-2'), {
+                    title: 'Quiz: Kap 1.2 - Kom igång med Python',
+                    questions: [
+                        {
+                            question: 'Vilket kommando i terminalen visar normalt din installerade Python-version på macOS eller Linux?',
+                            options: [
+                                'python3 --version',
+                                'open python',
+                                'run python',
+                                'pip --version'
+                            ],
+                            correct: 0,
+                            feedback: 'Kommandot visar vilken Python-version som är aktiv på systemet.',
+                            explanation: 'Använd `python3 --version` för att kontrollera versionen på macOS/Linux.'
+                        },
+                        {
+                            question: 'Vilken filändelse används normalt för Python-källkod?',
+                            options: ['.docx', '.py', '.txtx', '.exe'],
+                            correct: 1,
+                            feedback: 'Python-filer sparas med .py så att tolken känner igen dem.',
+                            explanation: 'Spara koden i en fil med ändelsen .py.'
+                        },
+                        {
+                            question: 'Vad gör print("Hello") i Python?',
+                            options: [
+                                'Skapar en fil på din dator',
+                                'Skriver texten till skärmen/terminalen',
+                                'Kompilerar koden till en körbar fil',
+                                'Startar en webbtjänst automatiskt'
+                            ],
+                            correct: 1,
+                            feedback: 'print skriver text till standardutgången (t.ex. terminalen).',
+                            explanation: 'Den visar text på skärmen.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

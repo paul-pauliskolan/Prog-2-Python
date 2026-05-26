@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kap 1.4 - Lägg upp projektet på GitHub</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 1.4: Publicera på GitHub och använda Pages.">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero" id="top">
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 1.4 – Villkor och logik i funktioner</h1>
+                <p class="subtitle">Använd if/elif/else för att fatta beslut i funktioner.</p>
+            </header>
+
+            <section class="content-section">
+                <h2>Mål med lektionen</h2>
+                <ul>
+                    <li>Kunna använda if, elif och else i funktioner.</li>
+                    <li>Veta hur du strukturerar logik för att fatta beslut i kod.</li>
+                    <li>Förstå hur kodflöde och returvärden fungerar i funktioner med villkor.</li>
+                    <li>Kunna skriva funktioner som tar beslut baserat på indata.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Gå igenom exemplen, skriv om dem och testa med olika indata. Fundera på ordningen i dina villkor och
+                    när en funktion ska returnera ett värde istället för att skriva ut något direkt.</p>
+
+                <h2>Exempel – Kontrollera myndighet</h2>
+                <pre><code>def is_adult(age):
+    if age >= 18:
+        return True
+    else:
+        return False
+
+user_age = int(input("Enter your age: "))
+if is_adult(user_age):
+    print("You are an adult.")
+else:
+    print("You are not an adult.")</code></pre>
+
+                <h2>Flera alternativ med <code>elif</code></h2>
+                <pre><code>def grade_feedback(grade):
+    if grade >= 90:
+        return "Excellent"
+    elif grade >= 75:
+        return "Good"
+    elif grade >= 60:
+        return "Pass"
+    else:
+        return "Fail"
+
+# Exempel: fråga användaren om poäng och skriv ut feedback (utan undantagshantering)
+score = int(input("Skriv in poäng (0-100): "))
+print("Resultat:", grade_feedback(score))</code></pre>
+
+                <h2>Öva själv</h2>
+                <ol>
+                    <li>Skriv en funktion `is_even(number)` som returnerar `True` om ett tal är jämnt.</li>
+                    <li>Skriv en funktion `temperature_message(temp)` som returnerar olika meddelanden beroende på
+                        temperaturen:</li>
+                    <ul>
+                        <li>Över 30: “Too hot!”</li>
+                        <li>20–30: “Comfortable”</li>
+                        <li>Under 20: “Too cold!”</li>
+                    </ul>
+                </ol>
+
+                <h2>Reflektion</h2>
+                <ul>
+                    <li>Vad är skillnaden mellan att skriva `print()` och `return` i en funktion?</li>
+                    <li>Hur påverkar villkor flödet i ett program?</li>
+                    <li>Vad händer om du utelämnar `else` och inget villkor uppfylls?</li>
+                </ul>
+            </section>
+
+            <p><a href="chapter-1.html">Tillbaka till Kapitel 1</a></p>
+        </article>
+    </main>
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

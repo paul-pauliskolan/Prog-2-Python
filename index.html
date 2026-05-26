@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Programmering nivå 2 i Python — ett webbaserat läromedel med kapitel, övningar, självmarknadsquiz och övningsuppgifter för kursen Programmering 2.">
+    <title>Programmering nivå 2 — Python</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="index.html" class="logo">Programmering 2 i Python</a>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Öppna kapitelmeny">☰</button>
+    </nav>
+
+    <aside class="side-menu" id="side-menu" aria-label="Kapitelmeny">
+        <a href="index.html" class="menu-close" id="menu-close" aria-label="Stäng kapitelmeny">✕</a>
+        <h2>Kapitel</h2>
+        <nav class="chapter-menu" id="chapters-menu"></nav>
+    </aside>
+
+    <div class="container home-page">
+        <header class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Programmering i Python</h1>
+                <p class="subtitle">Ett läromedel i Python där varje kapitel är en egen sida med teori, kodexempel,
+                    övningar och ett självrättande quiz.</p>
+                <p>Kursmaterial och kodexempel finns i mappen <code>p2-python-kurs</code> och
+                    <code>p2-python-kod</code>.
+                </p>
+            </div>
+            <div class="hero-card">
+                <p class="hero-card-label">Synpunkter</p>
+                <h2>Hjälp mig förbättra läromedlet</h2>
+                <p>Jag tar gärna emot synpunkter på detta läromedel eller om ni hittar fel.</p>
+                <p>Om du vill skicka synpunkter kan du använda formuläret här:</p>
+                <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSc8fyjjAhtlfX3u6UeVvk6AlF_3-ow0UdZmgP3QtJIn5s7_hw/viewform"
+                        target="_blank" rel="noopener noreferrer">Lämna synpunkter i kontaktformuläret</a></p>
+                <p>Om du också vill ta del av mitt material i Teknik 2 hittar du det här:</p>
+                <p><a href="https://paul-pauliskolan.github.io/tek-2/" target="_blank"
+                        rel="noopener noreferrer">Läromedel i Teknik 2</a></p>
+            </div>
+        </header>
+
+        <main class="page-stack">
+            <section class="toc-section">
+                <div style="margin-top:1.5rem">
+                    <p class="eyebrow">Lektionssidor</p>
+                    <nav class="chapter-menu chapter-menu-home">
+                        <a href="chapters/chapter-1-1.html" class="chapter-link"><span
+                                class="chapter-number">1.1</span><span class="chapter-title">Kap 1.1</span></a>
+                        <a href="chapters/chapter-1-2.html" class="chapter-link"><span
+                                class="chapter-number">1.2</span><span class="chapter-title">Kap 1.2</span></a>
+                        <a href="chapters/chapter-1-3.html" class="chapter-link"><span
+                                class="chapter-number">1.3</span><span class="chapter-title">Kap 1.3</span></a>
+                        <a href="chapters/chapter-1-4.html" class="chapter-link"><span
+                                class="chapter-number">1.4</span><span class="chapter-title">Kap 1.4</span></a>
+                        <a href="chapters/chapter-1-5.html" class="chapter-link"><span
+                                class="chapter-number">1.5</span><span class="chapter-title">Kap 1.5</span></a>
+                        <a href="chapters/chapter-1-6.html" class="chapter-link"><span
+                                class="chapter-number">1.6</span><span class="chapter-title">Kap 1.6</span></a>
+                        <a href="chapters/chapter-1-7.html" class="chapter-link"><span
+                                class="chapter-number">1.7</span><span class="chapter-title">Kap 1.7</span></a>
+                        <a href="chapters/chapter-2-1.html" class="chapter-link"><span
+                                class="chapter-number">2.1</span><span class="chapter-title">Kap 2.1</span></a>
+                        <a href="chapters/chapter-2-2.html" class="chapter-link"><span
+                                class="chapter-number">2.2</span><span class="chapter-title">Kap 2.2</span></a>
+                        <a href="chapters/chapter-2-3.html" class="chapter-link"><span
+                                class="chapter-number">2.3</span><span class="chapter-title">Kap 2.3</span></a>
+                        <a href="chapters/chapter-2-4.html" class="chapter-link"><span
+                                class="chapter-number">2.4</span><span class="chapter-title">Kap 2.4</span></a>
+                        <a href="chapters/chapter-2-5.html" class="chapter-link"><span
+                                class="chapter-number">2.5</span><span class="chapter-title">Kap 2.5</span></a>
+                        <a href="chapters/chapter-2-6.html" class="chapter-link"><span
+                                class="chapter-number">2.6</span><span class="chapter-title">Kap 2.6</span></a>
+                        <a href="chapters/chapter-2-7.html" class="chapter-link"><span
+                                class="chapter-number">2.7</span><span class="chapter-title">Kap 2.7</span></a>
+                        <a href="chapters/chapter-3-1.html" class="chapter-link"><span
+                                class="chapter-number">3.1</span><span class="chapter-title">Kap 3.1</span></a>
+                        <a href="chapters/chapter-3-2.html" class="chapter-link"><span
+                                class="chapter-number">3.2</span><span class="chapter-title">Kap 3.2</span></a>
+                        <a href="chapters/chapter-3-3.html" class="chapter-link"><span
+                                class="chapter-number">3.3</span><span class="chapter-title">Kap 3.3</span></a>
+                        <a href="chapters/chapter-3-4.html" class="chapter-link"><span
+                                class="chapter-number">3.4</span><span class="chapter-title">Kap 3.4</span></a>
+                        <a href="chapters/chapter-3-5.html" class="chapter-link"><span
+                                class="chapter-number">3.5</span><span class="chapter-title">Kap 3.5</span></a>
+                        <a href="chapters/chapter-3-6.html" class="chapter-link"><span
+                                class="chapter-number">3.6</span><span class="chapter-title">Kap 3.6</span></a>
+                        <a href="chapters/chapter-3-7.html" class="chapter-link"><span
+                                class="chapter-number">3.7</span><span class="chapter-title">Kap 3.7</span></a>
+                        <a href="chapters/chapter-4-1.html" class="chapter-link"><span
+                                class="chapter-number">4.1</span><span class="chapter-title">Kap 4.1</span></a>
+                        <a href="chapters/chapter-4-2.html" class="chapter-link"><span
+                                class="chapter-number">4.2</span><span class="chapter-title">Kap 4.2</span></a>
+                        <a href="chapters/chapter-4-3.html" class="chapter-link"><span
+                                class="chapter-number">4.3</span><span class="chapter-title">Kap 4.3</span></a>
+                        <a href="chapters/chapter-4-4.html" class="chapter-link"><span
+                                class="chapter-number">4.4</span><span class="chapter-title">Kap 4.4</span></a>
+                        <a href="chapters/chapter-4-5.html" class="chapter-link"><span
+                                class="chapter-number">4.5</span><span class="chapter-title">Kap 4.5</span></a>
+                        <a href="chapters/chapter-4-6.html" class="chapter-link"><span
+                                class="chapter-number">4.6</span><span class="chapter-title">Kap 4.6</span></a>
+                        <a href="chapters/chapter-4-7.html" class="chapter-link"><span
+                                class="chapter-number">4.7</span><span class="chapter-title">Kap 4.7</span></a>
+                        <a href="chapters/chapter-5-2.html" class="chapter-link"><span
+                                class="chapter-number">5.2</span><span class="chapter-title">Kap 5.2</span></a>
+                        <a href="chapters/chapter-5-3.html" class="chapter-link"><span
+                                class="chapter-number">5.3</span><span class="chapter-title">Kap 5.3</span></a>
+                        <a href="chapters/chapter-5-4.html" class="chapter-link"><span
+                                class="chapter-number">5.4</span><span class="chapter-title">Kap 5.4</span></a>
+                        <a href="chapters/chapter-5-5.html" class="chapter-link"><span
+                                class="chapter-number">5.5</span><span class="chapter-title">Kap 5.5</span></a>
+                        <a href="chapters/chapter-5-6.html" class="chapter-link"><span
+                                class="chapter-number">5.6</span><span class="chapter-title">Kap 5.6</span></a>
+                    </nav>
+                </div>
+                <div style="margin-top:1rem">
+                    <p class="eyebrow">Övningsuppgifter</p>
+                    <nav class="chapter-menu">
+                        <a href="chapters/ovningsuppgift-1.html" class="chapter-link">Övningsuppgift 1</a>
+                        <a href="chapters/ovningsuppgift-2.html" class="chapter-link">Övningsuppgift 2</a>
+                        <a href="chapters/ovningsuppgift-3.html" class="chapter-link">Övningsuppgift 3</a>
+                        <a href="chapters/ovningsuppgift-4.html" class="chapter-link">Övningsuppgift 4</a>
+                        <a href="chapters/ovningsuppgift-5.html" class="chapter-link">Övningsuppgift 5</a>
+                    </nav>
+                </div>
+            </section>
+
+            <!--     <section class="feature-grid" id="kom-igang">
+                <article class="feature-card">
+                    <h2>Så är boken byggd</h2>
+                    <p>Markdown-filen används som huvudkälla, och kapitlen kan sedan visas som webbsidor med
+                        ankarlänkar, övningar och översikter.</p>
+                </article>
+                <article class="feature-card">
+                    <h2>För smalt fönster</h2>
+                    <p>Sidbredden hålls begränsad, navigeringen är hopfällbar och extra paneler kan döljas när eleverna
+                        behöver mer plats för kod.</p>
+                </article>
+                <article class="feature-card">
+                    <h2>För eleverna</h2>
+                    <p>Varje kapitel kan kompletteras med kodexempel, uppgifter och en tydlig nästa steg-ruta som gör
+                        det lätt att arbeta självständigt.</p>
+                </article>
+            </section> -->
+
+            <section class="split-mode">
+                <div class="split-mode-copy">
+                    <p class="eyebrow">Kombinerat läge</p>
+                    <h2>Läs och bygg samtidigt</h2>
+                    <p>Den här sajten är tänkt att ligga öppet bredvid kodredigeraren. Därför är texten smal,
+                        rubrikerna tydliga och menyerna lätta att stänga när fokus ska ligga på teori och kod.</p>
+                </div>
+                <div class="split-mode-panel">
+                    <h3>Rekommenderat arbetssätt</h3>
+                    <ol>
+                        <li>Öppna kapitlet du arbetar med.</li>
+                        <li>Ha kodredigeraren bredvid i samma fönsterbredd.</li>
+                        <li>Växla mellan teori, exempel och övning utan att lämna sidan.</li>
+                    </ol>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <p>© Paul Belfrage. Anpassad för Programmering 2 med HTML, CSS och JavaScript. | <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSc8fyjjAhtlfX3u6UeVvk6AlF_3-ow0UdZmgP3QtJIn5s7_hw/viewform"
+                    target="_blank" rel="noopener noreferrer">Kontakt / Återkoppling</a></p>
+        </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

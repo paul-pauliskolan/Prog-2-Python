@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kapitel - Programmering nivå 2 med HTML, CSS och JavaScript</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar">
+        <a href="../index.html" class="logo">Programmering 2 i Python</a>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Öppna kapitelmeny">☰</button>
+    </nav>
+
+    <aside class="side-menu" id="side-menu" aria-label="Kapitelmeny">
+        <a href="../index.html" class="menu-close" id="menu-close" aria-label="Stäng kapitelmeny">✕</a>
+        <h2>Kapitel</h2>
+        <nav class="chapter-menu" id="chapters-menu"></nav>
+    </aside>
+
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero">
+                <p class="eyebrow">Programmering nivå 2 med HTML, CSS och JavaScript</p>
+                <h1><a href="../index.html">Webbläromedel</a></h1>
+                <p class="subtitle">Läs kapitlet, följ övningarna och bygg samtidigt i din editor.</p>
+            </header>
+
+            <section id="chapter-summary"></section>
+            <section id="chapter-sections"></section>
+            <section id="chapter-videos"></section>
+            <section id="chapter-resources"></section>
+
+            <div class="chapter-nav"></div>
+        </article>
+
+        <aside class="chapter-aside">
+            <section class="aside-card">
+                <p class="eyebrow">Kodläge</p>
+                <h2>Ha kodredigeraren öppet bredvid</h2>
+                <p>Den här sidan är gjord för att läsas samtidigt som du testar i din editor.</p>
+            </section>
+        </aside>
+    </main>
+
+    <footer class="site-footer site-footer-wide">
+        <p>&copy; Paul Belfrage. Anpassad f&ouml;r Programmering 2 med HTML, CSS och JavaScript. | <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSc8fyjjAhtlfX3u6UeVvk6AlF_3-ow0UdZmgP3QtJIn5s7_hw/viewform"
+                target="_blank" rel="noopener noreferrer">Kontakt / &Aring;terkoppling</a></p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+        mermaid.initialize({ startOnLoad: false })
+        // Render mermaid diagrams for code blocks (handles dynamic insertion)
+        function renderMermaidForRoot(root = document) {
+            const codes = (root.querySelectorAll)
+                ? root.querySelectorAll('code.language-mermaid')
+                : []
+            const toRender = []
+            codes.forEach(code => {
+                if (code.dataset.mermaidProcessed) return
+                const txt = code.textContent.trim()
+                if (!txt) return
+                const container = document.createElement('div')
+                container.className = 'mermaid'
+                container.textContent = txt
+                code.parentNode.insertBefore(container, code)
+                code.dataset.mermaidProcessed = '1'
+                toRender.push(container)
+            })
+            if (toRender.length) mermaid.init(undefined, toRender)
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMermaidForRoot(document)
+            // Observe DOM changes so that dynamically rendered chapter content also gets processed
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(m => {
+                    m.addedNodes.forEach(node => {
+                        if (node.nodeType !== 1) return
+                        if (node.matches && node.matches('code.language-mermaid')) renderMermaidForRoot(node.parentNode || node)
+                        else if (node.querySelectorAll) renderMermaidForRoot(node)
+                    })
+                })
+            })
+            observer.observe(document.body, { childList: true, subtree: true })
+        });
+    </script>
+    <script>
+        const match = window.location.pathname.match(/chapter-(\d+)\.html/)
+        if (match) {
+            const chapterNumber = parseInt(match[1], 10)
+            const interval = setInterval(() => {
+                if (window.webbook && window.webbook.getChapter(chapterNumber)) {
+                    clearInterval(interval)
+                    window.webbook.renderChapterPage(chapterNumber)
+                }
+            }, 100)
+        }
+    </script>
+</body>
+
+</html>

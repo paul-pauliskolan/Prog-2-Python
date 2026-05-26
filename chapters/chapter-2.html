@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Kapitel 2: bygg grunden till quizappen med HTML, CSS och JavaScript.">
+    <title>Kapitel 2 - Bygg quizappen med HTML, CSS och JavaScript</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar">
+        <a href="../index.html" class="logo">Programmering 2 i Python</a>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Öppna kapitelmeny">☰</button>
+    </nav>
+
+    <aside class="side-menu" id="side-menu" aria-label="Kapitelmeny">
+        <a href="../index.html" class="menu-close" id="menu-close" aria-label="Stäng kapitelmeny">✕</a>
+        <h2>Kapitel</h2>
+        <nav class="chapter-menu" id="chapters-menu"></nav>
+    </aside>
+
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero" id="top">
+                <p class="eyebrow">Programmering nivå 2 med HTML, CSS och JavaScript</p>
+                <h1>Kapitel 2: Bygg quizappen</h1>
+                <p class="subtitle">I det här kapitlet bygger vi det som behövs för quizappen: HTML-strukturen, den
+                    viktigaste CSS-stylingen och grunderna för att koppla ihop allt med JavaScript.</p>
+            </header>
+
+            <section class="toc-section">
+                <div class="section-heading">
+                    <h2>Innehåll</h2>
+                    <p class="section-note">Följ stegen och bygg det som quizappen behöver från start.</p>
+                </div>
+                <ul>
+                    <li><a href="chapter-2-1.html">Kap 2.1 Quizappens HTML-struktur</a></li>
+                    <li><a href="chapter-2-2.html">Kap 2.2 CSS som måste finnas med</a></li>
+                    <li><a href="chapter-2-3.html">Kap 2.3 Frågor, svar och data-attribut</a></li>
+                    <li><a href="chapter-2-4.html">Kap 2.4 Koppla JavaScript till formuläret</a></li>
+                    <li><a href="chapter-2-5.html">Kap 2.5 Sammanfattning</a></li>
+                    <li><a href="chapter-2-6.html">Kap 2.6 Extra övningar</a></li>
+                    <li><a href="chapter-2-7.html">Kap 2.7 Miniuppgift: datalagring och logik</a></li>
+                </ul>
+            </section>
+
+            <section class="content-section" id="chapter-summary">
+                <h2>Kapitelöversikt</h2>
+                <p>Det här kapitlet visar hur du bygger grunden till en quizapp. Fokus ligger på den HTML som måste
+                    finnas, den CSS som gör layouten tydlig och den JavaScript-logik som senare rättar svaren.</p>
+                <div class="key-topics">
+                    <span>HTML</span>
+                    <span>CSS</span>
+                    <span>JavaScript</span>
+                    <span>formulär</span>
+                    <span>quizapp</span>
+                </div>
+            </section>
+
+            <section class="content-section" id="s21">
+                <h2>2.1 Quizappens HTML-struktur</h2>
+                <p>För att quizappen ska fungera måste HTML innehålla rätt delar från början: en huvudsektion, ett
+                    formulär, frågor, svarsalternativ, en knapp för att rätta och platser där resultatet kan visas.</p>
+                <h3>Mål</h3>
+                <ul>
+                    <li>förstå vilka HTML-delar som måste finnas i quizappen</li>
+                    <li>se hur formulär och svarsalternativ byggs upp</li>
+                    <li>veta var resultat och feedback ska skrivas ut</li>
+                </ul>
+                <h3>HTML som måste finnas med</h3>
+                <pre><code>&lt;main class="quiz-app"&gt;
+  &lt;h1&gt;Quiz om webben&lt;/h1&gt;
+  &lt;form id="quizForm" class="quiz-form"&gt;
+    &lt;fieldset class="question" data-correct="B" data-explanation="HTML skapar struktur och innehåll."&gt;
+      &lt;legend&gt;1. Vilken tagg används för rubriker?&lt;/legend&gt;
+      &lt;label&gt;&lt;input type="radio" name="q1" value="A"&gt; A. p&lt;/label&gt;
+      &lt;label&gt;&lt;input type="radio" name="q1" value="B"&gt; B. h1&lt;/label&gt;
+      &lt;label&gt;&lt;input type="radio" name="q1" value="C"&gt; C. div&lt;/label&gt;
+      &lt;p class="quiz-feedback" aria-live="polite"&gt;&lt;/p&gt;
+    &lt;/fieldset&gt;
+
+    &lt;button type="submit" class="quiz-submit"&gt;Rätta quizet&lt;/button&gt;
+    &lt;p id="quiz-status" class="quiz-status" aria-live="polite"&gt;&lt;/p&gt;
+    &lt;div id="quiz-summary" class="quiz-summary" hidden&gt;&lt;/div&gt;
+&lt;/form&gt;
+&lt;/main&gt;
+&lt;!-- Använd färdiga skriptet från kursen: --&gt;
+&lt;script src="../js/quiz-app.js" defer&gt;&lt;/script&gt;</code></pre>
+                <p>Du kan också kopiera filen <code>js/quiz-app.js</code> till ditt projekt och länka med
+                    <code>&lt;script src="main.js" defer&gt;</code>.
+                </p>
+                <h3>Övning</h3>
+                <p>Bygg upp samma struktur i din egen <code>index.html</code> så att quizappen har ett formulär, en
+                    knapp, statusrad och en sammanfattning.</p>
+            </section>
+
+            <section class="content-section" id="s22">
+                <h2>2.2 CSS som måste finnas med</h2>
+                <p>Quizappen behöver CSS som gör formuläret lätt att läsa, frågorna tydliga och knappen enkel att hitta.
+                    Den här stilen är en bra grund att starta från.</p>
+                <h3>Mål</h3>
+                <ul>
+                    <li>förstå vilken CSS som behövs för quizappen</li>
+                    <li>styla formulär, frågor och feedback på ett tydligt sätt</li>
+                    <li>kunna göra sidan lättläst på både mobil och dator</li>
+                </ul>
+                <h3>CSS som måste finnas med</h3>
+                <pre><code>.quiz-app {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.quiz-form {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.question {
+  border: 1px solid #cbd5e1;
+  border-radius: 1rem;
+  padding: 1rem;
+  background: #fff;
+}
+
+.question label {
+  display: block;
+  margin: 0.4rem 0;
+}
+
+.quiz-submit {
+  border: 0;
+  border-radius: 999px;
+  padding: 0.9rem 1.2rem;
+  background: #14532d;
+  color: #fff;
+  font-weight: 700;
+}
+
+.quiz-status,
+.quiz-summary {
+  margin-top: 1rem;
+}</code></pre>
+                <h3>Övning</h3>
+                <p>Skapa <code>style.css</code> och lägg in grundstilen ovan. Ändra gärna färger och avstånd så att
+                    quizappen blir tydlig och lätt att läsa.</p>
+            </section>
+
+            <section class="content-section" id="s23">
+                <h2>2.3 Frågor, svar och data-attribut</h2>
+                <p>När quizappen byggs behöver varje fråga ha rätt svar och en förklaring. Det kan du lagra direkt i
+                    HTML med <code>data-*</code>-attribut, så att JavaScript senare kan läsa dem.</p>
+                <h3>Mål</h3>
+                <ul>
+                    <li>förstå hur <code>data-correct</code> och <code>data-explanation</code> används</li>
+                    <li>veta varför rätt svar behöver vara tydligt markerat i HTML</li>
+                    <li>se hur frågorna kan rättas automatiskt senare</li>
+                </ul>
+                <h3>Exempel på fråga</h3>
+                <pre><code>&lt;fieldset class="question" data-correct="B" data-explanation="HTML skapar struktur och innehåll."&gt;
+  &lt;legend&gt;1. Vilken tagg används för rubriker?&lt;/legend&gt;
+  &lt;label&gt;&lt;input type="radio" name="q1" value="A"&gt; A. p&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="q1" value="B"&gt; B. h1&lt;/label&gt;
+  &lt;label&gt;&lt;input type="radio" name="q1" value="C"&gt; C. div&lt;/label&gt;
+  &lt;p class="quiz-feedback" aria-live="polite"&gt;&lt;/p&gt;
+&lt;/fieldset&gt;</code></pre>
+                <h3>Övning</h3>
+                <p>Lägg in minst en fråga i din quizapp och skriv rätt svar i ett <code>data-correct</code>-attribut.
+                    Skriv också en kort förklaring i <code>data-explanation</code>.</p>
+            </section>
+
+            <section class="content-section" id="s24">
+                <h2>2.4 Koppla JavaScript till formuläret</h2>
+                <p>När HTML och CSS finns på plats kan JavaScript kopplas in för att läsa in svar, jämföra dem och visa
+                    resultatet på sidan.</p>
+                <h3>Mål</h3>
+                <ul>
+                    <li>förstå hur formuläret hittas i JavaScript</li>
+                    <li>veta att en submit-händelse används för att rätta quizet</li>
+                    <li>kunna visa status och sammanfattning på sidan</li>
+                </ul>
+                <h3>Vad koden kommer att behöva göra</h3>
+                <ul>
+                    <li>hitta formuläret med <code>getElementById</code></li>
+                    <li>samla alla frågor med <code>querySelectorAll</code></li>
+                    <li>visa om alla frågor är besvarade</li>
+                    <li>skriva rätt/fel och förklaringar i quizens feedbackfält</li>
+                </ul>
+                <h3>Övning</h3>
+                <p>Förbered din <code>main.js</code> så att den hittar <code>#quizForm</code>, <code>#quiz-status</code>
+                    och <code>#quiz-summary</code>. Det är de element som behövs för att rätta quizet.</p>
+                <!-- Återinförd komplett kod: hela skriptet samlat för snabb kopiering -->
+                <h3>JavaScript — komplett exempel (lägg i <code>main.js</code>)</h3>
+                <p>Här är den kompletta koden samlad i ett stycke — kopiera rakt av till din <code>main.js</code> om du
+                    vill ha en komplett fil direkt.</p>
+                <pre><code>document.addEventListener('DOMContentLoaded', () =&gt; {
+    const form = document.getElementById('quizForm');
+    const status = document.getElementById('quiz-status');
+    const summary = document.getElementById('quiz-summary');
+
+    if (!form) return;
+
+    form.addEventListener('submit', (e) =&gt; {
+        e.preventDefault();
+
+        const questions = Array.from(form.querySelectorAll('.question'));
+        const unanswered = [];
+        let correctCount = 0;
+
+        questions.forEach((q, i) =&gt; {
+            const nameInput = q.querySelector('input[type="radio"]');
+            const name = nameInput ? nameInput.name : null;
+            const selected = name ? q.querySelector(`input[name="${name}"]:checked`) : null;
+            const correct = q.dataset.correct;
+            const feedback = q.querySelector('.quiz-feedback');
+
+            if (!selected) {
+                unanswered.push(i + 1);
+                if (feedback) feedback.textContent = 'Besvara frågan.';
+                return;
+            }
+
+            const isCorrect = selected.value === correct;
+            if (isCorrect) {
+                correctCount += 1;
+                if (feedback) feedback.textContent = 'Rätt! ' + (q.dataset.explanation || '');
+            } else {
+                if (feedback) feedback.textContent = `Fel. Rätt svar är ${correct}. ` + (q.dataset.explanation || '');
+            }
+        });
+
+        if (unanswered.length) {
+            status.textContent = 'Alla frågor måste besvaras. Saknade: ' + unanswered.join(', ');
+            summary.hidden = true;
+            return;
+        }
+
+        status.textContent = `Du fick ${correctCount} av ${questions.length} rätt.`;
+        summary.hidden = false;
+        summary.innerHTML = `<h3>Resultat</h3><p>Rätt: ${correctCount} / ${questions.length}</p>`;
+    });
+});</code></pre>
+
+                <h3>JavaScript — uppdelat och förklarat (lägg i <code>main.js</code>)</h3>
+                <p>Nedanför följer samma funktionalitet uppdelad i mindre kodstycken. Efter varje kodstycke finns en
+                    kort förklaring, varför det är viktigt enligt lärandeforskning, och ett litet <em>gör
+                        själv</em>-förslag.</p>
+
+                <h4>1) Vänta på att DOM är färdig</h4>
+                <pre><code>document.addEventListener('DOMContentLoaded', () =&gt; {
+  // allt som berör DOM:en går här
+});</code></pre>
+                <p><strong>Varför:</strong> säkerställer att elementen finns innan vi försöker hämta dem.<br><strong>Gör
+                        själv:</strong> ta bort lyssnaren och se vad som händer i konsolen.</p>
+
+                <h4>2) Hämta de element vi behöver</h4>
+                <pre><code>const form = document.getElementById('quizForm');
+const status = document.getElementById('quiz-status');
+const summary = document.getElementById('quiz-summary');</code></pre>
+                <p><strong>Varför:</strong> vi måste ha referenser för att läsa/skriva i DOM.<br><strong>Gör
+                        själv:</strong> logga variablerna med <code>console.log</code>.</p>
+
+                <h4>3) Avbryt formens standardbeteende</h4>
+                <pre><code>form.addEventListener('submit', (e) =&gt; {
+  e.preventDefault();
+  // rättningslogik här
+});</code></pre>
+                <p><strong>Varför:</strong> normalt skickar ett formulär och laddar om sidan — det vill vi undvika så vi
+                    kan visa resultat direkt.<br><strong>Gör själv:</strong> kommentera ut
+                    <code>e.preventDefault()</code> och återställ efter test.
+                </p>
+
+                <h4>4) Samla alla frågor till en array</h4>
+                <pre><code>const questions = Array.from(form.querySelectorAll('.question'));
+let correctCount = 0;
+const unanswered = [];</code></pre>
+                <p><strong>Varför:</strong> <code>form.querySelectorAll('.question')</code> returnerar en
+                    <em>NodeList</em> — en samling DOM-noder. En NodeList har vissa metoder (t.ex. <code>forEach</code>)
+                    men saknar andra vanliga arraymetoder som <code>map</code>, <code>filter</code> och
+                    <code>reduce</code>. Därför använder vi <code>Array.from(...)</code> för att skapa en riktig
+                    JavaScript Array som ger full tillgång till arraymetoder.<br>
+                    <strong>Gör själv:</strong> i webbläsarkonsolen prova:
+                <pre><code>const nodes = form.querySelectorAll('.question');
+console.log(nodes instanceof NodeList); // true
+const questions = Array.from(nodes);
+console.log(Array.isArray(questions)); // true
+</code></pre>
+                Skriv sedan ut <code>questions.length</code> till <code>status</code> före rättningen för att verifiera
+                antal frågor.</p>
+
+                <h4>5) Iterera och kontrollera svar</h4>
+                <pre><code>questions.forEach((q, i) =&gt; {
+  const nameInput = q.querySelector('input[type="radio"]');
+  const name = nameInput ? nameInput.name : null;
+  const selected = name ? q.querySelector(`input[name="${name}"]:checked`) : null;
+  const correct = q.dataset.correct;
+  const feedback = q.querySelector('.quiz-feedback');
+
+  if (!selected) {
+    unanswered.push(i + 1);
+    if (feedback) feedback.textContent = 'Besvara frågan.';
+    return;
+  }
+
+  const isCorrect = selected.value === correct;
+  if (isCorrect) {
+    correctCount += 1;
+    if (feedback) feedback.textContent = 'Rätt! ' + (q.dataset.explanation || '');
+  } else {
+    if (feedback) feedback.textContent = `Fel. Rätt svar är ${correct}. ` + (q.dataset.explanation || '');
+  }
+});</code></pre>
+                <p><strong>Varför:</strong> här händer själva rättningen och feedbacken — omedelbar feedback stärker
+                    minnet.<br><strong>Gör själv:</strong> ändra feedback-meddelandena och se hur det påverkar
+                    elevupplevelsen.</p>
+
+                <h4>6) Hantera obesvarade och visa sammanfattning</h4>
+                <pre><code>if (unanswered.length) {
+  status.textContent = 'Alla frågor måste besvaras. Saknade: ' + unanswered.join(', ');
+  summary.hidden = true;
+  return;
+}
+
+status.textContent = `Du fick ${correctCount} av ${questions.length} rätt.`;
+summary.hidden = false;
+summary.innerHTML = `<h3>Resultat</h3><p>Rätt: ${correctCount} / ${questions.length}</p>`;</code></pre>
+                <p><strong>Varför:</strong> tydlig summering och felhantering ger bättre lärande och mindre
+                    frustration.<br><strong>Gör själv:</strong> lägg till procent och rekommendationer beroende på
+                    poäng.</p>
+
+                <h4>7) Tillgänglighet och förbättring</h4>
+                <p>Se till att <code>.quiz-feedback</code> använder <code>aria-live</code> så skärmläsare meddelar
+                    uppdateringar. Fundera också på att extrahera delar av koden till små funktioner (t.ex.
+                    <code>checkQuestion(q)</code>) — det underlättar repetition och testning.
+                </p>
+
+                <h4>8) Förslag på tre korta övningar (Gör själv)</h4>
+                <ol>
+                    <li>Markera varje fråga med en klass <code>.correct</code> eller <code>.incorrect</code> efter
+                        rättning och ge olika bakgrundsfärg.</li>
+                    <li>Lägg till en knapp "Rensa svar" som nollställer formuläret, feedback och sammanfattning.</li>
+                    <li>Spara resultatet i <code>localStorage</code> och visa tidigare bästa poäng i sidhuvudet.</li>
+                </ol>
+                <p>Vill du att jag lägger in en färdig övningssektion med dessa tre uppgifter i kapiteltexten? Svara med
+                    <strong>ja</strong> eller <strong>nej</strong>.
+                </p>
+            </section>
+
+            <section class="content-section" id="s25">
+                <h2>2.5 Sammanfattning</h2>
+                <p>För att bygga quizappen behöver du rätt HTML-struktur, tydlig CSS och JavaScript som kopplar ihop
+                    formuläret med resultatet. När grunden finns på plats kan du lägga till fler frågor och förbättra
+                    upplevelsen steg för steg.</p>
+                <ul>
+                    <li>HTML ger quizappen struktur.</li>
+                    <li>CSS gör formuläret läsbart och tydligt.</li>
+                    <li>JavaScript rättar svaren och visar feedback.</li>
+                    <li>Data-attribut gör att rätt svar och förklaringar kan lagras i HTML.</li>
+                </ul>
+            </section>
+
+            <section class="content-section" id="s26">
+                <h2>Quiz</h2>
+                <p>Välj ett svar per fråga. Quizet visar resultat och förklaringar när alla frågor är besvarade.</p>
+                <form id="chapter2-quiz" class="quiz-form">
+                    <fieldset class="quiz-question" data-correct="B"
+                        data-explanation="Quizappen behöver en form, frågor, svarsalternativ och plats för resultat. Formuläret är den viktigaste grunddelen.">
+                        <legend>1. Vilken del behövs för att samla svaren i quizappen?</legend>
+                        <label><input type="radio" name="q1" value="A"> A. Ett footer-element</label>
+                        <label><input type="radio" name="q1" value="B"> B. Ett form-element</label>
+                        <label><input type="radio" name="q1" value="C"> C. En bild</label>
+                        <label><input type="radio" name="q1" value="D"> D. En lista utan attribut</label>
+                        <p class="quiz-feedback" aria-live="polite"></p>
+                    </fieldset>
+
+                    <fieldset class="quiz-question" data-correct="C"
+                        data-explanation="CSS behövs för att göra frågor, knappar och resultat läsbara och tydliga på sidan.">
+                        <legend>2. Vad behövs CSS till i quizappen?</legend>
+                        <label><input type="radio" name="q2" value="A"> A. För att skapa GitHub-repositorier</label>
+                        <label><input type="radio" name="q2" value="B"> B. För att rätta svar automatiskt</label>
+                        <label><input type="radio" name="q2" value="C"> C. För att styla layout och läsbarhet</label>
+                        <label><input type="radio" name="q2" value="D"> D. För att ersätta HTML</label>
+                        <p class="quiz-feedback" aria-live="polite"></p>
+                    </fieldset>
+
+                    <fieldset class="quiz-question" data-correct="A"
+                        data-explanation="data-correct används för att spara rätt svar direkt i HTML så att JavaScript kan läsa det senare.">
+                        <legend>3. Vad är poängen med <code>data-correct</code> i en fråga?</legend>
+                        <label><input type="radio" name="q3" value="A"> A. Att spara rätt svar i HTML</label>
+                        <label><input type="radio" name="q3" value="B"> B. Att skapa nya taggar</label>
+                        <label><input type="radio" name="q3" value="C"> C. Att rita om sidan</label>
+                        <label><input type="radio" name="q3" value="D"> D. Att göra texten större automatiskt</label>
+                        <p class="quiz-feedback" aria-live="polite"></p>
+                    </fieldset>
+
+                    <fieldset class="quiz-question" data-correct="D"
+                        data-explanation="quiz-status och quiz-summary används för att visa resultat och en sammanfattning efter rättningen.">
+                        <legend>4. Vad ska statusfältet och sammanfattningen användas till?</legend>
+                        <label><input type="radio" name="q4" value="A"> A. Att ersätta frågorna</label>
+                        <label><input type="radio" name="q4" value="B"> B. Att lagra bilder</label>
+                        <label><input type="radio" name="q4" value="C"> C. Att skapa CSS-regler</label>
+                        <label><input type="radio" name="q4" value="D"> D. Att visa resultat och feedback</label>
+                        <p class="quiz-feedback" aria-live="polite"></p>
+                    </fieldset>
+
+                    <button type="submit" class="quiz-submit">Rätta quizet</button>
+                    <p id="quiz-status" class="quiz-status" aria-live="polite"></p>
+                    <div id="quiz-summary" class="quiz-summary" hidden></div>
+                </form>
+            </section>
+        </article>
+
+        <aside class="chapter-aside">
+            <section class="aside-card">
+                <p class="eyebrow">Kapitel 2</p>
+                <h2>Gör sidan levande</h2>
+                <p>Nu blir webbsidan interaktiv på riktigt. Nästa steg är att koppla fler händelser, formulär och data
+                    till JavaScript.</p>
+            </section>
+        </aside>
+    </main>
+
+    <footer class="site-footer site-footer-wide">
+        <p>© Paul Belfrage. Anpassad för Programmering 2 med HTML, CSS och JavaScript. | <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSc8fyjjAhtlfX3u6UeVvk6AlF_3-ow0UdZmgP3QtJIn5s7_hw/viewform"
+                target="_blank" rel="noopener noreferrer">Kontakt / Återkoppling</a></p>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

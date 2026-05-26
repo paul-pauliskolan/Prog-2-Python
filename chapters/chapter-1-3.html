@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kap 1.3 - Koppla JavaScript till webbsidan</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 1.3: Koppla JavaScript till webbsidan.">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero" id="top">
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 1.3 – Strukturerad problemlösning med kod</h1>
+                <p class="subtitle">Dela upp kod i funktioner och tänk modulärt.</p>
+            </header>
+
+            <section class="content-section">
+                <h2>Mål med lektionen</h2>
+                <ul>
+                    <li>Kunna strukturera din kod i funktioner.</li>
+                    <li>Förstå när och varför du delar upp program i delar.</li>
+                    <li>Repetera grundläggande logiska strukturer och förbättra läsbarheten i din kod.</li>
+                    <li>Skriva ett enklare program med tydlig intern struktur.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Du har redan använt variabler, villkor och loopar – nu är det dags att börja tänka mer strukturerat.
+                    Fundera över hur du kan dela upp koden så att varje del gör en sak. Läsbar kod är bättre kod.
+                    Kommentera, namnge tydligt och använd funktioner för att undvika upprepning.</p>
+
+                <h2>Varför strukturera kod?</h2>
+                <p>Genom att dela upp programmet i <strong>funktioner</strong> kan du göra koden lättare att förstå,
+                    återanvända delar och testa varje del för sig.</p>
+
+                <h2>Exempel – Beräkna medelvärde</h2>
+                <pre><code>def get_number(prompt):
+    return float(input(prompt))
+
+def calculate_average(n1, n2, n3):
+    return (n1 + n2 + n3) / 3
+
+def main():
+    number1 = get_number("Enter first number: ")
+    number2 = get_number("Enter second number: ")
+    number3 = get_number("Enter third number: ")
+    average = calculate_average(number1, number2, number3)
+    print(f"The average is {average:.2f}")
+
+main()</code></pre>
+
+                <h2>Öva själv</h2>
+                <ol>
+                    <li>Fråga efter användarens namn och ålder.</li>
+                    <li>Beräkna vilket år de fyller 100 år.</li>
+                    <li>Skriv ut ett personligt meddelande.</li>
+                </ol>
+
+                <h2>Reflektion</h2>
+                <ul>
+                    <li>Hur upplevde du att dela upp programmet i funktioner?</li>
+                    <li>Vad är fördelen med att skriva en main()-funktion?</li>
+                    <li>Hur kan denna struktur hjälpa dig i större projekt?</li>
+                </ul>
+            </section>
+
+            <div id="quiz-1-3" aria-label="Quiz Kap 1.3"></div>
+
+            <p><a href="chapter-1.html">Tillbaka till Kapitel 1</a></p>
+        </article>
+    </main>
+    <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-1-3'), {
+                    title: 'Quiz: Kap 1.3 - Strukturerad problemlösning',
+                    questions: [
+                        {
+                            question: 'Vad är en viktig fördel med att dela upp kod i funktioner?',
+                            options: [
+                                'Koden blir svårare att testa',
+                                'Koden blir mer återanvändbar och lättare att förstå',
+                                'Koden behöver inte längre köras',
+                                'Alla variabler blir automatiskt globala'
+                            ],
+                            correct: 1,
+                            feedback: 'Funktioner gör koden tydligare, enklare att återanvända och lättare att underhålla.',
+                            explanation: 'Funktioner gör programmet mer strukturerat och återanvändbart.'
+                        },
+                        {
+                            question: 'Vilken roll har en `main()`-funktion oftast?',
+                            options: [
+                                'Den samlar programmets huvudsakliga flöde på ett ställe',
+                                'Den ersätter alla andra funktioner',
+                                'Den används bara för att skriva ut text i terminalen',
+                                'Den gör programmet långsammare utan anledning'
+                            ],
+                            correct: 0,
+                            feedback: 'main() används ofta som programmets startpunkt och håller ihop huvudflödet.',
+                            explanation: 'main() samlar huvudlogiken på ett ställe.'
+                        },
+                        {
+                            question: 'Vad är bästa skälet till att skriva tydliga funktionsnamn?',
+                            options: [
+                                'Det gör programmet mer slumpmässigt',
+                                'Det hjälper andra att förstå vad koden gör',
+                                'Det eliminerar behovet av kommentarer helt',
+                                'Det gör att Python automatiskt hittar buggar'
+                            ],
+                            correct: 1,
+                            feedback: 'Tydliga namn förbättrar läsbarheten och gör det enklare att förstå och felsöka kod.',
+                            explanation: 'Bra namn gör koden lättare att läsa.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>
