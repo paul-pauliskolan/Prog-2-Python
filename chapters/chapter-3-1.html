@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 3.1 - Grundläggande objektorientering</title>
+    <title>Kap 3.1 - Vad är OOP?</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 3.1: Introduktion till objektorienterad programmering, klasser, objekt, attribut och metoder.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,168 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 3.1: Grundläggande objektorientering</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 3.1 – Vad är OOP?</h1>
+                <p class="subtitle">Förstå hur objekt, klasser, attribut och metoder används för att strukturera program.</p>
             </header>
+
             <section class="content-section">
-                <p>Introduktion till klasser och instanser.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Känna till grunderna i objektorienterad programmering (OOP).</li>
+                    <li>Förstå varför OOP används och vad det innebär att tänka i objekt.</li>
+                    <li>Kunna skilja mellan begreppen klass, objekt, egenskap och metod.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Börja med att läsa igenom hela lektionen för att få en helhetsbild. Försök tänka på hur du skulle
+                    beskriva verkliga företeelser med kod: en bil, en bok eller en elev. Jämför gärna hur samma problem
+                    skulle kunna lösas med fristående funktioner respektive med objekt.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>Objekt:</strong> ett självständigt paket av data och funktionalitet, till exempel en specifik bok.</li>
+                    <li><strong>Klass:</strong> en mall eller ritning för att skapa objekt, till exempel typen <code>Bok</code>.</li>
+                    <li><strong>Egenskap eller attribut:</strong> data som hör till ett objekt, till exempel en boks titel eller författare.</li>
+                    <li><strong>Metod:</strong> en funktion som hör till en klass eller ett objekt, till exempel <code>skriv_ut_info()</code>.</li>
+                    <li><strong>Inkapsling:</strong> att dölja interna detaljer i ett objekt och exponera en tydlig yta.</li>
+                    <li><strong>Återanvändning:</strong> att skapa kod som kan användas flera gånger genom att skapa nya objekt.</li>
+                </ul>
+
+                <p>Dessa begrepp är viktiga eftersom de bygger upp strukturen i objektorienterad programmering. När du
+                    skriver program i Python eller C# kommer du att använda dem ofta.</p>
+
+                <h2>Vad är objektorienterad programmering?</h2>
+                <p>Objektorienterad programmering är ett sätt att skriva program där man utgår från
+                    <strong>objekt</strong>. Ett objekt innehåller både <strong>data</strong>, till exempel ett namn, och
+                    <strong>funktioner</strong>, till exempel en metod som skriver ut information om objektet.</p>
+
+                <p>I traditionell programmering skriver du ofta kod i fristående funktioner. I OOP organiseras programmet
+                    runt <strong>klasser</strong> som beskriver hur objekt ska fungera. En klass är som en ritning. När
+                    programmet körs skapas riktiga objekt, alltså instanser av klassen.</p>
+
+                <h2>Exempel: böcker</h2>
+                <p>Föreställ dig att du vill skapa ett program som hanterar böcker. Med OOP kan du skapa en klass
+                    <code>Bok</code> med egenskaper som titel och författare, och metoder som skriver ut information.</p>
+
+                <pre><code>class Bok:
+    def __init__(self, titel, forfattare):
+        self.titel = titel
+        self.forfattare = forfattare
+
+    def skriv_ut_info(self):
+        print(f"{self.titel} av {self.forfattare}")
+
+bok1 = Bok("Bröderna Lejonhjärta", "Astrid Lindgren")
+bok2 = Bok("Cirkeln", "Mats Strandberg och Sara Bergmark Elfgren")
+
+bok1.skriv_ut_info()
+bok2.skriv_ut_info()</code></pre>
+
+                <p>OOP är särskilt användbart när du bygger större program. Det gör koden mer strukturerad, lättare att
+                    felsöka och enklare att återanvända.</p>
+
+                <h2>Öva: tänk objekt</h2>
+                <p>Föreställ dig att du ska skapa ett program som hanterar elever i en skola. Fundera på:</p>
+                <ul>
+                    <li>Vilka egenskaper har en elev?</li>
+                    <li>Vilka metoder skulle en elev kunna ha?</li>
+                    <li>Hur skulle du representera detta i kod?</li>
+                </ul>
+
+                <p>Skriv ner din idé som en klassbeskrivning i pseudokod:</p>
+                <pre><code>Klass: Elev
+Egenskaper: namn, klass, ålder
+Metoder: skriv_ut_info(), byt_klass(ny_klass)</code></pre>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Objektorienterad programmering handlar om att organisera koden runt objekt.</li>
+                    <li>En klass är en ritning och ett objekt är en instans av klassen.</li>
+                    <li>OOP gör det enklare att bygga stora program genom att separera logik och data.</li>
+                    <li>Centrala begrepp är klass, objekt, egenskap, metod och inkapsling.</li>
+                </ul>
             </section>
+
+            <div id="quiz-3-1" aria-label="Quiz Kap 3.1"></div>
+
             <p><a href="chapter-3.html">Tillbaka till Kapitel 3</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-3-1'), {
+                    title: 'Quiz: Kap 3.1 - Vad är OOP?',
+                    questions: [
+                        {
+                            question: 'Vad är en klass i objektorienterad programmering?',
+                            options: [
+                                'En färdig användare i programmet',
+                                'En mall eller ritning för att skapa objekt',
+                                'En loop som alltid körs tre gånger',
+                                'En fil som bara innehåller kommentarer'
+                            ],
+                            correct: 1,
+                            feedback: 'En klass är en mall för objekt.',
+                            explanation: 'Klassen beskriver vilka attribut och metoder objekten ska ha.'
+                        },
+                        {
+                            question: 'Vad är ett objekt?',
+                            options: [
+                                'En specifik instans av en klass',
+                                'Ett programmeringsfel',
+                                'En metod som inte returnerar något',
+                                'En lista med bara strängar'
+                            ],
+                            correct: 0,
+                            feedback: 'Ett objekt är en instans av en klass.',
+                            explanation: 'Om Bok är klassen kan bok1 vara ett konkret objekt med egen titel och författare.'
+                        },
+                        {
+                            question: 'Vad beskriver ett attribut?',
+                            options: [
+                                'En funktion som tillhör operativsystemet',
+                                'En regel för hur loopar avslutas',
+                                'Data som hör till ett objekt',
+                                'Ett kommando som installerar Python'
+                            ],
+                            correct: 2,
+                            feedback: 'Attribut är data som hör till ett objekt.',
+                            explanation: 'Exempel är titel och författare för ett Bok-objekt.'
+                        },
+                        {
+                            question: 'Vad är en metod?',
+                            options: [
+                                'En dictionary som alltid är tom',
+                                'En funktion som hör till en klass eller ett objekt',
+                                'Ett annat ord för syntaxfel',
+                                'En variabel som aldrig kan ändras'
+                            ],
+                            correct: 1,
+                            feedback: 'En metod är en funktion kopplad till en klass eller ett objekt.',
+                            explanation: 'Metoder beskriver vad objektet kan göra, till exempel skriva ut information.'
+                        },
+                        {
+                            question: 'Varför används OOP ofta i större program?',
+                            options: [
+                                'För att OOP gör att program inte behöver testas',
+                                'För att OOP bara fungerar med små engångsprogram',
+                                'För att OOP förbjuder återanvändning',
+                                'För att kod kan struktureras runt objekt med data och beteenden'
+                            ],
+                            correct: 3,
+                            feedback: 'OOP hjälper till att strukturera större program.',
+                            explanation: 'När data och beteenden samlas i objekt blir koden ofta lättare att förstå, felsöka och återanvända.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 3.3 - Användningsfall och use-cases</title>
+    <title>Kap 3.3 - Konstruktorer och metoder</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 3.3: Konstruktorer, self, instansvariabler och metoder i Python-klasser.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,160 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 3.3: Användningsfall och use-cases</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 3.3 – Konstruktorer och metoder</h1>
+                <p class="subtitle">Ge objekt startvärden och skapa beteenden med metoder.</p>
             </header>
+
             <section class="content-section">
-                <p>Skrivning av use-cases och exempel.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå vad en konstruktor gör och hur den används.</li>
+                    <li>Kunna skriva egna metoder i en klass och använda <code>self</code>.</li>
+                    <li>Kunna skilja på att skapa objekt och att anropa metoder.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Läs exemplen och kör dem steg för steg. Tänk på varje klass som en maskin: konstruktorn bygger
+                    maskinen, och metoderna är vad den kan göra. Prova att skriva egna metoder med indata, eller låt en
+                    metod ändra ett värde i objektet.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong><code>__init__()</code>:</strong> konstruktor som används när objektet skapas för att ge det startvärden.</li>
+                    <li><strong><code>self</code>:</strong> referens till det aktuella objektet, används för att komma åt dess egenskaper och metoder.</li>
+                    <li><strong>Metod:</strong> en funktion inuti en klass som definierar ett beteende.</li>
+                    <li><strong>Instansvariabler:</strong> variabler som är unika för varje objekt och ofta definieras i konstruktorn.</li>
+                </ul>
+
+                <p>Det är viktigt att förstå dessa delar för att du ska kunna skapa objekt med både data och funktionalitet.</p>
+
+                <h2>Konstruktorer och metoder i Python</h2>
+                <p>En konstruktor är en speciell metod som heter <code>__init__</code>. Den körs automatiskt när ett nytt
+                    objekt skapas.</p>
+
+                <pre><code>class Car:
+    def __init__(self, brand, year):
+        self.brand = brand
+        self.year = year
+
+    def honk(self):
+        print(f"{self.brand} från {self.year} tutar!")</code></pre>
+
+                <p>När du skapar ett objekt använder du klassen som en funktion:</p>
+                <pre><code>car1 = Car("Volvo", 2020)
+car1.honk()</code></pre>
+
+                <p>I detta exempel:</p>
+                <ul>
+                    <li><code>__init__</code> tilldelar värden till <code>brand</code> och <code>year</code>.</li>
+                    <li><code>honk()</code> är en metod som använder objektets data för att skriva ut ett meddelande.</li>
+                </ul>
+
+                <h2>Metoder med parametrar</h2>
+                <p>Du kan även skapa metoder som tar emot parametrar och ändrar objektets data.</p>
+                <pre><code>def change_year(self, new_year):
+    self.year = new_year</code></pre>
+
+                <p>Anrop:</p>
+                <pre><code>car1.change_year(2023)</code></pre>
+
+                <h2>Öva: skriv egna metoder</h2>
+                <ol>
+                    <li>Skapa en klass <code>Dog</code> med attributen <code>name</code> och <code>age</code>.</li>
+                    <li>Skriv en metod <code>bark()</code> som skriver ut <code>[name] säger voff!</code>.</li>
+                    <li>Skriv en metod <code>have_birthday()</code> som ökar <code>age</code> med 1.</li>
+                    <li>Testa genom att skapa en hund, låta den skälla och sedan ha födelsedag.</li>
+                </ol>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>En konstruktor, <code>__init__</code>, används för att ge objekt startvärden.</li>
+                    <li><code>self</code> används inom metoder för att hänvisa till objektets egna data.</li>
+                    <li>Metoder beskriver vad objektet kan göra.</li>
+                    <li>Du kan skapa metoder både med och utan parametrar.</li>
+                </ul>
             </section>
+
+            <div id="quiz-3-3" aria-label="Quiz Kap 3.3"></div>
+
             <p><a href="chapter-3.html">Tillbaka till Kapitel 3</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-3-3'), {
+                    title: 'Quiz: Kap 3.3 - Konstruktorer och metoder',
+                    questions: [
+                        {
+                            question: 'Vad gör konstruktorn __init__?',
+                            options: [
+                                'Den körs när objektet skapas och kan ge objektet startvärden',
+                                'Den avslutar alltid programmet',
+                                'Den tar bort alla metoder från klassen',
+                                'Den sorterar objekt automatiskt'
+                            ],
+                            correct: 0,
+                            feedback: '__init__ körs när ett nytt objekt skapas.',
+                            explanation: 'Den används ofta för att skapa instansvariabler som self.brand och self.year.'
+                        },
+                        {
+                            question: 'Vad används self till i en metod?',
+                            options: [
+                                'Att skapa en ny Python-fil',
+                                'Att referera till det aktuella objektets egna data och metoder',
+                                'Att stoppa alla loopar',
+                                'Att skriva kommentarer automatiskt'
+                            ],
+                            correct: 1,
+                            feedback: 'self pekar på objektet som metoden körs på.',
+                            explanation: 'Med self.year använder du year-värdet på just detta objekt.'
+                        },
+                        {
+                            question: 'Vad är en instansvariabel?',
+                            options: [
+                                'En variabel som är unik för varje objekt',
+                                'En variabel som alltid är global',
+                                'Ett annat namn för en klass',
+                                'En metod utan parametrar'
+                            ],
+                            correct: 0,
+                            feedback: 'Instansvariabler tillhör ett specifikt objekt.',
+                            explanation: 'Två Car-objekt kan till exempel ha olika värden på self.brand och self.year.'
+                        },
+                        {
+                            question: 'Vad är skillnaden mellan att skapa ett objekt och att anropa en metod?',
+                            options: [
+                                'Det finns ingen skillnad',
+                                'Att skapa ett objekt görs med class-nyckelordet varje gång',
+                                'Ett objekt skapas från klassen, medan en metod kör ett beteende på objektet',
+                                'Metoder kan bara anropas innan objektet finns'
+                            ],
+                            correct: 2,
+                            feedback: 'Objektet skapas först, sedan kan metoder anropas på det.',
+                            explanation: 'Exempel: car1 = Car(...) skapar objektet, car1.honk() anropar en metod.'
+                        },
+                        {
+                            question: 'Vad kan en metod med parameter göra?',
+                            options: [
+                                'Ta emot ett värde som påverkar vad metoden gör',
+                                'Bara skriva ut samma text varje gång',
+                                'Fungera utan att tillhöra en klass',
+                                'Ersätta hela konstruktorn automatiskt'
+                            ],
+                            correct: 0,
+                            feedback: 'Parametrar gör metoder mer flexibla.',
+                            explanation: 'Exempelvis kan change_year(self, new_year) använda new_year för att ändra objektets år.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 3.2 - Klassdiagram (UML)</title>
+    <title>Kap 3.2 - Skapa klasser och objekt</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 3.2: Skapa egna klasser och objekt i Python med __init__, self, attribut och metoder.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,157 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 3.2: Klassdiagram (UML)</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 3.2 – Skapa klasser och objekt</h1>
+                <p class="subtitle">Definiera egna klasser och skapa objekt som har egna attribut och metoder.</p>
             </header>
+
             <section class="content-section">
-                <p>Exempel och övningar i UML-klassdiagram.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Kunna definiera egna klasser i Python.</li>
+                    <li>Förstå hur man skapar och använder objekt från en klass.</li>
+                    <li>Kunna använda konstruktorer och skapa metoder i en klass.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Börja med att läsa exemplen och försök förstå hur varje del fungerar. Kopiera koden och kör den själv.
+                    Gör sedan små ändringar och se vad som händer. Tänk på hur du kan använda egna klasser för att
+                    beskriva verkliga företeelser.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>Klass:</strong> en mall som beskriver hur ett objekt ska fungera.</li>
+                    <li><strong>Objekt:</strong> en instans av en klass som skapas när programmet körs.</li>
+                    <li><strong><code>__init__()</code>:</strong> klassens konstruktor, som körs när objektet skapas.</li>
+                    <li><strong><code>self</code>:</strong> referens till det aktuella objektet inom klassen.</li>
+                    <li><strong>Metod:</strong> en funktion som tillhör en klass och använder <code>self</code>.</li>
+                </ul>
+
+                <p>Du behöver förstå dessa begrepp för att kunna bygga program med flera objekt som samarbetar. De är
+                    grunden för det objektorienterade arbetssättet.</p>
+
+                <h2>Skapa och använda klasser</h2>
+                <p>I Python definierar du en klass med nyckelordet <code>class</code>. Här är ett enkelt exempel på en
+                    klass som representerar en bok:</p>
+
+                <pre><code>class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    def print_info(self):
+        print(f"{self.title} av {self.author}")</code></pre>
+
+                <p>Här definieras två attribut, <code>title</code> och <code>author</code>, samt en metod
+                    <code>print_info()</code>. För att använda klassen skapar du ett objekt:</p>
+
+                <pre><code>book1 = Book("1984", "George Orwell")
+book1.print_info()</code></pre>
+
+                <p>Detta skapar ett nytt objekt, <code>book1</code>, av typen <code>Book</code>. När du anropar metoden
+                    <code>print_info()</code> använder objektet sina egna attribut.</p>
+
+                <h2>Öva: skapa en egen klass</h2>
+                <p>Skriv en klass som heter <code>Person</code>. Den ska ha attributen <code>name</code> och
+                    <code>age</code>, och en metod som skriver ut:</p>
+                <pre><code>Hej, jag heter [namn] och är [ålder] år.</code></pre>
+
+                <p>Tips:</p>
+                <ul>
+                    <li>Börja med att skriva <code>class Person:</code></li>
+                    <li>Lägg till en <code>__init__</code>-metod med <code>self</code>, <code>name</code> och <code>age</code>.</li>
+                    <li>Lägg till en metod <code>say_hello()</code> som skriver ut informationen.</li>
+                </ul>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>En klass i Python skapas med <code>class</code> och innehåller metoder och attribut.</li>
+                    <li><code>__init__</code> används för att sätta upp objektets startvärden.</li>
+                    <li><code>self</code> används för att referera till objektet självt.</li>
+                    <li>Du skapar ett objekt genom att anropa klassen som en funktion.</li>
+                </ul>
             </section>
+
+            <div id="quiz-3-2" aria-label="Quiz Kap 3.2"></div>
+
             <p><a href="chapter-3.html">Tillbaka till Kapitel 3</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-3-2'), {
+                    title: 'Quiz: Kap 3.2 - Skapa klasser och objekt',
+                    questions: [
+                        {
+                            question: 'Vilket nyckelord används för att definiera en klass i Python?',
+                            options: [
+                                'function',
+                                'class',
+                                'object',
+                                'define'
+                            ],
+                            correct: 1,
+                            feedback: 'I Python används nyckelordet class för att skapa en klass.',
+                            explanation: 'Exempel: class Book: startar definitionen av klassen Book.'
+                        },
+                        {
+                            question: 'Vad gör metoden __init__ i en klass?',
+                            options: [
+                                'Den körs när ett nytt objekt skapas och sätter ofta startvärden',
+                                'Den avslutar alltid programmet',
+                                'Den tar bort alla objekt från minnet',
+                                'Den sorterar klassens metoder alfabetiskt'
+                            ],
+                            correct: 0,
+                            feedback: '__init__ är klassens konstruktor.',
+                            explanation: 'Den används ofta för att ge objektet attribut som title, author, name eller age.'
+                        },
+                        {
+                            question: 'Vad betyder self i en metod?',
+                            options: [
+                                'En lista med alla objekt',
+                                'Namnet på Python-filen',
+                                'En referens till det aktuella objektet',
+                                'Ett kommando för att skriva ut text'
+                            ],
+                            correct: 2,
+                            feedback: 'self refererar till objektet som metoden körs på.',
+                            explanation: 'Med self.title menar du attributet title på just detta objekt.'
+                        },
+                        {
+                            question: 'Hur skapar du ett objekt från klassen Book?',
+                            options: [
+                                'Book = class("1984")',
+                                'book1 = Book("1984", "George Orwell")',
+                                'object Book("1984")',
+                                'def Book = book1'
+                            ],
+                            correct: 1,
+                            feedback: 'Du skapar ett objekt genom att anropa klassen som en funktion.',
+                            explanation: 'Argumenten skickas vidare till __init__ när objektet skapas.'
+                        },
+                        {
+                            question: 'Vad är en metod i en klass?',
+                            options: [
+                                'En funktion som tillhör klassen eller objektet',
+                                'Ett fel som uppstår i en loop',
+                                'En variabel som bara kan innehålla tal',
+                                'En kommentar som beskriver objektet'
+                            ],
+                            correct: 0,
+                            feedback: 'En metod är en funktion som ligger i en klass.',
+                            explanation: 'Metoder kan använda self för att läsa eller ändra objektets attribut.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>
