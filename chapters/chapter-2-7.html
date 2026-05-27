@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Kap 2.7 - Miniuppgift: datalagring och logik</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 2.7: Miniuppgift där du bygger en bibliotekskatalog med datalagring och programlogik.">
 </head>
 
 <body class="chapter-page">
@@ -13,11 +14,112 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 2.7: Miniuppgift - datalagring och logik</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 2.7 – Miniuppgift: datalagring och logik</h1>
+                <p class="subtitle">Bygg en enkel bibliotekskatalog med listor, dictionaries, sökning och sortering.</p>
             </header>
+
             <section class="content-section">
-                <p>Miniuppgift: spara quizdata och implementera enkel logik.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Kunna lagra och organisera data med hjälp av listor, tuples eller dictionaries.</li>
+                    <li>Använda kontrollstrukturer för att skapa enkel programlogik.</li>
+                    <li>Kombinera olika koddelar till ett fungerande program.</li>
+                    <li>Planera, strukturera och reflektera över din egen lösning.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Börja med att tänka igenom vad programmet ska göra. Skapa en enkel plan i punktform eller pseudokod.
+                    Skriv koden steg för steg och testa ofta. Reflektera över hur du kan förenkla din lösning och
+                    återanvända kod.</p>
+
+                <h2>Uppgift: Bibliotekskatalog</h2>
+                <p>Skapa ett program där användaren kan:</p>
+                <ol>
+                    <li>Lägga till böcker med titel, författare och år.</li>
+                    <li>Söka efter en bok utifrån titel eller författare.</li>
+                    <li>Skriva ut hela katalogen i alfabetisk ordning efter titel.</li>
+                </ol>
+
+                <h2>Förslag på struktur</h2>
+                <p>Pseudokod:</p>
+                <pre><code>Skapa tom lista för böcker som dictionaries
+
+Meny: Lägg till / Sök / Visa alla / Avsluta
+
+IF val == Lägg till:
+    Läs in titel, författare, år
+    Skapa dictionary och lägg till i listan
+
+IF val == Sök:
+    Läs in sökord
+    Skriv ut alla böcker som matchar titel eller författare
+
+IF val == Visa alla:
+    Sortera listan och skriv ut</code></pre>
+
+                <h2>Kodexempel</h2>
+                <pre><code>def add_book(catalog):
+    title = input("Titel: ")
+    author = input("Författare: ")
+    year = input("År: ")
+
+    book = {"title": title, "author": author, "year": year}
+    catalog.append(book)
+
+def search_books(catalog):
+    query = input("Sök titel eller författare: ").lower()
+
+    found = [
+        book for book in catalog
+        if query in book["title"].lower() or query in book["author"].lower()
+    ]
+
+    for book in found:
+        print(f"{book['title']} av {book['author']} ({book['year']})")
+
+def print_catalog(catalog):
+    sorted_books = sorted(catalog, key=lambda x: x["title"])
+
+    for book in sorted_books:
+        print(f"{book['title']} av {book['author']} ({book['year']})")
+
+def main():
+    catalog = []
+
+    while True:
+        print("\n1. Lägg till bok\n2. Sök bok\n3. Visa alla\n4. Avsluta")
+        choice = input("Välj: ")
+
+        if choice == "1":
+            add_book(catalog)
+        elif choice == "2":
+            search_books(catalog)
+        elif choice == "3":
+            print_catalog(catalog)
+        elif choice == "4":
+            break
+        else:
+            print("Ogiltigt val.")
+
+main()</code></pre>
+
+                <h2>Utmaning</h2>
+                <ul>
+                    <li>Spara och läs katalogen från en fil.</li>
+                    <li>Lägg till funktion för att ta bort eller redigera en bok.</li>
+                    <li>Hantera dubbletter genom att kolla om en bok redan finns.</li>
+                </ul>
+
+                <h2>Reflektion</h2>
+                <ul>
+                    <li>Hur valde du att strukturera datan? Varför?</li>
+                    <li>Hur kan du utveckla programmet för att bli mer användarvänligt?</li>
+                    <li>Vilka delar var svårast och varför?</li>
+                </ul>
             </section>
+
             <p><a href="chapter-2.html">Tillbaka till Kapitel 2</a></p>
         </article>
     </main>

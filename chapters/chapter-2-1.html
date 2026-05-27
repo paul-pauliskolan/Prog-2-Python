@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 2.1 - Quizappens HTML-struktur</title>
+    <title>Kap 2.1 - Vad är en algoritm?</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 2.1: Vad en algoritm är, hur den används och hur problem kan beskrivas steg för steg.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,186 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 2.1: Quizappens HTML-struktur</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 2.1 – Vad är en algoritm?</h1>
+                <p class="subtitle">Lär dig beskriva problem som tydliga steg innan du skriver kod.</p>
             </header>
+
             <section class="content-section">
-                <p>Beskrivning av nödvändig HTML för quizappen.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå vad en algoritm är och varför den är viktig i programmering.</li>
+                    <li>Känna till olika typer av algoritmer och hur de används.</li>
+                    <li>Kunna beskriva en enkel algoritm i både text och flödesform.</li>
+                    <li>Använda algoritmer för att lösa vardagliga och programmeringstekniska problem.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Tänk inte på algoritmer som något avancerat. De är instruktioner för att lösa ett problem steg för
+                    steg. Börja med vardagliga exempel, försök sedan översätta dem till kod eller pseudokod. Träna på
+                    att se mönster och dela upp problem i mindre delar.</p>
+
+                <h2>Vad är en algoritm?</h2>
+                <p>En algoritm är en <strong>väldefinierad sekvens av steg</strong> som löser ett problem eller utför en
+                    uppgift. Det är grunden i varje program, oavsett om du vill sortera tal, beräkna en rabatt eller
+                    kontrollera ett lösenord.</p>
+
+                <h2>Exempel: algoritm i vardagen</h2>
+                <p>Algoritm för att koka kaffe:</p>
+                <ol>
+                    <li>Fyll vatten i kaffebryggaren.</li>
+                    <li>Lägg i ett kaffefilter.</li>
+                    <li>Tillsätt kaffe i filtret.</li>
+                    <li>Starta bryggaren.</li>
+                    <li>Vänta tills det är klart.</li>
+                    <li>Servera.</li>
+                </ol>
+                <p>Detta är en algoritm eftersom stegen är tydliga och leder fram till ett resultat.</p>
+
+                <h2>Algoritmer i programmering</h2>
+                <p>När du programmerar skapar du algoritmer i form av kod. Innan du skriver koden kan du beskriva
+                    lösningen i text eller pseudokod.</p>
+
+                <h3>Algoritm för att kontrollera om ett tal är jämnt</h3>
+                <ol>
+                    <li>Läs in ett tal.</li>
+                    <li>Dela talet med 2.</li>
+                    <li>Om resten är 0, skriv <code>Jämnt</code>.</li>
+                    <li>Annars, skriv <code>Udda</code>.</li>
+                </ol>
+
+                <p>I pseudokod:</p>
+                <pre><code>INPUT number
+
+IF number MOD 2 == 0 THEN
+    PRINT "Even"
+ELSE
+    PRINT "Odd"</code></pre>
+
+                <h2>Olika typer av algoritmer</h2>
+                <p>I programmering finns många typer av algoritmer. Här är några du kommer att stöta på:</p>
+                <ul>
+                    <li><strong>Beslutsalgoritmer:</strong> till exempel kontrollera om ett lösenord är korrekt.</li>
+                    <li><strong>Beräkningsalgoritmer:</strong> till exempel räkna ut ett medelvärde.</li>
+                    <li><strong>Sökningsalgoritmer:</strong> till exempel hitta ett namn i en lista.</li>
+                    <li><strong>Sorteringsalgoritmer:</strong> till exempel sortera en lista i stigande ordning.</li>
+                    <li><strong>Repetitiva algoritmer:</strong> till exempel upprepa en kontroll tills ett villkor uppfylls.</li>
+                </ul>
+
+                <h2>Från problem till lösning</h2>
+                <p><strong>Problem:</strong> Kontrollera om en person är berättigad till ungdomsrabatt.</p>
+
+                <p>Algoritm i text:</p>
+                <ol>
+                    <li>Läs in personens ålder.</li>
+                    <li>Om åldern är under 18, skriv <code>Du får rabatt</code>.</li>
+                    <li>Annars, skriv <code>Du får ingen rabatt</code>.</li>
+                </ol>
+
+                <p>I pseudokod:</p>
+                <pre><code>INPUT age
+
+IF age &lt; 18 THEN
+    PRINT "You get a discount"
+ELSE
+    PRINT "No discount"</code></pre>
+
+                <p>Senare i kursen kommer du att översätta sådana algoritmer till Python eller C#.</p>
+
+                <h2>Öva själv</h2>
+                <ol>
+                    <li>Skriv en algoritm i textform som beskriver hur du gör dig redo för skolan.</li>
+                    <li>Skriv pseudokod som beräknar medelvärdet av tre tal.</li>
+                    <li>Skapa ett flödesschema som visar en algoritm för att kontrollera lösenord.</li>
+                </ol>
+
+                <h2>Reflektion</h2>
+                <ul>
+                    <li>Hur skiljer sig en algoritm från färdig kod?</li>
+                    <li>Hur hjälper det dig att skriva algoritmen först, innan du börjar programmera?</li>
+                    <li>Vilken typ av algoritm tycker du verkar mest användbar?</li>
+                </ul>
             </section>
+
+            <div id="quiz-2-1" aria-label="Quiz Kap 2.1"></div>
+
             <p><a href="chapter-2.html">Tillbaka till Kapitel 2</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-2-1'), {
+                    title: 'Quiz: Kap 2.1 - Vad är en algoritm?',
+                    questions: [
+                        {
+                            question: 'Vad är en algoritm?',
+                            options: [
+                                'Ett programmeringsspråk som bara används för webbsidor',
+                                'En tydlig sekvens av steg som löser ett problem eller utför en uppgift',
+                                'Ett felmeddelande från datorn',
+                                'En bild som alltid ersätter kod'
+                            ],
+                            correct: 1,
+                            feedback: 'En algoritm beskriver steg för steg hur ett problem ska lösas.',
+                            explanation: 'Algoritmer kan beskrivas i text, pseudokod, flödesschema eller färdig kod.'
+                        },
+                        {
+                            question: 'Varför är det bra att planera en algoritm innan du skriver kod?',
+                            options: [
+                                'För att koden då aldrig behöver testas',
+                                'För att variabler automatiskt skapas åt dig',
+                                'För att du kan tänka igenom logiken innan du fastnar i syntax',
+                                'För att algoritmer bara fungerar utan kod'
+                            ],
+                            correct: 2,
+                            feedback: 'Planering hjälper dig förstå stegen innan du börjar programmera.',
+                            explanation: 'När logiken är tydlig blir det lättare att skriva, testa och förbättra koden.'
+                        },
+                        {
+                            question: 'Vilken typ av algoritm används för att hitta ett värde i en lista?',
+                            options: [
+                                'Sorteringsalgoritm',
+                                'Grafisk algoritm',
+                                'Kommentarsalgoritm',
+                                'Sökningsalgoritm'
+                            ],
+                            correct: 3,
+                            feedback: 'En sökningsalgoritm används för att hitta något i en samling data.',
+                            explanation: 'Exempel är att leta efter ett namn, ett tal eller ett objekt i en lista.'
+                        },
+                        {
+                            question: 'Vad kännetecknar en beslutsalgoritm?',
+                            options: [
+                                'Den tar alltid bort alla villkor',
+                                'Den väljer väg beroende på ett villkor',
+                                'Den kan bara användas för att sortera tal',
+                                'Den körs alltid exakt hundra gånger'
+                            ],
+                            correct: 1,
+                            feedback: 'Beslutsalgoritmer använder villkor för att välja nästa steg.',
+                            explanation: 'Ett exempel är att kontrollera om en ålder ger rätt till rabatt.'
+                        },
+                        {
+                            question: 'Vad är pseudokod?',
+                            options: [
+                                'Pythonkod som alltid kan köras direkt',
+                                'En typ av databas',
+                                'En språkoberoende beskrivning av programlogik utan strikt syntax',
+                                'En fil som bara innehåller bilder'
+                            ],
+                            correct: 2,
+                            feedback: 'Pseudokod beskriver logiken utan att kräva korrekt programmeringssyntax.',
+                            explanation: 'Det gör pseudokod användbart när du vill planera en lösning innan implementation.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

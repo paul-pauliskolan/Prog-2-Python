@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 2.5 - Sammanfattning</title>
+    <title>Kap 2.5 - Planera program med algoritmtänk</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 2.5: Planera program med algoritmtänk, pseudokod, flödesscheman och datastrukturer.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,185 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 2.5: Sammanfattning</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 2.5 – Planera program med algoritmtänk</h1>
+                <p class="subtitle">Bryt ner problem i tydliga steg innan du börjar skriva kod.</p>
             </header>
+
             <section class="content-section">
-                <p>Kort sammanfattning av kapitel 2.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå vad algoritmtänkande innebär och varför det är en central del av programmering.</li>
+                    <li>Kunna analysera ett problem och bryta ner det i delmoment.</li>
+                    <li>Använda verktyg som pseudokod, flödesscheman och strukturerade listor i din planering.</li>
+                    <li>Kunna välja rätt datastrukturer och kontrollflöden för en lösning.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Välj ett konkret problem innan du börjar koda. Försök lösa det på papper med pseudokod eller
+                    flödesschema. Använd begrepp du redan känner till: funktioner, loopar, villkor och listor. Reflektera
+                    över alternativa lösningar innan du sätter dig vid datorn.</p>
+
+                <h2>Vad är algoritmtänkande?</h2>
+                <p>Algoritmtänkande handlar om att kunna:</p>
+                <ul>
+                    <li>se ett problem som en sekvens av logiska steg,</li>
+                    <li>identifiera mönster, repetitioner och beslutspunkter,</li>
+                    <li>göra lösningen oberoende av vilket språk du använder.</li>
+                </ul>
+
+                <h2>Exempel: poäng i ett spel</h2>
+                <p>Du vill skapa ett program som hanterar användarens poäng i ett spel. Du kan bryta ner problemet så här:</p>
+                <ol>
+                    <li>Läs in spelarens namn.</li>
+                    <li>Läs in spelarens poäng.</li>
+                    <li>Kontrollera om poängen är över 100 och gratulera spelaren.</li>
+                    <li>Annars, uppmana spelaren att spela igen.</li>
+                    <li>Spara poängen i en lista.</li>
+                </ol>
+
+                <h2>Pseudokod: struktur innan kod</h2>
+                <p>Pseudokod är ett sätt att skriva programidéer utan att följa exakt syntax. Du fokuserar på
+                    <strong>vad</strong> som ska hända, inte <strong>hur</strong> det skrivs i ett specifikt språk.</p>
+                <pre><code>START
+Fråga efter namn
+Fråga efter poäng
+
+OM poängen &gt; 100
+    Skriv "Grattis!"
+ANNARS
+    Skriv "Försök igen"
+
+SPARA poängen i en lista
+STOPP</code></pre>
+
+                <h2>Flödesscheman: visualisera logiken</h2>
+                <p>Ett flödesschema gör det enklare att se logiken i ett program. Du använder symboler för att visa start,
+                    beslut, process och stopp. Det passar särskilt bra när programmet innehåller flera vägval.</p>
+
+                <h2>Algoritmisk planering i praktiken</h2>
+                <p><strong>Scenario:</strong> Skapa en app där användaren skriver in dagens temperatur och får en
+                    rekommendation på klädval.</p>
+
+                <p>Analys:</p>
+                <ul>
+                    <li>Programmet behöver input från användaren.</li>
+                    <li>Programmet behöver beslut beroende på temperaturintervall.</li>
+                    <li>Programmet behöver skriva ut ett lämpligt klädråd.</li>
+                </ul>
+
+                <p>Pseudokod:</p>
+                <pre><code>Läs in temperatur
+
+OM temperatur &lt; 0
+    Skriv "Ta på vinterjacka"
+ELSE IF temperatur &lt; 15
+    Skriv "Ta på en tröja"
+ELSE
+    Skriv "Ta på t-shirt"</code></pre>
+
+                <h2>Att välja rätt struktur</h2>
+                <p>När du planerar en algoritm bör du också tänka på:</p>
+                <ul>
+                    <li>Ska jag använda en lista eller en dictionary?</li>
+                    <li>Behöver jag en loop för att upprepa inmatning?</li>
+                    <li>Ska jag skapa en funktion eller metod för detta?</li>
+                </ul>
+
+                <h2>Öva själv</h2>
+                <ol>
+                    <li>Välj ett vardagsproblem, till exempel planera en måltid eller organisera en packlista, och skriv pseudokod som löser det.</li>
+                    <li>Skapa ett flödesschema för en meny med tre alternativ.</li>
+                    <li>Analysera ett tidigare program du skrivit och bryt ner det i tydliga steg.</li>
+                </ol>
+
+                <h2>Reflektion</h2>
+                <ul>
+                    <li>Vad fick du syn på i problemet när du ritade flödesschemat?</li>
+                    <li>Hur förändrades lösningen när du skrev den som pseudokod?</li>
+                    <li>Hur påverkar tydlig planering kvaliteten på din kod?</li>
+                </ul>
             </section>
+
+            <div id="quiz-2-5" aria-label="Quiz Kap 2.5"></div>
+
             <p><a href="chapter-2.html">Tillbaka till Kapitel 2</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-2-5'), {
+                    title: 'Quiz: Kap 2.5 - Planera program med algoritmtänk',
+                    questions: [
+                        {
+                            question: 'Vad innebär algoritmtänkande?',
+                            options: [
+                                'Att skriva kod utan att planera först',
+                                'Att se ett problem som logiska steg, mönster och beslut',
+                                'Att bara använda färdiga bibliotek',
+                                'Att undvika funktioner och loopar'
+                            ],
+                            correct: 1,
+                            feedback: 'Algoritmtänkande handlar om att strukturera problem steg för steg.',
+                            explanation: 'Det gör det lättare att planera lösningen innan du väljer exakt kodsyntax.'
+                        },
+                        {
+                            question: 'Varför är pseudokod användbart i planering?',
+                            options: [
+                                'För att den alltid kan köras direkt av Python',
+                                'För att den ersätter all testning',
+                                'För att du kan beskriva logiken utan att fastna i exakt syntax',
+                                'För att den bara fungerar med flödesscheman'
+                            ],
+                            correct: 2,
+                            feedback: 'Pseudokod låter dig fokusera på logiken först.',
+                            explanation: 'När stegen är tydliga blir det enklare att översätta planen till kod.'
+                        },
+                        {
+                            question: 'När passar ett flödesschema särskilt bra?',
+                            options: [
+                                'När programmet innehåller beslut och flera möjliga vägar',
+                                'När programmet bara består av en kommentar',
+                                'När du vill ta bort all inmatning',
+                                'När du inte vill visa programflödet'
+                            ],
+                            correct: 0,
+                            feedback: 'Flödesscheman visar programflöde och beslut tydligt.',
+                            explanation: 'De är användbara när du vill se hur olika villkor leder till olika steg.'
+                        },
+                        {
+                            question: 'Vad bör du tänka på när du väljer datastruktur?',
+                            options: [
+                                'Att alltid använda samma struktur oavsett problem',
+                                'Att undvika listor eftersom de kan ändras',
+                                'Att datastrukturer inte påverkar lösningen',
+                                'Vilken typ av data som ska lagras och hur den ska användas'
+                            ],
+                            correct: 3,
+                            feedback: 'Valet av datastruktur ska passa datan och problemet.',
+                            explanation: 'Listor, dictionaries och tuples passar olika bra beroende på hur informationen ska hanteras.'
+                        },
+                        {
+                            question: 'Varför är det bra att bryta ner ett problem i delmoment?',
+                            options: [
+                                'För att göra problemet lättare att förstå, testa och lösa stegvis',
+                                'För att programmet då inte behöver några villkor',
+                                'För att alla program måste ha exakt fem steg',
+                                'För att pseudokod annars inte får användas'
+                            ],
+                            correct: 0,
+                            feedback: 'Delmoment gör stora problem mer hanterbara.',
+                            explanation: 'När varje del är tydlig blir det lättare att bygga, felsöka och förbättra lösningen.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

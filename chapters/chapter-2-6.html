@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 2.6 - Övningar</title>
+    <title>Kap 2.6 - Problemlösning med listor</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 2.6: Lös sammansatta programmeringsuppgifter med listor, funktioner, loopar och villkor.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,185 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 2.6: Övningar</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 2.6 – Problemlösning med listor</h1>
+                <p class="subtitle">Använd listor tillsammans med funktioner, loopar och villkor för att bygga ett större program.</p>
             </header>
+
             <section class="content-section">
-                <p>Extra övningar för kapitel 2.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Kunna använda listor för att lösa sammansatta programmeringsuppgifter.</li>
+                    <li>Kombinera listor med funktioner, loopar och villkor.</li>
+                    <li>Analysera och bryta ner problem i steg.</li>
+                    <li>Strukturera kod som hanterar inmatning, lagring och bearbetning av data.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Börja med att analysera uppgiften noggrant. Skapa en algoritm i form av pseudokod eller punktlista
+                    innan du börjar koda. Skriv din kod steg för steg och testa varje del. Använd <code>print()</code>
+                    för att följa vad som händer i listan under körning.</p>
+
+                <h2>Scenario: Poänghantering i ett spel</h2>
+                <p>Du ska skapa ett program som:</p>
+                <ul>
+                    <li>tar emot namn och poäng från flera användare,</li>
+                    <li>sparar resultaten i en lista,</li>
+                    <li>skriver ut en topplista baserat på poäng,</li>
+                    <li>håller igång tills användaren väljer att avsluta.</li>
+                </ul>
+
+                <h2>Programstruktur</h2>
+                <p>Pseudokod:</p>
+                <pre><code>Skapa en tom lista
+
+WHILE användaren vill fortsätta:
+    Läs in namn och poäng
+    Lägg till som tuple i listan
+    Fråga om användaren vill fortsätta
+
+Sortera listan efter poäng
+Skriv ut topplistan</code></pre>
+
+                <h2>Kodexempel</h2>
+                <pre><code>def add_score(scores):
+    name = input("Ange namn: ")
+
+    try:
+        points = int(input("Ange poäng: "))
+        scores.append((name, points))
+    except ValueError:
+        print("Du måste ange ett heltal.")
+
+def print_high_scores(scores):
+    scores.sort(key=lambda x: x[1], reverse=True)
+
+    print("\nTopplista:")
+    for name, points in scores:
+        print(f"{name}: {points}")
+
+def main():
+    scores = []
+
+    while True:
+        add_score(scores)
+        cont = input("Vill du lägga till fler resultat? (j/n): ")
+
+        if cont.lower() != "j":
+            break
+
+    print_high_scores(scores)
+
+main()</code></pre>
+
+                <h2>Vad händer i programmet?</h2>
+                <ul>
+                    <li>Listan <code>scores</code> innehåller tuples med namn och poäng.</li>
+                    <li><code>sort()</code> med <code>lambda</code> gör att listan sorteras efter poäng.</li>
+                    <li>Funktioner används för att strukturera koden.</li>
+                </ul>
+
+                <h2>Utvidgning</h2>
+                <ul>
+                    <li>Lägg till kontroll för dubbletter.</li>
+                    <li>Lägg till möjlighet att spara listan till en fil.</li>
+                    <li>Skapa ett alternativ för att ta bort en spelare.</li>
+                </ul>
+
+                <h2>Öva själv</h2>
+                <ol>
+                    <li>Skapa en variant av programmet där du lagrar inmatningar som dictionaries i stället för tuples.</li>
+                    <li>Lägg till ett val som bara visar de tre bästa resultaten.</li>
+                    <li>Gör programmet flerspråkigt genom att definiera meddelanden som en dictionary.</li>
+                </ol>
+
+                <h2>Reflektion</h2>
+                <ul>
+                    <li>Vad gjorde listor till rätt val i detta program?</li>
+                    <li>Hur hjälpte det att använda tuples i listan?</li>
+                    <li>Vilka delar av programmet blev enklare tack vare funktioner?</li>
+                </ul>
             </section>
+
+            <div id="quiz-2-6" aria-label="Quiz Kap 2.6"></div>
+
             <p><a href="chapter-2.html">Tillbaka till Kapitel 2</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-2-6'), {
+                    title: 'Quiz: Kap 2.6 - Problemlösning med listor',
+                    questions: [
+                        {
+                            question: 'Varför passar en lista bra för att lagra flera spelares resultat?',
+                            options: [
+                                'För att en lista bara kan innehålla ett värde',
+                                'För att flera relaterade värden kan samlas och bearbetas tillsammans',
+                                'För att listor alltid sorterar sig själva automatiskt',
+                                'För att listor inte kan användas i loopar'
+                            ],
+                            correct: 1,
+                            feedback: 'Listor passar när flera värden ska lagras och bearbetas tillsammans.',
+                            explanation: 'I exemplet kan varje spelares namn och poäng sparas som ett element i listan.'
+                        },
+                        {
+                            question: 'Vad är fördelen med att spara namn och poäng som en tuple?',
+                            options: [
+                                'Att värden som hör ihop kan lagras tillsammans',
+                                'Att programmet inte behöver någon lista',
+                                'Att poängen alltid blir större än 100',
+                                'Att tuple automatiskt skriver ut topplistan'
+                            ],
+                            correct: 0,
+                            feedback: 'En tuple kan samla flera relaterade värden.',
+                            explanation: 'Exempelvis kan ("Alice", 120) representera en spelares namn och poäng.'
+                        },
+                        {
+                            question: 'Vad gör uttrycket key=lambda x: x[1] vid sortering av resultat?',
+                            options: [
+                                'Det tar bort alla spelare utan poäng',
+                                'Det sorterar alltid efter spelarens namn',
+                                'Det anger att sorteringen ska utgå från tuple-elementet på index 1',
+                                'Det skapar en ny tom lista'
+                            ],
+                            correct: 2,
+                            feedback: 'Index 1 motsvarar poängen i varje tuple.',
+                            explanation: 'Om varje tuple är (namn, poäng) används x[1] för att sortera efter poäng.'
+                        },
+                        {
+                            question: 'Varför är det bra att dela upp programmet i funktioner?',
+                            options: [
+                                'För att funktioner gör att try/except inte behövs',
+                                'För att programmet då alltid körs snabbare än alla andra program',
+                                'För att en lista annars inte kan ändras',
+                                'För att koden blir lättare att läsa, testa och återanvända'
+                            ],
+                            correct: 3,
+                            feedback: 'Funktioner gör programmet mer strukturerat.',
+                            explanation: 'I exemplet har inmatning och utskrift av topplistan egna funktioner.'
+                        },
+                        {
+                            question: 'Vad används try/except till i kodexemplet?',
+                            options: [
+                                'För att hantera fel om användaren inte skriver ett heltal',
+                                'För att sortera listan i fallande ordning',
+                                'För att skriva ut alla tuples automatiskt',
+                                'För att avsluta while-loopen direkt'
+                            ],
+                            correct: 0,
+                            feedback: 'try/except används för felhantering.',
+                            explanation: 'Om inmatningen inte kan omvandlas till int fångas felet och användaren får ett meddelande.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

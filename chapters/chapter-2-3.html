@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 2.3 - Frågor, svar och data-attribut</title>
+    <title>Kap 2.3 - Sökning och sortering</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 2.3: Linjär sökning, binär sökning och sortering av listor i Python.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,182 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 2.3: Frågor, svar och data-attribut</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 2.3 – Sökning och sortering</h1>
+                <p class="subtitle">Hitta, ordna och jämför data i listor med algoritmer och inbyggda metoder.</p>
             </header>
+
             <section class="content-section">
-                <p>Exempel på användning av <code>data-correct</code> och <code>data-explanation</code>.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå hur man söker efter ett värde i en lista.</li>
+                    <li>Känna till skillnaden mellan linjär och binär sökning.</li>
+                    <li>Kunna sortera en lista med både inbyggda metoder och egen kod.</li>
+                    <li>Förstå när olika typer av sökning och sortering är användbara.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Börja med att testa exempel med små listor och skriv gärna ut varje steg. Analysera hur många steg som
+                    krävs vid olika metoder. Pröva att lösa samma uppgift med både inbyggda funktioner och egna algoritmer
+                    för att få både förståelse och kontroll.</p>
+
+                <h2>Sökning i listor</h2>
+                <h3>Linjär sökning</h3>
+                <p>Linjär sökning går igenom varje element i listan tills rätt värde hittas.</p>
+                <pre><code>def linear_search(lst, target):
+    for i in range(len(lst)):
+        if lst[i] == target:
+            return i
+
+    return -1
+
+names = ["Anna", "Bo", "Cleo"]
+print(linear_search(names, "Bo"))  # 1</code></pre>
+
+                <p><strong>Fördel:</strong> fungerar alltid. <strong>Nackdel:</strong> kan bli långsam för stora listor.</p>
+
+                <h3>Binär sökning</h3>
+                <p>Binär sökning är mycket snabbare, men kräver att listan är <strong>sorterad</strong>.</p>
+                <pre><code>def binary_search(lst, target):
+    low = 0
+    high = len(lst) - 1
+
+    while low &lt;= high:
+        mid = (low + high) // 2
+
+        if lst[mid] == target:
+            return mid
+        elif lst[mid] &lt; target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1
+
+numbers = [3, 6, 9, 12, 15]
+print(binary_search(numbers, 12))  # 3</code></pre>
+
+                <p>Binär sökning halverar sökområdet varje gång, vilket gör metoden effektiv för stora sorterade listor.</p>
+
+                <h2>Sortering av listor</h2>
+                <h3>Inbyggd sortering</h3>
+                <p>Python gör det enkelt att sortera listor:</p>
+                <pre><code>numbers = [5, 3, 9, 1]
+numbers.sort()  # Ändrar listan direkt
+print(numbers)  # [1, 3, 5, 9]
+
+names = ["Zara", "Adam", "Lilly"]
+sorted_names = sorted(names)  # Skapar ny lista
+print(sorted_names)</code></pre>
+
+                <h3>Egen sortering: bubble sort</h3>
+                <p>Bubble sort används mest i undervisning. Den visar principen för jämförelse och byte, som återkommer i
+                    många sorteringsalgoritmer.</p>
+                <pre><code>def bubble_sort(lst):
+    for i in range(len(lst)):
+        for j in range(0, len(lst) - i - 1):
+            if lst[j] &gt; lst[j + 1]:
+                lst[j], lst[j + 1] = lst[j + 1], lst[j]
+
+    return lst
+
+print(bubble_sort([9, 3, 7, 1]))  # [1, 3, 7, 9]</code></pre>
+
+                <h2>Öva själv</h2>
+                <ol>
+                    <li>Skriv en funktion som söker efter ett namn i en lista med linjär sökning.</li>
+                    <li>Använd <code>.sort()</code> för att sortera en lista med användarnamn.</li>
+                    <li>Implementera en egen bubble sort och jämför resultatet med inbyggd sortering.</li>
+                    <li>Skapa ett program som frågar efter 5 tal, sorterar dem och söker efter ett valfritt tal.</li>
+                </ol>
+
+                <h2>Reflektion</h2>
+                <ul>
+                    <li>Vilka fördelar har inbyggda metoder jämfört med att skriva egna algoritmer?</li>
+                    <li>När är det värt att använda binär sökning istället för linjär?</li>
+                    <li>Hur kan sortering göra andra delar av ett program mer effektiva?</li>
+                </ul>
             </section>
+
+            <div id="quiz-2-3" aria-label="Quiz Kap 2.3"></div>
+
             <p><a href="chapter-2.html">Tillbaka till Kapitel 2</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-2-3'), {
+                    title: 'Quiz: Kap 2.3 - Sökning och sortering',
+                    questions: [
+                        {
+                            question: 'Vad gör linjär sökning?',
+                            options: [
+                                'Delar alltid listan exakt en gång',
+                                'Går igenom elementen ett i taget tills värdet hittas eller listan tar slut',
+                                'Sorterar listan automatiskt innan sökning',
+                                'Tar bort alla element som inte matchar'
+                            ],
+                            correct: 1,
+                            feedback: 'Linjär sökning kontrollerar elementen i tur och ordning.',
+                            explanation: 'Metoden fungerar även på osorterade listor men kan bli långsam vid stora datamängder.'
+                        },
+                        {
+                            question: 'Vad krävs för att binär sökning ska fungera korrekt?',
+                            options: [
+                                'Listan måste innehålla exakt tre element',
+                                'Listan får bara innehålla strängar',
+                                'Listan måste vara sorterad',
+                                'Listan måste vara tom från början'
+                            ],
+                            correct: 2,
+                            feedback: 'Binär sökning kräver en sorterad lista.',
+                            explanation: 'Algoritmen halverar sökområdet baserat på om målet är mindre eller större än mittenvärdet.'
+                        },
+                        {
+                            question: 'Vad är en viktig skillnad mellan sort() och sorted() i Python?',
+                            options: [
+                                'sorted() fungerar bara på tomma listor',
+                                'sort() kan bara sortera text',
+                                'Det finns ingen skillnad alls',
+                                'sort() ändrar listan direkt medan sorted() skapar en ny sorterad lista'
+                            ],
+                            correct: 3,
+                            feedback: 'sort() ändrar originalet, medan sorted() returnerar en ny lista.',
+                            explanation: 'Det är viktigt när du vill behålla den ursprungliga ordningen.'
+                        },
+                        {
+                            question: 'Varför används bubble sort ofta i undervisning?',
+                            options: [
+                                'För att den alltid är snabbast i praktiska program',
+                                'För att den visar hur jämförelse och byte kan användas för att sortera',
+                                'För att den inte använder loopar',
+                                'För att den bara fungerar på redan sorterade listor'
+                            ],
+                            correct: 1,
+                            feedback: 'Bubble sort är tydlig för att förstå grundprincipen bakom sortering.',
+                            explanation: 'Algoritmen jämför närliggande element och byter plats på dem vid behov.'
+                        },
+                        {
+                            question: 'Varför kan sortering göra sökning mer effektiv?',
+                            options: [
+                                'För att sortering alltid tar bort dubbletter',
+                                'För att osorterade listor inte kan innehålla tal',
+                                'För att sorterad data kan göra snabbare metoder som binär sökning möjliga',
+                                'För att sökning inte fungerar utan sortering'
+                            ],
+                            correct: 2,
+                            feedback: 'Sorterad data kan öppna för effektivare sökalgoritmer.',
+                            explanation: 'Binär sökning är ett exempel på en snabb metod som kräver sorterad data.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>
