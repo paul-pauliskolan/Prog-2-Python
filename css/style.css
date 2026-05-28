@@ -546,6 +546,17 @@ ol {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.chapter-groups {
+  display: grid;
+  gap: 2rem;
+}
+
+.chapter-group h3 {
+  margin: 0 0 0.85rem;
+  font-size: 1.05rem;
+  color: var(--text);
+}
+
 .chapter-menu-home .chapter-link {
   min-height: 4rem;
 }

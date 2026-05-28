@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Övningsuppgift 1</title>
+    <title>Övningsuppgift 1 - Interaktivt användarprogram</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Övningsuppgift 1: Skapa ett interaktivt Pythonprogram med meny, funktioner, inmatning och villkor.">
 </head>
 
 <body class="chapter-page">
@@ -13,11 +14,83 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Övningsuppgift 1</h1>
+                <p class="eyebrow">Övningsuppgift</p>
+                <h1>Övningsuppgift 1 – Skapa ett interaktivt användarprogram</h1>
+                <p class="subtitle">Bygg ett menyprogram med funktioner, användarinmatning och tydlig struktur.</p>
             </header>
+
             <section class="content-section">
-                <p>Uppgift som tidigare var lärarbedömd — nu benämnd Övningsuppgift.</p>
+                <h2>Uppgift</h2>
+                <p>Du ska skapa ett Pythonprogram som består av:</p>
+                <ul>
+                    <li>En meny som visas i en loop tills användaren väljer att avsluta.</li>
+                    <li>Funktioner för varje menyval.</li>
+                    <li>Villkor, användarinmatning och utskrifter.</li>
+                    <li>Tydlig struktur med <code>main()</code> och minst två egna funktioner.</li>
+                </ul>
+
+                <h2>Programmet ska innehålla</h2>
+                <ul>
+                    <li>Ett alternativ där användaren matar in sitt namn och sin ålder.</li>
+                    <li>Ett alternativ där programmet skriver ut vilket år användaren fyller 100.</li>
+                    <li>Ett avslutsalternativ.</li>
+                    <li>Felhantering vid ogiltiga menyval.</li>
+                </ul>
+
+                <h2>Exempel på användning</h2>
+                <pre><code>1. Enter your name and age
+2. Show when you will turn 100
+3. Exit
+> 1
+Enter name: Sofia
+Enter age: 25
+> 2
+Sofia, you will turn 100 in the year 2099.</code></pre>
+
+                <h2>Bedömningsaspekter</h2>
+                <ul>
+                    <li>Har du delat upp koden i funktioner på ett tydligt sätt?</li>
+                    <li>Är menyn korrekt uppbyggd med <code>while</code> och <code>if/elif</code>?</li>
+                    <li>Används <code>input()</code> och <code>print()</code> på rätt sätt?</li>
+                    <li>Är programmet körbart utan fel?</li>
+                </ul>
+
+                <h2>Checklista för inlämning</h2>
+                <ul>
+                    <li>Programmet är uppdelat i funktioner.</li>
+                    <li>En <code>main()</code>-funktion startar programmet.</li>
+                    <li>Programmet innehåller en meny med tre alternativ.</li>
+                    <li>Det går att mata in namn och ålder och räkna ut vilket år användaren fyller 100.</li>
+                    <li>Programmet avslutas korrekt.</li>
+                </ul>
+
+                <h2>Tips</h2>
+                <p>Spara namn och ålder i variabler som flera funktioner kan använda. Börja med att få menyn att fungera,
+                    och lägg sedan till beräkningen av 100-årsåret.</p>
+
+                <pre><code class="language-python">def visa_meny():
+    print("1. Enter your name and age")
+    print("2. Show when you will turn 100")
+    print("3. Exit")
+
+def main():
+    while True:
+        visa_meny()
+        val = input("> ")
+
+        if val == "1":
+            pass
+        elif val == "2":
+            pass
+        elif val == "3":
+            break
+        else:
+            print("Invalid choice")
+
+if __name__ == "__main__":
+    main()</code></pre>
             </section>
+
             <p><a href="../index.html">Till startsidan</a></p>
         </article>
     </main>

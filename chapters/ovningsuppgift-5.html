@@ -4,20 +4,81 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Övningsuppgift 5</title>
+    <title>Övningsuppgift 5 - GUI-projekt med databas och API</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Övningsuppgift 5: Skapa ett Pythonprojekt med tkinter-GUI, SQLite-databas och API-anrop med requests.">
 </head>
 
 <body class="chapter-page">
-    <nav class="navbar"><a href="../index.html" class="logo">💻 Programmering 2 i Python</a></nav>
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Övningsuppgift 5</h1>
+                <p class="eyebrow">Övningsuppgift</p>
+                <h1>Övningsuppgift 5 – Skapa ett GUI-projekt med databas och API</h1>
+                <p class="subtitle">Planera, bygg, testa och dokumentera ett eget Pythonprogram med GUI, databas och API.</p>
             </header>
+
             <section class="content-section">
-                <p>Övningsuppgift 5 - innehåll att fyllas från ursprunglig kurs.</p>
+                <h2>Uppgiftsbeskrivning</h2>
+                <p>I den här uppgiften ska du planera, bygga, testa och dokumentera ett eget mindre program i Python.
+                    Programmet ska ha ett grafiskt användargränssnitt och använda en SQLite-databas samt ett valfritt
+                    öppet API. Du ska visa att du kan strukturera kod, spara och hämta data samt skapa ett användarvänligt
+                    gränssnitt.</p>
+
+                <h2>Dina uppgifter</h2>
+                <ul>
+                    <li>Planera programmet du vill bygga. Beskriv syfte, funktioner och användarflöde.</li>
+                    <li>Skapa en grafisk gränssnittsapplikation i Python med <code>tkinter</code>.</li>
+                    <li>Använd en lokal SQLite-databas för att spara data.</li>
+                    <li>Anropa ett öppet API, till exempel väder, skämt eller djurfakta, med <code>requests</code> och
+                        visa resultatet i gränssnittet.</li>
+                    <li>Använd tydlig struktur: funktioner, moduler och kommentarer.</li>
+                    <li>Skapa en README-fil som förklarar hur programmet fungerar.</li>
+                    <li>Testa ditt program och reflektera över din utvecklingsprocess.</li>
+                </ul>
+
+                <h2>Exempel på idéer</h2>
+                <ul>
+                    <li><strong>Reseassistent:</strong> användaren matar in en stad, API hämtar väder och användaren kan
+                        spara favoriter i databasen.</li>
+                    <li><strong>Skämtprogram:</strong> visa slumpade skämt och spara de bästa lokalt.</li>
+                    <li><strong>Receptverktyg:</strong> användare kan lägga in recept, söka dem och få matfakta via API.</li>
+                </ul>
+
+                <h2>Du ska visa att du kan</h2>
+                <ul>
+                    <li>Använda <code>tkinter</code> för att bygga ett fungerande GUI.</li>
+                    <li>Skapa och strukturera en databas med minst en tabell.</li>
+                    <li>Hämta och tolka JSON-data från ett API.</li>
+                    <li>Bygga ett program som fungerar för en tänkt användare.</li>
+                    <li>Testa ditt program systematiskt.</li>
+                    <li>Skriva tydlig och kommenterad kod.</li>
+                    <li>Reflektera över ditt arbete.</li>
+                </ul>
+
+                <h2>Checklista inför inlämning</h2>
+                <ul>
+                    <li>GUI är skapat med <code>tkinter</code> och innehåller minst tre widgets, till exempel knapp,
+                        inmatning och etikett.</li>
+                    <li>Databas är skapad med <code>sqlite3</code> och kan spara och läsa data.</li>
+                    <li>API-anrop fungerar med <code>requests</code> och informationen används i gränssnittet.</li>
+                    <li>Koden är uppdelad i funktioner eller moduler.</li>
+                    <li>Koden är kommenterad och läsbar.</li>
+                    <li>README-fil förklarar vad programmet gör, hur man kör det och vilka funktioner som finns.</li>
+                    <li>Du har testat programmet och beskrivit det i din reflektion.</li>
+                    <li>Inlämningen innehåller programfiler, README och eventuell reflektion.</li>
+                </ul>
+
+                <h2>Tekniska tips</h2>
+                <ul>
+                    <li>Installera <code>requests</code> med <code>pip3 install requests</code> om importen inte fungerar.</li>
+                    <li>Börja med GUI och en hårdkodad knapp innan du kopplar på API och databas.</li>
+                    <li>Testa API-anropet separat i terminalen innan du kopplar det till gränssnittet.</li>
+                    <li>Testa databasen separat innan du låter GUI:t spara data.</li>
+                </ul>
             </section>
+
             <p><a href="../index.html">Till startsidan</a></p>
         </article>
     </main>

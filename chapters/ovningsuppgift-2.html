@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Övningsuppgift 2</title>
+    <title>Övningsuppgift 2 - Hantera användardata</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Övningsuppgift 2: Skapa ett Pythonprogram som hanterar användardata med listor, dictionaries, sökning och sortering.">
 </head>
 
 <body class="chapter-page">
@@ -13,11 +14,152 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Övningsuppgift 2</h1>
+                <p class="eyebrow">Övningsuppgift</p>
+                <h1>Övningsuppgift 2 – Hantera användardata i ett enklare system</h1>
+                <p class="subtitle">Bygg ett menyprogram som lagrar, söker och sorterar användare.</p>
             </header>
+
             <section class="content-section">
-                <p>Övningsuppgift 2 - innehåll att fyllas från ursprunglig kurs.</p>
+                <h2>Vad du ska visa</h2>
+                <p>Den här uppgiften bygger på det du har lärt dig i Modul 2. Du ska visa att du kan:</p>
+                <ul>
+                    <li>Planera program med algoritmtänk.</li>
+                    <li>Använda listor, dictionaries och tuples.</li>
+                    <li>Skriva funktioner för att strukturera din kod.</li>
+                    <li>Använda loopar, villkor och användarinmatning.</li>
+                    <li>Använda sökning och sortering i listor.</li>
+                    <li>Strukturera din kod så att den är läsbar och lätt att följa.</li>
+                </ul>
+
+                <h2>Uppgift</h2>
+                <p>Skapa ett program där användaren kan hantera en lista med användare. Programmet ska ge användaren
+                    möjlighet att:</p>
+                <ol>
+                    <li>Lägga till användare med namn, ålder och e-post.</li>
+                    <li>Söka efter användare via namn eller e-post.</li>
+                    <li>Visa alla användare sorterade alfabetiskt efter namn.</li>
+                    <li>Avsluta programmet.</li>
+                </ol>
+
+                <p>Du ska använda funktioner för att dela upp din kod. Ditt program ska vara användarvänligt, tydligt
+                    kommenterat och skrivet med god struktur.</p>
+
+                <h2>Bedömning</h2>
+                <ul>
+                    <li>Användning av listor och dictionaries.</li>
+                    <li>Att programmet är uppdelat i funktioner med tydligt syfte.</li>
+                    <li>Att menyn fungerar och att programmet är logiskt uppbyggt.</li>
+                    <li>Att du använder villkor, loopar och inmatning korrekt.</li>
+                    <li>Att du visar förståelse för sortering, sökning och datastrukturer.</li>
+                    <li>Att din kod är läsbar och kommenterad.</li>
+                </ul>
+
+                <h2>Checklista före inlämning</h2>
+                <ul>
+                    <li>Jag har en fungerande meny med val 1-4.</li>
+                    <li>Jag använder en lista med dictionaries för att lagra användare.</li>
+                    <li>Jag har skapat och använt minst tre egna funktioner.</li>
+                    <li>Jag har testat mitt program så att alla val fungerar.</li>
+                    <li>Jag har kommenterat min kod där det behövs.</li>
+                </ul>
+
+                <h2>Mallkod att utgå ifrån</h2>
+                <pre><code class="language-python"># Funktion: Lägg till en användare
+def add_user(users):
+    # Här ska du skriva kod för att läsa in namn, ålder och e-post.
+    # Skapa en dictionary med informationen och lägg till den i listan users.
+    pass
+
+# Funktion: Sök efter en användare
+def search_user(users):
+    # Be användaren skriva in ett sökord, till exempel namn eller e-post.
+    # Sök i listan efter matchande användare och skriv ut resultat.
+    pass
+
+# Funktion: Visa alla användare
+def show_users(users):
+    # Sortera användarna efter namn.
+    # Skriv ut all information om varje användare.
+    pass
+
+# Huvudfunktion: Sköter meny och programflöde
+def main():
+    users = []  # Här lagras användarna som dictionaries
+
+    while True:
+        print("\n1. Lägg till användare\n2. Sök användare\n3. Visa alla användare\n4. Avsluta")
+        choice = input("Välj ett alternativ: ")
+
+        if choice == "1":
+            add_user(users)
+        elif choice == "2":
+            search_user(users)
+        elif choice == "3":
+            show_users(users)
+        elif choice == "4":
+            print("Programmet avslutas.")
+            break
+        else:
+            print("Ogiltigt val, försök igen.")
+
+main()</code></pre>
+
+                <h2>Lösningsförslag</h2>
+                <pre><code class="language-python">def add_user(users):
+    name = input("Ange namn: ")
+
+    try:
+        age = int(input("Ange ålder: "))
+    except ValueError:
+        print("Fel: Åldern måste vara ett heltal.")
+        return
+
+    email = input("Ange e-post: ")
+    user = {"name": name, "age": age, "email": email}
+    users.append(user)
+
+def search_user(users):
+    search_term = input("Sök namn eller e-post: ").lower()
+    found = [
+        user for user in users
+        if search_term in user["name"].lower()
+        or search_term in user["email"].lower()
+    ]
+
+    for user in found:
+        print(f"{user['name']} ({user['age']} år) - {user['email']}")
+
+    if not found:
+        print("Ingen träff.")
+
+def show_users(users):
+    sorted_users = sorted(users, key=lambda x: x["name"])
+
+    for user in sorted_users:
+        print(f"{user['name']} ({user['age']} år) - {user['email']}")
+
+def main():
+    users = []
+
+    while True:
+        print("\n1. Lägg till användare\n2. Sök användare\n3. Visa alla\n4. Avsluta")
+        choice = input("Välj ett alternativ: ")
+
+        if choice == "1":
+            add_user(users)
+        elif choice == "2":
+            search_user(users)
+        elif choice == "3":
+            show_users(users)
+        elif choice == "4":
+            print("Programmet avslutas.")
+            break
+        else:
+            print("Ogiltigt val, försök igen.")
+
+main()</code></pre>
             </section>
+
             <p><a href="../index.html">Till startsidan</a></p>
         </article>
     </main>

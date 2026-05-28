@@ -4,20 +4,85 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Övningsuppgift 4</title>
+    <title>Övningsuppgift 4 - Digitalt bibliotekssystem</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Övningsuppgift 4: Skapa ett digitalt bibliotekssystem med SQLite, moduler, meny och felhantering.">
 </head>
 
 <body class="chapter-page">
-    <nav class="navbar"><a href="../index.html" class="logo">💻 Programmering 2 i Python</a></nav>
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Övningsuppgift 4</h1>
+                <p class="eyebrow">Övningsuppgift</p>
+                <h1>Övningsuppgift 4 – Skapa ett digitalt bibliotekssystem</h1>
+                <p class="subtitle">Bygg ett modulärt Pythonprogram som sparar och söker böcker i en SQLite-databas.</p>
             </header>
+
             <section class="content-section">
-                <p>Övningsuppgift 4 - innehåll att fyllas från ursprunglig kurs.</p>
+                <h2>Uppgift</h2>
+                <p>Du ska skapa ett enklare bibliotekssystem där användaren kan:</p>
+                <ul>
+                    <li>Lägga till en ny bok med titel och författare.</li>
+                    <li>Söka efter böcker.</li>
+                    <li>Visa alla böcker.</li>
+                    <li>Lagra och läsa data från en SQLite-databas.</li>
+                    <li>Ha programmet uppdelat i minst två egna moduler.</li>
+                </ul>
+
+                <h2>Syfte</h2>
+                <p>Syftet med uppgiften är att du ska tillämpa dina kunskaper om:</p>
+                <ul>
+                    <li>Fil- och databashantering.</li>
+                    <li>Undantagshantering med <code>try/except</code>.</li>
+                    <li>Uppdelning av koden i moduler och funktioner.</li>
+                    <li>Kodstandard och struktur.</li>
+                </ul>
+
+                <h2>Tekniska krav</h2>
+                <ul>
+                    <li>Skapa en databasfil, till exempel <code>bibliotek.db</code>.</li>
+                    <li>Databasen ska innehålla en tabell <code>bocker</code> med kolumnerna
+                        <code>id</code>, <code>titel</code> och <code>forfattare</code>.</li>
+                    <li>Använd <code>sqlite3</code> för databasoperationer.</li>
+                    <li>Dela upp programmet i minst två moduler, till exempel <code>databas.py</code> och
+                        <code>main.py</code>.</li>
+                    <li>Implementera en enkel meny i <code>main.py</code>.</li>
+                    <li>Använd <code>try/except</code> vid all fil- och databashantering.</li>
+                    <li>Koden ska vara läsbar, kommenterad och följa kodstandard.</li>
+                </ul>
+
+                <h2>Exempel på användarflöde</h2>
+                <pre><code>1. Lägg till bok
+2. Sök bok
+3. Visa alla böcker
+4. Avsluta</code></pre>
+
+                <h2>Checklista inför inlämning</h2>
+                <ul>
+                    <li>Programmet kan köras utan fel.</li>
+                    <li>Koden är uppdelad i minst två moduler.</li>
+                    <li>Du använder minst en funktion från varje modul.</li>
+                    <li>Du hanterar undantag vid databasanrop.</li>
+                    <li>SQL används för att spara och läsa data.</li>
+                    <li>Programmet är kommenterat och lätt att följa.</li>
+                    <li>Du har testat att lägga till och visa flera böcker.</li>
+                </ul>
+
+                <h2>Förväntade kunskaper och färdigheter</h2>
+                <ul>
+                    <li>Skapa och använda en SQLite-databas i Python.</li>
+                    <li>Strukturera kod med funktioner och moduler.</li>
+                    <li>Följa god kodstandard och arbeta med tydlig felhantering.</li>
+                    <li>Göra en enkel analys av syfte och användarbehov i programupplägget.</li>
+                </ul>
+
+                <h2>Tips på struktur</h2>
+                <p>Låt <code>databas.py</code> innehålla funktioner som skapar tabellen, lägger till böcker, söker och
+                    hämtar alla böcker. Låt <code>main.py</code> innehålla menyn och anropa funktionerna från
+                    <code>databas.py</code>.</p>
             </section>
+
             <p><a href="../index.html">Till startsidan</a></p>
         </article>
     </main>
