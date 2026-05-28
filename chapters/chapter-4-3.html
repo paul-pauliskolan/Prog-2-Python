@@ -15,55 +15,79 @@
             <header class="chapter-hero">
                 <p class="eyebrow">Programmering nivå 2</p>
                 <h1>Kap 4.3 – Egna moduler och import</h1>
-                <p class="subtitle">Organisera kod i moduler och paket.</p>
+                <p class="subtitle">Dela upp kod i flera filer och använd moduler.</p>
             </header>
             <section class="content-section">
                 <h2>Mål med lektionen</h2>
-                <p>Efter denna lektion ska du kunna:</p>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
                 <ul>
-                    <li>Skriva egna moduler och importera funktioner och klasser.</li>
-                    <li>Förstå paketstruktur och `__init__.py`.</li>
-                    <li>Använda relativa och absoluta imports samt `if __name__ == '__main__'`.</li>
+                    <li>Förstå vad en modul är i Python.</li>
+                    <li>Kunna skapa egna Python-filer med funktioner och klasser.</li>
+                    <li>Kunna importera och använda moduler i olika program.</li>
+                    <li>Dela upp kod i flera filer för bättre struktur.</li>
                 </ul>
 
-                <h2>Skapa en modul</h2>
-                <p>En modul är en .py-fil. Exempel: skapa `math_utils.py` med hjälpfunktioner.</p>
-                <pre><code class="language-python"># math_utils.py
-def kvadrat(x):
-    return x * x
+                <h2>Så här lär du dig bäst</h2>
+                <p>Börja med ett litet program du redan skrivit. Flytta några funktioner till en egen .py-fil och testa
+                    att importera dem i huvudfilen. Lägg gärna till nya funktioner för att experimentera. Undvik att
+                    kopiera hela program - tänk på modulens syfte: återanvändbara delar.</p>
 
-def kub(x):
-    return x * x * x</code></pre>
-
-                <h2>Importera från en modul</h2>
-                <pre><code class="language-python"># i en annan fil
-from math_utils import kvadrat
-print(kvadrat(4))  # 16
-
-import math_utils as mu
-print(mu.kub(3))</code></pre>
-
-                <h2>Paket och __init__.py</h2>
-                <p>En mapp med `__init__.py` är ett paket. Du kan gruppera moduler i paket och importera med punktnotation.</p>
-
-                <h2>Relativa imports</h2>
-                <pre><code class="language-python"># i paketets modul
-from .helpers import parse_data  # relativ import från samma paket
-from ..utils import logging_helper  # upp en nivå</code></pre>
-
-                <h2>Huvudvakt</h2>
-                <p>Använd `if __name__ == '__main__'` för att köra testkod när modulen körs direkt.</p>
-                <pre><code class="language-python">def main():
-    print("Testar modulen")
-
-if __name__ == '__main__':
-    main()</code></pre>
-
-                <h2>Tips för struktur</h2>
+                <h2>Centrala begrepp</h2>
                 <ul>
-                    <li>Dela upp funktionalitet i tydliga moduler.</li>
-                    <li>Använd korta, återanvändbara funktioner.</li>
-                    <li>Håll paketgränser rena och undvik cykliska imports.</li>
+                    <li><strong>modul</strong> – En fil i Python (slutar på .py) som innehåller funktioner, klasser
+                        eller variabler.</li>
+                    <li><strong>import</strong> – Används för att hämta funktionalitet från andra filer.</li>
+                    <li><strong>modulstruktur</strong> – Att dela upp ett program i flera logiska delar.</li>
+                </ul>
+
+                <h2>Innehåll och exempel</h2>
+
+                <h3>Skapa en modul: verktyg.py</h3>
+                <pre><code class="language-python">def hälsa(namn):
+    print(f"Hej, {namn}!")
+
+def kvadrat(tal):
+    return tal * tal</code></pre>
+
+                <h3>Använda modulen: main.py</h3>
+                <pre><code class="language-python">import verktyg
+
+verktyg.hälsa("Ella")
+print(verktyg.kvadrat(5))</code></pre>
+
+                <h3>Importera bara det du behöver</h3>
+                <pre><code class="language-python">from verktyg import hälsa
+
+hälsa("Leo")</code></pre>
+
+                <h3>Byta namn med alias</h3>
+                <pre><code class="language-python">import verktyg as v
+
+v.hälsa("Tove")</code></pre>
+
+                <h2>Öva – tillämpning i ett projekt</h2>
+                <p>Om du har ett projekt som innehåller både spel- och användarfunktioner:</p>
+                <ul>
+                    <li>Skapa <code>strid.py</code> för all stridslogik.</li>
+                    <li>Skapa <code>spelare.py</code> med klassen <code>Player</code>.</li>
+                    <li>Skapa <code>main.py</code> som styr spelet.</li>
+                </ul>
+                <p>Du kan då importera som:</p>
+                <pre><code class="language-python">from spelare import Player
+import strid</code></pre>
+
+                <h2>Varför moduler?</h2>
+                <ul>
+                    <li>Koden blir lättare att förstå och testa.</li>
+                    <li>Du slipper duplicera kod i flera filer.</li>
+                    <li>Du kan återanvända funktioner i flera projekt.</li>
+                </ul>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>En modul är en egen .py-fil som kan importeras till andra program.</li>
+                    <li>Du kan importera hela moduler eller specifika delar.</li>
+                    <li>Moduler hjälper dig att hålla din kod organiserad och återanvändbar.</li>
                 </ul>
             </section>
 
@@ -81,64 +105,64 @@ if __name__ == '__main__':
                     title: 'Quiz: Kap 4.3 - Egna moduler och import',
                     questions: [
                         {
-                            question: 'Hur importerar du funktionen `kvadrat` från modulen `math_utils`?',
+                            question: 'Vad är en modul i Python?',
                             options: [
-                                'import math_utils.kvadrat',
-                                'from math_utils import kvadrat',
-                                'import kvadrat from math_utils',
-                                'math_utils.kvadrat import'
-                            ],
-                            correct: 1,
-                            feedback: 'Rätt: `from math_utils import kvadrat`.',
-                            explanation: 'Detta importerar funktionen direkt i det lokala namnområdet.'
-                        },
-                        {
-                            question: 'Vad är syftet med `__init__.py` i en mapp?',
-                            options: [
-                                'Det körs alltid vid import och initierar paketet',
-                                'Det markerar mappen som ett paket',
-                                'Det är alltid tomt och gör inget',
-                                'Det ersätter modulens namn'
-                            ],
-                            correct: 1,
-                            feedback: '`__init__.py` markerar mappen som ett paket.',
-                            explanation: 'Filen kan också användas för paketinitiering men dess primära roll är att paketmarkera mappen.'
-                        },
-                        {
-                            question: 'Vilken syntax används för en relativ import från samma paket?',
-                            options: [
-                                'from package.module import x',
-                                'from .module import x',
-                                'import ..module',
-                                'from module import .x'
-                            ],
-                            correct: 1,
-                            feedback: 'Rätt: `from .module import x`.',
-                            explanation: 'En punkt anger aktuell paketnivå i en relativ import.'
-                        },
-                        {
-                            question: 'Vad gör `if __name__ == "__main__"` i en modul?',
-                            options: [
-                                'Kör modulens testkod endast när den körs direkt',
-                                'Gör modulen importbar',
-                                'Anger modulens namn i loggar',
-                                'Startar en server'
+                                'En fil i Python som innehåller funktioner, klasser eller variabler',
+                                'En särskild typ av loop',
+                                'En vanlig sträng',
+                                'Ett felmeddelande'
                             ],
                             correct: 0,
-                            feedback: 'Det kör testkod endast när modulen körs som ett skript.',
-                            explanation: 'När modulen importeras är `__name__` modulens namn, inte "__main__".'
+                            feedback: 'Rätt, en modul är en .py-fil med kod som kan återanvändas.',
+                            explanation: 'Moduler används för att samla funktioner, klasser och variabler i egna filer.'
                         },
                         {
-                            question: 'Vilken risk bör du undvika vid paketdesign? ',
+                            question: 'Hur importerar du hela modulen `verktyg`?',
                             options: [
-                                'För många små moduler',
-                                'Cyklistiska imports (cykliska beroenden)',
-                                'Använda `__init__.py`',
-                                'Dokumentation av moduler'
+                                'import verktyg',
+                                'from verktyg import import',
+                                'use verktyg',
+                                'load verktyg'
                             ],
-                            correct: 1,
-                            feedback: 'Undvik cykliska imports som skapar beroenden som inte kan lösas.',
-                            explanation: 'Cyklar kan orsaka importfel och svårigheter att hålla koden modulär.'
+                            correct: 0,
+                            feedback: 'Rätt, då kan du använda `verktyg.hälsa()` och `verktyg.kvadrat()`.',
+                            explanation: 'Med `import verktyg` får du tillgång till hela modulen.'
+                        },
+                        {
+                            question: 'Hur importerar du bara funktionen `hälsa` från `verktyg`?',
+                            options: [
+                                'from verktyg import hälsa',
+                                'import hälsa from verktyg',
+                                'from hälsa import verktyg',
+                                'use hälsa from verktyg'
+                            ],
+                            correct: 0,
+                            feedback: 'Rätt, då kan du skriva `hälsa("Leo")` direkt.',
+                            explanation: 'Denna syntax importerar bara den funktion du behöver.'
+                        },
+                        {
+                            question: 'Vad gör aliaset `as v` i `import verktyg as v`?',
+                            options: [
+                                'Ger modulen ett kortare namn',
+                                'Tar bort modulens funktioner',
+                                'Gör modulen tom',
+                                'Skapar en ny fil'
+                            ],
+                            correct: 0,
+                            feedback: 'Ja, alias gör namnet kortare och enklare att skriva.',
+                            explanation: 'Alias är användbart om modulnamnet är långt eller om du vill skriva mindre.'
+                        },
+                        {
+                            question: 'Varför är det bra att dela upp kod i moduler?',
+                            options: [
+                                'Koden blir lättare att förstå och testa',
+                                'Programmet blir alltid långsammare',
+                                'Man kan inte importera längre',
+                                'All kod måste ligga i en fil'
+                            ],
+                            correct: 0,
+                            feedback: 'Precis, moduler gör koden mer organiserad och återanvändbar.',
+                            explanation: 'Att dela upp kod i moduler minskar duplicering och gör projekt enklare att arbeta med.'
                         }
                     ]
                 })
@@ -146,7 +170,5 @@ if __name__ == '__main__':
         })
     </script>
 </body>
-
-</html>
 
 </html>

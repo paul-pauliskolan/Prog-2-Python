@@ -22,7 +22,8 @@
                 <p>Efter denna lektion ska du kunna:</p>
                 <ul>
                     <li>Använda <strong>try/except</strong> för att fånga och hantera undantag.</li>
-                    <li>Förstå skillnaden mellan <strong>except</strong>, <strong>else</strong> och <strong>finally</strong>.</li>
+                    <li>Förstå skillnaden mellan <strong>except</strong>, <strong>else</strong> och
+                        <strong>finally</strong>.</li>
                     <li>Använda verktyg som <strong>print</strong> och <strong>logging</strong> för felsökning.</li>
                 </ul>
 
@@ -36,7 +37,8 @@ else:
 finally:
     print("Klar.")</code></pre>
 
-                <p><strong>except</strong> fångar specifika undantag, <strong>else</strong> körs om inget undantag uppstår och <strong>finally</strong> körs alltid.</p>
+                <p><strong>except</strong> fångar specifika undantag, <strong>else</strong> körs om inget undantag
+                    uppstår och <strong>finally</strong> körs alltid.</p>
 
                 <h2>Filfel med FileNotFoundError</h2>
                 <pre><code class="language-python">try:
@@ -45,10 +47,12 @@ finally:
 except FileNotFoundError:
     print("Filen hittades inte.")</code></pre>
 
-                <p>Det här exemplet visar hur du fångar ett vanligt filfel när en fil inte finns. Då skriver programmet ut ett tydligt meddelande i stället för att krascha.</p>
+                <p>Det här exemplet visar hur du fångar ett vanligt filfel när en fil inte finns. Då skriver programmet
+                    ut ett tydligt meddelande i stället för att krascha.</p>
 
                 <h2>Raising exceptions</h2>
-                <p>När du upptäcker ett fel i din kod kan du själv avbryta med ett undantag. Då blir det tydligt att något är fel och programmet kan hantera det med <code>try/except</code>.</p>
+                <p>När du upptäcker ett fel i din kod kan du själv avbryta med ett undantag. Då blir det tydligt att
+                    något är fel och programmet kan hantera det med <code>try/except</code>.</p>
 
                 <h2>Felsökningstips</h2>
                 <ul>
@@ -57,7 +61,8 @@ except FileNotFoundError:
                 </ul>
 
                 <h2>Övning</h2>
-                <p>Skriv en funktion som läser ett tal från fil och hanterar filer som saknas eller innehåller felaktigt format.</p>
+                <p>Skriv en funktion som läser ett tal från fil och hanterar filer som saknas eller innehåller felaktigt
+                    format.</p>
             </section>
 
             <div id="quiz-4-2" aria-label="Quiz Kap 4.2"></div>
