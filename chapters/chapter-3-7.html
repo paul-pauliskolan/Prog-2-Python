@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Kap 3.7 - Objektorienterat projekt</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 3.7: Planera och bygg ett objektorienterat Pythonprojekt med flera samverkande klasser.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,330 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 3.7: Objektorienterat projekt</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 3.7 – Objektorienterat projekt</h1>
+                <p class="subtitle">Planera, strukturera och bygg ett projekt med flera samverkande klasser.</p>
             </header>
+
             <section class="content-section">
-                <p>Projektuppgift med fokus på OOP.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Självständigt kunna planera och strukturera ett objektorienterat program.</li>
+                    <li>Använda flera samverkande klasser med inkapsling, arv och metodanrop.</li>
+                    <li>Skapa kod som är organiserad, dokumenterad och återanvändbar.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Börja med att rita ett klassdiagram över ditt projekt. Fundera över vilka objekt som behövs, hur de
+                    ska kommunicera och vilka metoder varje klass ska ha. Bygg först en enkel version och testa varje del
+                    för sig innan du sätter ihop helheten. Kommentera din kod tydligt.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>Klassstruktur:</strong> hur du planerar upp programmet i olika klasser.</li>
+                    <li><strong>Objektsamverkan:</strong> hur objekten kommunicerar och använder varandra.</li>
+                    <li><strong>Modularisering:</strong> att dela upp programmet i separata, återanvändbara delar.</li>
+                    <li><strong>Projektmappstruktur:</strong> hur du organiserar filer och moduler i Python.</li>
+                </ul>
+
+                <h2>Uppgift: planera och skapa ett OOP-baserat projekt</h2>
+                <p>Du ska skapa ett mindre Pythonprojekt där flera klasser samarbetar. Projektet ska ha en tydlig
+                    struktur, ett klassdiagram och kod som visar att du förstår objektorienterad programmering.</p>
+
+                <h2>Förslag på projektidéer</h2>
+                <ol>
+                    <li>
+                        <strong>Bibliotekssystem:</strong> hantera böcker, låntagare och utlåningar.
+                        Klasser kan vara <code>Book</code>, <code>Member</code> och <code>Library</code>.
+                    </li>
+                    <li>
+                        <strong>RPG-strid:</strong> låt en spelare slåss mot fiender i turordning.
+                        Klasser kan vara <code>Character</code>, <code>Player</code>, <code>Enemy</code> och
+                        <code>Item</code>.
+                    </li>
+                    <li>
+                        <strong>Receptplanerare:</strong> låt användaren lägga till recept, söka och skapa inköpslistor.
+                        Klasser kan vara <code>Recipe</code>, <code>Ingredient</code> och <code>MealPlanner</code>.
+                    </li>
+                </ol>
+
+                <h2>Steg-för-steg-struktur</h2>
+                <ol>
+                    <li>
+                        <strong>Designa:</strong> skapa ett UML-diagram med minst tre klasser. Beskriv attribut, metoder,
+                        relationer, arv och inkapsling.
+                    </li>
+                    <li>
+                        <strong>Bygg grundstruktur:</strong> skapa en huvudfil, till exempel <code>main.py</code>, och
+                        separata filer per klass.
+                    </li>
+                    <li>
+                        <strong>Utöka med arv och logik:</strong> lägg till subklasser där det passar och använd
+                        <code>super()</code> när du bygger vidare på en basklass.
+                    </li>
+                    <li>
+                        <strong>Testa objekt och metodanrop:</strong> skapa instanser och prova att anropa metoder i ett
+                        konkret scenario.
+                    </li>
+                    <li>
+                        <strong>Dokumentera:</strong> kommentera varje klass och metod. Lägg till en README-fil där du
+                        förklarar programmets syfte och hur det körs.
+                    </li>
+                </ol>
+
+                <h2>Lösningsförslag: bibliotekssystem</h2>
+                <p>Det här är ett exempel på hur ett projekt kan struktureras. Använd det som stöd, men skapa gärna en
+                    egen variant.</p>
+
+                <pre><code class="language-mermaid">classDiagram
+    Library -- Book : contains
+    Library -- Member : registers
+    Member -- Book : borrows
+
+    class Book {
+        -string title
+        -string author
+        -bool available
+        +borrow() bool
+        +return_book() void
+        +__str__() string
+    }
+
+    class Member {
+        -string name
+        -list borrowed_books
+        +borrow_book(book) void
+        +return_book(book) void
+        +list_books() void
+    }
+
+    class Library {
+        -list books
+        -list members
+        +add_book(title, author) void
+        +register_member(name) void
+        +find_book(title) Book
+        +find_member(name) Member
+        +list_books() void
+    }</code></pre>
+
+                <h3>book.py</h3>
+                <pre><code>class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+        self.available = True
+
+    def borrow(self):
+        if self.available:
+            self.available = False
+            return True
+        return False
+
+    def return_book(self):
+        self.available = True
+
+    def __str__(self):
+        status = "Tillgänglig" if self.available else "Utlånad"
+        return f"{self.title} av {self.author} - {status}"</code></pre>
+
+                <h3>member.py</h3>
+                <pre><code>class Member:
+    def __init__(self, name):
+        self.name = name
+        self.borrowed_books = []
+
+    def borrow_book(self, book):
+        if book.borrow():
+            self.borrowed_books.append(book)
+            print(f"{self.name} lånade {book.title}.")
+        else:
+            print(f"{book.title} är redan utlånad.")
+
+    def return_book(self, book):
+        if book in self.borrowed_books:
+            book.return_book()
+            self.borrowed_books.remove(book)
+            print(f"{self.name} lämnade tillbaka {book.title}.")
+        else:
+            print(f"{self.name} har inte {book.title}.")
+
+    def list_books(self):
+        if not self.borrowed_books:
+            print(f"{self.name} har inga böcker.")
+        else:
+            print(f"{self.name} har lånat:")
+            for book in self.borrowed_books:
+                print(f"- {book}")</code></pre>
+
+                <h3>library.py</h3>
+                <pre><code>from book import Book
+from member import Member
+
+class Library:
+    def __init__(self):
+        self.books = []
+        self.members = []
+
+    def add_book(self, title, author):
+        book = Book(title, author)
+        self.books.append(book)
+
+    def register_member(self, name):
+        member = Member(name)
+        self.members.append(member)
+
+    def find_book(self, title):
+        for book in self.books:
+            if book.title == title:
+                return book
+        return None
+
+    def find_member(self, name):
+        for member in self.members:
+            if member.name == name:
+                return member
+        return None
+
+    def list_books(self):
+        print("Böcker i biblioteket:")
+        for book in self.books:
+            print(f"- {book}")</code></pre>
+
+                <h3>main.py</h3>
+                <pre><code>from library import Library
+
+lib = Library()
+
+lib.add_book("1984", "George Orwell")
+lib.add_book("Sagan om ringen", "J.R.R. Tolkien")
+lib.register_member("Ali")
+
+book1 = lib.find_book("1984")
+member = lib.find_member("Ali")
+
+if book1 and member:
+    member.borrow_book(book1)
+
+member.list_books()
+lib.list_books()</code></pre>
+
+                <h2>Alternativa projektstrukturer</h2>
+                <h3>RPG-strid</h3>
+                <pre><code class="language-mermaid">classDiagram
+    Character &lt;|-- Player
+    Character &lt;|-- Enemy
+    Player -- Item : uses
+
+    class Character
+    Character : name
+    Character : hp
+    Character : attack
+    Character : is_alive()
+    Character : take_damage(amount)
+    Character : deal_damage(target)
+
+    class Player
+    Player : inventory
+    Player : use_item(item)
+
+    class Enemy
+    Enemy : name
+    Enemy : hp
+
+    class Item
+    Item : name
+    Item : effect
+    Item : use(target)</code></pre>
+
+                <h3>Receptplanerare</h3>
+                <pre><code class="language-mermaid">classDiagram
+    MealPlanner -- Recipe : stores
+    Recipe -- Ingredient : contains
+
+    class Ingredient {
+        -string name
+        -float amount
+        -string unit
+        +__str__() string
+    }
+
+    class Recipe {
+        -string name
+        -list ingredients
+        +add_ingredient(name, amount, unit) void
+        +list_ingredients() void
+    }
+
+    class MealPlanner {
+        -list recipes
+        +add_recipe(recipe) void
+        +list_all_recipes() void
+        +generate_shopping_list() void
+    }</code></pre>
+
+                <h2>Öva: planera ditt eget projekt</h2>
+                <ol>
+                    <li>Välj ett av förslagen ovan eller kom på ett eget projekt.</li>
+                    <li>Rita upp ett klassdiagram.</li>
+                    <li>Lista attribut och metoder för varje klass.</li>
+                    <li>Skapa kod för minst tre samverkande klasser.</li>
+                    <li>Presentera din kodstruktur och vad varje del gör.</li>
+                </ol>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Ett objektorienterat projekt bygger på samspel mellan flera klasser.</li>
+                    <li>Bra planering, till exempel via UML, gör det lättare att bygga upp strukturen.</li>
+                    <li>Du använder inkapsling, arv och modularisering för att skapa en hållbar kodbas.</li>
+                    <li>Testa varje klass för sig innan du sätter ihop hela programmet.</li>
+                </ul>
             </section>
+
             <p><a href="chapter-3.html">Tillbaka till Kapitel 3</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                lineColor: '#f4f7fb',
+                textColor: '#f4f7fb',
+                primaryBorderColor: '#f4f7fb',
+                relationLabelColor: '#f4f7fb',
+                tertiaryTextColor: '#f4f7fb'
+            }
+        })
+
+        function renderMermaidForRoot(root = document) {
+            const blocks = root.querySelectorAll
+                ? root.querySelectorAll('code.language-mermaid')
+                : []
+            const toRender = []
+
+            blocks.forEach(code => {
+                if (code.dataset.mermaidProcessed) return
+
+                const container = document.createElement('div')
+                container.className = 'mermaid'
+                container.textContent = code.textContent
+                code.parentNode.replaceWith(container)
+                code.dataset.mermaidProcessed = '1'
+                toRender.push(container)
+            })
+
+            if (toRender.length) mermaid.init(undefined, toRender)
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMermaidForRoot(document)
+        })
+    </script>
 </body>
 
 </html>

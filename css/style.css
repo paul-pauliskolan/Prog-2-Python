@@ -804,6 +804,23 @@ pre code {
   background: transparent;
 }
 
+.mermaid {
+  overflow-x: auto;
+}
+
+.mermaid svg .relation,
+.mermaid svg .edgePath .path,
+.mermaid svg path[class*="relation"],
+.mermaid svg line[class*="relation"] {
+  stroke: var(--text) !important;
+}
+
+.mermaid svg marker path,
+.mermaid svg marker polygon {
+  fill: var(--text) !important;
+  stroke: var(--text) !important;
+}
+
 blockquote {
   margin: 1rem 0;
   padding: 0.9rem 1rem;

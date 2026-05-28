@@ -13,15 +13,143 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 4.2: Try/except och felsökning</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 4.2 – Try/except och felsökning</h1>
+                <p class="subtitle">Hantera fel och hitta buggar i din kod.</p>
             </header>
             <section class="content-section">
-                <p>Robusta program med felhantering.</p>
+                <h2>Mål med lektionen</h2>
+                <p>Efter denna lektion ska du kunna:</p>
+                <ul>
+                    <li>Använda <strong>try/except</strong> för att fånga och hantera undantag.</li>
+                    <li>Förstå skillnaden mellan <strong>except</strong>, <strong>else</strong> och <strong>finally</strong>.</li>
+                    <li>Använda verktyg som <strong>print</strong> och <strong>logging</strong> för felsökning.</li>
+                </ul>
+
+                <h2>Try/except - grundläggande</h2>
+                <pre><code class="language-python">try:
+    värde = int(input("Ange ett heltal: "))
+except ValueError:
+    print("Det där var inte ett heltal.")
+else:
+    print(f"Du skrev {värde}")
+finally:
+    print("Klar.")</code></pre>
+
+                <p><strong>except</strong> fångar specifika undantag, <strong>else</strong> körs om inget undantag uppstår och <strong>finally</strong> körs alltid.</p>
+
+                <h2>Filfel med FileNotFoundError</h2>
+                <pre><code class="language-python">try:
+    with open("saknas.txt", "r") as f:
+        innehåll = f.read()
+except FileNotFoundError:
+    print("Filen hittades inte.")</code></pre>
+
+                <p>Det här exemplet visar hur du fångar ett vanligt filfel när en fil inte finns. Då skriver programmet ut ett tydligt meddelande i stället för att krascha.</p>
+
+                <h2>Raising exceptions</h2>
+                <p>När du upptäcker ett fel i din kod kan du själv avbryta med ett undantag. Då blir det tydligt att något är fel och programmet kan hantera det med <code>try/except</code>.</p>
+
+                <h2>Felsökningstips</h2>
+                <ul>
+                    <li>Använd små tester och reproducerbara inputs.</li>
+                    <li>Logga information istället för att förlita dig enbart på prints.</li>
+                </ul>
+
+                <h2>Övning</h2>
+                <p>Skriv en funktion som läser ett tal från fil och hanterar filer som saknas eller innehåller felaktigt format.</p>
             </section>
+
+            <div id="quiz-4-2" aria-label="Quiz Kap 4.2"></div>
+
             <p><a href="chapter-4.html">Tillbaka till Kapitel 4</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-4-2'), {
+                    title: 'Quiz: Kap 4.2 - Try/except och felsökning',
+                    questions: [
+                        {
+                            question: 'Vilket nyckelord används för att fånga undantag i Python?',
+                            options: [
+                                'try',
+                                'except',
+                                'finally',
+                                'raise'
+                            ],
+                            correct: 1,
+                            feedback: 'Använd "except" för att fånga undantag som uppstår i en try-block.',
+                            explanation: 'Strukturen är "try: ... except ExceptionType: ..." där except fångar undantaget.'
+                        },
+                        {
+                            question: 'Vilket undantag fångar du när en fil inte finns?',
+                            options: [
+                                'ValueError',
+                                'FileNotFoundError',
+                                'TypeError',
+                                'IndexError'
+                            ],
+                            correct: 1,
+                            feedback: 'FileNotFoundError används när en fil saknas.',
+                            explanation: 'När open() inte hittar filen får du ett FileNotFoundError som du kan fånga med except.'
+                        },
+                        {
+                            question: 'Vilken klausul körs alltid oavsett om ett undantag inträffade?',
+                            options: [
+                                'try',
+                                'except',
+                                'finally',
+                                'else'
+                            ],
+                            correct: 2,
+                            feedback: '"finally" körs alltid.',
+                            explanation: 'Använd "finally" för städning som alltid måste köras, t.ex. stänga filer.'
+                        },
+                        {
+                            question: 'Hur skapar du ett eget undantag av typen ValueError?',
+                            options: [
+                                'raise ValueError("fel")',
+                                'throw ValueError("fel")',
+                                'error ValueError("fel")',
+                                'raise_exception ValueError("fel")'
+                            ],
+                            correct: 0,
+                            feedback: 'Använd "raise ValueError(...)" för att kasta ett undantag.',
+                            explanation: '"raise" används för att manuellt generera ett undantag av en given typ.'
+                        },
+                        {
+                            question: 'Vad gör "else" i en try/except-konstruktion?',
+                            options: [
+                                'Körs om inget undantag inträffar',
+                                'Körs om ett undantag inträffar',
+                                'Körs alltid',
+                                'Avslutar programmet'
+                            ],
+                            correct: 0,
+                            feedback: '"else" körs endast om ingen except gren fångade ett undantag.',
+                            explanation: 'Det är användbart för kod som bara ska köra när try-blocket lyckas.'
+                        },
+                        {
+                            question: 'Vilket verktyg är vanligt för att felsöka steg för steg genom att skriva ut värden?',
+                            options: [
+                                'print()',
+                                'logging',
+                                'list()',
+                                'range()'
+                            ],
+                            correct: 0,
+                            feedback: 'print() används ofta för att skriva ut värden och följa vad som händer.',
+                            explanation: 'Att skriva ut mellanresultat är ett enkelt sätt att felsöka och förstå flödet i koden.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

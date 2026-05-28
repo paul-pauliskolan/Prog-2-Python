@@ -13,15 +13,151 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 4.1: Läs/skriv filer</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 4.1 – Läsa och skriva till filer</h1>
+                <p class="subtitle">Arbeta med filer och filformat.</p>
             </header>
             <section class="content-section">
-                <p>Arbeta med filer och filformat.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Kunna läsa och skriva data till textfiler med Python.</li>
+                    <li>Förstå skillnaden mellan att skriva över, lägga till och läsa från en fil.</li>
+                    <li>Använda filhantering för att spara programdata permanent.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Du lär dig bäst genom att följa konkreta exempel och själv skriva kod som öppnar, läser och sparar
+                    information. Arbeta stegvis och prova olika lägen för att se hur filinnehållet förändras. Testa
+                    gärna att koppla filhantering till ett tidigare projekt, som att spara en lista med recept eller
+                    spelresultat.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>filhantering</strong> - Teknik för att läsa och skriva data från filer.</li>
+                    <li><strong>open()</strong> - Funktion för att öppna en fil i olika lägen.</li>
+                    <li><strong>read(), write(), append()</strong> - Metoder för att hantera text i filer.</li>
+                    <li><strong>with</strong> - Konstruktion för att säkert arbeta med filer.</li>
+                </ul>
+
+                <h2>Innehåll och exempel</h2>
+
+                <h3>Skriva till fil</h3>
+                <pre><code class="language-python">with open("exempel.txt", "w") as fil:
+    fil.write("Hej filvärlden!\n")
+    fil.write("Denna text skrivs till filen.")</code></pre>
+                <p>Läget <strong>w</strong> betyder att filen skrivs över om den redan finns.</p>
+
+                <h3>Lägga till i fil</h3>
+                <pre><code class="language-python">with open("exempel.txt", "a") as fil:
+    fil.write("\nEn ny rad läggs till.")</code></pre>
+                <p>Läget <strong>a</strong> står för <em>append</em> - lägger till utan att ta bort tidigare innehåll.</p>
+
+                <h3>Läsa från fil</h3>
+                <pre><code class="language-python">with open("exempel.txt", "r") as fil:
+    innehåll = fil.read()
+
+print(innehåll)</code></pre>
+                <p>Läget <strong>r</strong> står för <em>read</em> - läser innehållet som en hel sträng.</p>
+
+                <h2>Öva - tillämpning i ett projekt</h2>
+                <p>Koppla filhantering till något du byggt tidigare, till exempel:</p>
+                <pre><code class="language-python">def spara_recept(namn, ingredienser):
+    with open("recept.txt", "a") as fil:
+        fil.write(f"Recept: {namn}\n")
+        for ing in ingredienser:
+            fil.write(f"- {ing}\n")</code></pre>
+
+                <p>Testa sedan att läsa filen:</p>
+                <pre><code class="language-python">with open("recept.txt", "r") as fil:
+    print(fil.read())</code></pre>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Du kan nu öppna, läsa från och skriva till textfiler.</li>
+                    <li>Du förstår skillnaden mellan skrivlägen (<strong>w</strong>, <strong>a</strong>, <strong>r</strong>).</li>
+                    <li>Du kan använda filhantering för att spara programdata på ett enkelt sätt.</li>
+                </ul>
             </section>
+
+            <div id="quiz-4-1" aria-label="Quiz Kap 4.1"></div>
+
             <p><a href="chapter-4.html">Tillbaka till Kapitel 4</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-4-1'), {
+                    title: 'Quiz: Kap 4.1 - Läsa och skriva till filer',
+                    questions: [
+                        {
+                            question: 'Vilket filläge skriver över en befintlig fil?',
+                            options: [
+                                'r',
+                                'a',
+                                'w',
+                                'x'
+                            ],
+                            correct: 2,
+                            feedback: '"w" skriver över filen.',
+                            explanation: 'Använd "w" för att skriva (overwrite) en fil; befintligt innehåll ersätts.'
+                        },
+                        {
+                            question: 'Vad gör konstruktionen "with open(...) as f"?',
+                            options: [
+                                'Den läser filen tecken för tecken automatiskt',
+                                'Den säkerställer att filen stängs automatiskt efter användning',
+                                'Den kör filen som ett program',
+                                'Den konverterar filinnehållet till JSON'
+                            ],
+                            correct: 1,
+                            feedback: '"with" hanterar resursen och stänger filen automatiskt.',
+                            explanation: '"with" används för att garantera att filen stängs även om ett undantag uppstår.'
+                        },
+                        {
+                            question: 'Vilket läge använder du för att lägga till text i slutet av en fil?',
+                            options: [
+                                'w',
+                                'r',
+                                'a',
+                                'b'
+                            ],
+                            correct: 2,
+                            feedback: '"a" lägger till (append) nytt innehåll utan att radera befintligt.',
+                            explanation: 'Använd "a" när du vill skriva nya rader utan att ta bort tidigare innehåll.'
+                        },
+                        {
+                            question: 'Vilket filläge skapar en ny fil men misslyckas om filen redan finns?',
+                            options: [
+                                'w',
+                                'x',
+                                'a',
+                                'r'
+                            ],
+                            correct: 1,
+                            feedback: '"x" skapar en fil och felar om den redan finns.',
+                            explanation: 'Använd "x" när du vill skapa en ny fil och undvika att skriva över befintliga filer.'
+                        },
+                        {
+                            question: 'Vilken metod läser hela filen som en lista med rader?',
+                            options: [
+                                'read()',
+                                'readline()',
+                                'readlines()',
+                                'iter()'
+                            ],
+                            correct: 2,
+                            feedback: '"readlines()" returnerar en lista med filens rader.',
+                            explanation: '"readlines()" läser in filen och returnerar varje rad som ett element i en lista.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

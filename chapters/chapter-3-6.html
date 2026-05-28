@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Kap 3.6 - UML för objektmodeller</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 3.6: UML-klassdiagram för objektmodeller med attribut, metoder, association och arv.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,258 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 3.6: UML för objektmodeller</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 3.6 – UML för objektmodeller</h1>
+                <p class="subtitle">Planera objektorienterade program med klassdiagram, attribut, metoder och relationer.</p>
             </header>
+
             <section class="content-section">
-                <p>Övningar i UML-diagram.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå vad ett UML-klassdiagram är och hur det används för att planera programstruktur.</li>
+                    <li>Kunna tolka enkla UML-diagram och koppla dem till kod.</li>
+                    <li>Kunna skapa egna UML-klassdiagram med attribut, metoder och relationer.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>UML är inte kod. Det är ett visuellt språk för att strukturera din kod innan du skriver den. Studera
+                    exemplen noggrant och försök sedan att omvandla UML till kod, eller kod till UML. UML hjälper dig att
+                    få överblick och planera logiskt.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>UML:</strong> ett standardiserat sätt att rita upp system och programstruktur.</li>
+                    <li><strong>Klassdiagram:</strong> en UML-modell som visar klasser, attribut, metoder och relationer.</li>
+                    <li><strong>Attribut eller fält:</strong> variabler som hör till en klass eller ett objekt, till exempel <code>self.name</code> eller <code>self.balance</code>.</li>
+                    <li><strong>Metoder:</strong> funktioner som hör till en klass eller ett objekt.</li>
+                    <li><strong>Association:</strong> en relation mellan två klasser.</li>
+                    <li><strong>Arv:</strong> en relation där en klass ärver från en annan.</li>
+                </ul>
+
+                <h2>UML för objektmodeller</h2>
+                <p>Ett klassdiagram visar ofta varje klass som en ruta med tre delar:</p>
+                <ol>
+                    <li>klassens namn,</li>
+                    <li>attribut, alltså fält eller variabler,</li>
+                    <li>metoder, alltså funktioner eller beteenden.</li>
+                </ol>
+
+                <h2>Exempel: klassdiagram för Dog</h2>
+                <pre><code class="language-mermaid">classDiagram
+    class Dog {
+        -string name
+        -int age
+        +bark() void
+        +haveBirthday() void
+    }</code></pre>
+
+                <p>Symbolerna betyder:</p>
+                <ul>
+                    <li><code>+</code> betyder publik.</li>
+                    <li><code>-</code> betyder privat.</li>
+                    <li><code>#</code> betyder skyddad, alltså protected.</li>
+                    <li>Typen, till exempel <code>string</code> eller <code>int</code>, visar vilken datatyp attributet har.</li>
+                </ul>
+
+                <h2>Relationer mellan klasser: arv</h2>
+                <p>Arv visas med en pil från subklassen till basklassen. Här ärver <code>Dog</code> från
+                    <code>Animal</code>.</p>
+                <pre><code class="language-mermaid">classDiagram
+    Animal &lt;|-- Dog
+
+    class Animal {
+        +speak() void
+    }
+
+    class Dog {
+        +bark() void
+        +speak() void
+    }</code></pre>
+
+                <h2>Association mellan klasser</h2>
+                <p>Association betyder att två klasser har en koppling. En student kan till exempel gå på en skola.</p>
+                <pre><code class="language-mermaid">classDiagram
+    Student --&gt; School : attends
+
+    class Student {
+        -string name
+        -int age
+        +printInfo() void
+    }
+
+    class School {
+        -string name
+        -string city
+        +addStudent(student) void
+    }</code></pre>
+
+                <h2>Exempel: bankapplikation</h2>
+                <p>En enkel bankmodell kan innehålla kunder, konton och en bank. Diagrammet visar att en bank har kunder
+                    och att en kund kan ha konton.</p>
+                <pre><code class="language-mermaid">classDiagram
+    Bank -- Customer : has
+    Customer -- Account : owns
+
+    class Bank {
+        -string name
+        +addCustomer(customer) void
+        +findCustomer(name) Customer
+    }
+
+    class Customer {
+        -string name
+        -string customerId
+        +addAccount(account) void
+        +getAccounts() list
+    }
+
+    class Account {
+        -string accountNumber
+        -float balance
+        +deposit(amount) void
+        +withdraw(amount) bool
+        +getBalance() float
+    }</code></pre>
+
+                <h2>Öva: analysera och skapa UML</h2>
+                <ol>
+                    <li>Skapa ett klassdiagram för en enkel bankapplikation med klasserna <code>Customer</code>, <code>Account</code> och <code>Bank</code>.</li>
+                    <li>Visa vilka attribut och metoder som varje klass har.</li>
+                    <li>Rita ut associationer, till exempel att en kund kan ha flera konton.</li>
+                    <li>Omvandla ett tidigare program du skrivit till ett UML-diagram.</li>
+                </ol>
+
+                <h2>Verktyg att använda</h2>
+                <p>Du kan rita UML för hand eller med digitala verktyg som draw.io, Lucidchart, yEd eller StarUML. Det
+                    viktiga är inte programmet utan att du kan strukturera och förklara din idé.</p>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>UML-klassdiagram visar klasser, attribut, metoder och relationer visuellt.</li>
+                    <li>De hjälper dig att planera, förklara och strukturera din kod.</li>
+                    <li>Arv, association och inkapsling kan visas grafiskt.</li>
+                    <li>UML är ett kraftfullt analysverktyg för objektorienterad programmering.</li>
+                </ul>
             </section>
+
+            <div id="quiz-3-6" aria-label="Quiz Kap 3.6"></div>
+
             <p><a href="chapter-3.html">Tillbaka till Kapitel 3</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                lineColor: '#f4f7fb',
+                textColor: '#f4f7fb',
+                primaryBorderColor: '#f4f7fb',
+                relationLabelColor: '#f4f7fb',
+                tertiaryTextColor: '#f4f7fb'
+            }
+        })
+
+        function renderMermaidForRoot(root = document) {
+            const blocks = root.querySelectorAll
+                ? root.querySelectorAll('code.language-mermaid')
+                : []
+            const toRender = []
+
+            blocks.forEach(code => {
+                if (code.dataset.mermaidProcessed) return
+
+                const container = document.createElement('div')
+                container.className = 'mermaid'
+                container.textContent = code.textContent
+                code.parentNode.replaceWith(container)
+                code.dataset.mermaidProcessed = '1'
+                toRender.push(container)
+            })
+
+            if (toRender.length) mermaid.init(undefined, toRender)
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMermaidForRoot(document)
+        })
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-3-6'), {
+                    title: 'Quiz: Kap 3.6 - UML för objektmodeller',
+                    questions: [
+                        {
+                            question: 'Vad visar ett UML-klassdiagram?',
+                            options: [
+                                'Endast färdiga Python-filer',
+                                'Klasser, attribut, metoder och relationer',
+                                'Bara felmeddelanden i programmet',
+                                'En lista över installerade bibliotek'
+                            ],
+                            correct: 1,
+                            feedback: 'Ett klassdiagram visar programstruktur visuellt.',
+                            explanation: 'Det hjälper dig se vilka klasser som finns och hur de hänger ihop.'
+                        },
+                        {
+                            question: 'Vad betyder ett attribut i ett klassdiagram?',
+                            options: [
+                                'En metod som kör hela programmet',
+                                'En variabel eller ett fält i en klass',
+                                'En relation som alltid betyder arv',
+                                'En kommentar som inte hör till klassen'
+                            ],
+                            correct: 1,
+                            feedback: 'Attribut motsvarar data i en klass.',
+                            explanation: 'Exempel är name, age eller balance.'
+                        },
+                        {
+                            question: 'Vad betyder association i UML?',
+                            options: [
+                                'Att en klass saknar metoder',
+                                'Att alla attribut är privata',
+                                'Att två klasser har en koppling eller relation',
+                                'Att en metod måste returnera true'
+                            ],
+                            correct: 2,
+                            feedback: 'Association visar att klasser är kopplade till varandra.',
+                            explanation: 'Exempel: en Customer kan ha ett eller flera Account-objekt.'
+                        },
+                        {
+                            question: 'Vad visar en arv-relation i ett klassdiagram?',
+                            options: [
+                                'Att två klasser aldrig får samarbeta',
+                                'Att alla objekt ska sorteras alfabetiskt',
+                                'Att en metod är privat',
+                                'Att en klass ärver från en annan klass'
+                            ],
+                            correct: 3,
+                            feedback: 'Arv visar att en subklass bygger vidare på en basklass.',
+                            explanation: 'Exempel: Dog kan ärva från Animal.'
+                        },
+                        {
+                            question: 'Varför används UML innan man skriver kod?',
+                            options: [
+                                'För att slippa testa programmet',
+                                'För att planera och förklara strukturen innan implementation',
+                                'För att UML automatiskt skapar alla Python-filer',
+                                'För att ta bort behovet av klasser'
+                            ],
+                            correct: 1,
+                            feedback: 'UML hjälper dig planera innan implementation.',
+                            explanation: 'Diagrammet ger överblick över ansvar, relationer och struktur.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

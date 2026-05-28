@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 3.4 - Sekvensdiagram och interaktion</title>
+    <title>Kap 3.4 - Inkapsling och attribut</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 3.4: Inkapsling, privata attribut, getters och setters i Python.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,166 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 3.4: Sekvensdiagram och interaktion</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 3.4 – Inkapsling och attribut</h1>
+                <p class="subtitle">Skydda objektets data och styr åtkomst med metoder.</p>
             </header>
+
             <section class="content-section">
-                <p>Övningar med sekvensdiagram och mer.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå vad inkapsling innebär och varför det är viktigt.</li>
+                    <li>Känna till hur man markerar privata attribut i Python.</li>
+                    <li>Kunna använda metoder, getters och setters, för att kontrollera åtkomst till data.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Tänk på inkapsling som att bygga en maskin där vissa delar är synliga och andra dolda. Börja med
+                    exemplen och testa att göra attribut privata. Skapa egna metoder som kontrollerar hur data läses och
+                    skrivs. Jämför med hur du använt attribut direkt tidigare.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>Inkapsling:</strong> att dölja objektets inre data och endast ge åtkomst via metoder.</li>
+                    <li><strong>Publikt attribut:</strong> ett fält som kan nås direkt utifrån.</li>
+                    <li><strong>Privat attribut:</strong> ett fält som är avsett att döljas, ofta skrivet med ett inledande understreck.</li>
+                    <li><strong>Getter och setter:</strong> metoder som används för att läsa eller ändra privata fält.</li>
+                </ul>
+
+                <p>Inkapsling är en grundsten i OOP eftersom det skyddar objektets inre tillstånd och minskar risken för
+                    fel. Det gör också din kod tydligare och mer kontrollerad.</p>
+
+                <h2>Använda inkapsling i Python</h2>
+                <p>I Python är inget egentligen helt privat, men det är praxis att markera ett attribut som privat med ett
+                    inledande understreck: <code>_</code>.</p>
+
+                <pre><code>class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self._balance = balance  # privat attribut
+
+    def deposit(self, amount):
+        if amount &gt; 0:
+            self._balance += amount
+
+    def withdraw(self, amount):
+        if 0 &lt; amount &lt;= self._balance:
+            self._balance -= amount
+
+    def get_balance(self):
+        return self._balance</code></pre>
+
+                <p>Här används metoderna <code>deposit()</code>, <code>withdraw()</code> och
+                    <code>get_balance()</code> för att hantera saldot på ett kontrollerat sätt.</p>
+                <p>En setter är användbar när du vill kontrollera ett nytt värde innan det sparas i objektet. Du kan
+                    till exempel stoppa negativa tal, för höga betyg eller andra ogiltiga värden innan de ändrar
+                    objektets tillstånd.</p>
+
+                <pre><code>account = BankAccount("Emma", 1000)
+
+account.deposit(500)
+account.withdraw(200)
+
+print(account.get_balance())</code></pre>
+
+                <p>Detta säkerställer att inga negativa uttag kan ske och att balansen skyddas.</p>
+
+                <h2>Öva: skapa egna inkapslade attribut</h2>
+                <ol>
+                    <li>Skapa en klass <code>Student</code> med namnet publikt och betyg som ett privat attribut <code>_grade</code>.</li>
+                    <li>Skriv en metod <code>set_grade()</code> som bara godkänner betyg mellan 0 och 100.</li>
+                    <li>Skriv en metod <code>get_grade()</code> som returnerar betyget.</li>
+                    <li>Testa att skapa en elev och ändra betyg med metoden.</li>
+                </ol>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Inkapsling handlar om att skydda data och endast ge åtkomst via metoder.</li>
+                    <li>Python använder understreck <code>_</code> för att markera privata attribut.</li>
+                    <li>Metoder som <code>get_</code> och <code>set_</code> används för att hantera privata fält.</li>
+                    <li>Inkapsling förbättrar säkerhet, läsbarhet och kodens hållbarhet.</li>
+                </ul>
             </section>
+
+            <div id="quiz-3-4" aria-label="Quiz Kap 3.4"></div>
+
             <p><a href="chapter-3.html">Tillbaka till Kapitel 3</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-3-4'), {
+                    title: 'Quiz: Kap 3.4 - Inkapsling och attribut',
+                    questions: [
+                        {
+                            question: 'Vad innebär inkapsling i objektorienterad programmering?',
+                            options: [
+                                'Att all kod skrivs i en enda funktion',
+                                'Att objektets interna data skyddas och nås via kontrollerade metoder',
+                                'Att programmet inte får ha några attribut',
+                                'Att alla variabler automatiskt blir globala'
+                            ],
+                            correct: 1,
+                            feedback: 'Inkapsling handlar om att skydda objektets interna data.',
+                            explanation: 'I stället för att ändra data direkt kan du styra åtkomsten genom metoder.'
+                        },
+                        {
+                            question: 'Hur markerar man ofta ett privat attribut i Python?',
+                            options: [
+                                'Med ett inledande understreck, till exempel _balance',
+                                'Med tre utropstecken före namnet',
+                                'Genom att skriva attributet med stora bokstäver',
+                                'Genom att lägga attributet i en lista'
+                            ],
+                            correct: 0,
+                            feedback: 'Ett inledande understreck används som konvention för privata attribut.',
+                            explanation: 'Python stoppar inte alltid åtkomsten, men understrecket signalerar att attributet ska behandlas som internt.'
+                        },
+                        {
+                            question: 'Vad är en getter?',
+                            options: [
+                                'En metod som alltid tar bort ett objekt',
+                                'En loop som går igenom alla attribut',
+                                'En metod som hämtar eller returnerar ett värde',
+                                'Ett felmeddelande vid privat åtkomst'
+                            ],
+                            correct: 2,
+                            feedback: 'En getter används för att läsa ett värde.',
+                            explanation: 'Exempel: get_balance() returnerar kontots saldo.'
+                        },
+                        {
+                            question: 'Varför är en setter användbar?',
+                            options: [
+                                'För att den alltid gör attribut publika',
+                                'För att den kan kontrollera om ett nytt värde är giltigt innan det sparas',
+                                'För att den ersätter behovet av klasser',
+                                'För att den körs innan __init__'
+                            ],
+                            correct: 1,
+                            feedback: 'Setters kan validera data innan den ändras.',
+                            explanation: 'En set_grade()-metod kan till exempel kontrollera att betyget ligger mellan 0 och 100.'
+                        },
+                        {
+                            question: 'Varför kan inkapsling minska risken för fel i ett program?',
+                            options: [
+                                'För att alla attribut då alltid blir globala',
+                                'För att objektets data kan ändras direkt från vilken kod som helst',
+                                'För att åtkomst till data kan styras genom metoder som kontrollerar värden',
+                                'För att programmet inte längre behöver några klasser'
+                            ],
+                            correct: 2,
+                            feedback: 'Inkapsling låter objektet kontrollera hur dess data läses och ändras.',
+                            explanation: 'När ändringar går via metoder kan programmet stoppa ogiltiga värden innan de sparas.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>
