@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 5.4 - Skapa GUI</title>
+    <title>Kap 5.4 - Skapa GUI med tkinter</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 5.4: Lär dig skapa grafiska användargränssnitt i Python med tkinter, widgets och eventhantering.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,176 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 5.4: Skapa GUI</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 5.4 – Skapa GUI med tkinter</h1>
+                <p class="subtitle">Bygg ett enkelt fönster med textfält, knapp och funktioner som reagerar på klick.</p>
             </header>
+
             <section class="content-section">
-                <p>Intro till grafiska gränssnitt i kursens kontext.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå vad ett grafiskt användargränssnitt, GUI, är och varför det används.</li>
+                    <li>Känna till grunderna i biblioteket <code>tkinter</code>.</li>
+                    <li>Kunna skapa ett enkelt GUI med etiketter, textfält, knappar och funktioner.</li>
+                    <li>Kunna koppla GUI-element till funktioner i din kod.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Du lär dig bäst genom att först bygga ett enkelt fönster med ett fåtal komponenter: en etikett, ett
+                    textfält och en knapp. När du ser hur gränssnittet reagerar på dina klick och inmatningar kan du
+                    börja koppla det till funktioner, till exempel att spara något, visa resultat eller hämta data från
+                    en fil. Tänk på att <code>tkinter</code> arbetar med en händelsestyrd modell: programmet väntar på
+                    att användaren ska göra något.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>GUI</strong> - Graphical User Interface, ett användarvänligt gränssnitt med knappar,
+                        textfält och fönster.</li>
+                    <li><strong>tkinter</strong> - Ett inbyggt Pythonbibliotek för att skapa GUI-program.</li>
+                    <li><strong>Widget</strong> - Ett grafiskt element, till exempel knapp, etikett eller textfält.</li>
+                    <li><strong>Eventhantering</strong> - Koden som reagerar när användaren klickar, skriver eller
+                        trycker.</li>
+                </ul>
+
+                <h2>Exempel: Enkel GUI-applikation</h2>
+                <pre><code class="language-python">import tkinter as tk
+
+def visa_meddelande():
+    namn = namn_entry.get()
+    resultat_label.config(text=f"Hej, {namn}!")
+
+# Skapa fönster
+rot = tk.Tk()
+rot.title("Mitt första GUI")
+
+# Skapa etikett och textfält
+tk.Label(rot, text="Vad heter du?").pack()
+namn_entry = tk.Entry(rot)
+namn_entry.pack()
+
+# Skapa knapp
+tk.Button(rot, text="Säg hej", command=visa_meddelande).pack()
+
+# Skapa resultatetikett
+resultat_label = tk.Label(rot, text="")
+resultat_label.pack()
+
+# Starta programmet
+rot.mainloop()</code></pre>
+
+                <h2>Att förstå koden</h2>
+                <ul>
+                    <li><code>tk.Tk()</code> skapar ett nytt fönster.</li>
+                    <li><code>Entry</code> används för att läsa in text från användaren.</li>
+                    <li><code>Button</code> skapar en knapp som kan kopplas till en funktion.</li>
+                    <li><code>pack()</code> används för att placera ut element i fönstret.</li>
+                    <li><code>command=visa_meddelande</code> kopplar funktionen till knapptryckningen.</li>
+                    <li><code>mainloop()</code> startar GUI-programmet och väntar på användarens händelser.</li>
+                </ul>
+
+                <h2>Så fungerar händelsestyrning</h2>
+                <p>I ett terminalprogram körs koden ofta uppifrån och ned. I ett GUI-program skapas först fönstret och
+                    dess widgets. Sedan väntar programmet på händelser, till exempel att användaren klickar på en knapp.
+                    När knappen trycks körs funktionen som är kopplad till <code>command</code>.</p>
+
+                <h2>Öva - Gör ett eget GUI-program</h2>
+                <ol>
+                    <li>Skapa ett program med ett fönster där användaren kan skriva in data, till exempel ett namn eller
+                        ett tal.</li>
+                    <li>Lägg till en knapp som kör en funktion.</li>
+                    <li>Visa ett resultat i fönstret med en <code>Label</code>.</li>
+                    <li>Lägg till fler widgets, till exempel en dropdown, checkruta eller lista.</li>
+                    <li>Testa att koppla GUI:t till funktioner du skrivit tidigare i kursen.</li>
+                </ol>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Du har skapat ett första grafiskt gränssnitt med <code>tkinter</code>.</li>
+                    <li>Du har använt etiketter, textfält och knappar.</li>
+                    <li>Du har kopplat knapptryck till funktioner i din kod.</li>
+                    <li>Du har påbörjat en övergång från terminalbaserade program till användarvänliga GUI-lösningar.</li>
+                </ul>
             </section>
+
+            <div id="quiz-5-4" aria-label="Quiz Kap 5.4"></div>
+
             <p><a href="chapter-5.html">Tillbaka till Kapitel 5</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-5-4'), {
+                    title: 'Quiz: Kap 5.4 - Skapa GUI med tkinter',
+                    questions: [
+                        {
+                            question: 'Vad är ett GUI?',
+                            options: [
+                                'Ett grafiskt användargränssnitt med till exempel knappar och fönster',
+                                'En typ av databasfråga',
+                                'Ett felmeddelande i terminalen',
+                                'En funktion som bara sorterar listor'
+                            ],
+                            correct: 0,
+                            feedback: 'GUI betyder grafiskt användargränssnitt.',
+                            explanation: 'Ett GUI gör att användaren kan interagera med programmet via visuella element.'
+                        },
+                        {
+                            question: 'Vilket bibliotek används i kapitlet för att skapa GUI i Python?',
+                            options: [
+                                'sqlite3',
+                                'requests',
+                                'tkinter',
+                                'random'
+                            ],
+                            correct: 2,
+                            feedback: 'tkinter används för att skapa GUI-program.',
+                            explanation: 'tkinter är ett inbyggt Pythonbibliotek för fönster, knappar och andra widgets.'
+                        },
+                        {
+                            question: 'Vad är en widget?',
+                            options: [
+                                'Ett grafiskt element, till exempel knapp eller textfält',
+                                'Enbart en Pythonfil',
+                                'En typ av syntaxfel',
+                                'Ett kommando för att installera paket'
+                            ],
+                            correct: 0,
+                            feedback: 'En widget är ett grafiskt element i gränssnittet.',
+                            explanation: 'Exempel på widgets är Label, Entry och Button.'
+                        },
+                        {
+                            question: 'Vad gör command=visa_meddelande i en Button?',
+                            options: [
+                                'Den stänger Python automatiskt',
+                                'Den kopplar en funktion till knapptryckningen',
+                                'Den skapar en databas',
+                                'Den ändrar filnamnet'
+                            ],
+                            correct: 1,
+                            feedback: 'command kopplar knappen till en funktion.',
+                            explanation: 'När användaren klickar på knappen körs funktionen visa_meddelande.'
+                        },
+                        {
+                            question: 'Vad gör mainloop() i ett tkinter-program?',
+                            options: [
+                                'Den raderar alla widgets',
+                                'Den gör om JSON till Pythondata',
+                                'Den startar programmets händelseloop',
+                                'Den installerar tkinter'
+                            ],
+                            correct: 2,
+                            feedback: 'mainloop() startar GUI-programmets händelseloop.',
+                            explanation: 'Programmet fortsätter att vänta på användarens klick och inmatningar.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

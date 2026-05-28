@@ -105,65 +105,65 @@ import strid</code></pre>
                     title: 'Quiz: Kap 4.3 - Egna moduler och import',
                     questions: [
                         {
-                            question: 'Vad är en modul i Python?',
-                            options: [
-                                'En fil i Python som innehåller funktioner, klasser eller variabler',
-                                'En särskild typ av loop',
-                                'En vanlig sträng',
-                                'Ett felmeddelande'
-                            ],
-                            correct: 0,
-                            feedback: 'Rätt, en modul är en .py-fil med kod som kan återanvändas.',
-                            explanation: 'Moduler används för att samla funktioner, klasser och variabler i egna filer.'
-                        },
-                        {
-                            question: 'Hur importerar du hela modulen `verktyg`?',
-                            options: [
-                                'import verktyg',
-                                'from verktyg import import',
-                                'use verktyg',
-                                'load verktyg'
-                            ],
-                            correct: 0,
-                            feedback: 'Rätt, då kan du använda `verktyg.hälsa()` och `verktyg.kvadrat()`.',
-                            explanation: 'Med `import verktyg` får du tillgång till hela modulen.'
-                        },
-                        {
-                            question: 'Hur importerar du bara funktionen `hälsa` från `verktyg`?',
-                            options: [
-                                'from verktyg import hälsa',
-                                'import hälsa from verktyg',
-                                'from hälsa import verktyg',
-                                'use hälsa from verktyg'
-                            ],
-                            correct: 0,
-                            feedback: 'Rätt, då kan du skriva `hälsa("Leo")` direkt.',
-                            explanation: 'Denna syntax importerar bara den funktion du behöver.'
-                        },
-                        {
-                            question: 'Vad gör aliaset `as v` i `import verktyg as v`?',
-                            options: [
-                                'Ger modulen ett kortare namn',
-                                'Tar bort modulens funktioner',
-                                'Gör modulen tom',
-                                'Skapar en ny fil'
-                            ],
-                            correct: 0,
-                            feedback: 'Ja, alias gör namnet kortare och enklare att skriva.',
-                            explanation: 'Alias är användbart om modulnamnet är långt eller om du vill skriva mindre.'
-                        },
-                        {
-                            question: 'Varför är det bra att dela upp kod i moduler?',
-                            options: [
-                                'Koden blir lättare att förstå och testa',
-                                'Programmet blir alltid långsammare',
-                                'Man kan inte importera längre',
-                                'All kod måste ligga i en fil'
-                            ],
-                            correct: 0,
-                            feedback: 'Precis, moduler gör koden mer organiserad och återanvändbar.',
-                            explanation: 'Att dela upp kod i moduler minskar duplicering och gör projekt enklare att arbeta med.'
-                        }
+	                            question: 'Vad är en modul i Python?',
+	                            options: [
+	                                'En särskild typ av loop',
+	                                'En fil i Python som innehåller funktioner, klasser eller variabler',
+	                                'En vanlig sträng',
+	                                'Ett felmeddelande'
+	                            ],
+	                            correct: 1,
+	                            feedback: 'Rätt, en modul är en .py-fil med kod som kan återanvändas.',
+	                            explanation: 'Moduler används för att samla funktioner, klasser och variabler i egna filer.'
+	                        },
+	                        {
+	                            question: 'Hur importerar du hela modulen `verktyg`?',
+	                            options: [
+	                                'from verktyg import import',
+	                                'import verktyg',
+	                                'use verktyg',
+	                                'load verktyg'
+	                            ],
+	                            correct: 1,
+	                            feedback: 'Rätt, då kan du använda `verktyg.hälsa()` och `verktyg.kvadrat()`.',
+	                            explanation: 'Med `import verktyg` får du tillgång till hela modulen.'
+	                        },
+	                        {
+	                            question: 'Hur importerar du bara funktionen `hälsa` från `verktyg`?',
+	                            options: [
+	                                'import hälsa from verktyg',
+	                                'from hälsa import verktyg',
+	                                'from verktyg import hälsa',
+	                                'use hälsa from verktyg'
+	                            ],
+	                            correct: 2,
+	                            feedback: 'Rätt, då kan du skriva `hälsa("Leo")` direkt.',
+	                            explanation: 'Denna syntax importerar bara den funktion du behöver.'
+	                        },
+	                        {
+	                            question: 'Vad gör aliaset `as v` i `import verktyg as v`?',
+	                            options: [
+	                                'Tar bort modulens funktioner',
+	                                'Gör modulen tom',
+	                                'Ger modulen ett kortare namn',
+	                                'Skapar en ny fil'
+	                            ],
+	                            correct: 2,
+	                            feedback: 'Ja, alias gör namnet kortare och enklare att skriva.',
+	                            explanation: 'Alias är användbart om modulnamnet är långt eller om du vill skriva mindre.'
+	                        },
+	                        {
+	                            question: 'Varför är det bra att dela upp kod i moduler?',
+	                            options: [
+	                                'Programmet blir alltid långsammare',
+	                                'Man kan inte importera längre',
+	                                'All kod måste ligga i en fil',
+	                                'Koden blir lättare att förstå och testa'
+	                            ],
+	                            correct: 3,
+	                            feedback: 'Precis, moduler gör koden mer organiserad och återanvändbar.',
+	                            explanation: 'Att dela upp kod i moduler minskar duplicering och gör projekt enklare att arbeta med.'
+	                        }
                     ]
                 })
             }

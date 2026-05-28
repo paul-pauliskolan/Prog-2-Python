@@ -36,7 +36,8 @@
                 <ul>
                     <li><strong>filhantering</strong> - Teknik för att läsa och skriva data från filer.</li>
                     <li><strong>open()</strong> - Funktion för att öppna en fil i olika lägen.</li>
-                    <li><strong>read(), write(), append()</strong> - Metoder för att hantera text i filer.</li>
+                    <li><strong>read() och write()</strong> - Metoder för att läsa och skriva text i filer.</li>
+                    <li><strong>fillägena r, w och a</strong> - Lägen för att läsa, skriva över eller lägga till innehåll.</li>
                     <li><strong>with</strong> - Konstruktion för att säkert arbeta med filer.</li>
                 </ul>
 
@@ -132,28 +133,28 @@ print(innehåll)</code></pre>
                             explanation: 'Använd "a" när du vill skriva nya rader utan att ta bort tidigare innehåll.'
                         },
                         {
-                            question: 'Vilket filläge skapar en ny fil men misslyckas om filen redan finns?',
+                            question: 'Varför är filhantering användbart i ett program?',
                             options: [
-                                'w',
-                                'x',
-                                'a',
-                                'r'
+                                'För att programmet ska kunna spara data även efter att det avslutas',
+                                'För att alla variabler automatiskt blir globala',
+                                'För att programmet ska kunna köras utan kod',
+                                'För att Python ska ignorera fel i programmet'
                             ],
-                            correct: 1,
-                            feedback: '"x" skapar en fil och felar om den redan finns.',
-                            explanation: 'Använd "x" när du vill skapa en ny fil och undvika att skriva över befintliga filer.'
+                            correct: 0,
+                            feedback: 'Filhantering gör att data kan sparas permanent.',
+                            explanation: 'Utan filhantering försvinner vanligtvis programmets data när programmet avslutas.'
                         },
                         {
-                            question: 'Vilken metod läser hela filen som en lista med rader?',
+                            question: 'Vad händer när du läser en fil med read() i lektionens exempel?',
                             options: [
-                                'read()',
-                                'readline()',
-                                'readlines()',
-                                'iter()'
+                                'Filen raderas efter att den har lästs',
+                                'Innehållet läses in som en hel sträng',
+                                'Texten läggs automatiskt till längst ned i filen',
+                                'Filen skrivs över med en tom rad'
                             ],
-                            correct: 2,
-                            feedback: '"readlines()" returnerar en lista med filens rader.',
-                            explanation: '"readlines()" läser in filen och returnerar varje rad som ett element i en lista.'
+                            correct: 1,
+                            feedback: 'read() läser filens innehåll som en sträng.',
+                            explanation: 'I exemplet sparas resultatet från read() i variabeln innehåll och skrivs sedan ut.'
                         }
                     ]
                 })

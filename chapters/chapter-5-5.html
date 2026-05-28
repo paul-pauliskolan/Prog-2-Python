@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 5.5 - Testning och dokumentation</title>
+    <title>Kap 5.5 - Testning, dokumentation och reflektion</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 5.5: Lär dig testa, dokumentera och reflektera över ditt programmeringsprojekt.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,214 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 5.5: Testning och dokumentation</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 5.5 – Testning, dokumentation och reflektion</h1>
+                <p class="subtitle">Kontrollera att projektet fungerar, beskriv hur det används och reflektera över arbetet.</p>
             </header>
+
             <section class="content-section">
-                <p>Arbetsflöde för tester och dokumentation.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå varför testning är en viktig del av programutveckling.</li>
+                    <li>Kunna testa ditt program systematiskt med olika indata och kontrollera resultat.</li>
+                    <li>Dokumentera din kod så att andra, och du själv, förstår den.</li>
+                    <li>Reflektera över din arbetsprocess och vad du lärt dig under projektet.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Gå tillbaka till ditt projekt och tänk som en utomstående testare: vad kan gå fel? Vad händer om
+                    användaren matar in något oväntat? Dokumentera tydligt hur programmet fungerar och skriv kommentarer
+                    som förklarar syfte och funktion i viktiga delar. Skriv sedan en kort reflektion över vad du har lärt
+                    dig, vilka utmaningar du stött på och hur du löste dem.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>Testfall</strong> - Specifika situationer som testas i programmet, ofta med förväntat
+                        utfall.</li>
+                    <li><strong>Felhantering</strong> - Att identifiera och hantera problem, till exempel felaktig
+                        inmatning eller trasig databasanslutning.</li>
+                    <li><strong>Kommentarer</strong> - Förklarande text i koden som inte påverkar programmets funktion.</li>
+                    <li><strong>README</strong> - En textfil som beskriver programmet, dess syfte, funktion och hur man
+                        använder det.</li>
+                    <li><strong>Reflektion</strong> - Att tänka tillbaka på hur arbetet gått och vad man lärt sig.</li>
+                </ul>
+
+                <h2>1. Testa ditt program</h2>
+                <p>Kontrollera vad som händer i både vanliga och ovanliga situationer. Testa till exempel:</p>
+                <ul>
+                    <li>Rätt och fel inmatning.</li>
+                    <li>Tomma fält.</li>
+                    <li>Specialtecken.</li>
+                    <li>Extremt långa värden.</li>
+                    <li>Avslut och avbrott.</li>
+                </ul>
+
+                <p>Använd gärna en checklista där du skriver vad du testar, vilken indata du använder och vad du förväntar
+                    dig att programmet ska göra.</p>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Testbeskrivning</th>
+                            <th>Indata</th>
+                            <th>Förväntat resultat</th>
+                            <th>Utfört</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lägg till post</td>
+                            <td>"Testnamn"</td>
+                            <td>Posten sparas</td>
+                            <td>Ja/Nej</td>
+                        </tr>
+                        <tr>
+                            <td>Visa lista</td>
+                            <td>-</td>
+                            <td>Alla poster visas</td>
+                            <td>Ja/Nej</td>
+                        </tr>
+                        <tr>
+                            <td>Sök efter tom sträng</td>
+                            <td>""</td>
+                            <td>Felmeddelande visas</td>
+                            <td>Ja/Nej</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>2. Dokumentera koden</h2>
+                <p>Kommentarer ska hjälpa läsaren att förstå syftet med koden. Det görs ofta på engelska i professionella
+                    projekt, men i den här kursen kan du välja svenska eller engelska.</p>
+
+                <pre><code class="language-python">def add_recipe():
+    # Hämtar input från användaren och lägger till recept i databasen
+    ...</code></pre>
+
+                <p>Skapa också en README-fil för projektet. Den bör innehålla:</p>
+                <ul>
+                    <li>Programbeskrivning.</li>
+                    <li>Funktioner.</li>
+                    <li>Hur man kör programmet.</li>
+                    <li>Eventuella kända buggar eller begränsningar.</li>
+                </ul>
+
+                <h2>Exempel på README-struktur</h2>
+                <pre><code># Projektets namn
+
+Kort beskrivning av vad programmet gör.
+
+## Funktioner
+- Lägg till data
+- Visa data
+- Sök efter data
+
+## Så kör du programmet
+1. Öppna projektmappen.
+2. Kör main.py.
+3. Följ menyn i terminalen.
+
+## Kända begränsningar
+- Programmet hanterar ännu inte alla typer av felaktig inmatning.</code></pre>
+
+                <h2>3. Reflektera</h2>
+                <p>Svara på dessa frågor i din reflektion, muntligt eller skriftligt:</p>
+                <ul>
+                    <li>Vad fungerade bäst i projektet?</li>
+                    <li>Vad var mest utmanande?</li>
+                    <li>Hur löste du problem du stötte på?</li>
+                    <li>Vilka delar av programmering förstår du bättre nu?</li>
+                    <li>Vad vill du lära dig mer om?</li>
+                </ul>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Du har testat programmet med olika scenarier.</li>
+                    <li>Du har dokumenterat din kod och skapat en README-fil.</li>
+                    <li>Du har reflekterat över hur du arbetat och vad du lärt dig.</li>
+                    <li>Du har utvecklat både tekniska och analytiska färdigheter.</li>
+                </ul>
             </section>
+
+            <div id="quiz-5-5" aria-label="Quiz Kap 5.5"></div>
+
             <p><a href="chapter-5.html">Tillbaka till Kapitel 5</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-5-5'), {
+                    title: 'Quiz: Kap 5.5 - Testning, dokumentation och reflektion',
+                    questions: [
+                        {
+                            question: 'Vad är ett testfall?',
+                            options: [
+                                'En specifik situation som testas med ett förväntat resultat',
+                                'En fil som alltid innehåller lösenord',
+                                'En typ av loop i Python',
+                                'Ett kommando som raderar databasen'
+                            ],
+                            correct: 0,
+                            feedback: 'Ett testfall beskriver vad som testas och vad som bör hända.',
+                            explanation: 'Testfall gör testningen mer systematisk och lättare att följa upp.'
+                        },
+                        {
+                            question: 'Varför bör man testa med felaktig eller oväntad inmatning?',
+                            options: [
+                                'För att kontrollera att programmet kan hantera problem',
+                                'För att göra koden längre',
+                                'För att hoppa över dokumentation',
+                                'För att undvika att köra programmet'
+                            ],
+                            correct: 0,
+                            feedback: 'Oväntad inmatning visar om programmet är robust.',
+                            explanation: 'Användare gör inte alltid det programmet förväntar sig, därför behöver fel hanteras.'
+                        },
+                        {
+                            question: 'Vad bör en README-fil innehålla?',
+                            options: [
+                                'Endast slumpmässiga testdata',
+                                'Programbeskrivning, funktioner och hur programmet körs',
+                                'Bara koden från main.py',
+                                'Alla privata lösenord'
+                            ],
+                            correct: 1,
+                            feedback: 'README beskriver projektet och hur det används.',
+                            explanation: 'Den hjälper både andra och dig själv att förstå projektet senare.'
+                        },
+                        {
+                            question: 'Vad är en bra kommentar i kod?',
+                            options: [
+                                'En kommentar som upprepar varje rad exakt',
+                                'En kommentar som förklarar syfte eller viktig logik',
+                                'En kommentar som gör programmet snabbare',
+                                'En kommentar som ersätter testning'
+                            ],
+                            correct: 1,
+                            feedback: 'Kommentarer bör förklara varför eller vad en viktig del ansvarar för.',
+                            explanation: 'Kommentarer ska komplettera koden, inte bara upprepa självklarheter.'
+                        },
+                        {
+                            question: 'Vad är syftet med reflektion efter ett projekt?',
+                            options: [
+                                'Att slippa visa programmet',
+                                'Att tänka igenom vad man lärt sig och hur arbetet gick',
+                                'Att ta bort alla testfall',
+                                'Att göra databasen tom'
+                            ],
+                            correct: 1,
+                            feedback: 'Reflektion hjälper dig förstå din egen utveckling.',
+                            explanation: 'Genom att reflektera kan du se vad som fungerade, vad som var svårt och vad du vill förbättra.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

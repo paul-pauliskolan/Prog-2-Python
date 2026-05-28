@@ -19,28 +19,41 @@
             </header>
             <section class="content-section">
                 <h2>Mål med lektionen</h2>
-                <p>Efter denna lektion ska du kunna:</p>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
                 <ul>
-                    <li>Använda <strong>try/except</strong> för att fånga och hantera undantag.</li>
-                    <li>Förstå skillnaden mellan <strong>except</strong>, <strong>else</strong> och
-                        <strong>finally</strong>.</li>
-                    <li>Använda verktyg som <strong>print</strong> och <strong>logging</strong> för felsökning.</li>
+                    <li>Förstå varför fel uppstår i program.</li>
+                    <li>Känna till vanliga undantag i Python.</li>
+                    <li>Använda <strong>try/except</strong> för att fånga fel och fortsätta programflödet.</li>
+                    <li>Skriva tydligare och mer felsäker kod.</li>
                 </ul>
 
-                <h2>Try/except - grundläggande</h2>
+                <h2>Så här lär du dig bäst</h2>
+                <p>För att förstå <code>try/except</code> måste du testa vad som händer när något går fel. Skriv kod
+                    som kraschar och se hur Python rapporterar felet. Använd sedan <code>try/except</code> för att
+                    hantera det. Arbeta med små exempel och koppla dem till tidigare uppgifter, till exempel fel vid
+                    filhantering eller felaktig inmatning från användaren.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>undantag (exceptions)</strong> - Fel som uppstår när program körs, till exempel
+                        <code>ValueError</code> och <code>FileNotFoundError</code>.</li>
+                    <li><strong>try/except</strong> - Konstruktion som fångar fel utan att programmet kraschar.</li>
+                    <li><strong>felmeddelanden</strong> - Hjälper dig förstå vad som gick fel och var.</li>
+                </ul>
+
+                <h2>Innehåll och exempel</h2>
+
+                <h3>Exempel: konverteringsfel</h3>
                 <pre><code class="language-python">try:
-    värde = int(input("Ange ett heltal: "))
+    tal = int(input("Skriv ett heltal: "))
+    print(f"Du skrev: {tal}")
 except ValueError:
-    print("Det där var inte ett heltal.")
-else:
-    print(f"Du skrev {värde}")
-finally:
-    print("Klar.")</code></pre>
+    print("Fel: Du måste skriva ett heltal!")</code></pre>
 
-                <p><strong>except</strong> fångar specifika undantag, <strong>else</strong> körs om inget undantag
-                    uppstår och <strong>finally</strong> körs alltid.</p>
+                <p><code>ValueError</code> kan uppstå när programmet försöker göra om en text till ett tal, men texten
+                    inte har rätt format.</p>
 
-                <h2>Filfel med FileNotFoundError</h2>
+                <h3>Exempel: fil saknas</h3>
                 <pre><code class="language-python">try:
     with open("saknas.txt", "r") as f:
         innehåll = f.read()
@@ -50,19 +63,40 @@ except FileNotFoundError:
                 <p>Det här exemplet visar hur du fångar ett vanligt filfel när en fil inte finns. Då skriver programmet
                     ut ett tydligt meddelande i stället för att krascha.</p>
 
-                <h2>Raising exceptions</h2>
-                <p>När du upptäcker ett fel i din kod kan du själv avbryta med ett undantag. Då blir det tydligt att
-                    något är fel och programmet kan hantera det med <code>try/except</code>.</p>
+                <h3>Exempel: generellt fel</h3>
+                <pre><code class="language-python">try:
+    tal = int(input("Skriv ett tal att dividera 10 med: "))
+    resultat = 10 / tal
+    print(f"Resultatet blir {resultat}")
+except ZeroDivisionError:
+    print("Du kan inte dividera med noll!")</code></pre>
 
-                <h2>Felsökningstips</h2>
+                <p>Om användaren skriver till exempel <code>2</code> fungerar programmet och skriver ut resultatet
+                    <code>5.0</code>. Om användaren skriver <code>0</code> fångas felet av <code>except</code> och
+                    programmet visar ett tydligt felmeddelande i stället för att krascha.</p>
+
+                <h2>Felsökning</h2>
+                <p>När ett fel uppstår visar Python ett spår, en <em>traceback</em>, som berättar vilken typ av fel som
+                    inträffade, var i koden felet uppstod och vilken kodrad som orsakade felet.</p>
+
+                <pre><code class="language-python">TypeError: unsupported operand type(s) for +: 'int' and 'str'</code></pre>
+
+                <p>Det betyder att programmet försökte addera ett heltal och en text, vilket inte går.</p>
+
+                <h2>Tips för bättre felsökning</h2>
                 <ul>
-                    <li>Använd små tester och reproducerbara inputs.</li>
-                    <li>Logga information istället för att förlita dig enbart på prints.</li>
+                    <li>Lägg till tydliga felmeddelanden i <code>except</code>.</li>
+                    <li>Använd <code>print()</code> för att spåra vad som händer före felet.</li>
+                    <li>Testa delar av programmet i taget.</li>
+                    <li>Kommentera kodstycken om du inte vet var felet ligger.</li>
                 </ul>
 
-                <h2>Övning</h2>
-                <p>Skriv en funktion som läser ett tal från fil och hanterar filer som saknas eller innehåller felaktigt
-                    format.</p>
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Fel är en naturlig del av programmering - det viktiga är hur du hanterar dem.</li>
+                    <li>Du kan använda <code>try/except</code> för att fånga fel och visa vänliga meddelanden.</li>
+                    <li>Felsökning handlar om att förstå vad som händer i programmet och varför.</li>
+                </ul>
             </section>
 
             <div id="quiz-4-2" aria-label="Quiz Kap 4.2"></div>
@@ -103,52 +137,40 @@ except FileNotFoundError:
                             explanation: 'När open() inte hittar filen får du ett FileNotFoundError som du kan fånga med except.'
                         },
                         {
-                            question: 'Vilken klausul körs alltid oavsett om ett undantag inträffade?',
+                            question: 'Vilket undantag kan uppstå om du försöker göra om text till ett heltal men texten inte är ett tal?',
                             options: [
-                                'try',
-                                'except',
-                                'finally',
-                                'else'
+                                'FileNotFoundError',
+                                'ZeroDivisionError',
+                                'ValueError',
+                                'NameError'
                             ],
                             correct: 2,
-                            feedback: '"finally" körs alltid.',
-                            explanation: 'Använd "finally" för städning som alltid måste köras, t.ex. stänga filer.'
+                            feedback: 'ValueError används när ett värde har fel format.',
+                            explanation: 'Ett vanligt exempel är int("hej"), eftersom texten inte kan tolkas som ett heltal.'
                         },
                         {
-                            question: 'Hur skapar du ett eget undantag av typen ValueError?',
+                            question: 'Vad kan en traceback hjälpa dig att hitta?',
                             options: [
-                                'raise ValueError("fel")',
-                                'throw ValueError("fel")',
-                                'error ValueError("fel")',
-                                'raise_exception ValueError("fel")'
+                                'Hur många gånger programmet har körts',
+                                'Vilken rad och vilken typ av fel som orsakade problemet',
+                                'Vilken färg terminalen ska ha',
+                                'Hur du automatiskt rättar all kod'
                             ],
-                            correct: 0,
-                            feedback: 'Använd "raise ValueError(...)" för att kasta ett undantag.',
-                            explanation: '"raise" används för att manuellt generera ett undantag av en given typ.'
+                            correct: 1,
+                            feedback: 'Traceback visar var felet uppstod och vilken typ av fel det var.',
+                            explanation: 'Det gör det lättare att förstå vilken del av programmet du behöver undersöka.'
                         },
                         {
-                            question: 'Vad gör "else" i en try/except-konstruktion?',
+                            question: 'Vilket undantag passar när programmet försöker dividera med noll?',
                             options: [
-                                'Körs om inget undantag inträffar',
-                                'Körs om ett undantag inträffar',
-                                'Körs alltid',
-                                'Avslutar programmet'
+                                'ZeroDivisionError',
+                                'ValueError',
+                                'FileNotFoundError',
+                                'TypeError'
                             ],
                             correct: 0,
-                            feedback: '"else" körs endast om ingen except gren fångade ett undantag.',
-                            explanation: 'Det är användbart för kod som bara ska köra när try-blocket lyckas.'
-                        },
-                        {
-                            question: 'Vilket verktyg är vanligt för att felsöka steg för steg genom att skriva ut värden?',
-                            options: [
-                                'print()',
-                                'logging',
-                                'list()',
-                                'range()'
-                            ],
-                            correct: 0,
-                            feedback: 'print() används ofta för att skriva ut värden och följa vad som händer.',
-                            explanation: 'Att skriva ut mellanresultat är ett enkelt sätt att felsöka och förstå flödet i koden.'
+                            feedback: 'ZeroDivisionError uppstår vid division med noll.',
+                            explanation: 'I kapitlets exempel fångas felet med except ZeroDivisionError.'
                         }
                     ]
                 })

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Kap 4.5 - Miniuppgift: filbaserat program</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 4.5: Miniuppgift där du bygger ett filbaserat Pythonprogram med recept, menyer och felhantering.">
 </head>
 
 <body class="chapter-page">
@@ -13,11 +14,153 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 4.5: Miniuppgift - filbaserat program</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 4.5 – Miniuppgift: filbaserat program</h1>
+                <p class="subtitle">Bygg ett program som sparar och läser data från en textfil.</p>
             </header>
+
             <section class="content-section">
-                <p>Miniuppgift med filinläsning och skrivning.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna uppgift ska du:</p>
+                <ul>
+                    <li>Använda filhantering för att spara och läsa data i ett Pythonprogram.</li>
+                    <li>Strukturera ett mindre program med funktioner och undantagshantering.</li>
+                    <li>Skapa användarinteraktion genom menyer och val.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Börja med att skapa ett enkelt menysystem. Använd funktioner för varje delmoment och inkludera
+                    <code>try/except</code>-block där användaren matar in data. Planera innan du kodar: vilken
+                    information ska sparas, var lagras den och hur läser du tillbaka den?</p>
+
+                <h2>Uppgift: Receptsamling</h2>
+                <p>Skapa ett program som låter användaren:</p>
+                <ol>
+                    <li>Lägga till ett nytt recept med namn och ingredienser.</li>
+                    <li>Visa alla sparade recept.</li>
+                    <li>Spara recept i en textfil, till exempel <code>recept.txt</code>.</li>
+                    <li>Läsa in recept från filen vid programstart eller när användaren vill visa recepten.</li>
+                </ol>
+
+                <h2>Krav</h2>
+                <ul>
+                    <li>Använd en fil för lagring i textformat.</li>
+                    <li>Skapa minst tre funktioner, till exempel <code>lägga_till_recept</code>,
+                        <code>visa_recept</code> och <code>spara_recept</code>.</li>
+                    <li>Använd <code>try/except</code> vid inläsning från fil.</li>
+                    <li>Programmet ska kunna köras flera gånger utan att tidigare data försvinner.</li>
+                </ul>
+
+                <h2>Mallkod att utgå från</h2>
+                <pre><code class="language-python">def visa_meny():
+    print("1. Lägg till recept")
+    print("2. Visa recept")
+    print("3. Avsluta")
+
+def main():
+    while True:
+        visa_meny()
+        val = input("Välj ett alternativ: ")
+
+        if val == "1":
+            pass  # lägga till recept
+        elif val == "2":
+            pass  # visa recept
+        elif val == "3":
+            break
+        else:
+            print("Ogiltigt val!")
+
+if __name__ == "__main__":
+    main()</code></pre>
+
+                <h2>Tips</h2>
+                <ul>
+                    <li>Börja smått, exempelvis med att spara endast namnet på ett recept.</li>
+                    <li>Lägg till ingredienser som en lista eller som en rad per recept.</li>
+                    <li>Testa programmet genom att stänga och öppna det igen. Finns recepten kvar?</li>
+                </ul>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Du har tränat på filhantering, programstruktur och användarinteraktion.</li>
+                    <li>Du har använt funktioner och undantag för att skapa ett mer robust program.</li>
+                    <li>Du har tillämpat dina kunskaper i en konkret och verklighetsnära uppgift.</li>
+                </ul>
+
+                <h2>Lösningsförslag: Receptsamling</h2>
+                <pre><code class="language-python">RECEPTFIL = "recept.txt"
+
+def lägga_till_recept():
+    namn = input("Vad heter receptet? ")
+    ingredienser = input("Ange ingredienser (komma-separerade): ")
+    meddelande = f"{namn}|{ingredienser}\n"
+
+    try:
+        with open(RECEPTFIL, "a") as fil:
+            fil.write(meddelande)
+        print("Recept sparat.")
+    except Exception as e:
+        print(f"Något gick fel: {e}")
+
+def visa_recept():
+    try:
+        with open(RECEPTFIL, "r") as fil:
+            rader = fil.readlines()
+
+        if not rader:
+            print("Inga recept hittades.")
+            return
+
+        for rad in rader:
+            namn, ingredienser = rad.strip().split("|")
+            print(f"\nRecept: {namn}")
+            print("Ingredienser:")
+
+            for ing in ingredienser.split(","):
+                print(f"- {ing.strip()}")
+
+    except FileNotFoundError:
+        print("Filen med recept finns inte ännu.")
+    except Exception as e:
+        print(f"Fel vid läsning: {e}")
+
+def visa_meny():
+    print("\nMeny:")
+    print("1. Lägg till recept")
+    print("2. Visa recept")
+    print("3. Avsluta")
+
+def main():
+    while True:
+        visa_meny()
+        val = input("Välj ett alternativ: ")
+
+        if val == "1":
+            lägga_till_recept()
+        elif val == "2":
+            visa_recept()
+        elif val == "3":
+            print("Programmet avslutas.")
+            break
+        else:
+            print("Ogiltigt val, försök igen.")
+
+if __name__ == "__main__":
+    main()</code></pre>
+
+                <h2>Funktioner i lösningen</h2>
+                <ul>
+                    <li><strong>lägga_till_recept()</strong> - Sparar recept i formatet
+                        <code>Receptnamn|ing1,ing2,...</code>.</li>
+                    <li><strong>visa_recept()</strong> - Läser filen, delar upp varje rad och skriver ut innehållet.</li>
+                    <li><strong>main()</strong> - Styr menyval och programflöde.</li>
+                </ul>
+
+                <p>Lösningen är enkel men visar strukturerad kod, användning av <code>try/except</code> för felhantering
+                    och filhantering med append och <code>readlines()</code>.</p>
             </section>
+
             <p><a href="chapter-4.html">Tillbaka till Kapitel 4</a></p>
         </article>
     </main>

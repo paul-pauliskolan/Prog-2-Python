@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 4.7 - Miniuppgift: Använda SQLite</title>
+    <title>Kap 4.7 - Miniuppgift: Använda SQLite-databaser</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 4.7: Miniuppgift där du bygger ett bibliotekssystem med SQLite, moduler och felhantering.">
 </head>
 
 <body class="chapter-page">
@@ -13,11 +14,170 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 4.7: Miniuppgift - Använda SQLite</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 4.7 – Miniuppgift: Använda SQLite-databaser</h1>
+                <p class="subtitle">Bygg ett litet bibliotekssystem med databas, moduler och sökning.</p>
             </header>
+
             <section class="content-section">
-                <p>Praktisk miniuppgift med en enkel databas.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du kunna:</p>
+                <ul>
+                    <li>Skapa och använda en SQLite-databas i Python med biblioteket <code>sqlite3</code>.</li>
+                    <li>Skapa tabeller, lägga till poster, söka efter data och läsa ut all data från databasen.</li>
+                    <li>Strukturera din kod i moduler med funktioner för bättre överblick.</li>
+                    <li>Använda <code>try/except</code>-block för att hantera vanliga fel vid databasanslutning.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Arbeta med konkreta exempel: börja med att skapa databasen och tabellen. Skriv sedan funktioner för
+                    att lägga till data, visa alla poster och söka i databasen. Dela upp din kod i minst två moduler -
+                    en för gränssnittet och en för databasanropen. Testa dina funktioner separat och se till att varje
+                    steg fungerar innan du går vidare.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>SQLite</strong> - En lätt, filbaserad databas som inte kräver någon server.</li>
+                    <li><strong>SQL</strong> - Structured Query Language, språket som används för att kommunicera med
+                        databasen.</li>
+                    <li><strong>Moduler</strong> - Att dela upp din kod i olika <code>.py</code>-filer med specifika
+                        funktioner.</li>
+                    <li><strong>Felhantering</strong> - Att förutse och hantera fel vid till exempel anslutning eller
+                        SQL-kommandon.</li>
+                </ul>
+
+                <h2>Struktur för ditt program</h2>
+                <p>Skapa två filer i samma mapp:</p>
+                <ul>
+                    <li><code>databas.py</code> - innehåller all kod som pratar med databasen.</li>
+                    <li><code>main.py</code> - innehåller menyn och användarens val.</li>
+                </ul>
+
+                <h2>Databasmodul: databas.py</h2>
+                <pre><code class="language-python">import sqlite3
+
+DB_FIL = "bibliotek.db"
+
+def skapa_databas():
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS bocker (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                titel TEXT NOT NULL,
+                forfattare TEXT NOT NULL
+            )
+        """)
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print("Fel vid skapande av databas:", e)
+
+def lagg_till_bok(titel, forfattare):
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO bocker (titel, forfattare) VALUES (?, ?)",
+            (titel, forfattare)
+        )
+        conn.commit()
+        conn.close()
+        print("Bok tillagd!")
+    except Exception as e:
+        print("Kunde inte lägga till bok:", e)
+
+def sok_bok(nyckelord):
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT * FROM bocker WHERE titel LIKE ? OR forfattare LIKE ?",
+            ("%" + nyckelord + "%", "%" + nyckelord + "%")
+        )
+        resultat = cursor.fetchall()
+        conn.close()
+
+        for bok in resultat:
+            print(f"{bok[0]}. {bok[1]} - {bok[2]}")
+
+        if not resultat:
+            print("Inga träffar.")
+    except Exception as e:
+        print("Sökning misslyckades:", e)
+
+def visa_alla_bocker():
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM bocker")
+        resultat = cursor.fetchall()
+        conn.close()
+
+        for bok in resultat:
+            print(f"{bok[0]}. {bok[1]} - {bok[2]}")
+
+        if not resultat:
+            print("Inga böcker finns än.")
+    except Exception as e:
+        print("Kunde inte hämta böcker:", e)</code></pre>
+
+                <h2>Huvudfil: main.py</h2>
+                <pre><code class="language-python">import databas
+
+def visa_meny():
+    print("\nMeny:")
+    print("1. Lägg till bok")
+    print("2. Sök bok")
+    print("3. Visa alla böcker")
+    print("4. Avsluta")
+
+def main():
+    databas.skapa_databas()
+
+    while True:
+        visa_meny()
+        val = input("Välj alternativ: ")
+
+        if val == "1":
+            titel = input("Titel: ")
+            forfattare = input("Författare: ")
+            databas.lagg_till_bok(titel, forfattare)
+        elif val == "2":
+            nyckelord = input("Sökord (titel/författare): ")
+            databas.sok_bok(nyckelord)
+        elif val == "3":
+            databas.visa_alla_bocker()
+        elif val == "4":
+            print("Avslutar...")
+            break
+        else:
+            print("Ogiltigt val.")
+
+if __name__ == "__main__":
+    main()</code></pre>
+
+                <h2>Att testa</h2>
+                <ul>
+                    <li>Kör <code>main.py</code> och kontrollera att filen <code>bibliotek.db</code> skapas.</li>
+                    <li>Lägg till flera böcker med olika titlar och författare.</li>
+                    <li>Sök på både titel och författare för att se att <code>LIKE</code>-frågan fungerar.</li>
+                    <li>Stäng programmet, starta det igen och kontrollera att böckerna finns kvar.</li>
+                </ul>
+
+                <p>Du kan även öppna <code>bibliotek.db</code> i VS Code med tillägget <strong>SQLite Viewer</strong>
+                    av publisher <strong>Florian Klampfer</strong> för att se tabellen och raderna visuellt.</p>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Du har skapat en komplett programstruktur för databashantering med SQLite.</li>
+                    <li>Du har använt funktioner och moduler för att organisera koden.</li>
+                    <li>Du har arbetat med SQL-kommandon för att söka, spara och läsa data.</li>
+                    <li>Du är nu redo att ta dig an Lärarbedömd uppgift 4 med god förberedelse.</li>
+                </ul>
             </section>
+
             <p><a href="chapter-4.html">Tillbaka till Kapitel 4</a></p>
         </article>
     </main>

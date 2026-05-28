@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 5.3 - Hämta data från API</title>
+    <title>Kap 5.3 - Hämta data från API med requests</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 5.3: Lär dig hämta data från API:er med requests, tolka JSON och använda svaret i Python.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,204 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 5.3: Hämta data från API</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 5.3 – Hämta data från API med requests</h1>
+                <p class="subtitle">Anropa externa tjänster och använd JSON-data i dina egna program.</p>
             </header>
+
             <section class="content-section">
-                <p>Exempel på hur man anropar externa API:er och hanterar svar.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå vad ett API är och hur det används i programmering.</li>
+                    <li>Kunna använda biblioteket <code>requests</code> för att hämta data från ett API.</li>
+                    <li>Kunna läsa, tolka och använda JSON-data från ett API-svar.</li>
+                    <li>Kunna använda API-data i ett eget program.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Du lär dig bäst genom att först testa ett färdigt exempel som hämtar data från ett öppet API. Börja
+                    med att bara skriva ut svaret. Undersök sedan vilken information som finns i datan och hur du kan
+                    plocka ut specifika delar. När du förstår det kan du bygga ett eget exempel, till exempel för att
+                    skriva ut väder, namn eller skämt. Börja alltid enkelt.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>API</strong> - Application Programming Interface, ett gränssnitt för att kommunicera
+                        mellan olika program.</li>
+                    <li><strong>HTTP-förfrågan</strong> - En begäran om information som skickas till ett API, till
+                        exempel med metoden GET.</li>
+                    <li><strong>JSON</strong> - JavaScript Object Notation, ett textformat som används för att skicka
+                        strukturerad data.</li>
+                    <li><strong>requests</strong> - Ett Pythonbibliotek för att skicka HTTP-förfrågningar.</li>
+                </ul>
+
+                <h2>Installera requests</h2>
+                <p><code>requests</code> ingår normalt inte i Pythons standardbibliotek. Om importen inte fungerar behöver
+                    du installera biblioteket i terminalen:</p>
+                <pre><code class="language-bash">pip3 install requests</code></pre>
+
+                <p>Om du använder flera Python-versioner kan detta behövas i stället:</p>
+                <pre><code class="language-bash">python3 -m pip install requests</code></pre>
+
+                <h2>Exempel: Hämta ett skämt från ett API</h2>
+                <pre><code class="language-python">import requests
+
+url = "https://official-joke-api.appspot.com/random_joke"
+
+response = requests.get(url)
+
+if response.status_code == 200:
+    data = response.json()
+
+    print("Skämt:")
+    print(data["setup"])
+    print(data["punchline"])
+else:
+    print("Kunde inte hämta skämt. Statuskod:", response.status_code)</code></pre>
+
+                <p><code>requests.get(url)</code> skickar en GET-förfrågan till API:et. Om statuskoden är
+                    <code>200</code> betyder det att anropet lyckades. Då kan svaret göras om till Pythondata med
+                    <code>response.json()</code>.</p>
+
+                <h2>Att förstå JSON-data</h2>
+                <p>I exemplet ovan innehåller <code>data</code> en ordlista med nycklar och värden:</p>
+                <pre><code class="language-python">{
+    "id": 74,
+    "type": "general",
+    "setup": "Why was the stadium so cool?",
+    "punchline": "Because it was filled with fans!"
+}</code></pre>
+
+                <p>Du kan använda <code>data["setup"]</code> för att hämta introduktionen till skämtet och
+                    <code>data["punchline"]</code> för poängen.</p>
+
+                <h2>Robustare variant med try/except</h2>
+                <pre><code class="language-python">import requests
+
+def hamta_skamt():
+    url = "https://official-joke-api.appspot.com/random_joke"
+
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        data = response.json()
+
+        print("\nSkämt:")
+        print(data["setup"])
+        print(data["punchline"])
+    except requests.exceptions.RequestException as e:
+        print("Kunde inte hämta skämt. Felmeddelande:", e)
+
+if __name__ == "__main__":
+    hamta_skamt()</code></pre>
+
+                <p><code>raise_for_status()</code> gör att programmet kan fånga HTTP-fel med
+                    <code>try/except</code>. Det är användbart när API:et inte svarar, när nätverket inte fungerar eller
+                    när servern skickar tillbaka en felkod.</p>
+
+                <h2>Öva - Skriv ett program som använder ett API</h2>
+                <ol>
+                    <li>Hitta ett öppet API som du kan använda utan registrering.</li>
+                    <li>Skriv kod som hämtar data från API:et.</li>
+                    <li>Skriv ut den information som du tycker är mest intressant.</li>
+                    <li>Lägg till enkel felhantering med statuskoder och <code>try/except</code>.</li>
+                </ol>
+
+                <h3>Exempel på öppna API:er</h3>
+                <ul>
+                    <li>Skämt: <code>https://official-joke-api.appspot.com/random_joke</code></li>
+                    <li>Kattfakta: <code>https://catfact.ninja/fact</code></li>
+                    <li>Namn: <code>https://randomuser.me/api/</code></li>
+                </ul>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Du har lärt dig vad ett API är och hur du använder det i Python.</li>
+                    <li>Du har testat biblioteket <code>requests</code> för att hämta information.</li>
+                    <li>Du har använt JSON-data i ett eget program.</li>
+                    <li>Du har tränat på att tolka svar från ett externt system och använda det i ditt program.</li>
+                </ul>
             </section>
+
+            <div id="quiz-5-3" aria-label="Quiz Kap 5.3"></div>
+
             <p><a href="chapter-5.html">Tillbaka till Kapitel 5</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-5-3'), {
+                    title: 'Quiz: Kap 5.3 - Hämta data från API med requests',
+                    questions: [
+                        {
+                            question: 'Vad är ett API?',
+                            options: [
+                                'Ett gränssnitt som låter program kommunicera med varandra',
+                                'En typ av loop i Python',
+                                'Ett filformat för bilder',
+                                'Ett kommando som alltid skapar en databas'
+                            ],
+                            correct: 0,
+                            feedback: 'Ett API är ett gränssnitt mellan program.',
+                            explanation: 'Med ett API kan ditt program till exempel hämta data från en extern tjänst.'
+                        },
+                        {
+                            question: 'Vad används requests.get(url) till?',
+                            options: [
+                                'För att radera en lokal fil',
+                                'För att skicka en GET-förfrågan till en webbadress',
+                                'För att skapa en ny Pythonfunktion',
+                                'För att sortera en lista'
+                            ],
+                            correct: 1,
+                            feedback: 'requests.get(url) hämtar data från en URL.',
+                            explanation: 'Det används ofta för att anropa API:er som returnerar data.'
+                        },
+                        {
+                            question: 'Vad betyder statuskod 200 i exemplet?',
+                            options: [
+                                'Att anropet lyckades',
+                                'Att API:et alltid är gratis',
+                                'Att JSON saknas',
+                                'Att programmet måste avslutas'
+                            ],
+                            correct: 0,
+                            feedback: 'Statuskod 200 betyder normalt att förfrågan lyckades.',
+                            explanation: 'Då kan programmet gå vidare och tolka svaret.'
+                        },
+                        {
+                            question: 'Vad gör response.json()?',
+                            options: [
+                                'Den installerar requests',
+                                'Den skapar en ny URL',
+                                'Den gör om JSON-svaret till Pythondata',
+                                'Den stänger terminalen'
+                            ],
+                            correct: 2,
+                            feedback: 'response.json() tolkar JSON-svaret.',
+                            explanation: 'Resultatet kan ofta användas som en dictionary eller lista i Python.'
+                        },
+                        {
+                            question: 'Varför bör man använda felhantering vid API-anrop?',
+                            options: [
+                                'För att API:er alltid returnerar samma svar',
+                                'För att nätverk, server eller statuskoder kan orsaka fel',
+                                'För att JSON inte kan läsas i Python',
+                                'För att requests bara fungerar utan internet'
+                            ],
+                            correct: 1,
+                            feedback: 'API-anrop kan misslyckas av flera skäl.',
+                            explanation: 'Felhantering gör att programmet kan visa ett begripligt meddelande i stället för att krascha.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

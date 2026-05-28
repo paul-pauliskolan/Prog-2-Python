@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Kap 5.2 - Projektarbete med databas</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 5.2: Starta ett eget databasprojekt med SQLite, moduler, CRUD, menystruktur och felhantering.">
 </head>
 
 <body class="chapter-page">
@@ -13,15 +14,265 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 5.2: Projektarbete med databas</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 5.2 – Projektarbete med databas</h1>
+                <p class="subtitle">Bygg grunden till ett eget projekt som lagrar och söker information i SQLite.</p>
             </header>
+
             <section class="content-section">
-                <p>Projekt som använder databas för att spara data.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Kunna strukturera ett eget program som använder databas för att lagra och hantera information.</li>
+                    <li>Använda tidigare kunskaper om SQLite, moduler och programstruktur i ett eget projekt.</li>
+                    <li>Förstå hur man planerar, utvecklar och testar en applikation från grunden.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Ditt projektarbete bygger på vad du lärt dig i tidigare moduler. Du lär dig bäst genom att börja
+                    enkelt och sedan bygga vidare steg för steg. Börja med att få grunden att fungera: skapa databasen
+                    och de viktigaste funktionerna. Dela upp koden i moduler och använd funktioner för återanvändbarhet.
+                    Dokumentera din kod noggrant. Se till att din kod hanterar fel och att du testar varje del noggrant.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>Moduler</strong> - Att dela upp koden i flera filer för bättre struktur.</li>
+                    <li><strong>SQL och SQLite</strong> - Språket och databasen du använder för att lagra information.</li>
+                    <li><strong>CRUD</strong> - Create, Read, Update, Delete: de fyra grundfunktionerna i databashantering.</li>
+                    <li><strong>Programstruktur</strong> - Hur du organiserar menyer, funktioner och databasanrop.</li>
+                    <li><strong>Felhantering</strong> - Att skydda programmet från att krascha när något går fel.</li>
+                </ul>
+
+                <h2>Projektkrav</h2>
+                <p>Du ska nu påbörja ett eget databasprojekt. Projektet ska minst ha:</p>
+                <ul>
+                    <li>Ett menybaserat gränssnitt i konsolen.</li>
+                    <li>En SQLite-databas med minst en tabell.</li>
+                    <li>Funktioner för att lägga till och visa data.</li>
+                    <li>En sökfunktion med SQL.</li>
+                    <li>Kod uppdelad i minst två moduler, till exempel <code>main.py</code> och <code>databas.py</code>.</li>
+                    <li>Användning av <code>try/except</code> för att hantera fel.</li>
+                </ul>
+
+                <h2>Exempel på programidéer</h2>
+                <ul>
+                    <li>Bokregister</li>
+                    <li>Receptplanerare</li>
+                    <li>Elevhanteringssystem</li>
+                    <li>Film- eller serieregister</li>
+                </ul>
+
+                <h2>Förslag på struktur</h2>
+                <p>En vanlig uppdelning är att låta <code>main.py</code> hantera menyn och låta
+                    <code>databas.py</code> hantera all kontakt med databasen.</p>
+
+                <h3>main.py - användargränssnittet</h3>
+                <pre><code class="language-python">import databas
+
+def visa_meny():
+    print("1. Lägg till post")
+    print("2. Visa alla")
+    print("3. Sök")
+    print("4. Avsluta")
+
+def main():
+    databas.skapa_tabell()
+
+    while True:
+        visa_meny()
+        val = input("Val: ")
+
+        if val == "1":
+            databas.lagg_till()
+        elif val == "2":
+            databas.visa_alla()
+        elif val == "3":
+            databas.sok()
+        elif val == "4":
+            break
+        else:
+            print("Ogiltigt val.")
+
+if __name__ == "__main__":
+    main()</code></pre>
+
+                <h3>databas.py - hanterar databasen</h3>
+                <pre><code class="language-python">import sqlite3
+
+DB_FIL = "poster.db"
+
+def skapa_tabell():
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS poster (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                namn TEXT NOT NULL,
+                info TEXT
+            )
+        """)
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print("Fel vid tabellskapande:", e)
+
+def lagg_till():
+    namn = input("Ange namn: ")
+    info = input("Ange info: ")
+
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO poster (namn, info) VALUES (?, ?)",
+            (namn, info)
+        )
+        conn.commit()
+        conn.close()
+        print("Post tillagd.")
+    except Exception as e:
+        print("Kunde inte lägga till post:", e)
+
+def visa_alla():
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM poster")
+        resultat = cursor.fetchall()
+        conn.close()
+
+        if resultat:
+            for rad in resultat:
+                print(f"{rad[0]}. {rad[1]} - {rad[2]}")
+        else:
+            print("Inga poster hittades.")
+    except Exception as e:
+        print("Fel vid hämtning:", e)
+
+def sok():
+    sokord = input("Sök efter: ")
+
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT * FROM poster WHERE namn LIKE ? OR info LIKE ?",
+            ("%" + sokord + "%", "%" + sokord + "%")
+        )
+        resultat = cursor.fetchall()
+        conn.close()
+
+        if resultat:
+            for rad in resultat:
+                print(f"{rad[0]}. {rad[1]} - {rad[2]}")
+        else:
+            print("Inga träffar.")
+    except Exception as e:
+        print("Fel vid sökning:", e)</code></pre>
+
+                <h2>Öva - Starta ditt projekt</h2>
+                <ol>
+                    <li>Välj ett av projekten ovan eller hitta på ett eget.</li>
+                    <li>Skapa en databas och tabell.</li>
+                    <li>Gör menyer och funktioner.</li>
+                    <li>Testa delarna och dokumentera din kod.</li>
+                </ol>
+
+                <h2>Att tänka på när du bygger vidare</h2>
+                <ul>
+                    <li>Börja med Create och Read innan du bygger mer avancerade funktioner.</li>
+                    <li>Låt databasfunktionerna ligga i en egen modul så huvudfilen blir lätt att läsa.</li>
+                    <li>Testa varje funktion separat innan du kopplar ihop allt i menyn.</li>
+                    <li>Skriv tydliga felmeddelanden så användaren förstår vad som gick fel.</li>
+                </ul>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Du har nu påbörjat ett eget programmeringsprojekt med databas.</li>
+                    <li>Du använder funktioner, moduler och SQLite i ett praktiskt sammanhang.</li>
+                    <li>Du har förberett grunden till din slutuppgift eller ett större program.</li>
+                </ul>
             </section>
+
+            <div id="quiz-5-2" aria-label="Quiz Kap 5.2"></div>
+
             <p><a href="chapter-5.html">Tillbaka till Kapitel 5</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-5-2'), {
+                    title: 'Quiz: Kap 5.2 - Projektarbete med databas',
+                    questions: [
+                        {
+                            question: 'Varför är det bra att dela upp ett databasprojekt i flera moduler?',
+                            options: [
+                                'För att koden blir mer organiserad och lättare att testa',
+                                'För att databasen inte kan skapas annars',
+                                'För att alla variabler automatiskt blir globala',
+                                'För att SQL inte fungerar i en enda fil'
+                            ],
+                            correct: 0,
+                            feedback: 'Moduler gör projektet mer överskådligt.',
+                            explanation: 'En vanlig struktur är att ha menyn i main.py och databaskoden i databas.py.'
+                        },
+                        {
+                            question: 'Vad betyder CRUD?',
+                            options: [
+                                'Copy, Run, Undo, Debug',
+                                'Create, Read, Update, Delete',
+                                'Code, Review, Use, Deploy',
+                                'Connect, Restart, Upload, Download'
+                            ],
+                            correct: 1,
+                            feedback: 'CRUD är grundoperationerna i databashantering.',
+                            explanation: 'De beskriver att skapa, läsa, uppdatera och ta bort data.'
+                        },
+                        {
+                            question: 'Vilken del bör databas.py ansvara för i projektstrukturen?',
+                            options: [
+                                'Att visa kursens startsida',
+                                'Att hantera SQL-frågor och databasanslutning',
+                                'Att installera Python',
+                                'Att rita alla flödesscheman'
+                            ],
+                            correct: 1,
+                            feedback: 'databas.py bör samla funktioner som pratar med databasen.',
+                            explanation: 'Det gör att main.py kan fokusera på menyval och användarflöde.'
+                        },
+                        {
+                            question: 'Vad är ett rimligt första steg när du startar databasprojektet?',
+                            options: [
+                                'Bygga alla extra funktioner direkt',
+                                'Hoppa över testning tills allt är klart',
+                                'Få databasen och de viktigaste funktionerna att fungera',
+                                'Skriva all kod utan funktioner'
+                            ],
+                            correct: 2,
+                            feedback: 'Börja med grunden och bygg vidare steg för steg.',
+                            explanation: 'När databasen, tabellen och basfunktionerna fungerar kan du utöka projektet säkrare.'
+                        },
+                        {
+                            question: 'Varför bör projektet använda try/except?',
+                            options: [
+                                'För att hantera fel utan att programmet kraschar direkt',
+                                'För att göra databasen större',
+                                'För att ersätta alla SQL-frågor',
+                                'För att skapa en meny automatiskt'
+                            ],
+                            correct: 0,
+                            feedback: 'try/except används för felhantering.',
+                            explanation: 'Databasanslutningar och SQL-kommandon kan misslyckas, och då behöver programmet kunna hantera det.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

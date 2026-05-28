@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kap 5.1 - Planera ett projekt</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 5.1: Lär dig planera ett programmeringsprojekt med användningsfall, flödesscheman, pseudokod och MVP.">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero">
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 5.1 – Planera ett projekt</h1>
+                <p class="subtitle">Gå från idé till tydlig projektplan innan du börjar programmera.</p>
+            </header>
+
+            <section class="content-section">
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå varför det är viktigt att planera innan du programmerar.</li>
+                    <li>Känna till och kunna använda analysverktyg som flödesscheman, användningsfall och pseudokod.</li>
+                    <li>Kunna strukturera ett programmeringsprojekt från idé till färdig lösning.</li>
+                    <li>Välja en uppgift och börja forma en plan inför ditt avslutande projekt.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Du lär dig bäst genom att först fundera på vad du vill att ditt program ska göra. Vad är målet, vilka
+                    användare finns och vilka problem ska lösas? Därefter kan du använda verktyg för att bryta ned
+                    problemet i delar. Skriv ut dina idéer och diskutera dem med en klasskamrat eller din lärare. En god
+                    plan gör programmeringen mycket enklare.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>Användningsfall</strong> - Ett enkelt sätt att beskriva hur olika typer av användare ska
+                        kunna använda ditt program. Det hjälper dig att identifiera vilka funktioner som behövs.</li>
+                    <li><strong>Flödesschema</strong> - Ett diagram som visar logiken och stegen i ett program. Det är
+                        användbart för att tänka igenom beslut och loopar.</li>
+                    <li><strong>Pseudokod</strong> - En blandning av naturligt språk och programmering som beskriver hur
+                        en funktion ska fungera utan att skriva riktig kod.</li>
+                    <li><strong>MVP</strong> - Minimum Viable Product, den enklaste versionen av ett program som fungerar.
+                        Det är ett bra första mål i projektet.</li>
+                </ul>
+
+                <h2>Så planerar du ett programmeringsprojekt</h2>
+                <p>När du startar ett programmeringsprojekt är det viktigt att först förstå problemet du vill lösa. Här
+                    är några steg som hjälper dig att komma igång.</p>
+
+                <h3>1. Beskriv idén</h3>
+                <p>Vad ska programmet göra? Vilket problem löser det? Vem ska använda det?</p>
+                <blockquote>
+                    <p>Programmet ska vara ett lånebibliotek där användaren kan lägga till, söka och låna ut böcker.</p>
+                </blockquote>
+
+                <h3>2. Skapa användningsfall</h3>
+                <p>Fundera på vilka användare som finns och vad de ska kunna göra.</p>
+                <blockquote>
+                    <p>Användare: Bibliotekarie<br>
+                        Användningsfall: Registrera bok, sök bok, låna ut bok.</p>
+                </blockquote>
+
+                <h3>3. Rita flödesscheman</h3>
+                <p>Visa hur programmet ska fungera steg för steg. Du kan till exempel rita flödet för att låna ut en bok:
+                    användaren söker efter boken, programmet kontrollerar om den finns och sedan uppdateras statusen.</p>
+
+                <h3>4. Skriv pseudokod</h3>
+                <p>Beskriv i ord, eller blandat med kod, hur en funktion ska fungera.</p>
+                <pre><code>Om användaren matar in titel:
+    Sök i databasen
+    Om boken finns:
+        Visa information
+    Annars:
+        Skriv "Boken finns inte"</code></pre>
+
+                <h3>5. Identifiera vad som behöver kodas</h3>
+                <p>Gör en första lista över programmets delar, till exempel databas, menyer, formulär, användarinmatning,
+                    filhantering, klassstruktur eller API-anrop.</p>
+
+                <h2>Öva - Planeringsuppgift</h2>
+                <p>Välj ett eget projekt, eller använd ett exempel som <em>Receptregister</em>, <em>RPG-strid</em> eller
+                    <em>Elevregister</em>. Gör sedan följande:</p>
+                <ol>
+                    <li>Skriv en beskrivning av syftet med programmet.</li>
+                    <li>Lista funktioner som ska finnas.</li>
+                    <li>Skapa minst ett användningsfall.</li>
+                    <li>Rita ett flödesschema för ett centralt flöde.</li>
+                    <li>Skriv pseudokod för minst en funktion.</li>
+                </ol>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Du har nu verktyg för att planera ditt projekt på ett strukturerat sätt.</li>
+                    <li>Du har lärt dig att använda användningsfall, flödesscheman och pseudokod.</li>
+                    <li>Du har påbörjat planeringen av ditt avslutande projekt, vilket gör att du kan programmera mer
+                        effektivt.</li>
+                </ul>
+            </section>
+
+            <div id="quiz-5-1" aria-label="Quiz Kap 5.1"></div>
+
+            <p><a href="chapter-5.html">Tillbaka till Kapitel 5</a></p>
+        </article>
+    </main>
+    <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-5-1'), {
+                    title: 'Quiz: Kap 5.1 - Planera ett projekt',
+                    questions: [
+                        {
+                            question: 'Varför är det bra att planera innan man börjar programmera?',
+                            options: [
+                                'För att man ska slippa testa programmet',
+                                'För att man ska kunna förstå problemet och dela upp arbetet',
+                                'För att all kod automatiskt blir färdig',
+                                'För att programmet inte behöver användare'
+                            ],
+                            correct: 1,
+                            feedback: 'Planering hjälper dig att förstå problemet och strukturera arbetet.',
+                            explanation: 'En tydlig plan gör det lättare att veta vilka funktioner som behövs och i vilken ordning de ska byggas.'
+                        },
+                        {
+                            question: 'Vad beskriver ett användningsfall?',
+                            options: [
+                                'Hur en användare ska kunna använda programmet',
+                                'Vilken färg programmet ska ha',
+                                'Hur snabbt datorn startar',
+                                'Vilken fil som är störst'
+                            ],
+                            correct: 0,
+                            feedback: 'Ett användningsfall beskriver användarens mål och handlingar.',
+                            explanation: 'Det hjälper dig att hitta vilka funktioner programmet behöver.'
+                        },
+                        {
+                            question: 'Vad används pseudokod till?',
+                            options: [
+                                'För att skapa en databasfil automatiskt',
+                                'För att beskriva logik utan att skriva färdig kod',
+                                'För att ersätta alla tester',
+                                'För att komprimera bilder'
+                            ],
+                            correct: 1,
+                            feedback: 'Pseudokod beskriver logiken innan du skriver riktig kod.',
+                            explanation: 'Det är ett sätt att tänka igenom lösningen med ord och kodliknande struktur.'
+                        },
+                        {
+                            question: 'Vad visar ett flödesschema?',
+                            options: [
+                                'Programmets filstorlek',
+                                'Vilka typsnitt som ska användas',
+                                'Programmets steg, beslut och flöde',
+                                'Alla lösenord i programmet'
+                            ],
+                            correct: 2,
+                            feedback: 'Flödesscheman visar hur ett program eller en funktion rör sig mellan steg.',
+                            explanation: 'De är särskilt användbara när programmet innehåller val, loopar och flera möjliga vägar.'
+                        },
+                        {
+                            question: 'Vad betyder MVP i ett programmeringsprojekt?',
+                            options: [
+                                'Den enklaste versionen av programmet som fungerar',
+                                'Den mest avancerade versionen med alla funktioner',
+                                'En typ av felmeddelande',
+                                'Ett kommando för att installera Python'
+                            ],
+                            correct: 0,
+                            feedback: 'MVP är den minsta fungerande versionen av lösningen.',
+                            explanation: 'Det är ofta klokt att först bygga en enkel fungerande version och sedan förbättra den.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

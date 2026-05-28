@@ -13,15 +13,144 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 4.4: Kodstandard och struktur</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 4.4 – Kodstandard och struktur</h1>
+                <p class="subtitle">Skriv kod som är lätt att läsa, förstå och underhålla.</p>
             </header>
             <section class="content-section">
-                <p>Riktlinjer för tydlig och läsbar kod.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå varför kodstandard är viktigt i programmering.</li>
+                    <li>Känna till vanliga konventioner för kodstruktur i Python och C#.</li>
+                    <li>Kunna skriva kod som är lätt att läsa, förstå och underhålla.</li>
+                    <li>Använda kommentarer och namngivning för att förklara syfte och funktion.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>För att lära dig kodstandard behöver du jämföra bra och dåliga exempel. Läs kod från tidigare
+                    uppgifter och förbättra den enligt standard. Testa att samarbeta med en klasskamrat och se om ni kan
+                    förstå varandras kod utan att förklara muntligt. Följ riktlinjerna för ditt språk konsekvent.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>läsbarhet</strong> – Hur lätt det är för andra att förstå din kod.</li>
+                    <li><strong>indentering</strong> – Att koden har rätt avstånd och är tydligt strukturerad.</li>
+                    <li><strong>namngivning</strong> – Att använda beskrivande namn på variabler, metoder och klasser.</li>
+                    <li><strong>kommentarer</strong> – Att skriva förklaringar i koden utan att det påverkar körningen.</li>
+                    <li><strong>DRY-principen</strong> – "Don't Repeat Yourself" – undvik upprepningar i kod.</li>
+                </ul>
+
+                <h3>Exempel: Python-standard</h3>
+                <p><strong>Dåligt:</strong></p>
+                <pre><code class="language-python">def x(a):
+    return a*a</code></pre>
+
+                <p><strong>Bättre:</strong></p>
+                <pre><code class="language-python">def square(number):
+    """Returnerar kvadraten av ett tal."""
+    return number * number</code></pre>
+
+                <ul>
+                    <li>Funktioner och variabler skrivs i snake_case.</li>
+                    <li>Kommentarer ska förklara <em>varför</em>, inte <em>vad</em> koden gör.</li>
+                    <li>Kod bryts i lagom långa delar med tydlig logik.</li>
+                </ul>
+
+                <h2>Riktlinjer</h2>
+                <ul>
+                    <li>Skriv korta metoder – helst inte längre än 20 rader.</li>
+                    <li>Använd tomma rader för att dela upp logiska delar.</li>
+                    <li>Namnge allt så tydligt att man förstår koden utan kommentar.</li>
+                    <li>Kommentera komplex logik, inte självklarheter.</li>
+                </ul>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Kodstandard gör att fler kan läsa, förstå och vidareutveckla din kod.</li>
+                    <li>Struktur och tydlighet gör dina program mer professionella.</li>
+                    <li>God kodstil är lika viktig som att programmet fungerar.</li>
+                </ul>
             </section>
+
+            <div id="quiz-4-4" aria-label="Quiz Kap 4.4"></div>
+
             <p><a href="chapter-4.html">Tillbaka till Kapitel 4</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-4-4'), {
+                    title: 'Quiz: Kap 4.4 - Kodstandard och struktur',
+                    questions: [
+                        {
+                            question: 'Varför är kodstandard viktig?',
+                            options: [
+                                'Gör koden snabbare automatiskt',
+                                'Gör koden lättare att läsa och underhålla',
+                                'Minskar filstorleken',
+                                'Gör att koden inte kan köras'
+                            ],
+                            correct: 1,
+                            feedback: 'Rätt — kodstandard förbättrar läsbarhet och samarbete.',
+                            explanation: 'Standarder gör det enklare för andra att förstå och vidareutveckla koden.'
+                        },
+                        {
+                            question: 'Vilken namngivningskonvention används normalt för Python-funktioner?',
+                            options: [
+                                'PascalCase',
+                                'camelCase',
+                                'snake_case',
+                                'kebab-case'
+                            ],
+                            correct: 2,
+                            feedback: 'Rätt — Python-funktioner brukar skrivas i snake_case.',
+                            explanation: 'Exempel: `def calculate_total()`.'
+                        },
+                        {
+                            question: 'Vad betyder DRY-principen?',
+                            options: [
+                                'Debug, Run, Yield',
+                                'Do Repeat Yourself',
+                                'Data Readable Yet',
+                                'Don\'t Repeat Yourself — undvik upprepning'
+                            ],
+                            correct: 3,
+                            feedback: 'Rätt — DRY handlar om att undvika duplicerad kod.',
+                            explanation: 'Duplicerad kod gör underhåll svårare och ökar felrisk.'
+                        },
+                        {
+                            question: 'Vad bör kommentarer förklara i koden?',
+                            options: [
+                                'Varje rad kod ordagrant',
+                                'Varför komplex logik finns där',
+                                'Endast variabelnamn',
+                                'Hur filen kompileras'
+                            ],
+                            correct: 1,
+                            feedback: 'Rätt — kommentarer ska förklara syftet eller varför.',
+                            explanation: 'Kommentarer ska komplettera koden, inte upprepa den.'
+                        },
+                        {
+                            question: 'Vilken stil används normalt för Python-klassnamn?',
+                            options: [
+                                'snake_case',
+                                'PascalCase (CapWords)',
+                                'kebab-case',
+                                'lowercase'
+                            ],
+                            correct: 1,
+                            feedback: 'Rätt — Python-klassnamn använder CapWords/PascalCase.',
+                            explanation: 'Exempel: `class Player:` i Python följer CapWords (PascalCase).'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>

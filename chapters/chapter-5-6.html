@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Kap 5.6 - Miniuppgift: Kombinera GUI, API och databas</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 5.6: Miniuppgift där du kombinerar tkinter, requests och sqlite3 i ett skämtregister.">
 </head>
 
 <body class="chapter-page">
@@ -13,11 +14,127 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <h1>Kap 5.6: Miniuppgift - Kombinera GUI, API och databas</h1>
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 5.6 – Miniuppgift: Kombinera GUI, API och databas</h1>
+                <p class="subtitle">Bygg ett skämtregister som hämtar data från ett API och sparar det i SQLite.</p>
             </header>
+
             <section class="content-section">
-                <p>Capstone-miniuppgift som kombinerar flera tekniker.</p>
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Kunna kombinera <code>tkinter</code>, <code>requests</code> och <code>sqlite3</code> i ett
+                        mindre projekt.</li>
+                    <li>Skapa ett fungerande flöde från användarens inmatning till databas och API.</li>
+                    <li>Förbereda dig för det större projektet i Lärarbedömd uppgift 5.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Följ med i det enkla exemplet nedan och bygg sedan ut det steg för steg. Testa först att programmet
+                    fungerar med hårdkodad data och lägg sedan till möjligheter att ta in information från användaren.
+                    Jämför med det större projekt du ska göra senare och fundera på vad du kan återanvända eller
+                    förbättra.</p>
+
+                <h2>Miniuppgift: Skapa ett skämtregister</h2>
+                <p>Du ska skapa ett GUI-program där användaren kan hämta ett skämt från ett API och spara det i en lokal
+                    SQLite-databas.</p>
+
+                <h2>Funktioner</h2>
+                <ul>
+                    <li>En knapp för att hämta ett skämt via API.</li>
+                    <li>En etikett som visar skämtet.</li>
+                    <li>En knapp för att spara skämtet i en lokal SQLite-databas.</li>
+                    <li>En knapp för att visa alla sparade skämt.</li>
+                </ul>
+
+                <h2>Viktigt innan du börjar</h2>
+                <p>Programmet använder <code>requests</code>. Om biblioteket inte redan är installerat behöver du köra:</p>
+                <pre><code class="language-bash">pip3 install requests</code></pre>
+
+                <h2>Exempelkod - Grundstruktur</h2>
+                <pre><code class="language-python">import tkinter as tk
+import requests
+import sqlite3
+
+# Skapa databas
+conn = sqlite3.connect("skamt.db")
+cursor = conn.cursor()
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS skamt (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        setup TEXT,
+        punchline TEXT
+    )
+""")
+conn.commit()
+
+senaste_skamt = None
+
+# Funktioner
+def hamta_skamt():
+    global senaste_skamt
+    response = requests.get("https://official-joke-api.appspot.com/random_joke")
+
+    if response.status_code == 200:
+        data = response.json()
+        skamt_label.config(text=f"{data['setup']} - {data['punchline']}")
+        senaste_skamt = (data["setup"], data["punchline"])
+
+def spara_skamt():
+    if senaste_skamt:
+        cursor.execute(
+            "INSERT INTO skamt (setup, punchline) VALUES (?, ?)",
+            senaste_skamt
+        )
+        conn.commit()
+        skamt_label.config(text="Skämtet sparat!")
+
+def visa_skamt():
+    cursor.execute("SELECT * FROM skamt")
+    rader = cursor.fetchall()
+    output = "\n".join([f"{r[1]} - {r[2]}" for r in rader])
+    skamt_label.config(text=output[:300] + "..." if len(output) > 300 else output)
+
+# GUI
+root = tk.Tk()
+root.title("Skämtregister")
+
+tk.Button(root, text="Hämta skämt", command=hamta_skamt).pack()
+tk.Button(root, text="Spara skämt", command=spara_skamt).pack()
+tk.Button(root, text="Visa alla skämt", command=visa_skamt).pack()
+
+skamt_label = tk.Label(root, text="", wraplength=300, justify="left")
+skamt_label.pack()
+
+root.mainloop()</code></pre>
+
+                <h2>Hur flödet fungerar</h2>
+                <ol>
+                    <li>Programmet skapar databasen <code>skamt.db</code> och tabellen <code>skamt</code> om de inte
+                        redan finns.</li>
+                    <li>Användaren klickar på <strong>Hämta skämt</strong>.</li>
+                    <li>Programmet anropar API:et och sparar det senaste skämtet i variabeln <code>senaste_skamt</code>.</li>
+                    <li>Användaren klickar på <strong>Spara skämt</strong> för att lägga in skämtet i databasen.</li>
+                    <li>Användaren kan klicka på <strong>Visa alla skämt</strong> för att läsa ut sparade rader.</li>
+                </ol>
+
+                <h2>Att testa och bygga vidare</h2>
+                <ul>
+                    <li>Testa att spara flera skämt.</li>
+                    <li>Bygg ett sökfält för att söka bland sparade skämt.</li>
+                    <li>Lägg till en funktion för att ta bort skämt.</li>
+                    <li>Lägg till bättre felhantering om API:et inte svarar.</li>
+                    <li>Öppna <code>skamt.db</code> med SQLite Viewer i VS Code och kontrollera att raderna sparas.</li>
+                </ul>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Du har kombinerat tre viktiga tekniker i ett enda litet program.</li>
+                    <li>Du har skapat ett grafiskt gränssnitt som kommunicerar med både API och databas.</li>
+                    <li>Du har lagt grunden för den lärarbedömda uppgiften i Modul 5.</li>
+                </ul>
             </section>
+
             <p><a href="chapter-5.html">Tillbaka till Kapitel 5</a></p>
         </article>
     </main>
