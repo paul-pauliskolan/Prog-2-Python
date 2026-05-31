@@ -28,12 +28,16 @@
 
                 <h2>Dina uppgifter</h2>
                 <ul>
-                    <li>Planera programmet du vill bygga. Beskriv syfte, funktioner och användarflöde.</li>
+                    <li>Planera programmet du vill bygga. Beskriv syfte, målgrupp, funktioner och användarflöde.</li>
+                    <li>Beskriv kort hur programmet är anpassat till användaren och hur du har tänkt kring
+                        tillgänglighet, till exempel tydliga texter, felmeddelanden, kontrast och enkel navigering.</li>
                     <li>Skapa en grafisk gränssnittsapplikation i Python med <code>tkinter</code>.</li>
                     <li>Använd en lokal SQLite-databas för att spara data.</li>
                     <li>Anropa ett öppet API, till exempel väder, skämt eller djurfakta, med <code>requests</code> och
                         visa resultatet i gränssnittet.</li>
-                    <li>Använd tydlig struktur: funktioner, moduler och kommentarer.</li>
+                    <li>Använd tydlig struktur: funktioner, moduler, klasser där det passar och kommentarer.</li>
+                    <li>Använd felhantering för sådant som kan gå fel, till exempel API-anrop, databasanslutning och
+                        användarinmatning.</li>
                     <li>Skapa en README-fil som förklarar hur programmet fungerar.</li>
                     <li>Testa ditt program och reflektera över din utvecklingsprocess.</li>
                 </ul>
@@ -46,24 +50,56 @@
                     <li><strong>Receptverktyg:</strong> användare kan lägga in recept, söka dem och få matfakta via API.</li>
                 </ul>
 
-                <h2>Du ska visa att du kan</h2>
+                <h2>Betygskrav för uppgiften</h2>
+                <h3>Betyget E</h3>
                 <ul>
-                    <li>Använda <code>tkinter</code> för att bygga ett fungerande GUI.</li>
-                    <li>Skapa och strukturera en databas med minst en tabell.</li>
-                    <li>Hämta och tolka JSON-data från ett API.</li>
-                    <li>Bygga ett program som fungerar för en tänkt användare.</li>
-                    <li>Testa ditt program systematiskt.</li>
-                    <li>Skriva tydlig och kommenterad kod.</li>
-                    <li>Reflektera över ditt arbete.</li>
+                    <li>Du planerar och bygger ett enkelt GUI-program där användaren kan göra minst ett tydligt val
+                        eller mata in data.</li>
+                    <li>Programmet använder API eller databas på ett fungerande men enkelt sätt, till exempel hämtar
+                        information från ett API och visar den, eller sparar enkel data i SQLite.</li>
+                    <li>Programmet har viss anpassning till syfte och användare, till exempel tydliga knappar,
+                        enkel instruktion och något begripligt felmeddelande.</li>
+                    <li>Koden är tillräckligt strukturerad för att gå att följa, till exempel med funktioner för
+                        huvuddelarna i programmet.</li>
+                </ul>
+
+                <h3>Betyget C</h3>
+                <ul>
+                    <li>Du planerar och bygger ett program där GUI, API och SQLite-databas samverkar i ett tydligt
+                        användarflöde.</li>
+                    <li>Programmet kan både hämta data från ett API och spara, läsa eller söka relevant data i databasen.</li>
+                    <li>Koden är tydligt uppdelad i funktioner, moduler eller klasser med rimligt ansvar.</li>
+                    <li>Programmet har god anpassning till syfte och användare, till exempel tydliga instruktioner,
+                        genomtänkta knappar, återkoppling efter användarens val och hantering av vanliga fel.</li>
+                    <li>Du har tänkt på tillgänglighet, till exempel tydliga texter, rimlig kontrast och att användaren
+                        inte behöver gissa vad nästa steg är.</li>
+                </ul>
+
+                <h3>Betyget A</h3>
+                <ul>
+                    <li>Du planerar och bygger ett mer komplett program där GUI, API, databas, felhantering och
+                        programstruktur fungerar som en sammanhängande helhet.</li>
+                    <li>Programmet har flera relevanta funktioner, till exempel hämta data, validera inmatning, spara,
+                        läsa, söka, uppdatera eller ta bort data.</li>
+                    <li>Koden har tydligt separerade ansvarsområden, till exempel en del för GUI, en del för API och en
+                        del för databas, samt genomtänkta funktioner eller klasser.</li>
+                    <li>Programmet hanterar fel robust, till exempel saknad internetanslutning, ogiltig inmatning,
+                        tomma API-svar och databasfel utan att krascha direkt.</li>
+                    <li>Programmet har mycket god anpassning till syfte, användare och tillgänglighet, till exempel
+                        tydligt användarflöde, konsekvent återkoppling, begripliga felmeddelanden och gränssnitt som är
+                        lätt att förstå även för en ovan användare.</li>
                 </ul>
 
                 <h2>Checklista inför inlämning</h2>
                 <ul>
+                    <li>Planeringen beskriver syfte, målgrupp, funktioner, data, användarflöde och tänkt struktur.</li>
                     <li>GUI är skapat med <code>tkinter</code> och innehåller minst tre widgets, till exempel knapp,
                         inmatning och etikett.</li>
                     <li>Databas är skapad med <code>sqlite3</code> och kan spara och läsa data.</li>
                     <li>API-anrop fungerar med <code>requests</code> och informationen används i gränssnittet.</li>
                     <li>Koden är uppdelad i funktioner eller moduler.</li>
+                    <li>Programmet hanterar vanliga fel utan att krascha direkt.</li>
+                    <li>Gränssnittet har tydliga texter, tydliga knappar och begriplig återkoppling till användaren.</li>
                     <li>Koden är kommenterad och läsbar.</li>
                     <li>README-fil förklarar vad programmet gör, hur man kör det och vilka funktioner som finns.</li>
                     <li>Du har testat programmet och beskrivit det i din reflektion.</li>

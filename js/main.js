@@ -16,34 +16,6 @@ function chapterUrl(chapterNumber) {
     : `chapters/chapter-${chapterNumber}.html`;
 }
 
-function getMenuItems() {
-  return state.chapters.slice().sort((a, b) => a.number - b.number);
-}
-
-function buildChapterLink(chapter, activeNumber) {
-  const activeClass = chapter.number === activeNumber ? " is-active" : "";
-  return `
-        <a href="${chapterUrl(chapter.number)}" class="chapter-link${activeClass}">
-            <span class="chapter-number">${String(chapter.number).padStart(2, "0")}</span>
-            <span class="chapter-title">Kapitel ${chapter.number}</span>
-        </a>
-    `;
-}
-
-function renderMenu(container, activeNumber) {
-  if (!container) return;
-  container.innerHTML = getMenuItems()
-    .map((chapter) => buildChapterLink(chapter, activeNumber))
-    .join("");
-}
-
-function renderHomepageMenu(container) {
-  if (!container) return;
-  container.innerHTML = getMenuItems()
-    .map((chapter) => buildChapterLink(chapter))
-    .join("");
-}
-
 function renderSummary(chapter) {
   const summary = document.getElementById("chapter-summary");
   if (!summary) return;
@@ -144,7 +116,6 @@ function renderChapterPage(chapterNumber) {
     );
   }
 
-  renderMenu(document.getElementById("chapters-menu"), chapter.number);
   renderSummary(chapter);
   renderSections(chapter);
   renderVideos(chapter);
@@ -169,8 +140,6 @@ async function loadChapters() {
       })
       .then((data) => {
         state.chapters = Array.isArray(data.chapters) ? data.chapters : [];
-        renderMenu(document.getElementById("chapters-menu"));
-        renderHomepageMenu(document.getElementById("chapters-menu-homepage"));
         return state.chapters;
       })
       .catch((error) => {
@@ -183,32 +152,7 @@ async function loadChapters() {
   return state.loading;
 }
 
-function setupMenuControls() {
-  const menu = document.getElementById("side-menu");
-  const toggle = document.getElementById("menu-toggle");
-  const close = document.getElementById("menu-close");
-
-  if (!menu || !toggle || !close) return;
-
-  const setOpen = (isOpen) => {
-    menu.dataset.open = isOpen ? "true" : "false";
-  };
-
-  toggle.addEventListener("click", () => setOpen(menu.dataset.open !== "true"));
-  close.addEventListener("click", (event) => {
-    event.preventDefault();
-    setOpen(false);
-  });
-
-  document.addEventListener("click", (event) => {
-    if (menu.dataset.open !== "true") return;
-    if (menu.contains(event.target) || toggle.contains(event.target)) return;
-    setOpen(false);
-  });
-}
-
 function initPage() {
-  setupMenuControls();
   loadChapters().then(() => {
     const match = window.location.pathname.match(/chapter-(\d+)\.html$/);
     if (match) {
@@ -250,6 +194,7 @@ const LESSON_ORDER = [
   "chapter-3-5.html",
   "chapter-3-6.html",
   "chapter-3-7.html",
+  "chapter-3-8.html",
   "chapter-4-1.html",
   "chapter-4-2.html",
   "chapter-4-3.html",

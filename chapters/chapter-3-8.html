@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kap 3.8 - Generiska klasser och metoder</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description"
+        content="Kap 3.8: Lär dig använda generiska funktioner, metoder och klasser i Python med TypeVar och Generic.">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero">
+                <p class="eyebrow">Programmering nivå 2</p>
+                <h1>Kap 3.8 – Generiska klasser och metoder</h1>
+                <p class="subtitle">Skriv återanvändbar kod som kan fungera med flera olika datatyper utan att tappa
+                    tydlighet.</p>
+            </header>
+
+            <section class="content-section">
+                <h2>Mål med lektionen</h2>
+                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <ul>
+                    <li>Förstå vad generisk kod betyder i Python.</li>
+                    <li>Kunna skriva enkla generiska funktioner och metoder med <code>TypeVar</code>.</li>
+                    <li>Kunna skapa en enkel generisk klass med <code>Generic</code>.</li>
+                    <li>Förstå när generiska klasser och metoder gör kod mer återanvändbar och testbar.</li>
+                </ul>
+
+                <h2>Så här lär du dig bäst</h2>
+                <p>Börja med att jämföra två funktioner som gör samma sak för olika datatyper. Fundera sedan på vad
+                    som egentligen är gemensamt. Generiska typer är inte främst till för att göra koden svårare, utan
+                    för att beskriva tydligare vilka typer som hänger ihop.</p>
+
+                <h2>Centrala begrepp</h2>
+                <ul>
+                    <li><strong>Generisk kod:</strong> kod som kan användas med flera datatyper.</li>
+                    <li><strong>Typvariabel:</strong> en symbolisk typ, ofta <code>T</code>, som betyder "samma typ som
+                        används här".</li>
+                    <li><strong><code>TypeVar</code>:</strong> används för att skapa en typvariabel i Python.</li>
+                    <li><strong><code>Generic</code>:</strong> används när en klass ska vara generisk.</li>
+                    <li><strong>Typhint:</strong> en markering som hjälper läsaren och editorn förstå vilka typer koden
+                        arbetar med.</li>
+                </ul>
+
+                <h2>Varför behövs generiska typer?</h2>
+                <p>Tänk att du vill skriva en funktion som hämtar första värdet ur en lista. Funktionen fungerar på
+                    samma sätt oavsett om listan innehåller tal, text eller objekt.</p>
+
+                <pre><code class="language-python">def första_text(värden: list[str]) -> str:
+    return värden[0]
+
+def första_tal(värden: list[int]) -> int:
+    return värden[0]</code></pre>
+
+                <p>Det här ger duplicerad kod. Logiken är identisk. Det enda som skiljer är typen. Med en generisk
+                    funktion kan vi beskriva samma idé en gång.</p>
+
+                <h2>Generisk funktion</h2>
+                <pre><code class="language-python">from typing import TypeVar
+
+T = TypeVar("T")
+
+def första(värden: list[T]) -> T:
+    return värden[0]
+
+namn = första(["Ali", "Bo", "Cia"])
+poäng = första([10, 20, 30])
+
+print(namn)
+print(poäng)</code></pre>
+
+                <p><code>T</code> betyder att funktionen ska returnera samma typ som listan innehåller. Om listan är
+                    <code>list[str]</code> blir returvärdet <code>str</code>. Om listan är <code>list[int]</code> blir
+                    returvärdet <code>int</code>.</p>
+
+                <h2>Generisk metod</h2>
+                <p>En metod kan också vara generisk. Här används samma metod för att kontrollera om ett värde finns i en
+                    lista, oavsett vilken typ listan innehåller.</p>
+
+                <pre><code class="language-python">from typing import TypeVar
+
+T = TypeVar("T")
+
+def finns_i(värde: T, värden: list[T]) -> bool:
+    return värde in värden
+
+print(finns_i("Ali", ["Ali", "Bo"]))
+print(finns_i(3, [1, 2, 3]))</code></pre>
+
+                <p>Det viktiga är kopplingen mellan <code>värde</code> och <code>värden</code>: de ska höra ihop
+                    typmässigt. Det gör koden lättare att förstå och bättre för editorstöd.</p>
+
+                <h2>Generisk klass</h2>
+                <p>En generisk klass passar när klassen ska kunna lagra eller hantera olika typer av objekt, men med
+                    samma logik. Här är en enkel låda som kan innehålla vad som helst.</p>
+
+                <pre><code class="language-python">from typing import Generic, TypeVar
+
+T = TypeVar("T")
+
+class Låda(Generic[T]):
+    def __init__(self, innehåll: T):
+        self.innehåll = innehåll
+
+    def hämta(self) -> T:
+        return self.innehåll
+
+textlåda = Låda("Hej")
+tallåda = Låda(42)
+
+print(textlåda.hämta())
+print(tallåda.hämta())</code></pre>
+
+                <p><code>Låda[str]</code> betyder en låda som innehåller text. <code>Låda[int]</code> betyder en låda
+                    som innehåller heltal. Python tvingar normalt inte detta vid körning, men typhintarna hjälper
+                    programmeraren, editorn och testningen.</p>
+
+                <h2>Exempel: generiskt register</h2>
+                <p>I tidigare kapitel har du arbetat med böcker, elever och recept. Ett register kan ofta ha samma
+                    grundlogik oavsett vilken typ av objekt som lagras.</p>
+
+                <pre><code class="language-python">from typing import Generic, TypeVar
+
+T = TypeVar("T")
+
+class Register(Generic[T]):
+    def __init__(self):
+        self._saker: list[T] = []
+
+    def lägg_till(self, sak: T) -> None:
+        self._saker.append(sak)
+
+    def alla(self) -> list[T]:
+        return self._saker
+
+class Bok:
+    def __init__(self, titel: str):
+        self.titel = titel
+
+bokregister = Register[Bok]()
+bokregister.lägg_till(Bok("Python"))
+
+första_boken = bokregister.alla()[0]
+print(första_boken.titel)</code></pre>
+
+                <p>Samma <code>Register</code>-klass kan användas för <code>Bok</code>, <code>Elev</code>,
+                    <code>Recept</code> eller andra objekt. Det minskar duplicering och gör klassens ansvar tydligt:
+                    den hanterar en samling objekt.</p>
+
+                <h2>När ska du använda generiska klasser och metoder?</h2>
+                <ul>
+                    <li>När samma logik ska fungera för flera datatyper.</li>
+                    <li>När du vill undvika duplicerade funktioner som bara skiljer sig i typ.</li>
+                    <li>När du vill att editorn ska kunna ge bättre stöd och varna för fel typ.</li>
+                    <li>När du bygger egna samlingar, register, köer eller lagringsklasser.</li>
+                </ul>
+
+                <h2>När behövs det inte?</h2>
+                <ul>
+                    <li>När koden bara används på ett enda ställe.</li>
+                    <li>När en vanlig funktion eller klass är tydligare.</li>
+                    <li>När generiska typer gör lösningen svårare att läsa än problemet kräver.</li>
+                </ul>
+
+                <h2>Öva själv</h2>
+                <ol>
+                    <li>Skriv en generisk funktion <code>sista(värden)</code> som returnerar sista värdet i en lista.</li>
+                    <li>Skapa en generisk klass <code>Par</code> som lagrar två värden av samma typ.</li>
+                    <li>Skapa en klass <code>Elev</code> och använd <code>Register[Elev]</code> för att lagra elever.</li>
+                    <li>Fundera: när blir generisk kod tydligare än duplicerad kod?</li>
+                </ol>
+
+                <h2>Sammanfattning</h2>
+                <ul>
+                    <li>Generisk kod kan återanvändas med flera datatyper.</li>
+                    <li><code>TypeVar</code> beskriver en typ som återkommer på flera platser.</li>
+                    <li><code>Generic[T]</code> används när en klass ska fungera med valfri men sammanhängande typ.</li>
+                    <li>Generiska klasser och metoder kan göra kod mer läsbar, testbar och återanvändbar.</li>
+                </ul>
+            </section>
+
+            <div id="quiz-3-8" aria-label="Quiz Kap 3.8"></div>
+
+            <p><a href="chapter-3.html">Tillbaka till Kapitel 3</a></p>
+        </article>
+    </main>
+    <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-3-8'), {
+                    title: 'Quiz: Kap 3.8 - Generiska klasser och metoder',
+                    questions: [
+                        {
+                            question: 'Vad betyder generisk kod?',
+                            options: [
+                                'Kod som bara fungerar med strängar',
+                                'Kod som kan fungera med flera datatyper',
+                                'Kod som saknar funktioner',
+                                'Kod som alltid kräver en databas'
+                            ],
+                            correct: 1,
+                            feedback: 'Generisk kod kan användas med flera datatyper.',
+                            explanation: 'Exempelvis kan samma funktion hämta första värdet ur både list[str] och list[int].'
+                        },
+                        {
+                            question: 'Vad används TypeVar till i Python?',
+                            options: [
+                                'Att skapa en typvariabel som kan återanvändas i typhintar',
+                                'Att skriva ut text på skärmen',
+                                'Att starta en SQLite-databas',
+                                'Att fånga ValueError'
+                            ],
+                            correct: 0,
+                            feedback: 'TypeVar skapar en typvariabel, till exempel T.',
+                            explanation: 'T kan visa att indata och returvärde hör ihop typmässigt.'
+                        },
+                        {
+                            question: 'Vad betyder returtypen T i funktionen def första(värden: list[T]) -> T?',
+                            options: [
+                                'Funktionen returnerar alltid text',
+                                'Funktionen returnerar alltid en lista',
+                                'Funktionen returnerar samma typ som listans element',
+                                'Funktionen returnerar alltid None'
+                            ],
+                            correct: 2,
+                            feedback: 'Returvärdet har samma typ som elementen i listan.',
+                            explanation: 'Om värden är list[int] blir returvärdet int. Om värden är list[str] blir returvärdet str.'
+                        },
+                        {
+                            question: 'När passar en generisk klass särskilt bra?',
+                            options: [
+                                'När klassen bara ska skriva ut en fast text',
+                                'När klassen ska hantera samma logik för olika typer av objekt',
+                                'När man vill undvika alla typhintar',
+                                'När programmet inte använder objekt'
+                            ],
+                            correct: 1,
+                            feedback: 'Generiska klasser passar för återanvändbar logik över flera typer.',
+                            explanation: 'Ett Register[T] kan till exempel hantera böcker, elever eller recept med samma grundkod.'
+                        },
+                        {
+                            question: 'Vad är en rimlig fördel med generiska klasser och metoder?',
+                            options: [
+                                'De gör att Python aldrig kan krascha',
+                                'De ersätter all testning',
+                                'De kan minska duplicerad kod och ge bättre editorstöd',
+                                'De gör att kod inte behöver struktureras'
+                            ],
+                            correct: 2,
+                            feedback: 'Generiska typer kan minska duplicering och göra typkopplingar tydligare.',
+                            explanation: 'De hjälper läsaren och editorn förstå vilka typer som hör ihop, men de ersätter inte testning.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
+</body>
+
+</html>

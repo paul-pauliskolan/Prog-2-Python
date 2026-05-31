@@ -200,9 +200,7 @@ ol {
   color: var(--text);
 }
 
-.menu-toggle,
 .search-toggle,
-.menu-close,
 .primary-link,
 .secondary-link,
 .preview-link,
@@ -210,18 +208,6 @@ ol {
 .chapter-link,
 .preview-btn {
   -webkit-tap-highlight-color: transparent;
-}
-
-.menu-toggle {
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.02);
-  color: var(--text);
-  width: 2.75rem;
-  height: 2.75rem;
-  font-size: 1.05rem;
-  cursor: pointer;
-  margin-left: auto;
 }
 
 .search-toggle {
@@ -272,46 +258,6 @@ ol {
     max-height: 56vh !important;
   }
 
-  .menu-toggle {
-    margin-left: 0;
-  }
-}
-
-.side-menu {
-  position: fixed;
-  inset: 0 auto 0 0;
-  width: 22rem;
-  max-width: 92vw;
-  padding: 1.25rem;
-  background: rgba(14, 18, 33, 0.98);
-  border-right: 1px solid var(--border);
-  box-shadow: var(--shadow);
-  transform: translateX(-102%);
-  transition: transform 0.28s ease;
-  z-index: 100;
-  overflow-y: auto;
-}
-
-.side-menu.active {
-  transform: translateX(0);
-}
-
-.side-menu h2 {
-  margin: 0.25rem 0 1rem;
-  font-size: 1.3rem;
-}
-
-.menu-close {
-  position: absolute;
-  top: 0.85rem;
-  right: 0.85rem;
-  width: 2.2rem;
-  height: 2.2rem;
-  display: grid;
-  place-items: center;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  color: var(--text);
 }
 
 .chapter-menu {
@@ -358,6 +304,14 @@ ol {
   gap: 1.25rem;
   align-items: stretch;
   margin-top: 1.25rem;
+}
+
+.home-page .hero {
+  grid-template-columns: 1fr;
+}
+
+.home-page .hero h1 {
+  max-width: none;
 }
 
 .hero-compact {

@@ -2,155 +2,262 @@
 <html lang="sv">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Programmering nivå 2 i Python — ett webbaserat läromedel med kapitel, övningar, självmarknadsquiz och övningsuppgifter för kursen Programmering 2.">
-    <title>Programmering nivå 2 — Python</title>
-    <link rel="stylesheet" href="css/style.css">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description"
+                content="Programmering nivå 2 i Python — ett webbaserat läromedel med kapitel, övningar, självmarknadsquiz och övningsuppgifter för kursen Programmering 2.">
+        <title>Programmering nivå 2 — Python</title>
+        <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
-    <nav class="navbar">
-        <a href="index.html" class="logo">Programmering 2 i Python</a>
-        <button class="menu-toggle" id="menu-toggle" aria-label="Öppna kapitelmeny">☰</button>
-    </nav>
+        <nav class="navbar">
+                <a href="index.html" class="logo">Programmering 2 i Python</a>
+        </nav>
 
-    <aside class="side-menu" id="side-menu" aria-label="Kapitelmeny">
-        <a href="index.html" class="menu-close" id="menu-close" aria-label="Stäng kapitelmeny">✕</a>
-        <h2>Kapitel</h2>
-        <nav class="chapter-menu" id="chapters-menu"></nav>
-    </aside>
+        <div class="container home-page">
+                <header class="hero">
+                        <div class="hero-copy">
+                                <h1>Programmering nivå 2 med Python</h1>
+                                <p class="subtitle">Ett läromedel i Python där varje kapitel är en egen sida med teori,
+                                        kodexempel,
+                                        övningar och ett självrättande quiz.</p>
+                                <p>Kodexemplen finns i <a href="p2-python-kod/">mappen <code>p2-python-kod</code></a>.
+                                        Du kan också <a href="kod.zip" download>ladda ner alla koder som zip-fil</a>.
+                                </p>
+                        </div>
+                </header>
 
-    <div class="container home-page">
-        <header class="hero">
-            <div class="hero-copy">
-                <p class="eyebrow">Programmering nivå 2</p>
-                <h1>Programmering i Python</h1>
-                <p class="subtitle">Ett läromedel i Python där varje kapitel är en egen sida med teori, kodexempel,
-                    övningar och ett självrättande quiz.</p>
-                <p>Kodexemplen finns i <a href="p2-python-kod/">mappen <code>p2-python-kod</code></a>.
-                    Du kan också <a href="kod.zip" download>ladda ner alla koder som zip-fil</a>.</p>
-            </div>
-        </header>
+                <main class="page-stack">
+                        <section class="toc-section">
+                                <div style="margin-top:1.5rem">
+                                        <p class="eyebrow">Lektionssidor</p>
+                                        <div class="chapter-groups">
+                                                <section class="chapter-group">
+                                                        <h3>Kapitel 1: Programmeringsgrunder och struktur</h3>
+                                                        <nav class="chapter-menu chapter-menu-home">
+                                                                <a href="chapters/chapter-1-1.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">1.1</span><span
+                                                                                class="chapter-title">Introduktion till
+                                                                                programmering</span></a>
+                                                                <a href="chapters/chapter-1-2.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">1.2</span><span
+                                                                                class="chapter-title">Kom igång med
+                                                                                Python</span></a>
+                                                                <a href="chapters/chapter-1-3.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">1.3</span><span
+                                                                                class="chapter-title">Strukturerad
+                                                                                problemlösning med kod</span></a>
+                                                                <a href="chapters/chapter-1-4.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">1.4</span><span
+                                                                                class="chapter-title">Villkor och logik
+                                                                                i funktioner</span></a>
+                                                                <a href="chapters/chapter-1-5.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">1.5</span><span
+                                                                                class="chapter-title">Loopar och
+                                                                                upprepning</span></a>
+                                                                <a href="chapters/chapter-1-6.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">1.6</span><span
+                                                                                class="chapter-title">Flödesscheman och
+                                                                                pseudokod</span></a>
+                                                                <a href="chapters/chapter-1-7.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">1.7</span><span
+                                                                                class="chapter-title">Miniuppgift:
+                                                                                struktur och funktioner</span></a>
+                                                        </nav>
+                                                </section>
 
-        <main class="page-stack">
-            <section class="toc-section">
-                <div style="margin-top:1.5rem">
-                    <p class="eyebrow">Lektionssidor</p>
-                    <div class="chapter-groups">
-                        <section class="chapter-group">
-                            <h3>Kapitel 1: Programmeringsgrunder och struktur</h3>
-                            <nav class="chapter-menu chapter-menu-home">
-                                <a href="chapters/chapter-1-1.html" class="chapter-link"><span
-                                        class="chapter-number">1.1</span><span class="chapter-title">Introduktion till programmering</span></a>
-                                <a href="chapters/chapter-1-2.html" class="chapter-link"><span
-                                        class="chapter-number">1.2</span><span class="chapter-title">Kom igång med Python</span></a>
-                                <a href="chapters/chapter-1-3.html" class="chapter-link"><span
-                                        class="chapter-number">1.3</span><span class="chapter-title">Strukturerad problemlösning med kod</span></a>
-                                <a href="chapters/chapter-1-4.html" class="chapter-link"><span
-                                        class="chapter-number">1.4</span><span class="chapter-title">Villkor och logik i funktioner</span></a>
-                                <a href="chapters/chapter-1-5.html" class="chapter-link"><span
-                                        class="chapter-number">1.5</span><span class="chapter-title">Loopar och upprepning</span></a>
-                                <a href="chapters/chapter-1-6.html" class="chapter-link"><span
-                                        class="chapter-number">1.6</span><span class="chapter-title">Flödesscheman och pseudokod</span></a>
-                                <a href="chapters/chapter-1-7.html" class="chapter-link"><span
-                                        class="chapter-number">1.7</span><span class="chapter-title">Miniuppgift: struktur och funktioner</span></a>
-                            </nav>
+                                                <section class="chapter-group">
+                                                        <h3>Kapitel 2: Algoritmer och datastrukturer</h3>
+                                                        <nav class="chapter-menu chapter-menu-home">
+                                                                <a href="chapters/chapter-2-1.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">2.1</span><span
+                                                                                class="chapter-title">Vad är en
+                                                                                algoritm?</span></a>
+                                                                <a href="chapters/chapter-2-2.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">2.2</span><span
+                                                                                class="chapter-title">Listor och
+                                                                                iteration</span></a>
+                                                                <a href="chapters/chapter-2-3.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">2.3</span><span
+                                                                                class="chapter-title">Sökning och
+                                                                                sortering</span></a>
+                                                                <a href="chapters/chapter-2-4.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">2.4</span><span
+                                                                                class="chapter-title">Dictionaries och
+                                                                                tuples</span></a>
+                                                                <a href="chapters/chapter-2-5.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">2.5</span><span
+                                                                                class="chapter-title">Planera program
+                                                                                med algoritmtänk</span></a>
+                                                                <a href="chapters/chapter-2-6.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">2.6</span><span
+                                                                                class="chapter-title">Problemlösning med
+                                                                                listor</span></a>
+                                                                <a href="chapters/chapter-2-7.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">2.7</span><span
+                                                                                class="chapter-title">Miniuppgift:
+                                                                                datalagring och logik</span></a>
+                                                        </nav>
+                                                </section>
+
+                                                <section class="chapter-group">
+                                                        <h3>Kapitel 3: Objektorienterad programmering</h3>
+                                                        <nav class="chapter-menu chapter-menu-home">
+                                                                <a href="chapters/chapter-3-1.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">3.1</span><span
+                                                                                class="chapter-title">Vad är
+                                                                                OOP?</span></a>
+                                                                <a href="chapters/chapter-3-2.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">3.2</span><span
+                                                                                class="chapter-title">Skapa klasser och
+                                                                                objekt</span></a>
+                                                                <a href="chapters/chapter-3-3.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">3.3</span><span
+                                                                                class="chapter-title">Konstruktorer och
+                                                                                metoder</span></a>
+                                                                <a href="chapters/chapter-3-4.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">3.4</span><span
+                                                                                class="chapter-title">Inkapsling och
+                                                                                attribut</span></a>
+                                                                <a href="chapters/chapter-3-5.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">3.5</span><span
+                                                                                class="chapter-title">Arv och
+                                                                                polymorfism</span></a>
+                                                                <a href="chapters/chapter-3-6.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">3.6</span><span
+                                                                                class="chapter-title">UML för
+                                                                                objektmodeller</span></a>
+                                                                <a href="chapters/chapter-3-7.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">3.7</span><span
+                                                                                class="chapter-title">Objektorienterat
+                                                                                projekt</span></a>
+                                                                <a href="chapters/chapter-3-8.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">3.8</span><span
+                                                                                class="chapter-title">Generiska klasser
+                                                                                och metoder</span></a>
+                                                        </nav>
+                                                </section>
+
+                                                <section class="chapter-group">
+                                                        <h3>Kapitel 4: Filhantering, moduler och databaser</h3>
+                                                        <nav class="chapter-menu chapter-menu-home">
+                                                                <a href="chapters/chapter-4-1.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">4.1</span><span
+                                                                                class="chapter-title">Läsa och skriva
+                                                                                till filer</span></a>
+                                                                <a href="chapters/chapter-4-2.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">4.2</span><span
+                                                                                class="chapter-title">Try/except och
+                                                                                felsökning</span></a>
+                                                                <a href="chapters/chapter-4-3.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">4.3</span><span
+                                                                                class="chapter-title">Egna moduler och
+                                                                                import</span></a>
+                                                                <a href="chapters/chapter-4-4.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">4.4</span><span
+                                                                                class="chapter-title">Kodstandard och
+                                                                                struktur</span></a>
+                                                                <a href="chapters/chapter-4-5.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">4.5</span><span
+                                                                                class="chapter-title">Miniuppgift:
+                                                                                filbaserat program</span></a>
+                                                                <a href="chapters/chapter-4-6.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">4.6</span><span
+                                                                                class="chapter-title">Använda
+                                                                                SQLite-databaser</span></a>
+                                                                <a href="chapters/chapter-4-7.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">4.7</span><span
+                                                                                class="chapter-title">Miniuppgift:
+                                                                                Använda SQLite-databaser</span></a>
+                                                        </nav>
+                                                </section>
+
+                                                <section class="chapter-group">
+                                                        <h3>Kapitel 5: Projektarbete med GUI, API och testning</h3>
+                                                        <nav class="chapter-menu chapter-menu-home">
+                                                                <a href="chapters/chapter-5-1.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">5.1</span><span
+                                                                                class="chapter-title">Planera ett
+                                                                                projekt</span></a>
+                                                                <a href="chapters/chapter-5-2.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">5.2</span><span
+                                                                                class="chapter-title">Projektarbete med
+                                                                                databas</span></a>
+                                                                <a href="chapters/chapter-5-3.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">5.3</span><span
+                                                                                class="chapter-title">Hämta data från
+                                                                                API med requests</span></a>
+                                                                <a href="chapters/chapter-5-4.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">5.4</span><span
+                                                                                class="chapter-title">Skapa GUI med
+                                                                                tkinter</span></a>
+                                                                <a href="chapters/chapter-5-5.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">5.5</span><span
+                                                                                class="chapter-title">Testning,
+                                                                                dokumentation och reflektion</span></a>
+                                                                <a href="chapters/chapter-5-6.html"
+                                                                        class="chapter-link"><span
+                                                                                class="chapter-number">5.6</span><span
+                                                                                class="chapter-title">Miniuppgift:
+                                                                                Kombinera GUI, API och
+                                                                                databas</span></a>
+                                                        </nav>
+                                                </section>
+                                        </div>
+                                </div>
+                                <div style="margin-top:1rem">
+                                        <p class="eyebrow">Övningsuppgifter</p>
+                                        <nav class="chapter-menu">
+                                                <a href="chapters/ovningsuppgift-1.html"
+                                                        class="chapter-link">Övningsuppgift 1</a>
+                                                <a href="chapters/ovningsuppgift-2.html"
+                                                        class="chapter-link">Övningsuppgift 2</a>
+                                                <a href="chapters/ovningsuppgift-3.html"
+                                                        class="chapter-link">Övningsuppgift 3</a>
+                                                <a href="chapters/ovningsuppgift-4.html"
+                                                        class="chapter-link">Övningsuppgift 4</a>
+                                                <a href="chapters/ovningsuppgift-5.html"
+                                                        class="chapter-link">Övningsuppgift 5</a>
+                                        </nav>
+                                </div>
                         </section>
 
-                        <section class="chapter-group">
-                            <h3>Kapitel 2: Algoritmer och datastrukturer</h3>
-                            <nav class="chapter-menu chapter-menu-home">
-                                <a href="chapters/chapter-2-1.html" class="chapter-link"><span
-                                        class="chapter-number">2.1</span><span class="chapter-title">Vad är en algoritm?</span></a>
-                                <a href="chapters/chapter-2-2.html" class="chapter-link"><span
-                                        class="chapter-number">2.2</span><span class="chapter-title">Listor och iteration</span></a>
-                                <a href="chapters/chapter-2-3.html" class="chapter-link"><span
-                                        class="chapter-number">2.3</span><span class="chapter-title">Sökning och sortering</span></a>
-                                <a href="chapters/chapter-2-4.html" class="chapter-link"><span
-                                        class="chapter-number">2.4</span><span class="chapter-title">Dictionaries och tuples</span></a>
-                                <a href="chapters/chapter-2-5.html" class="chapter-link"><span
-                                        class="chapter-number">2.5</span><span class="chapter-title">Planera program med algoritmtänk</span></a>
-                                <a href="chapters/chapter-2-6.html" class="chapter-link"><span
-                                        class="chapter-number">2.6</span><span class="chapter-title">Problemlösning med listor</span></a>
-                                <a href="chapters/chapter-2-7.html" class="chapter-link"><span
-                                        class="chapter-number">2.7</span><span class="chapter-title">Miniuppgift: datalagring och logik</span></a>
-                            </nav>
-                        </section>
-
-                        <section class="chapter-group">
-                            <h3>Kapitel 3: Objektorienterad programmering</h3>
-                            <nav class="chapter-menu chapter-menu-home">
-                                <a href="chapters/chapter-3-1.html" class="chapter-link"><span
-                                        class="chapter-number">3.1</span><span class="chapter-title">Vad är OOP?</span></a>
-                                <a href="chapters/chapter-3-2.html" class="chapter-link"><span
-                                        class="chapter-number">3.2</span><span class="chapter-title">Skapa klasser och objekt</span></a>
-                                <a href="chapters/chapter-3-3.html" class="chapter-link"><span
-                                        class="chapter-number">3.3</span><span class="chapter-title">Konstruktorer och metoder</span></a>
-                                <a href="chapters/chapter-3-4.html" class="chapter-link"><span
-                                        class="chapter-number">3.4</span><span class="chapter-title">Inkapsling och attribut</span></a>
-                                <a href="chapters/chapter-3-5.html" class="chapter-link"><span
-                                        class="chapter-number">3.5</span><span class="chapter-title">Arv och polymorfism</span></a>
-                                <a href="chapters/chapter-3-6.html" class="chapter-link"><span
-                                        class="chapter-number">3.6</span><span class="chapter-title">UML för objektmodeller</span></a>
-                                <a href="chapters/chapter-3-7.html" class="chapter-link"><span
-                                        class="chapter-number">3.7</span><span class="chapter-title">Objektorienterat projekt</span></a>
-                            </nav>
-                        </section>
-
-                        <section class="chapter-group">
-                            <h3>Kapitel 4: Filhantering, moduler och databaser</h3>
-                            <nav class="chapter-menu chapter-menu-home">
-                                <a href="chapters/chapter-4-1.html" class="chapter-link"><span
-                                        class="chapter-number">4.1</span><span class="chapter-title">Läsa och skriva till filer</span></a>
-                                <a href="chapters/chapter-4-2.html" class="chapter-link"><span
-                                        class="chapter-number">4.2</span><span class="chapter-title">Try/except och felsökning</span></a>
-                                <a href="chapters/chapter-4-3.html" class="chapter-link"><span
-                                        class="chapter-number">4.3</span><span class="chapter-title">Egna moduler och import</span></a>
-                                <a href="chapters/chapter-4-4.html" class="chapter-link"><span
-                                        class="chapter-number">4.4</span><span class="chapter-title">Kodstandard och struktur</span></a>
-                                <a href="chapters/chapter-4-5.html" class="chapter-link"><span
-                                        class="chapter-number">4.5</span><span class="chapter-title">Miniuppgift: filbaserat program</span></a>
-                                <a href="chapters/chapter-4-6.html" class="chapter-link"><span
-                                        class="chapter-number">4.6</span><span class="chapter-title">Använda SQLite-databaser</span></a>
-                                <a href="chapters/chapter-4-7.html" class="chapter-link"><span
-                                        class="chapter-number">4.7</span><span class="chapter-title">Miniuppgift: Använda SQLite-databaser</span></a>
-                            </nav>
-                        </section>
-
-                        <section class="chapter-group">
-                            <h3>Kapitel 5: Projektarbete med GUI, API och testning</h3>
-                            <nav class="chapter-menu chapter-menu-home">
-                                <a href="chapters/chapter-5-1.html" class="chapter-link"><span
-                                        class="chapter-number">5.1</span><span class="chapter-title">Planera ett projekt</span></a>
-                                <a href="chapters/chapter-5-2.html" class="chapter-link"><span
-                                        class="chapter-number">5.2</span><span class="chapter-title">Projektarbete med databas</span></a>
-                                <a href="chapters/chapter-5-3.html" class="chapter-link"><span
-                                        class="chapter-number">5.3</span><span class="chapter-title">Hämta data från API med requests</span></a>
-                                <a href="chapters/chapter-5-4.html" class="chapter-link"><span
-                                        class="chapter-number">5.4</span><span class="chapter-title">Skapa GUI med tkinter</span></a>
-                                <a href="chapters/chapter-5-5.html" class="chapter-link"><span
-                                        class="chapter-number">5.5</span><span class="chapter-title">Testning, dokumentation och reflektion</span></a>
-                                <a href="chapters/chapter-5-6.html" class="chapter-link"><span
-                                        class="chapter-number">5.6</span><span class="chapter-title">Miniuppgift: Kombinera GUI, API och databas</span></a>
-                            </nav>
-                        </section>
-                    </div>
-                </div>
-                <div style="margin-top:1rem">
-                    <p class="eyebrow">Övningsuppgifter</p>
-                    <nav class="chapter-menu">
-                        <a href="chapters/ovningsuppgift-1.html" class="chapter-link">Övningsuppgift 1</a>
-                        <a href="chapters/ovningsuppgift-2.html" class="chapter-link">Övningsuppgift 2</a>
-                        <a href="chapters/ovningsuppgift-3.html" class="chapter-link">Övningsuppgift 3</a>
-                        <a href="chapters/ovningsuppgift-4.html" class="chapter-link">Övningsuppgift 4</a>
-                        <a href="chapters/ovningsuppgift-5.html" class="chapter-link">Övningsuppgift 5</a>
-                    </nav>
-                </div>
-            </section>
-
-            <!--     <section class="feature-grid" id="kom-igang">
+                        <!--     <section class="feature-grid" id="kom-igang">
                 <article class="feature-card">
                     <h2>Så är boken byggd</h2>
                     <p>Markdown-filen används som huvudkälla, och kapitlen kan sedan visas som webbsidor med
@@ -168,45 +275,49 @@
                 </article>
             </section> -->
 
-            <section class="split-mode">
-                <div class="split-mode-copy">
-                    <p class="eyebrow">Kombinerat läge</p>
-                    <h2>Läs och bygg samtidigt</h2>
-                    <p>Den här sajten är tänkt att ligga öppet bredvid kodredigeraren. Därför är texten smal,
-                        rubrikerna tydliga och menyerna lätta att stänga när fokus ska ligga på teori och kod.</p>
-                </div>
-                <div class="split-mode-panel">
-                    <h3>Rekommenderat arbetssätt</h3>
-                    <ol>
-                        <li>Öppna kapitlet du arbetar med.</li>
-                        <li>Ha kodredigeraren bredvid i samma fönsterbredd.</li>
-                        <li>Växla mellan teori, exempel och övning utan att lämna sidan.</li>
-                    </ol>
-                </div>
-            </section>
+                        <section class="split-mode">
+                                <div class="split-mode-copy">
+                                        <p class="eyebrow">Kombinerat läge</p>
+                                        <h2>Läs och bygg samtidigt</h2>
+                                        <p>Den här sajten är tänkt att ligga öppet bredvid kodredigeraren. Därför är
+                                                texten smal,
+                                                rubrikerna tydliga och menyerna lätta att stänga när fokus ska ligga på
+                                                teori och kod.</p>
+                                </div>
+                                <div class="split-mode-panel">
+                                        <h3>Rekommenderat arbetssätt</h3>
+                                        <ol>
+                                                <li>Öppna kapitlet du arbetar med.</li>
+                                                <li>Ha kodredigeraren bredvid i samma fönsterbredd.</li>
+                                                <li>Växla mellan teori, exempel och övning utan att lämna sidan.</li>
+                                        </ol>
+                                </div>
+                        </section>
 
-            <section class="hero-card">
-                <p class="hero-card-label">Synpunkter</p>
-                <h2>Hjälp mig förbättra läromedlet</h2>
-                <p>Jag tar gärna emot synpunkter på detta läromedel eller om ni hittar fel.</p>
-                <p>Om du vill skicka synpunkter kan du använda formuläret här:</p>
-                <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSc8fyjjAhtlfX3u6UeVvk6AlF_3-ow0UdZmgP3QtJIn5s7_hw/viewform"
-                        target="_blank" rel="noopener noreferrer">Lämna synpunkter i kontaktformuläret</a></p>
-                <p>Fler läromedel: <a href="https://paul-pauliskolan.github.io/prog1-python/index.html"
-                        target="_blank" rel="noopener noreferrer">Programmering 1 - Python</a> | <a
-                        href="https://paul-pauliskolan.github.io/tek-2/" target="_blank"
-                        rel="noopener noreferrer">Teknik 2</a></p>
-            </section>
-        </main>
+                        <section class="hero-card">
+                                <p class="hero-card-label">Synpunkter</p>
+                                <h2>Hjälp mig förbättra läromedlet</h2>
+                                <p>Jag tar gärna emot synpunkter på detta läromedel eller om ni hittar fel.</p>
+                                <p>Om du vill skicka synpunkter kan du använda formuläret här:</p>
+                                <p><a href="https://docs.google.com/forms/d/e/1FAIpQLSc8fyjjAhtlfX3u6UeVvk6AlF_3-ow0UdZmgP3QtJIn5s7_hw/viewform"
+                                                target="_blank" rel="noopener noreferrer">Lämna synpunkter i
+                                                kontaktformuläret</a></p>
+                                <p>Fler läromedel: <a href="https://paul-pauliskolan.github.io/prog1-python/index.html"
+                                                target="_blank" rel="noopener noreferrer">Programmering 1 - Python</a> |
+                                        <a href="https://paul-pauliskolan.github.io/tek-2/" target="_blank"
+                                                rel="noopener noreferrer">Teknik 2</a>
+                                </p>
+                        </section>
+                </main>
 
-        <footer class="site-footer">
-            <p>© Paul Belfrage. Anpassad för Programmering 2 med HTML, CSS och JavaScript. | <a
-                    href="https://docs.google.com/forms/d/e/1FAIpQLSc8fyjjAhtlfX3u6UeVvk6AlF_3-ow0UdZmgP3QtJIn5s7_hw/viewform"
-                    target="_blank" rel="noopener noreferrer">Kontakt / Återkoppling</a></p>
-        </footer>
-    </div>
+                <footer class="site-footer">
+                        <p>© Paul Belfrage. Anpassad för Programmering 2 med HTML, CSS och JavaScript. | <a
+                                        href="https://docs.google.com/forms/d/e/1FAIpQLSc8fyjjAhtlfX3u6UeVvk6AlF_3-ow0UdZmgP3QtJIn5s7_hw/viewform"
+                                        target="_blank" rel="noopener noreferrer">Kontakt / Återkoppling</a></p>
+                </footer>
+        </div>
 
-    <script src="js/main.js"></script>
+        <script src="js/main.js"></script>
 </body>
 
 </html>
