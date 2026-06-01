@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Öva inför prov - Fråga 1-20</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description"
+        content="Öva inför prov i Programmering nivå 2 med Python med 50 flervalsfrågor för fråga 1-20 och klickbara alternativ.">
+    <style>
+        .practice-intro {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .practice-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin: 1rem 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .practice-summary a {
+            display: inline-flex;
+            align-items: center;
+            min-height: 44px;
+            padding: 0.65rem 0.85rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--surface-color);
+            color: var(--text-color);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .practice-section {
+            margin-top: 2rem;
+        }
+
+        .practice-section>p {
+            max-width: 72ch;
+        }
+
+        .practice-list {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .practice-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--surface-color);
+            padding: 1rem;
+        }
+
+        .practice-card-header {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+            align-items: start;
+        }
+
+        .practice-card h3 {
+            margin: 0;
+            font-size: 1.02rem;
+            line-height: 1.45;
+        }
+
+        .practice-options {
+            display: grid;
+            gap: 0.45rem;
+            margin: 0.75rem 0 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .option-button {
+            width: 100%;
+            min-height: 44px;
+            border: 1px solid #9db4d8;
+            border-radius: 8px;
+            padding: 0.7rem 0.8rem;
+            background: #eef4ff;
+            color: #111827;
+            font: inherit;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .option-button:hover:not(:disabled) {
+            border-color: var(--accent-color);
+            background: #dfeaff;
+        }
+
+        .option-button.is-correct {
+            border-color: #15803d;
+            background: #dcfce7;
+        }
+
+        .option-button.is-wrong {
+            border-color: #b91c1c;
+            background: #fee2e2;
+        }
+
+        .option-button:disabled {
+            color: #111827;
+            cursor: default;
+            opacity: 1;
+        }
+
+        .practice-answer {
+            margin: 0.9rem 0 0;
+            padding: 0.75rem;
+            border-left: 4px solid var(--accent-color);
+            border-radius: 6px;
+            background: color-mix(in srgb, var(--accent-color) 10%, transparent);
+        }
+
+        .practice-card pre {
+            margin-top: 0.85rem;
+        }
+
+        @media (max-width: 700px) {
+            .practice-card-header {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero">
+                <p class="eyebrow">Övningsuppgifter</p>
+                <h1>Öva inför prov - Fråga 1-20</h1>
+                <p class="subtitle">Grundfrågor på samma nivå som provets första del, men med andra formuleringar och exempel.</p>
+            </header>
+
+            <section class="content-section practice-intro">
+                <h2>Upplägg</h2>
+                <p>Den här sidan tränar den första provdelen. Klicka på ett alternativ för att direkt se om svaret är rätt.
+                    Vid fel visas också rätt svar. Totalt antal frågor på sidan: <strong id="question-total">50</strong>.</p>
+                <ul class="practice-summary">
+                    <li><a href="ova-prov-1-20.html">Fråga 1-20</a></li>
+                    <li><a href="ova-prov-21-30.html">Fråga 21-30</a></li>
+                    <li><a href="ova-prov-31-40.html">Fråga 31-40</a></li>
+                    <li><a href="ova-prov-41-50.html">Fråga 41-50</a></li>
+                </ul>
+            </section>
+
+            <div id="practice-root"></div>
+
+            <p><a href="../index.html">Till startsidan</a></p>
+        </article>
+    </main>
+
+    <script>
+        window.ovaProvActiveGroups = ["grupp-1"];
+        const basicConcepts = [
+            ["Vilket påstående beskriver bäst vad en variabel gör i ett Pythonprogram?", "Den namnger ett värde som programmet kan använda senare.", ["Den gör att programmet alltid kör snabbare.", "Den skapar en ny fil på datorn.", "Den avslutar en loop automatiskt."]],
+            ["Vad är en sträng i Python?", "Textdata som skrivs med citattecken.", ["Ett värde som bara kan vara sant eller falskt.", "Ett kommando som hämtar rader från en databas.", "En klass som alltid måste ärva från list."]],
+            ["Vad passar bäst när ett program behöver spara sant eller falskt?", "En boolesk variabel.", ["En textfil i append-läge.", "En tuple med exakt tre tal.", "En SQL-tabell utan kolumner."]],
+            ["Vad gör `input()` i ett vanligt konsolprogram?", "Läser in text från användaren.", ["Skriver automatiskt resultat till en databas.", "Skapar ett nytt objekt utan klass.", "Sorterar en lista i stigande ordning."]],
+            ["Vad är syftet med `print()`?", "Att visa information för användaren.", ["Att fånga undantag i en loop.", "Att ändra typ på en klass.", "Att skapa en ny dictionary-nyckel."]],
+            ["Vad används ett villkor oftast till?", "Att låta programmet välja olika väg beroende på ett uttryck.", ["Att låsa alla variabler så de inte kan ändras.", "Att spara programmet som en körbar fil.", "Att göra en metod privat i alla klasser."]],
+            ["När används `elif` på ett tydligt sätt?", "När flera möjliga villkor ska prövas i ordning.", ["När en lista ska få ett nytt element längst bak.", "När ett objekt ska raderas från minnet direkt.", "När en fil ska öppnas i binärt läge."]],
+            ["Vilket uttryck jämför om två värden är lika?", "`==`", ["`=`", "`=>`", "`=<`"]],
+            ["Vilket uttryck betyder att två värden inte är lika?", "`!=`", ["`=!`", "`<>` i vanlig Pythonkod", "`not=`"]],
+            ["När är operatorn `and` användbar?", "När två villkor båda behöver vara sanna.", ["När en lista ska göras om till en tuple.", "När en klass ska få en konstruktor.", "När en databas ska stängas utan commit."]],
+            ["När är operatorn `or` användbar?", "När minst ett av två villkor behöver vara sant.", ["När alla element i en lista ska multipliceras direkt.", "När ett objekt ska ärva från två metoder.", "När en textfil ska rensas före läsning."]],
+            ["När passar en `for`-loop ofta bra?", "När programmet ska gå igenom en samling värden.", ["När programmet aldrig ska upprepa kod.", "När man vill skapa en klass utan attribut.", "När en databas ska öppnas utan SQL."]],
+            ["I vilken situation är en `while`-loop ett bra val?", "När upprepningen ska fortsätta så länge ett villkor gäller.", ["När antalet varv alltid är känt och en samling redan finns.", "När varje funktion ska köras exakt en gång vid import.", "När ett GUI ska ritas utan händelser."]],
+            ["Vad gör `break` inne i en loop?", "Avbryter loopen.", ["Hoppar över import av moduler.", "Flyttar ett element till början av en lista.", "Skapar en ny underklass."]],
+            ["Vad gör `continue` inne i en loop?", "Går vidare till nästa varv i loopen.", ["Stänger hela Pythonprogrammet.", "Skriver över alla värden i en dictionary.", "Gör om en metod till en konstruktor."]],
+            ["Hur kan en funktion beskrivas?", "En namngiven koddel som kan anropas.", ["En databasrad med fasta kolumner.", "Ett GUI-fönster som alltid öppnas automatiskt.", "En kommentar som Python kör som kod."]],
+            ["Vad betyder parameter i en funktionsdefinition?", "Ett värde som en funktion tar emot.", ["En filtyp som bara används av SQLite.", "Ett felmeddelande som alltid stoppar programmet.", "En loop som aldrig kan avslutas."]],
+            ["Vad gör `return` i en funktion?", "Skickar tillbaka ett värde från funktionen.", ["Skriver alltid ut värdet på skärmen.", "Lägger automatiskt värdet i en databas.", "Startar om programmet från början."]],
+            ["Vad betyder index i en sekvens?", "Positionen där ett värde ligger.", ["Antalet gånger programmet har körts.", "Namnet på listans ägare.", "Ett lösenord för att läsa listan."]],
+            ["Vad gör `len()`?", "Ger antal element eller tecken.", ["Lägger till ett nytt element längst bak.", "Raderar första raden i en fil.", "Skapar en tabell i SQL."]],
+            ["Vad gör `append()` på en lista?", "Lägger till ett nytt element sist.", ["Lägger till elementet först.", "Sorterar listan baklänges utan att ändra den.", "Returnerar alltid första elementet."]],
+            ["Vad används en nyckel till i en uppslagstabell med `{}`?", "För att hitta ett tillhörande värde.", ["För att ange hur många gånger en loop ska köras.", "För att bestämma filens teckenkodning.", "För att rita en knapp i tkinter."]],
+            ["Vad kännetecknar en tuple?", "Den används ofta för värden som inte ska ändras.", ["Den kräver alltid textnycklar för åtkomst.", "Den får bara innehålla heltal.", "Den sorteras automatiskt efter varje ändring."]],
+            ["Vad beskriver en klass i objektorienterad programmering?", "En mall för objekt med data och beteende.", ["En färdig databasfråga som alltid körs vid start.", "En textfil som Python kan läsa rad för rad.", "En loop som styr alla funktioner."]],
+            ["Hur kan ett objekt beskrivas i OOP?", "En skapad instans av en klass.", ["Ett fel som uppstår vid division med noll.", "Ett SQL-kommando för att ta bort data.", "En kommentar som dokumenterar en funktion."]],
+            ["Vad är ett attribut?", "Data som hör till ett objekt.", ["En importerad modul som körs före main.", "En knapp som bara kan användas i webbläsare.", "Ett testfall som alltid måste misslyckas."]],
+            ["Vad är en metod?", "En funktion som hör till en klass.", ["En rad i en CSV-fil.", "En regel för hur kommentarer ska färgsättas.", "En operator som bara jämför text."]],
+            ["Vad är syftet med `__init__()`?", "Att initiera objektets startvärden.", ["Att skriva ut alla attribut automatiskt.", "Att sortera klassens metoder alfabetiskt.", "Att göra alla variabler globala."]],
+            ["Varför används `self` i klassmetoder?", "För att komma åt objektets egna attribut och metoder.", ["För att skapa en kopia av hela programmet.", "För att läsa in användarens tangenttryckning.", "För att koppla Python direkt till internet."]],
+            ["Vad innebär arv mellan klasser?", "En klass kan bygga vidare på en annan klass.", ["En lista kan bara innehålla objekt av samma typ.", "En fil kan öppnas utan att stängas.", "En funktion får automatiskt fler parametrar."]],
+            ["Vad innebär polymorfism i praktiken?", "Olika objekt kan svara på samma metodnamn på olika sätt.", ["Alla objekt får exakt samma attributvärden.", "Alla loopar måste ha samma antal varv.", "Alla SQL-frågor måste börja med INSERT."]],
+            ["Vad visar ett enkelt klassdiagram?", "Klasser, attribut, metoder och relationer.", ["Vilka färger ett GUI måste använda.", "Hur många gånger varje test ska köras.", "Vilken Pythonversion som finns installerad."]],
+            ["Vad beskriver ett användningsfall?", "Hur en användare når ett mål med systemet.", ["Hur RAM-minnet delas upp av operativsystemet.", "Hur en lista sorteras med inbyggda metoder.", "Hur citattecken skrivs i en sträng."]],
+            ["Vad gör `import`?", "Gör kod från en modul tillgänglig.", ["Skapar automatiskt en databas.", "Tar bort alla kommentarer.", "Byter namn på alla variabler."]],
+            ["Varför används `try` och `except`?", "För att hantera fel som kan uppstå när programmet körs.", ["För att göra en lista oföränderlig.", "För att skapa en klass utan konstruktor.", "För att tvinga en loop att köras för evigt."]],
+            ["När kan `ValueError` uppstå?", "När ett värde inte kan omvandlas på det sätt koden försöker.", ["När en knapp saknar bakgrundsfärg.", "När en klass har fler än två metoder.", "När en SQL-tabell har ett långt namn."]],
+            ["Vad är en fördel med `with open(...)` vid filhantering?", "Filen stängs på ett kontrollerat sätt efter blocket.", ["Filen krypteras automatiskt.", "Alla rader sorteras i bokstavsordning.", "Alla fel ignoreras utan undantag."]],
+            ["Vad betyder läget `a` när en textfil öppnas?", "Ny text läggs till i slutet av filen.", ["Filen läses baklänges.", "Filen öppnas som en databas.", "Filens innehåll översätts till JSON."]],
+            ["Vad är en tabell i SQLite?", "En struktur med rader och kolumner.", ["En Pythonklass som alltid ärver från `Exception`.", "En lista som bara får innehålla strängar.", "Ett GUI-element för menyer."]],
+            ["Vad gör en `SELECT`-fråga i SQL?", "Hämtar data från en tabell.", ["Skapar ett nytt Pythonobjekt.", "Startar en while-loop.", "Sparar alla ändringar på disk."]],
+            ["Vad gör en `INSERT`-fråga i SQL?", "Lägger till en ny rad i en tabell.", ["Hämtar en webbsida från ett API.", "Byter namn på en Pythonmetod.", "Stoppar ett program utan felkod."]],
+            ["Varför används `commit()` vid databasändringar?", "För att spara ändringarna i databasen.", ["För att skriva ut resultatet i terminalen.", "För att återställa en lista till startvärdet.", "För att kontrollera om ett villkor är sant."]],
+            ["Vad är ett API i kursens sammanhang?", "Ett sätt för program att hämta eller skicka data till ett annat system.", ["Ett filformat som bara Python kan läsa.", "En loop som körs i bakgrunden.", "En knapp som automatiskt testar kod."]],
+            ["Vad är JSON ofta bra för?", "Att överföra strukturerad data mellan system.", ["Att bestämma färg på terminaltext.", "Att räkna antalet syntaxfel i en fil.", "Att skapa arv mellan klasser."]],
+            ["Vad gör en `Button` i ett tkinter-GUI?", "Låter användaren starta en handling med ett klick.", ["Skapar automatiskt en SQLite-tabell.", "Skriver alltid över programfilen.", "Sorterar alla widgets efter namn."]],
+            ["Vad betyder händelsestyrd programmering i ett GUI?", "Kod körs när användaren gör något, till exempel klickar.", ["Alla funktioner körs uppifrån och ner utan stopp.", "Programmet får inte använda klasser.", "Alla fel skrivs till en textfil."]],
+            ["Vad gör ett README användbart?", "Det beskriver hur projektet körs, används och är uppbyggt.", ["Det ersätter behovet av körbar kod.", "Det gör att alla tester blir godkända.", "Det skapar automatiskt en databasfil."]],
+            ["Vad är ett rimligt enhetstest?", "Ett test som kontrollerar en avgränsad funktion eller metod.", ["Ett test där användaren själv gissar resultatet utan kod.", "Ett test som bara kontrollerar filnamnet.", "Ett test som ändrar kravspecifikationen."]],
+            ["Varför är tydliga namn på variabler och funktioner viktiga?", "De gör koden lättare att förstå och underhålla.", ["De gör att programmet aldrig kan krascha.", "De gör att SQL-frågor körs utan databas.", "De ersätter behovet av villkor."]],
+            ["Vad är en rimlig anledning att dela upp kod i flera funktioner?", "Koden blir lättare att testa, läsa och återanvända.", ["Alla variabler blir automatiskt globala.", "Programmet behöver inte längre hantera fel.", "Python hoppar över rader som inte används."]]
+        ];
+
+        const scenarioSeeds = [
+            ["Ett program ska hantera kunder med namn, e-post och flera metoder för visning. Vilken modellering passar bäst?", "Skapa en klass `Kund` med attribut och metoder som hör ihop med kunden.", ["Spara all kunddata i separata globala variabler.", "Lägga all kod i en enda lång `print()`.", "Använda en loop som frågar efter e-post utan att spara något."]],
+            ["En meny ska låta användaren lägga till, söka och avsluta. Vad är en rimlig struktur?", "En loop som visar menyn och anropar funktioner för varje val.", ["Tre filer som användaren måste öppna manuellt i rätt ordning.", "En funktion som alltid avslutar programmet före menyn visas.", "Ett objekt utan metoder där all kod ligger i `__init__()`."]],
+            ["Ett GUI visar fel med bara röd eller grön färg. Vad förbättrar tillgängligheten mest?", "Lägg även till tydlig text som förklarar tillståndet.", ["Minska textstorleken så mer får plats.", "Ta bort alla felmeddelanden.", "Låt knappar byta plats efter varje klick."]],
+            ["En API-förfrågan kan misslyckas om internet saknas. Vad bör programmet göra?", "Fånga felet och visa ett begripligt meddelande.", ["Krascha så användaren ser hela felspårningen.", "Radera databasen innan ny förfrågan görs.", "Dölja alla knappar i GUI:t utan förklaring."]],
+            ["Ett projekt har samma beräkning kopierad på fem ställen. Vad är bäst?", "Flytta beräkningen till en funktion som anropas där den behövs.", ["Låta kopiorna vara kvar så länge de ger samma svar.", "Byta namn på variablerna i varje kopia.", "Lägga kopiorna i kommentarer längst ner i filen."]],
+            ["Ett program ska spara uppgifter mellan körningar. Vilken lösning passar ofta bättre än en vanlig variabel?", "Spara informationen i en fil eller databas.", ["Spara informationen i en lokal variabel i `main()`.", "Skriva ut informationen med `print()`.", "Lägga informationen i en kommentar."]],
+            ["En elev ska testa en funktion som räknar ut rabatt. Vad är ett bra testfall?", "Kontrollera både normal rabatt och gränsfall, till exempel 0 procent.", ["Testa bara att filen heter `program.py`.", "Testa genom att läsa koden utan att köra något.", "Ta bort funktionen om testet misslyckas."]],
+            ["En lista med objekt ska visas i ett GUI. Vad är en rimlig uppdelning?", "Låt logiken hämta data och GUI-koden visa den.", ["Låt varje knapp skapa en ny databas från början.", "Skriv SQL-frågorna direkt i varje etiketttext.", "Använd bara globala variabler och inga funktioner."]],
+            ["Användaren matar in ålder som text. Vad bör programmet göra innan talet används i beräkning?", "Omvandla och validera värdet med felhantering.", ["Anta att text alltid fungerar i beräkningar.", "Spara åldern i en klass utan att kontrollera den.", "Byta ut alla siffror mot bokstäver."]],
+            ["Ett system ska söka efter böcker på titel och författare. Vilken datastruktur kan vara rimlig i små övningsprogram?", "Objekt eller dictionaries som innehåller flera fält per bok.", ["En enda sträng där all information blandas utan avgränsning.", "En tuple som ändras efter varje sökning.", "En klass utan attribut och utan metoder."]],
+            ["Ett program med databas lägger till rader men de finns inte kvar efter stängning. Vad saknas troligen?", "Ändringarna sparas inte med `commit()`.", ["Programmet använder för många `print()`.", "Variabelnamnen är för långa.", "Fönstret har för hög kontrast."]],
+            ["En SQL-fråga ska använda användarens sökord. Vad är säkrast?", "Använd parametrar i frågan i stället för att bygga SQL med textplus.", ["Klistra in användarens text direkt i SQL-strängen.", "Ta bort alla mellanslag från databasen.", "Spara sökordet i README innan frågan körs."]],
+            ["Ett program blir svårt att felsöka eftersom allt ligger i en fil och en funktion. Vad är en bra åtgärd?", "Dela upp koden i mindre funktioner och eventuellt moduler.", ["Göra funktionen ännu längre men lägga till fler tomrader.", "Byta alla namn till en bokstav.", "Ta bort felhanteringen så felen syns mindre."]],
+            ["En klass `Fordon` och en klass `Bil` har gemensamma egenskaper. Vad är en rimlig design?", "`Bil` kan ärva gemensamt beteende från `Fordon`.", ["`Fordon` ska kopieras in i varje bilobjekt som text.", "`Bil` ska bara vara en SQL-fråga.", "`Fordon` ska ligga i en loop utan attribut."]],
+            ["Ett program har flera typer av betalningar med samma metodnamn `beräkna_avgift`. Vad kan detta visa?", "Polymorfism, eftersom olika objekt kan hantera samma metodnamn olika.", ["Syntaxfel, eftersom metodnamn aldrig får återanvändas.", "Filhantering, eftersom avgifter alltid lagras i textfiler.", "SQL, eftersom alla avgifter måste hämtas med SELECT."]],
+            ["En elev ska planera ett större program innan kodningen. Vilket verktyg passar bra?", "Användningsfall och enkel klassmodell.", ["Att börja med slumpmässiga variabelnamn.", "Att skriva alla felmeddelanden först och ignorera funktioner.", "Att göra databasen efter att programmet är klart utan plan."]],
+            ["En metod behöver fungera för flera typer av värden så länge de kan jämföras. Vilken idé ligger nära detta?", "Generisk metod eller typflexibel funktion med tydligt krav på beteende.", ["En metod som bara fungerar om alla värden är strängar.", "En konstruktor som aldrig tar parametrar.", "En loop som raderar värden som har fel typ."]],
+            ["Ett program ska visa tydliga fel när en fil saknas. Vad är bäst?", "Fånga filfelet och ge användaren ett konkret meddelande.", ["Skapa en tom klass med samma namn som filen.", "Låta programmet avslutas utan information.", "Ignorera filen och fortsätta med felaktiga värden."]],
+            ["Ett GUI har knappen `OK2` för att spara. Vad vore bättre?", "En knapptext som `Spara kund` eller `Spara bokning`.", ["En kortare knapptext som `X`.", "En tom knapp så layouten blir renare.", "En slumpad text varje gång programmet startar."]],
+            ["Ett API returnerar JSON med flera fält. Vad bör koden göra?", "Plocka ut de fält programmet behöver och hantera saknade fält.", ["Skriva ut hela svaret och hoppas att användaren tolkar det.", "Konvertera JSON till SQL utan kontroll.", "Byta namn på alla nycklar till samma namn."]],
+            ["Ett test misslyckas efter en ändring. Vad är rimligt första steg?", "Läsa felmeddelandet och jämföra förväntat och faktiskt resultat.", ["Ta bort testet direkt.", "Byta Pythonversion utan att läsa felet.", "Lägga till fler funktioner innan felet undersöks."]],
+            ["En elev ska dokumentera projektet. Vad bör README minst innehålla?", "Syfte, hur programmet startas och vilka viktiga delar som finns.", ["Alla privata anteckningar och lösenord.", "Endast elevens namn och dagens datum.", "En kopia av varje rad kod utan förklaring."]],
+            ["Ett program ska hantera både elever och lärare med delvis samma information. Vilken modell kan passa?", "En gemensam basklass för personer och underklasser för roller.", ["En separat global variabel för varje person i skolan.", "En textfil per attribut.", "En funktion som bara skriver ut första personen."]],
+            ["En databasfråga ska hämta alla uppgifter för en viss id. Vad bör id:t användas som?", "Ett parameteriserat villkor i `WHERE`.", ["Namnet på databaskopplingen.", "Texten på GUI-fönstret.", "Antal gånger loopen körs."]],
+            ["Ett program ska lägga till data via GUI. Vad bör hända om ett obligatoriskt fält är tomt?", "Visa ett tydligt felmeddelande och spara inte posten.", ["Spara posten med tomma värden utan varning.", "Stäng programmet direkt.", "Skapa en ny klass för varje tomt fält."]]
+        ];
+
+        function withOptions(question, correct, wrong, code, seed) {
+            const base = [correct, ...wrong];
+            const orders = [[0, 1, 2, 3], [1, 0, 2, 3], [1, 2, 0, 3], [1, 2, 3, 0]];
+            const order = orders[seed % orders.length];
+            const options = order.map(index => base[index]);
+            return {
+                question,
+                code: code || "",
+                options,
+                correctIndex: options.indexOf(correct),
+                answer: correct
+            };
+        }
+
+        function createBasicQuestions() {
+            return basicConcepts.map((item, index) => withOptions(item[0], item[1], item[2], "", index));
+        }
+
+        function createScenarioQuestions() {
+            const firstRound = scenarioSeeds.map((item, index) => withOptions(item[0], item[1], item[2], "", index));
+            const secondRound = scenarioSeeds.map((item, index) => {
+                const question = item[0].replace("Vad", "Vilket alternativ").replace("Vilken", "Vilken lösning");
+                return withOptions(question, item[1], item[2], "", index + 25);
+            });
+            return [...firstRound, ...secondRound];
+        }
+
+        function createMediumCodeQuestions() {
+            const variants = [
+                ["Anna", "Erik", "Lisa", 2, 5],
+                ["Nils", "Karin", "Oskar", 3, 4],
+                ["Elin", "Johan", "Sara", 4, 7],
+                ["Ebba", "Arne", "Stina", 5, 2],
+                ["Eva", "Bo", "Elsa", 6, 3]
+            ];
+            const questions = [];
+            variants.forEach((v, index) => {
+                const [a, b, c, x, y] = v;
+                questions.push(withOptions("Vilken utskrift ger koden?", b, [a, c, `[${a}, ${b}, ${c}]`], `namn = ["${a}", "${b}"]\nnamn.append("${c}")\nprint(namn[1])`, index));
+                questions.push(withOptions("Vilken utskrift ger koden?", String(x + y), [String(x * y), String(y), String(x - y)], `tal = [${x}, ${y}, 1]\nsumma = 0\nfor talvärde in tal:\n    if talvärde > 1:\n        summa += talvärde\nprint(summa)`, index + 5));
+                questions.push(withOptions("Vilken utskrift ger koden?", String(x + 3), [String(x), String(3), String(x * 3)], `poäng = {"${a}": ${x}}\npoäng["${a}"] += 3\nprint(poäng["${a}"])`, index + 10));
+                questions.push(withOptions("Vilken utskrift ger koden?", String(x * 2 + 1), [String(x + 2), String(x * 2), String(x + 1)], `def justera(tal):\n    return tal * 2 + 1\n\nprint(justera(${x}))`, index + 15));
+                questions.push(withOptions("Vilken utskrift ger koden?", String(y + 2), [String(y), String(x), `${a} ${y + 2}`], `class Elev:\n    def __init__(self, namn, poäng):\n        self.namn = namn\n        self.poäng = poäng\n\nperson = Elev("${a}", ${y})\nperson.poäng += 2\nprint(person.poäng)`, index + 20));
+                questions.push(withOptions("Vilken utskrift ger koden?", "123", ["012", "234", "1 2 3"], `räknare = 1\ntext = ""\nwhile räknare < 4:\n    text += str(räknare)\n    räknare += 1\nprint(text)`, index + 25));
+                questions.push(withOptions("Vilken utskrift ger koden?", c, [a, b, "IndexError"], `kö = ["${a}", "${b}", "${c}"]\nprint(kö[-1])`, index + 30));
+                questions.push(withOptions("Vilken utskrift ger koden?", String(x + 2), ["fel", String(x), String(x * 2)], `try:\n    tal = int("${x}")\n    print(tal + 2)\nexcept ValueError:\n    print("fel")`, index + 35));
+                const boolAnswer = x >= 5 || y >= 5 ? "True" : "False";
+                questions.push(withOptions("Vilken utskrift ger koden?", boolAnswer, [boolAnswer === "True" ? "False" : "True", String(x), String(y)], `första = ${x}\nandra = ${y}\nprint(första >= 5 or andra >= 5)`, index + 40));
+                questions.push(withOptions("Vilken utskrift ger koden?", "3", ["2", "4", c], `värden = [[1, 2], [3, 4, 5]]\nprint(len(värden[1]))`, index + 45));
+            });
+            return questions.slice(0, 50);
+        }
+
+        function createHardCodeQuestions() {
+            const variants = [
+                ["Anna", "bok", 2, 3],
+                ["Erik", "spel", 3, 4],
+                ["Lisa", "kurs", 4, 2],
+                ["Nils", "film", 5, 3],
+                ["Karin", "app", 6, 2]
+            ];
+            const questions = [];
+            variants.forEach((v, index) => {
+                const [namn, sak, x, y] = v;
+                questions.push(withOptions("Vilken utskrift ger koden?", `${namn}: ${x + y}`, [`${namn}: ${x}`, `${sak}: ${x + y}`, `${namn}: ${x * y}`], `class Post:\n    def __init__(self, namn, värde):\n        self.namn = namn\n        self.värde = värde\n\n    def text(self):\n        return f"{self.namn}: {self.värde}"\n\nclass ExtraPost(Post):\n    def lägg_till(self, tal):\n        self.värde += tal\n\npost = ExtraPost("${namn}", ${x})\npost.lägg_till(${y})\nprint(post.text())`, index));
+                questions.push(withOptions("Vilken utskrift ger koden?", String(x + y + 1), [String(x + y), String(x * y), "0"], `def ändra(lista):\n    lista.append(${y})\n    lista[0] += 1\n\nvärden = [${x}]\nändra(värden)\nprint(sum(värden))`, index + 5));
+                questions.push(withOptions("Vilken utskrift ger koden?", String(x + y), [String(x), String(y), String(x * y)], `rader = [("${namn}", ${x}), ("${namn}", ${y}), ("${sak}", 1)]\nantal = {}\nfor nyckel, värde in rader:\n    antal[nyckel] = antal.get(nyckel, 0) + värde\nprint(antal["${namn}"])`, index + 10));
+                questions.push(withOptions("Vilken utskrift ger koden?", String(6), [String(3), String(9), String(x + y)], `summa = 0\nfor rad in range(1, 4):\n    for kolumn in range(rad):\n        summa += 1\nprint(summa)`, index + 15));
+                const jämförelseSvar = x > y ? "klart" : "lågt";
+                questions.push(withOptions("Vilken utskrift ger koden?", jämförelseSvar, ["fel", String(x), jämförelseSvar === "klart" ? "lågt" : "klart"], `try:\n    tal = int("${x}")\n    if tal > ${y}:\n        print("klart")\n    else:\n        print("lågt")\nexcept ValueError:\n    print("fel")`, index + 20));
+                questions.push(withOptions("Vilken utskrift ger koden?", "[1, 2]", ["[1]", "[2]", "[]"], `def lägg_till(värde, lista=[]):\n    lista.append(värde)\n    return lista\n\nlägg_till(1)\nprint(lägg_till(2))`, index + 25));
+                questions.push(withOptions("Vilken utskrift ger koden?", namn, [sak, "1", "IndexError"], `poster = [\n    {"namn": "${sak}", "poäng": ${x}},\n    {"namn": "${namn}", "poäng": ${x + y}}\n]\nposter.sort(key=lambda post: post["poäng"])\nprint(poster[-1]["namn"])`, index + 30));
+                const urvalAntal = [x, y, x + y, 1].filter(tal => tal > y).length;
+                questions.push(withOptions("Vilken utskrift ger koden?", String(urvalAntal), [String(urvalAntal + 1), String(Math.max(0, urvalAntal - 1)), String(x)], `tal = [${x}, ${y}, ${x + y}, 1]\nurval = [t for t in tal if t > ${y}]\nprint(len(urval))`, index + 35));
+                questions.push(withOptions("Vilken utskrift ger koden?", `${sak}! ${namn}!`, [`${namn}! ${sak}!`, `${sak}${namn}`, "Fel"], `class Sak:\n    def __init__(self, namn):\n        self.namn = namn\n\n    def visa(self):\n        return self.namn + "!"\n\nsaker = [Sak("${sak}"), Sak("${namn}")]\nprint(" ".join(sak.visa() for sak in saker))`, index + 40));
+                questions.push(withOptions("Vilken utskrift ger koden?", String(x + y), [String(x), String(y), String(x * y)], `data = {"poster": [{"värde": ${x}}, {"värde": ${y}}]}\nsumma = 0\nfor post in data["poster"]:\n    summa += post["värde"]\nprint(summa)`, index + 45));
+            });
+            return questions.slice(0, 50);
+        }
+
+        const groups = [
+            {
+                id: "grupp-1",
+                title: "Fråga 1-20",
+                text: "Grundfrågor om språk, datastrukturer, OOP, filer, databaser, API, GUI och testning.",
+                questions: createBasicQuestions()
+            },
+            {
+                id: "grupp-2",
+                title: "Fråga 21-30",
+                text: "Tillämpningsfrågor där eleven väljer rimlig lösning, struktur eller anpassning.",
+                questions: createScenarioQuestions()
+            },
+            {
+                id: "grupp-3",
+                title: "Fråga 31-40",
+                text: "Mellansvåra kodfrågor där eleven avgör vad programmet skriver ut.",
+                questions: createMediumCodeQuestions()
+            },
+            {
+                id: "grupp-4",
+                title: "Fråga 41-50",
+                text: "Svårare kodfrågor med klasser, mutation, loopar, dictionaries och uttryck.",
+                questions: createHardCodeQuestions()
+            }
+        ];
+
+        function escapeHtml(value) {
+            return String(value)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;");
+        }
+
+        function answerLetter(index) {
+            return ["A", "B", "C", "D"][index];
+        }
+
+        function renderPracticeQuestions() {
+            const activeGroups = window.ovaProvActiveGroups || groups.map(group => group.id);
+            const visibleGroups = groups.filter(group => activeGroups.includes(group.id));
+            const root = document.getElementById("practice-root");
+            let number = 1;
+            root.innerHTML = visibleGroups.map(group => {
+                const cards = group.questions.map(question => {
+                    const currentNumber = number++;
+                    const options = question.options.map((option, optionIndex) => `<li><button class="option-button" type="button" data-option-index="${optionIndex}"><strong>${answerLetter(optionIndex)}.</strong> ${escapeHtml(option)}</button></li>`).join("");
+                    const code = question.code ? `<pre><code>${escapeHtml(question.code)}</code></pre>` : "";
+                    return `<article class="practice-card" data-correct-index="${question.correctIndex}" data-answer="${escapeHtml(question.answer)}">
+                        <div class="practice-card-header">
+                            <h3>${currentNumber}. ${escapeHtml(question.question)}</h3>
+                        </div>
+                        ${code}
+                        <ol class="practice-options">${options}</ol>
+                        <p class="practice-answer" hidden aria-live="polite"></p>
+                    </article>`;
+                }).join("");
+                return `<section class="content-section practice-section" id="${group.id}">
+                    <h2>${group.title}</h2>
+                    <p>${group.text}</p>
+                    <div class="practice-list">${cards}</div>
+                </section>`;
+            }).join("");
+
+            document.getElementById("question-total").textContent = String(number - 1);
+
+            root.addEventListener("click", event => {
+                const button = event.target.closest(".option-button");
+                if (!button) {
+                    return;
+                }
+                const card = button.closest(".practice-card");
+                if (card.dataset.answered === "true") {
+                    return;
+                }
+
+                const selectedIndex = Number(button.dataset.optionIndex);
+                const correctIndex = Number(card.dataset.correctIndex);
+                const correctLetter = answerLetter(correctIndex);
+                const correctAnswer = card.dataset.answer;
+                const feedback = card.querySelector(".practice-answer");
+
+                card.dataset.answered = "true";
+                card.querySelectorAll(".option-button").forEach((optionButton, optionIndex) => {
+                    optionButton.disabled = true;
+                    if (optionIndex === correctIndex) {
+                        optionButton.classList.add("is-correct");
+                    }
+                });
+
+                if (selectedIndex === correctIndex) {
+                    feedback.innerHTML = `<strong>Rätt.</strong> Svaret är ${correctLetter}: ${escapeHtml(correctAnswer)}`;
+                } else {
+                    button.classList.add("is-wrong");
+                    feedback.innerHTML = `<strong>Fel.</strong> Rätt svar är ${correctLetter}: ${escapeHtml(correctAnswer)}`;
+                }
+                feedback.hidden = false;
+            });
+        }
+
+        renderPracticeQuestions();
+    </script>
+    <script src="../js/main.js"></script>
+</body>
+
+</html>
