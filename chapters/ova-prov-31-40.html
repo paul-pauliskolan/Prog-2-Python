@@ -79,11 +79,13 @@
         }
 
         .option-button {
+            position: relative;
             width: 100%;
             min-height: 44px;
             border: 1px solid #9db4d8;
             border-radius: 8px;
             padding: 0.7rem 0.8rem;
+            padding-right: 4.5rem;
             background: #eef4ff;
             color: #111827;
             font: inherit;
@@ -94,6 +96,27 @@
         .option-button:hover:not(:disabled) {
             border-color: var(--accent-color);
             background: #dfeaff;
+        }
+
+        .option-button.is-selected {
+            border-color: #1d4ed8;
+            background: #bfdbfe;
+            box-shadow: inset 0 0 0 2px #1d4ed8;
+            font-weight: 700;
+        }
+
+        .option-button.is-selected::after {
+            content: "Valt";
+            position: absolute;
+            top: 50%;
+            right: 0.75rem;
+            transform: translateY(-50%);
+            border-radius: 999px;
+            padding: 0.2rem 0.45rem;
+            background: #1d4ed8;
+            color: #ffffff;
+            font-size: 0.78rem;
+            font-weight: 700;
         }
 
         .option-button.is-correct {
@@ -120,8 +143,58 @@
             background: color-mix(in srgb, var(--accent-color) 10%, transparent);
         }
 
+        .practice-block {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.25rem;
+        }
+
+        .practice-block + .practice-block {
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .practice-block h3 {
+            margin: 0;
+        }
+
         .practice-card pre {
             margin-top: 0.85rem;
+        }
+
+        .practice-check {
+            justify-self: start;
+            min-height: 44px;
+            border: 0;
+            border-radius: 8px;
+            padding: 0.7rem 0.95rem;
+            background: var(--accent-strong, #ff8a3d);
+            color: #111827;
+            font: inherit;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .practice-check:hover {
+            filter: brightness(1.04);
+        }
+
+        .practice-result {
+            margin: 0;
+            padding: 0.75rem;
+            border-radius: 8px;
+            background: #eef4ff;
+            color: #111827;
+        }
+
+        .practice-result.is-complete {
+            background: #dcfce7;
+            color: #14532d;
+        }
+
+        .practice-result.is-incomplete {
+            background: #fff7ed;
+            color: #9a3412;
         }
 
         @media (max-width: 700px) {
@@ -144,8 +217,8 @@
 
             <section class="content-section practice-intro">
                 <h2>Upplägg</h2>
-                <p>Den här sidan tränar provets mellansvåra koddel. Klicka på ett alternativ för att direkt se om svaret är rätt.
-                    Vid fel visas också rätt svar. Totalt antal frågor på sidan: <strong id="question-total">50</strong>.</p>
+                <p>Den här sidan tränar provets mellansvåra koddel. Välj ett alternativ på varje fråga och klicka sedan på kontrollknappen efter 10 frågor.
+                    Då visas hur många rätt eleven fick i blocket och vilka svar som var rätt. Totalt antal frågor på sidan: <strong id="question-total">50</strong>.</p>
                 <ul class="practice-summary">
                     <li><a href="ova-prov-1-20.html">Fråga 1-20</a></li>
                     <li><a href="ova-prov-21-30.html">Fråga 21-30</a></li>
@@ -362,65 +435,117 @@
             return ["A", "B", "C", "D"][index];
         }
 
+        function renderQuestionCard(question, currentNumber) {
+            const options = question.options.map((option, optionIndex) => `<li><button class="option-button" type="button" data-option-index="${optionIndex}" aria-pressed="false"><strong>${answerLetter(optionIndex)}.</strong> ${escapeHtml(option)}</button></li>`).join("");
+            const code = question.code ? `<pre><code>${escapeHtml(question.code)}</code></pre>` : "";
+            return `<article class="practice-card" data-correct-index="${question.correctIndex}" data-answer="${escapeHtml(question.answer)}">
+                <div class="practice-card-header">
+                    <h3>${currentNumber}. ${escapeHtml(question.question)}</h3>
+                </div>
+                ${code}
+                <ol class="practice-options">${options}</ol>
+                <p class="practice-answer" hidden aria-live="polite"></p>
+            </article>`;
+        }
+
+        function renderPracticeBlock(questions, blockIndex, firstNumber) {
+            const blockStart = firstNumber;
+            const blockEnd = firstNumber + questions.length - 1;
+            const cards = questions.map((question, index) => renderQuestionCard(question, firstNumber + index)).join("");
+            return `<section class="practice-block" data-block-index="${blockIndex}">
+                <h3>Övningsfråga ${blockStart}-${blockEnd}</h3>
+                <div class="practice-list">${cards}</div>
+                <button class="practice-check" type="button">Kontrollera dessa ${questions.length} frågor</button>
+                <p class="practice-result" hidden aria-live="polite"></p>
+            </section>`;
+        }
+
+        function evaluatePracticeBlock(block) {
+            const cards = Array.from(block.querySelectorAll(".practice-card"));
+            const result = block.querySelector(".practice-result");
+            const unanswered = cards.filter(card => card.dataset.selectedIndex === undefined);
+
+            if (unanswered.length > 0) {
+                result.className = "practice-result is-incomplete";
+                result.innerHTML = `<strong>Svara på alla frågor i blocket först.</strong> ${unanswered.length} fråga${unanswered.length === 1 ? "" : "or"} saknar svar.`;
+                result.hidden = false;
+                return;
+            }
+
+            let correctCount = 0;
+            cards.forEach(card => {
+                const selectedIndex = Number(card.dataset.selectedIndex);
+                const correctIndex = Number(card.dataset.correctIndex);
+                const correctLetter = answerLetter(correctIndex);
+                const correctAnswer = card.dataset.answer;
+                const feedback = card.querySelector(".practice-answer");
+
+                card.querySelectorAll(".option-button").forEach((optionButton, optionIndex) => {
+                    optionButton.classList.toggle("is-correct", optionIndex === correctIndex);
+                    optionButton.classList.toggle("is-wrong", optionIndex === selectedIndex && selectedIndex !== correctIndex);
+                });
+
+                if (selectedIndex === correctIndex) {
+                    correctCount += 1;
+                    feedback.innerHTML = `<strong>Rätt.</strong> Svaret är ${correctLetter}: ${escapeHtml(correctAnswer)}`;
+                } else {
+                    feedback.innerHTML = `<strong>Fel.</strong> Rätt svar är ${correctLetter}: ${escapeHtml(correctAnswer)}`;
+                }
+                feedback.hidden = false;
+            });
+
+            result.className = "practice-result is-complete";
+            result.innerHTML = `<strong>${correctCount} av ${cards.length} rätt.</strong>`;
+            result.hidden = false;
+        }
+
         function renderPracticeQuestions() {
             const activeGroups = window.ovaProvActiveGroups || groups.map(group => group.id);
             const visibleGroups = groups.filter(group => activeGroups.includes(group.id));
             const root = document.getElementById("practice-root");
             let number = 1;
+            let blockIndex = 1;
             root.innerHTML = visibleGroups.map(group => {
-                const cards = group.questions.map(question => {
-                    const currentNumber = number++;
-                    const options = question.options.map((option, optionIndex) => `<li><button class="option-button" type="button" data-option-index="${optionIndex}"><strong>${answerLetter(optionIndex)}.</strong> ${escapeHtml(option)}</button></li>`).join("");
-                    const code = question.code ? `<pre><code>${escapeHtml(question.code)}</code></pre>` : "";
-                    return `<article class="practice-card" data-correct-index="${question.correctIndex}" data-answer="${escapeHtml(question.answer)}">
-                        <div class="practice-card-header">
-                            <h3>${currentNumber}. ${escapeHtml(question.question)}</h3>
-                        </div>
-                        ${code}
-                        <ol class="practice-options">${options}</ol>
-                        <p class="practice-answer" hidden aria-live="polite"></p>
-                    </article>`;
-                }).join("");
+                const blocks = [];
+                for (let i = 0; i < group.questions.length; i += 10) {
+                    const questionBlock = group.questions.slice(i, i + 10);
+                    blocks.push(renderPracticeBlock(questionBlock, blockIndex++, number));
+                    number += questionBlock.length;
+                }
                 return `<section class="content-section practice-section" id="${group.id}">
                     <h2>${group.title}</h2>
                     <p>${group.text}</p>
-                    <div class="practice-list">${cards}</div>
+                    ${blocks.join("")}
                 </section>`;
             }).join("");
 
             document.getElementById("question-total").textContent = String(number - 1);
 
             root.addEventListener("click", event => {
-                const button = event.target.closest(".option-button");
-                if (!button) {
+                const optionButton = event.target.closest(".option-button");
+                if (optionButton) {
+                    const card = optionButton.closest(".practice-card");
+                    const feedback = card.querySelector(".practice-answer");
+                    const blockResult = optionButton.closest(".practice-block").querySelector(".practice-result");
+
+                    card.dataset.selectedIndex = optionButton.dataset.optionIndex;
+                    card.querySelectorAll(".option-button").forEach(button => {
+                        button.classList.remove("is-selected", "is-correct", "is-wrong");
+                        button.setAttribute("aria-pressed", "false");
+                    });
+                    optionButton.classList.add("is-selected");
+                    optionButton.setAttribute("aria-pressed", "true");
+                    feedback.hidden = true;
+                    feedback.innerHTML = "";
+                    blockResult.hidden = true;
+                    blockResult.className = "practice-result";
                     return;
                 }
-                const card = button.closest(".practice-card");
-                if (card.dataset.answered === "true") {
-                    return;
+
+                const checkButton = event.target.closest(".practice-check");
+                if (checkButton) {
+                    evaluatePracticeBlock(checkButton.closest(".practice-block"));
                 }
-
-                const selectedIndex = Number(button.dataset.optionIndex);
-                const correctIndex = Number(card.dataset.correctIndex);
-                const correctLetter = answerLetter(correctIndex);
-                const correctAnswer = card.dataset.answer;
-                const feedback = card.querySelector(".practice-answer");
-
-                card.dataset.answered = "true";
-                card.querySelectorAll(".option-button").forEach((optionButton, optionIndex) => {
-                    optionButton.disabled = true;
-                    if (optionIndex === correctIndex) {
-                        optionButton.classList.add("is-correct");
-                    }
-                });
-
-                if (selectedIndex === correctIndex) {
-                    feedback.innerHTML = `<strong>Rätt.</strong> Svaret är ${correctLetter}: ${escapeHtml(correctAnswer)}`;
-                } else {
-                    button.classList.add("is-wrong");
-                    feedback.innerHTML = `<strong>Fel.</strong> Rätt svar är ${correctLetter}: ${escapeHtml(correctAnswer)}`;
-                }
-                feedback.hidden = false;
             });
         }
 
