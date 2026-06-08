@@ -282,6 +282,25 @@ ol {
   background: rgba(255, 138, 61, 0.06);
 }
 
+.practice-menu .chapter-link {
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-color: var(--accent-strong);
+  border-radius: 10px;
+  background: #9a4a16;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.practice-menu .chapter-link:hover,
+.practice-menu .chapter-link:focus-visible {
+  border-color: var(--accent-strong);
+  background: #b85a1a;
+  box-shadow: 0 0 0 3px rgba(255, 138, 61, 0.16);
+}
+
 .chapter-number {
   color: var(--accent-strong);
   font-weight: 700;

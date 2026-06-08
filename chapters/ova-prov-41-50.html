@@ -26,14 +26,22 @@
         .practice-summary a {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             min-height: 44px;
-            padding: 0.65rem 0.85rem;
-            border: 1px solid var(--border-color);
+            padding: 0.65rem 1rem;
+            border: 1px solid var(--accent-strong, #ff8a3d);
             border-radius: 8px;
-            background: var(--surface-color);
-            color: var(--text-color);
+            background: #9a4a16;
+            color: #ffffff;
             font-weight: 700;
             text-decoration: none;
+            cursor: pointer;
+        }
+
+        .practice-summary a:hover,
+        .practice-summary a:focus-visible {
+            background: #b85a1a;
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-strong, #ff8a3d) 22%, transparent);
         }
 
         .practice-section {
@@ -217,7 +225,7 @@
 
             <section class="content-section practice-intro">
                 <h2>Upplägg</h2>
-                <p>Den här sidan tränar provets svåraste koddel. Välj ett alternativ på varje fråga och klicka sedan på kontrollknappen efter 10 frågor.
+                <p>Den här sidan tränar provets svåraste koddel. De 50 frågorna nedan är uppdelade i fem block om 10 frågor. Välj ett alternativ på varje fråga och klicka sedan på kontrollknappen efter 10 frågor.
                     Då visas hur många rätt eleven fick i blocket och vilka svar som var rätt. Totalt antal frågor på sidan: <strong id="question-total">50</strong>.</p>
                 <ul class="practice-summary">
                     <li><a href="ova-prov-1-20.html">Fråga 1-20</a></li>
