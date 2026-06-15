@@ -367,6 +367,318 @@ function runChapterOneAverageExercise(exercise) {
   });
 }
 
+function runChapterOneAdultExercise(exercise) {
+  const code = exercise.querySelector(".exercise-code");
+  const input = exercise.querySelector(".exercise-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!code || !input || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const rawAge = input.value.split(/\r?\n/)[0]?.trim() || "";
+    const age = Number.parseInt(rawAge, 10);
+
+    if (!Number.isInteger(age) || String(age) !== rawAge) {
+      result.textContent =
+        "Enter your age: " +
+        rawAge +
+        "\nValueError: invalid literal for int()";
+      return;
+    }
+
+    const source = code.value;
+    const isAdult = age >= 18;
+    const output = ["Enter your age: " + rawAge];
+
+    if (source.includes("is_adult")) {
+      output.push("is_adult(" + age + ") returnerar " + isAdult);
+    }
+
+    output.push(isAdult ? "You are an adult." : "You are not an adult.");
+    result.textContent = output.join("\n");
+  });
+}
+
+function runChapterOneGradeExercise(exercise) {
+  const code = exercise.querySelector(".exercise-code");
+  const input = exercise.querySelector(".exercise-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!code || !input || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const rawScore = input.value.split(/\r?\n/)[0]?.trim() || "";
+    const score = Number.parseInt(rawScore, 10);
+
+    if (!Number.isInteger(score) || String(score) !== rawScore) {
+      result.textContent =
+        "Skriv in poäng (0-100): " +
+        rawScore +
+        "\nValueError: invalid literal for int()";
+      return;
+    }
+
+    let feedback = "Fail";
+    let branch = "else";
+
+    if (score >= 90) {
+      feedback = "Excellent";
+      branch = "if grade >= 90";
+    } else if (score >= 75) {
+      feedback = "Good";
+      branch = "elif grade >= 75";
+    } else if (score >= 60) {
+      feedback = "Pass";
+      branch = "elif grade >= 60";
+    }
+
+    const output = ["Skriv in poäng (0-100): " + rawScore];
+
+    if (code.value.includes("grade_feedback")) {
+      output.push("Vald gren: " + branch);
+    }
+
+    output.push("Resultat: " + feedback);
+    result.textContent = output.join("\n");
+  });
+}
+
+function runChapterOneForSumExercise(exercise) {
+  const input = exercise.querySelector(".exercise-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!input || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const rawLimit = input.value.split(/\r?\n/)[0]?.trim() || "";
+    const limit = Number.parseInt(rawLimit, 10);
+
+    if (!Number.isInteger(limit) || String(limit) !== rawLimit) {
+      result.textContent =
+        "Summera från 1 till: " +
+        rawLimit +
+        "\nValueError: invalid literal for int()";
+      return;
+    }
+
+    if (limit < 1) {
+      result.textContent = "Skriv ett heltal som är 1 eller större.";
+      return;
+    }
+
+    let total = 0;
+    const output = ["Summera från 1 till: " + rawLimit];
+
+    for (let i = 1; i <= limit; i += 1) {
+      total += i;
+      output.push("Varv " + i + ": total = " + total);
+    }
+
+    output.push("Sum: " + total);
+    result.textContent = output.join("\n");
+  });
+}
+
+function runChapterOneWhilePasswordExercise(exercise) {
+  const input = exercise.querySelector(".exercise-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!input || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const attempts = input.value.split(/\r?\n/);
+    const output = [];
+    let granted = false;
+
+    for (let index = 0; index < attempts.length; index += 1) {
+      const password = attempts[index].trim();
+      if (!password) continue;
+
+      output.push("Enter password: " + password);
+
+      if (password === "secret") {
+        output.push("Access granted.");
+        output.push("Loopen avslutades efter " + (index + 1) + " försök.");
+        granted = true;
+        break;
+      }
+    }
+
+    if (!granted) {
+      output.push("Loopen skulle fortsätta eftersom rätt lösenord saknas.");
+    }
+
+    result.textContent = output.join("\n");
+  });
+}
+
+function runChapterOneMenuExercise(exercise) {
+  const choiceInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!choiceInput || !button || !resetButton || !result) return;
+
+  let balance = 500;
+  let stopped = false;
+  const history = [];
+
+  function printMenu() {
+    history.push("1. Visa saldo");
+    history.push("2. Sätt in pengar");
+    history.push("3. Ta ut pengar");
+    history.push("4. Avsluta");
+  }
+
+  function renderHistory() {
+    result.textContent = history.join("\n");
+  }
+
+  function resetMenu() {
+    balance = 500;
+    stopped = false;
+    history.length = 0;
+    printMenu();
+    history.push("Välj ett alternativ och tryck på Kör val.");
+    button.disabled = false;
+    choiceInput.disabled = false;
+    renderHistory();
+  }
+
+  button.addEventListener("click", () => {
+    if (stopped) return;
+
+    const choice = choiceInput.value;
+
+    if (history.length > 0) {
+      history.push("");
+    }
+
+    printMenu();
+    history.push("Välj alternativ: " + choice);
+
+    if (choice === "1") {
+      history.push("Saldo: " + balance + " kr");
+    } else if (choice === "2") {
+      balance += 100;
+      history.push("Du satte in 100 kr.");
+    } else if (choice === "3") {
+      balance -= 100;
+      history.push("Du tog ut 100 kr.");
+    } else if (choice === "4") {
+      history.push("Programmet avslutas med break.");
+      stopped = true;
+      button.disabled = true;
+      choiceInput.disabled = true;
+    } else {
+      history.push("Ogiltigt val.");
+    }
+
+    renderHistory();
+  });
+
+  resetButton.addEventListener("click", resetMenu);
+  resetMenu();
+}
+
+function runChapterOneChoiceProgramExercise(exercise) {
+  const choiceInput = exercise.querySelector(".exercise-select");
+  const nameInput = exercise.querySelector(".exercise-text-input");
+  const ageInput = exercise.querySelector(".exercise-number-input");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!choiceInput || !nameInput || !ageInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  let storedName = null;
+  let storedAge = null;
+  let stopped = false;
+  const history = [];
+  const currentYear = new Date().getFullYear();
+
+  function printMenu() {
+    history.push("1. Ange namn och ålder");
+    history.push("2. Beräkna när du fyller 100 år");
+    history.push("3. Avsluta");
+  }
+
+  function renderHistory() {
+    result.textContent = history.join("\n");
+  }
+
+  function resetProgram() {
+    storedName = null;
+    storedAge = null;
+    stopped = false;
+    history.length = 0;
+    printMenu();
+    history.push("Välj ett alternativ och tryck på Kör val.");
+    button.disabled = false;
+    choiceInput.disabled = false;
+    nameInput.disabled = false;
+    ageInput.disabled = false;
+    renderHistory();
+  }
+
+  button.addEventListener("click", () => {
+    if (stopped) return;
+
+    const choice = choiceInput.value;
+
+    if (history.length > 0) {
+      history.push("");
+    }
+
+    printMenu();
+    history.push("Välj ett alternativ: " + choice);
+
+    if (choice === "1") {
+      const age = Number.parseInt(ageInput.value, 10);
+
+      if (!nameInput.value.trim()) {
+        history.push("Namn saknas. Skriv ett namn innan du kör valet.");
+      } else if (!Number.isInteger(age) || age < 0) {
+        history.push("Ålder måste vara ett heltal som är 0 eller större.");
+      } else {
+        storedName = nameInput.value.trim();
+        storedAge = age;
+        history.push("Vad heter du? " + storedName);
+        history.push("Hur gammal är du? " + storedAge);
+        history.push("Sparat: " + storedName + ", " + storedAge + " år.");
+      }
+    } else if (choice === "2") {
+      if (storedName === null || storedAge === null) {
+        history.push("Du måste först ange namn och ålder.");
+      } else {
+        const hundredYear = currentYear + (100 - storedAge);
+        history.push(storedName + ", du fyller 100 år år " + hundredYear + ".");
+      }
+    } else if (choice === "3") {
+      history.push("Programmet avslutas med break.");
+      stopped = true;
+      button.disabled = true;
+      choiceInput.disabled = true;
+      nameInput.disabled = true;
+      ageInput.disabled = true;
+    } else {
+      history.push("Ogiltigt val.");
+    }
+
+    renderHistory();
+  });
+
+  resetButton.addEventListener("click", resetProgram);
+  resetProgram();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-1-programming"]')
@@ -374,4 +686,22 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-1-average"]')
     .forEach(runChapterOneAverageExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-1-adult"]')
+    .forEach(runChapterOneAdultExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-1-grade"]')
+    .forEach(runChapterOneGradeExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-1-for-sum"]')
+    .forEach(runChapterOneForSumExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-1-while-password"]')
+    .forEach(runChapterOneWhilePasswordExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-1-menu"]')
+    .forEach(runChapterOneMenuExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-1-choice-program"]')
+    .forEach(runChapterOneChoiceProgramExercise);
 });

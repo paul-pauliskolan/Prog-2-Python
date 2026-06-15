@@ -48,6 +48,42 @@ for i in range(1, 6):
     total += i
 print(f"Sum: {total}")</code></pre>
 
+                <section class="interactive-exercise" data-exercise="chapter-1-for-sum">
+                    <h2>Interaktiv övning: summera med for-loop</h2>
+                    <p>Testa hur en <code>for</code>-loop går igenom talen i en bestämd ordning och bygger upp en
+                        summa steg för steg.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>skriva <code>5</code> för att summera 1 till 5</li>
+                            <li>skriva <code>10</code> och se hur fler varv körs</li>
+                            <li>skriva text i stället för ett tal och se felmeddelandet</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-1-5-for-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-1-5-for-code" class="exercise-code" rows="7" spellcheck="false">limit = int(input("Summera från 1 till: "))
+total = 0
+
+for i in range(1, limit + 1):
+    total += i
+
+print(f"Sum: {total}")</textarea>
+
+                    <label for="chapter-1-5-for-input" class="exercise-label">Inmatning</label>
+                    <textarea id="chapter-1-5-for-input" class="exercise-input" rows="2" spellcheck="false">5</textarea>
+
+                    <button type="button" class="exercise-run">Kör kod</button>
+
+                    <label for="chapter-1-5-for-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-1-5-for-result" class="exercise-result">Tryck på Kör kod för att testa programmet.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> en <code>for</code>-loop passar
+                        bra när du vet vilka värden loopen ska gå igenom.
+                    </p>
+                </section>
+
                 <h2>while-loop - När du inte vet hur många gånger</h2>
                 <p>En while-loop kör så länge ett villkor är sant.</p>
                 <pre><code>password = ""
@@ -56,6 +92,40 @@ while password != "secret":
 print("Access granted.")</code></pre>
                 <p>Det här används ofta för inmatning eller oklara förlopp där du inte vet i förväg hur många
                     iterationer som behövs.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-1-while-password">
+                    <h2>Interaktiv övning: upprepa med while-loop</h2>
+                    <p>Testa hur en <code>while</code>-loop fortsätter fråga tills villkoret blir falskt. Varje rad i
+                        inmatningen är ett nytt försök.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>skriva <code>test</code> på första raden och <code>secret</code> på andra raden</li>
+                            <li>skriva <code>secret</code> direkt och se att loopen bara kör ett varv</li>
+                            <li>ta bort <code>secret</code> och se att övningen stoppar efter de försök du skrivit in</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-1-5-while-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-1-5-while-code" class="exercise-code" rows="5" spellcheck="false">password = ""
+while password != "secret":
+    password = input("Enter password: ")
+print("Access granted.")</textarea>
+
+                    <label for="chapter-1-5-while-input" class="exercise-label">Inmatning</label>
+                    <textarea id="chapter-1-5-while-input" class="exercise-input" rows="3" spellcheck="false">test
+secret</textarea>
+
+                    <button type="button" class="exercise-run">Kör kod</button>
+
+                    <label for="chapter-1-5-while-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-1-5-while-result" class="exercise-result">Tryck på Kör kod för att testa programmet.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> en <code>while</code>-loop
+                        passar när du inte vet i förväg hur många försök som behövs.
+                    </p>
+                </section>
 
                 <h2>break och continue</h2>
                 <ul>
@@ -75,22 +145,97 @@ print("Access granted.")</code></pre>
                 <h2>Kombinera loopar och funktioner</h2>
                 <p>Loopar blir tydligare när du bryter ut delar i funktioner.</p>
                 <pre><code>def print_menu():
-    print("1. Say hello")
-    print("2. Exit")
+    print("1. Visa saldo")
+    print("2. Sätt in pengar")
+    print("3. Ta ut pengar")
+    print("4. Avsluta")
 
 def run():
+    balance = 500
     while True:
         print_menu()
-        choice = input("Choose option: ")
+        choice = input("Välj alternativ: ")
         if choice == "1":
-            print("Hello!")
+            print(f"Saldo: {balance} kr")
         elif choice == "2":
+            balance += 100
+            print("Du satte in 100 kr.")
+        elif choice == "3":
+            balance -= 100
+            print("Du tog ut 100 kr.")
+        elif choice == "4":
             break
         else:
-            print("Invalid option.")
+            print("Ogiltigt val.")
 
 run()</code></pre>
                 <p>Här används while True för en meny som körs tills användaren vill avsluta.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-1-menu">
+                    <h2>Interaktiv övning: realistisk meny med while True</h2>
+                    <p>Testa en enkel bankomatmeny. Välj ett alternativ, kör valet och titta på resultatet innan du
+                        väljer nästa alternativ. Programmet körs tills valet är <code>4</code>.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>välja <code>1</code> för att visa saldo</li>
+                            <li>välja <code>2</code> och sedan <code>1</code> för att se att saldot ändras</li>
+                            <li>välja <code>9</code> och se hur <code>else</code>-grenen hanterar fel val</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-1-5-menu-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-1-5-menu-code" class="exercise-code" rows="20" spellcheck="false">def print_menu():
+    print("1. Visa saldo")
+    print("2. Sätt in pengar")
+    print("3. Ta ut pengar")
+    print("4. Avsluta")
+
+def run():
+    balance = 500
+    while True:
+        print_menu()
+        choice = input("Välj alternativ: ")
+        if choice == "1":
+            print(f"Saldo: {balance} kr")
+        elif choice == "2":
+            balance += 100
+            print("Du satte in 100 kr.")
+        elif choice == "3":
+            balance -= 100
+            print("Du tog ut 100 kr.")
+        elif choice == "4":
+            break
+        else:
+            print("Ogiltigt val.")
+
+run()</textarea>
+
+                    <label for="chapter-1-5-menu-choice" class="exercise-label">Menyval</label>
+                    <div class="exercise-controls">
+                        <select id="chapter-1-5-menu-choice" class="exercise-select">
+                            <option value="1">1. Visa saldo</option>
+                            <option value="2">2. Sätt in 100 kr</option>
+                            <option value="3">3. Ta ut 100 kr</option>
+                            <option value="4">4. Avsluta</option>
+                            <option value="9">Ogiltigt val</option>
+                        </select>
+                        <button type="button" class="exercise-run">Kör val</button>
+                        <button type="button" class="exercise-reset">Starta om</button>
+                    </div>
+
+                    <label for="chapter-1-5-menu-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-1-5-menu-result" class="exercise-result">1. Visa saldo
+2. Sätt in pengar
+3. Ta ut pengar
+4. Avsluta
+Välj ett alternativ och tryck på Kör val.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> menyn visar hur funktioner,
+                        loopar och villkor kan samarbeta i ett program som känns mer som en riktig applikation.
+                    </p>
+                </section>
 
                 <h2>Öva själv</h2>
                 <ol>

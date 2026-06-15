@@ -110,6 +110,82 @@ def main():
 
 main()</code></pre>
 
+                <section class="interactive-exercise" data-exercise="chapter-1-choice-program">
+                    <h2>Interaktivt exempel: valprogram steg för steg</h2>
+                    <p>Testa samma programflöde direkt på sidan. Välj ett alternativ, kör valet och titta på resultatet
+                        innan du väljer nästa steg.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>välja <code>2</code> innan du har angett namn och ålder</li>
+                            <li>välja <code>1</code>, fylla i namn och ålder, och sedan välja <code>2</code></li>
+                            <li>välja <code>3</code> för att avsluta programmet</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-1-7-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-1-7-code" class="exercise-code" rows="30" spellcheck="false">def hamta_namn_och_alder():
+    namn = input("Vad heter du? ")
+    alder = int(input("Hur gammal är du? "))
+    return namn, alder
+
+def berakna_100_arsdag(namn, alder):
+    from datetime import datetime
+    nuvarande_ar = datetime.now().year
+    fyller_100_ar = nuvarande_ar + (100 - alder)
+    return f"{namn}, du fyller 100 år år {fyller_100_ar}."
+
+def main():
+    namn = None
+    alder = None
+
+    while True:
+        print("1. Ange namn och ålder")
+        print("2. Beräkna när du fyller 100 år")
+        print("3. Avsluta")
+
+        val = input("Välj ett alternativ: ")
+
+        if val == "1":
+            namn, alder = hamta_namn_och_alder()
+        elif val == "2":
+            if namn is None or alder is None:
+                print("Du måste först ange namn och ålder.")
+            else:
+                print(berakna_100_arsdag(namn, alder))
+        elif val == "3":
+            break
+        else:
+            print("Ogiltigt val.")
+
+main()</textarea>
+
+                    <label class="exercise-label">Inmatning</label>
+                    <div class="exercise-controls">
+                        <select class="exercise-select" aria-label="Menyval">
+                            <option value="1">1. Ange namn och ålder</option>
+                            <option value="2">2. Beräkna 100-årsmeddelande</option>
+                            <option value="3">3. Avsluta</option>
+                            <option value="9">Ogiltigt val</option>
+                        </select>
+                        <input class="exercise-text-input" type="text" value="Alex" aria-label="Namn">
+                        <input class="exercise-number-input" type="number" value="17" min="0" aria-label="Ålder">
+                        <button type="button" class="exercise-run">Kör val</button>
+                        <button type="button" class="exercise-reset">Starta om</button>
+                    </div>
+
+                    <label for="chapter-1-7-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-1-7-result" class="exercise-result">1. Ange namn och ålder
+2. Beräkna när du fyller 100 år
+3. Avsluta
+Välj ett alternativ och tryck på Kör val.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> exemplet binder ihop
+                        funktioner, returvärden, menyval, villkor och en loop som håller programmet igång.
+                    </p>
+                </section>
+
                 <h2>Bedömningsfokus i denna uppgift</h2>
                 <ul>
                     <li>Har du använt funktioner på ett tydligt och meningsfullt sätt?</li>

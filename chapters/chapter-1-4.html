@@ -45,6 +45,47 @@ if is_adult(user_age):
 else:
     print("You are not an adult.")</code></pre>
 
+                <section class="interactive-exercise" data-exercise="chapter-1-adult">
+                    <h2>Interaktiv övning: villkor i en funktion</h2>
+                    <p>Testa hur funktionen <code>is_adult()</code> returnerar <code>True</code> eller
+                        <code>False</code> beroende på åldern. Kör med flera olika värden.
+                    </p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>skriva <code>17</code> och se att <code>else</code>-grenen körs</li>
+                            <li>skriva <code>18</code> och se att <code>if</code>-grenen körs</li>
+                            <li>skriva text i stället för ett tal och se felmeddelandet</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-1-4-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-1-4-code" class="exercise-code" rows="10" spellcheck="false">def is_adult(age):
+    if age >= 18:
+        return True
+    else:
+        return False
+
+user_age = int(input("Enter your age: "))
+if is_adult(user_age):
+    print("You are an adult.")
+else:
+    print("You are not an adult.")</textarea>
+
+                    <label for="chapter-1-4-input" class="exercise-label">Inmatning</label>
+                    <textarea id="chapter-1-4-input" class="exercise-input" rows="2" spellcheck="false">18</textarea>
+
+                    <button type="button" class="exercise-run">Kör kod</button>
+
+                    <label for="chapter-1-4-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-1-4-result" class="exercise-result">Tryck på Kör kod för att testa programmet.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> funktionen returnerar ett
+                        värde, och huvudprogrammet använder värdet för att välja vilken utskrift som ska visas.
+                    </p>
+                </section>
+
                 <h2>Flera alternativ med <code>elif</code></h2>
                 <pre><code>def grade_feedback(grade):
     if grade >= 90:
@@ -59,6 +100,48 @@ else:
 # Exempel: fråga användaren om poäng och skriv ut feedback (utan undantagshantering)
 score = int(input("Skriv in poäng (0-100): "))
 print("Resultat:", grade_feedback(score))</code></pre>
+
+                <section class="interactive-exercise" data-exercise="chapter-1-grade">
+                    <h2>Interaktiv övning: flera alternativ med elif</h2>
+                    <p>Testa hur programmet går igenom villkoren uppifrån och ned. Den första grenen som stämmer
+                        används, och resten hoppas över.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>skriva <code>95</code> och få <code>Excellent</code></li>
+                            <li>skriva <code>80</code> och få <code>Good</code></li>
+                            <li>skriva <code>65</code> och få <code>Pass</code></li>
+                            <li>skriva <code>40</code> och få <code>Fail</code></li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-1-4-grade-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-1-4-grade-code" class="exercise-code" rows="13" spellcheck="false">def grade_feedback(grade):
+    if grade >= 90:
+        return "Excellent"
+    elif grade >= 75:
+        return "Good"
+    elif grade >= 60:
+        return "Pass"
+    else:
+        return "Fail"
+
+score = int(input("Skriv in poäng (0-100): "))
+print("Resultat:", grade_feedback(score))</textarea>
+
+                    <label for="chapter-1-4-grade-input" class="exercise-label">Inmatning</label>
+                    <textarea id="chapter-1-4-grade-input" class="exercise-input" rows="2" spellcheck="false">80</textarea>
+
+                    <button type="button" class="exercise-run">Kör kod</button>
+
+                    <label for="chapter-1-4-grade-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-1-4-grade-result" class="exercise-result">Tryck på Kör kod för att testa programmet.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> med <code>elif</code> kan en
+                        funktion hantera flera möjliga resultat utan att skriva flera separata <code>if</code>-satser.
+                    </p>
+                </section>
 
                 <h2>Öva själv</h2>
                 <ol>
