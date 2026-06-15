@@ -55,10 +55,77 @@ print(fruits)  # ['apple', 'orange', 'cherry']</code></pre>
 fruits.insert(1, "kiwi")  # Lägg till på plats 1
 fruits.remove("orange")   # Ta bort ett element</code></pre>
 
+                <section class="interactive-exercise" data-exercise="chapter-2-list-editor">
+                    <h2>Interaktiv övning: ändra en lista</h2>
+                    <p>Testa hur listan förändras när du lägger till, stoppar in eller tar bort värden. Kör ett val i
+                        taget och titta på resultatet innan du fortsätter.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>lägga till <code>pear</code> sist i listan</li>
+                            <li>stoppa in <code>kiwi</code> på index <code>1</code></li>
+                            <li>ta bort <code>banana</code> och se hur listan blir kortare</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-2-2-list-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-2-2-list-code" class="exercise-code" rows="9" spellcheck="false">fruits = ["apple", "banana", "cherry"]
+
+fruits.append("pear")
+fruits.insert(1, "kiwi")
+fruits.remove("banana")
+
+print(fruits)</textarea>
+
+                    <label class="exercise-label">Val</label>
+                    <div class="exercise-controls">
+                        <select class="exercise-select" aria-label="Listoperation">
+                            <option value="append">append() - lägg till sist</option>
+                            <option value="insert">insert(1, värde) - lägg till på index 1</option>
+                            <option value="remove">remove() - ta bort värde</option>
+                        </select>
+                        <input class="exercise-text-input" type="text" value="pear" aria-label="Värde">
+                        <button type="button" class="exercise-run">Kör val</button>
+                        <button type="button" class="exercise-reset">Starta om</button>
+                    </div>
+
+                    <label for="chapter-2-2-list-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-2-2-list-result" class="exercise-result">fruits = ['apple', 'banana', 'cherry']</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> listor gör att flera värden kan
+                        hanteras med samma variabel, och metoder ändrar listans innehåll under programmets körning.
+                    </p>
+                </section>
+
                 <h2>Iterera genom listor med for</h2>
                 <p>Att iterera betyder att gå igenom elementen ett i taget.</p>
                 <pre><code>for fruit in fruits:
     print(f"I like {fruit}")</code></pre>
+
+                <section class="interactive-exercise" data-exercise="chapter-2-list-iteration">
+                    <h2>Interaktiv övning: iterera över en lista</h2>
+                    <p>Skriv några saker separerade med kommatecken. När du kör koden går <code>for</code>-loopen igenom
+                        listan ett element i taget.</p>
+
+                    <label for="chapter-2-2-iteration-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-2-2-iteration-code" class="exercise-code" rows="5" spellcheck="false">fruits = ["apple", "banana", "cherry"]
+
+for fruit in fruits:
+    print(f"I like {fruit}")</textarea>
+
+                    <label for="chapter-2-2-iteration-input" class="exercise-label">Lista</label>
+                    <textarea id="chapter-2-2-iteration-input" class="exercise-input" rows="3" spellcheck="false">apple, banana, cherry</textarea>
+
+                    <button type="button" class="exercise-run">Kör kod</button>
+
+                    <label for="chapter-2-2-iteration-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-2-2-iteration-result" class="exercise-result">Tryck på Kör kod för att iterera över listan.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> iteration gör att samma kod kan
+                        användas på varje element i en lista, oavsett hur lång listan är.
+                    </p>
+                </section>
 
                 <p>Du kan också använda <code>range()</code> och <code>len()</code> för att gå igenom en lista med index:</p>
                 <pre><code>for i in range(len(fruits)):

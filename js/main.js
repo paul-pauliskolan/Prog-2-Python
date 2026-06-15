@@ -679,6 +679,100 @@ function runChapterOneChoiceProgramExercise(exercise) {
   resetProgram();
 }
 
+function formatPythonList(items) {
+  return "[" + items.map((item) => "'" + item + "'").join(", ") + "]";
+}
+
+function runChapterTwoListEditorExercise(exercise) {
+  const operationInput = exercise.querySelector(".exercise-select");
+  const valueInput = exercise.querySelector(".exercise-text-input");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!operationInput || !valueInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  let fruits = [];
+  const history = [];
+
+  function renderList() {
+    result.textContent = history.join("\n");
+  }
+
+  function resetList() {
+    fruits = ["apple", "banana", "cherry"];
+    history.length = 0;
+    history.push("fruits = " + formatPythonList(fruits));
+    renderList();
+  }
+
+  button.addEventListener("click", () => {
+    const operation = operationInput.value;
+    const value = valueInput.value.trim();
+
+    if (!value) {
+      history.push("Skriv ett värde innan du kör valet.");
+      renderList();
+      return;
+    }
+
+    if (operation === "append") {
+      fruits.push(value);
+      history.push('fruits.append("' + value + '")');
+    } else if (operation === "insert") {
+      fruits.splice(1, 0, value);
+      history.push('fruits.insert(1, "' + value + '")');
+    } else if (operation === "remove") {
+      const index = fruits.indexOf(value);
+      history.push('fruits.remove("' + value + '")');
+
+      if (index === -1) {
+        history.push("ValueError: list.remove(x): x not in list");
+        renderList();
+        return;
+      }
+
+      fruits.splice(index, 1);
+    }
+
+    history.push("fruits = " + formatPythonList(fruits));
+    renderList();
+  });
+
+  resetButton.addEventListener("click", resetList);
+  resetList();
+}
+
+function runChapterTwoListIterationExercise(exercise) {
+  const input = exercise.querySelector(".exercise-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!input || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const items = input.value
+      .split(",")
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    if (items.length === 0) {
+      result.textContent = "Listan är tom. Skriv minst ett värde.";
+      return;
+    }
+
+    const output = ["fruits = " + formatPythonList(items)];
+
+    items.forEach((item) => {
+      output.push("I like " + item);
+    });
+
+    result.textContent = output.join("\n");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-1-programming"]')
@@ -704,4 +798,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-1-choice-program"]')
     .forEach(runChapterOneChoiceProgramExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-2-list-editor"]')
+    .forEach(runChapterTwoListEditorExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-2-list-iteration"]')
+    .forEach(runChapterTwoListIterationExercise);
 });
