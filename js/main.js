@@ -284,3 +284,94 @@ document.addEventListener("DOMContentLoaded", () => {
     console.error("Error inserting prev/next links", e);
   }
 });
+
+function runChapterOneProgrammingExercise(exercise) {
+  const code = exercise.querySelector(".exercise-code");
+  const input = exercise.querySelector(".exercise-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!code || !input || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const inputRows = input.value.split(/\r?\n/);
+    const name = inputRows[0]?.trim() || "någon";
+    const interest = inputRows[1]?.trim() || "något med kod";
+    const source = code.value;
+    const output = [];
+
+    if (source.includes("input(")) {
+      output.push("Vad heter du? " + name);
+      output.push("Vad vill du skapa med kod? " + interest);
+    }
+
+    if (source.includes("Hej")) {
+      output.push("Hej " + name + "!");
+    }
+
+    if (source.includes("Du vill skapa")) {
+      output.push("Du vill skapa: " + interest);
+    }
+
+    result.textContent = output.length
+      ? output.join("\n")
+      : "Programmet kördes, men den här övningen känner bara igen input() och print-raderna i exemplet.";
+  });
+}
+
+function runChapterOneAverageExercise(exercise) {
+  const code = exercise.querySelector(".exercise-code");
+  const input = exercise.querySelector(".exercise-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!code || !input || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const prompts = [
+      "Enter first number: ",
+      "Enter second number: ",
+      "Enter third number: ",
+    ];
+    const inputRows = input.value.split(/\r?\n/);
+    const numbers = prompts.map((prompt, index) => ({
+      prompt,
+      raw: inputRows[index]?.trim() || "",
+      value: Number.parseFloat(inputRows[index]),
+    }));
+    const invalid = numbers.find((number) => Number.isNaN(number.value));
+
+    if (invalid) {
+      result.textContent =
+        invalid.prompt +
+        invalid.raw +
+        "\nValueError: could not convert string to float";
+      return;
+    }
+
+    const average =
+      (numbers[0].value + numbers[1].value + numbers[2].value) / 3;
+    const output = [];
+
+    if (code.value.includes("get_number")) {
+      numbers.forEach((number) => {
+        output.push(number.prompt + number.raw);
+      });
+    }
+
+    if (code.value.includes("calculate_average")) {
+      output.push("The average is " + average.toFixed(2));
+    }
+
+    result.textContent = output.join("\n");
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  document
+    .querySelectorAll('[data-exercise="chapter-1-programming"]')
+    .forEach(runChapterOneProgrammingExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-1-average"]')
+    .forEach(runChapterOneAverageExercise);
+});
