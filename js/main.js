@@ -773,6 +773,136 @@ function runChapterTwoListIterationExercise(exercise) {
   });
 }
 
+function parseCommaList(value) {
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function runChapterTwoLinearSearchExercise(exercise) {
+  const listInput = exercise.querySelector(".exercise-text-input");
+  const targetInput = exercise.querySelector(".exercise-search-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!listInput || !targetInput || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const names = parseCommaList(listInput.value);
+    const target = targetInput.value.trim();
+
+    if (names.length === 0 || !target) {
+      result.textContent = "Skriv både en lista och ett sökvärde.";
+      return;
+    }
+
+    const output = ["names = " + formatPythonList(names)];
+    let foundIndex = -1;
+
+    for (let i = 0; i < names.length; i += 1) {
+      output.push(
+        "Jämför index " + i + ": " + names[i] + " == " + target + "?",
+      );
+
+      if (names[i] === target) {
+        foundIndex = i;
+        output.push("Träff. return " + i);
+        break;
+      }
+    }
+
+    if (foundIndex === -1) {
+      output.push("Ingen träff. return -1");
+    }
+
+    output.push("Resultat: " + foundIndex);
+    result.textContent = output.join("\n");
+  });
+}
+
+function runChapterTwoBubbleSortExercise(exercise) {
+  const input = exercise.querySelector(".exercise-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!input || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const rawItems = parseCommaList(input.value);
+    const numbers = rawItems.map((item) => Number.parseFloat(item));
+
+    if (numbers.length === 0 || numbers.some((number) => Number.isNaN(number))) {
+      result.textContent = "Skriv en lista med tal separerade med kommatecken.";
+      return;
+    }
+
+    const output = ["Start: [" + numbers.join(", ") + "]"];
+
+    for (let i = 0; i < numbers.length; i += 1) {
+      output.push("Yttre varv " + (i + 1));
+
+      for (let j = 0; j < numbers.length - i - 1; j += 1) {
+        output.push("Jämför " + numbers[j] + " och " + numbers[j + 1]);
+
+        if (numbers[j] > numbers[j + 1]) {
+          const temp = numbers[j];
+          numbers[j] = numbers[j + 1];
+          numbers[j + 1] = temp;
+          output.push("Byt plats: [" + numbers.join(", ") + "]");
+        }
+      }
+    }
+
+    output.push("Sorterat: [" + numbers.join(", ") + "]");
+    result.textContent = output.join("\n");
+  });
+}
+
+function sortMixedItems(items) {
+  const numbers = items.map((item) => Number.parseFloat(item));
+
+  if (numbers.every((number) => !Number.isNaN(number))) {
+    return numbers.sort((a, b) => a - b);
+  }
+
+  return items.slice().sort((a, b) => a.localeCompare(b, "sv"));
+}
+
+function runChapterTwoBuiltInSortExercise(exercise) {
+  const input = exercise.querySelector(".exercise-text-input");
+  const methodInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!input || !methodInput || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const original = parseCommaList(input.value);
+
+    if (original.length === 0) {
+      result.textContent = "Skriv minst ett värde att sortera.";
+      return;
+    }
+
+    const method = methodInput.value;
+    const output = ["Original före sortering: " + formatPythonList(original)];
+
+    if (method === "sorted") {
+      const sortedItems = sortMixedItems(original);
+      output.push("sorted_list = sorted(original)");
+      output.push("Original efter sorted(): " + formatPythonList(original));
+      output.push("Ny sorterad lista: " + formatPythonList(sortedItems));
+    } else {
+      const changedOriginal = sortMixedItems(original);
+      output.push("original.sort()");
+      output.push("Original efter sort(): " + formatPythonList(changedOriginal));
+    }
+
+    result.textContent = output.join("\n");
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-1-programming"]')
@@ -804,4 +934,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-2-list-iteration"]')
     .forEach(runChapterTwoListIterationExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-2-linear-search"]')
+    .forEach(runChapterTwoLinearSearchExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-2-bubble-sort"]')
+    .forEach(runChapterTwoBubbleSortExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-2-built-in-sort"]')
+    .forEach(runChapterTwoBuiltInSortExercise);
 });

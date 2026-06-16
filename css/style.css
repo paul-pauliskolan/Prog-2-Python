@@ -854,6 +854,7 @@ blockquote {
 .exercise-input,
 .exercise-select,
 .exercise-text-input,
+.exercise-search-input,
 .exercise-number-input,
 .exercise-result {
   width: 100%;
@@ -881,6 +882,7 @@ blockquote {
 }
 
 .exercise-text-input,
+.exercise-search-input,
 .exercise-number-input {
   flex: 1 1 10rem;
   min-height: 2.9rem;
