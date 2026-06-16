@@ -855,6 +855,8 @@ blockquote {
 .exercise-select,
 .exercise-text-input,
 .exercise-search-input,
+.exercise-key-input,
+.exercise-value-input,
 .exercise-number-input,
 .exercise-result {
   width: 100%;
@@ -883,10 +885,23 @@ blockquote {
 
 .exercise-text-input,
 .exercise-search-input,
+.exercise-key-input,
+.exercise-value-input,
 .exercise-number-input {
   flex: 1 1 10rem;
   min-height: 2.9rem;
   padding: 0.65rem 0.8rem;
+}
+
+.exercise-text-input:disabled,
+.exercise-search-input:disabled,
+.exercise-key-input:disabled,
+.exercise-value-input:disabled,
+.exercise-number-input:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+  background: rgba(9, 13, 24, 0.5);
+  color: rgba(244, 247, 251, 0.55);
 }
 
 .exercise-controls {

@@ -903,6 +903,166 @@ function runChapterTwoBuiltInSortExercise(exercise) {
   });
 }
 
+function formatPythonDict(data) {
+  const lines = Object.entries(data).map(([key, value]) => {
+    const formattedValue = typeof value === "number" ? value : "'" + value + "'";
+    return "    '" + key + "': " + formattedValue;
+  });
+
+  return "person = {\n" + lines.join(",\n") + "\n}";
+}
+
+function parseDictionaryValue(value) {
+  const number = Number.parseFloat(value);
+  return value.trim() !== "" && !Number.isNaN(number) && String(number) === value
+    ? number
+    : value;
+}
+
+function runChapterTwoDictionaryExercise(exercise) {
+  const operationInput = exercise.querySelector(".exercise-select");
+  const keyInput = exercise.querySelector(".exercise-key-input");
+  const valueInput = exercise.querySelector(".exercise-value-input");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!operationInput || !keyInput || !valueInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  let person = {};
+  const history = [];
+
+  function syncDictionaryInputs() {
+    const shouldDisableFields = operationInput.value === "loop";
+    keyInput.disabled = shouldDisableFields;
+    valueInput.disabled = shouldDisableFields;
+  }
+
+  function renderDictionary() {
+    result.textContent = history.join("\n");
+  }
+
+  function resetDictionary() {
+    person = {
+      name: "Alice",
+      age: 25,
+      city: "Stockholm",
+    };
+    history.length = 0;
+    history.push(formatPythonDict(person));
+    renderDictionary();
+  }
+
+  button.addEventListener("click", () => {
+    const operation = operationInput.value;
+    const key = keyInput.value.trim();
+    const value = parseDictionaryValue(valueInput.value.trim());
+
+    if ((operation === "get" || operation === "set" || operation === "delete") && !key) {
+      history.push("Skriv en nyckel först.");
+      renderDictionary();
+      return;
+    }
+
+    if (operation === "get") {
+      history.push('print(person["' + key + '"])');
+
+      if (Object.prototype.hasOwnProperty.call(person, key)) {
+        history.push(String(person[key]));
+      } else {
+        history.push("KeyError: '" + key + "'");
+      }
+    } else if (operation === "set") {
+      person[key] = value;
+      history.push('person["' + key + '"] = ' + JSON.stringify(value));
+      history.push(formatPythonDict(person));
+    } else if (operation === "delete") {
+      history.push('del person["' + key + '"]');
+
+      if (Object.prototype.hasOwnProperty.call(person, key)) {
+        delete person[key];
+        history.push(formatPythonDict(person));
+      } else {
+        history.push("KeyError: '" + key + "'");
+      }
+    } else if (operation === "loop") {
+      history.push("for key, value in person.items():");
+      Object.entries(person).forEach(([dictKey, dictValue]) => {
+        history.push(dictKey + ": " + dictValue);
+      });
+    }
+
+    renderDictionary();
+  });
+
+  operationInput.addEventListener("change", syncDictionaryInputs);
+  resetButton.addEventListener("click", resetDictionary);
+  resetDictionary();
+  syncDictionaryInputs();
+}
+
+function formatPythonTuple(items) {
+  return "(" + items.join(", ") + ")";
+}
+
+function runChapterTwoTupleExercise(exercise) {
+  const operationInput = exercise.querySelector(".exercise-select");
+  const indexInput = exercise.querySelector(".exercise-number-input");
+  const valueInput = exercise.querySelector(".exercise-value-input");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!operationInput || !indexInput || !valueInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  const coordinates = [10, 20];
+  const history = [];
+
+  function syncTupleInputs() {
+    valueInput.disabled = operationInput.value === "read";
+  }
+
+  function renderTuple() {
+    result.textContent = history.join("\n");
+  }
+
+  function resetTuple() {
+    history.length = 0;
+    history.push("coordinates = " + formatPythonTuple(coordinates));
+    renderTuple();
+  }
+
+  button.addEventListener("click", () => {
+    const index = Number.parseInt(indexInput.value, 10);
+
+    if (!Number.isInteger(index) || index < 0 || index >= coordinates.length) {
+      history.push("IndexError: tuple index out of range");
+      renderTuple();
+      return;
+    }
+
+    if (operationInput.value === "read") {
+      history.push("print(coordinates[" + index + "])");
+      history.push(String(coordinates[index]));
+    } else {
+      history.push("coordinates[" + index + "] = " + valueInput.value);
+      history.push("TypeError: 'tuple' object does not support item assignment");
+      history.push("coordinates är fortfarande " + formatPythonTuple(coordinates));
+    }
+
+    renderTuple();
+  });
+
+  operationInput.addEventListener("change", syncTupleInputs);
+  resetButton.addEventListener("click", resetTuple);
+  resetTuple();
+  syncTupleInputs();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-1-programming"]')
@@ -943,4 +1103,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-2-built-in-sort"]')
     .forEach(runChapterTwoBuiltInSortExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-2-dictionary"]')
+    .forEach(runChapterTwoDictionaryExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-2-tuple"]')
+    .forEach(runChapterTwoTupleExercise);
 });

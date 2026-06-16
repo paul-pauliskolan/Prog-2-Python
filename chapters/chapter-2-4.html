@@ -58,12 +58,117 @@ person["email"] = "alice@example.com"</code></pre>
                 <pre><code>for key, value in person.items():
     print(f"{key}: {value}")</code></pre>
 
+                <section class="interactive-exercise" data-exercise="chapter-2-dictionary">
+                    <h2>Interaktiv övning: dictionary steg för steg</h2>
+                    <p>Testa att hämta, ändra, lägga till, ta bort och loopa genom en dictionary. Kör ett val i taget
+                        och se hur innehållet förändras.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>hämta nyckeln <code>name</code></li>
+                            <li>ändra <code>age</code> till <code>26</code></li>
+                            <li>lägga till nyckeln <code>email</code></li>
+                            <li>ta bort <code>city</code></li>
+                            <li>loopa genom hela dictionaryn med <code>items()</code></li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-2-4-dict-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-2-4-dict-code" class="exercise-code" rows="18" spellcheck="false">person = {
+    "name": "Alice",
+    "age": 25,
+    "city": "Stockholm"
+}
+
+# Hämta värde med nyckel
+print(person["name"])
+
+# Ändra eller lägg till
+person["age"] = 26
+person["email"] = "alice@example.com"
+
+# Ta bort nyckel
+del person["city"]
+
+# Loopa genom dictionaryn
+for key, value in person.items():
+    print(f"{key}: {value}")</textarea>
+
+                    <label class="exercise-label">Val</label>
+                    <div class="exercise-controls">
+                        <select class="exercise-select" aria-label="Dictionary-operation">
+                            <option value="get">Hämta värde med nyckel</option>
+                            <option value="set">Ändra eller lägg till</option>
+                            <option value="delete">Ta bort nyckel</option>
+                            <option value="loop">Loopa genom dictionaryn</option>
+                        </select>
+                        <input class="exercise-key-input" type="text" value="name" aria-label="Nyckel">
+                        <input class="exercise-value-input" type="text" value="Alice" aria-label="Värde">
+                        <button type="button" class="exercise-run">Kör val</button>
+                        <button type="button" class="exercise-reset">Starta om</button>
+                    </div>
+
+                    <label for="chapter-2-4-dict-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-2-4-dict-result" class="exercise-result">person = {
+    'name': 'Alice',
+    'age': 25,
+    'city': 'Stockholm'
+}</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> dictionaries passar när varje
+                        värde behöver en tydlig nyckel, till exempel persondata, inställningar eller poängtabeller.
+                    </p>
+                </section>
+
                 <h2>Vad är en tuple?</h2>
                 <p>En <strong>tuple</strong> är en <strong>ordnad, oföränderlig samling</strong>. Den används när du inte
                     vill att värden ska kunna ändras.</p>
 
                 <pre><code>coordinates = (10, 20)
 print(coordinates[0])  # 10</code></pre>
+
+                <section class="interactive-exercise" data-exercise="chapter-2-tuple">
+                    <h2>Interaktiv övning: tuple</h2>
+                    <p>Testa att läsa värden från en tuple och jämför med vad som händer om du försöker ändra den.
+                        Tuples är ordnade, men oföränderliga.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>läsa index <code>0</code> och få första värdet</li>
+                            <li>läsa index <code>1</code> och få andra värdet</li>
+                            <li>försöka ändra index <code>0</code> och se felmeddelandet</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-2-4-tuple-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-2-4-tuple-code" class="exercise-code" rows="9" spellcheck="false">coordinates = (10, 20)
+
+print(coordinates[0])
+
+# Detta fungerar inte, eftersom tuples inte kan ändras
+coordinates[0] = 99</textarea>
+
+                    <label class="exercise-label">Val</label>
+                    <div class="exercise-controls">
+                        <select class="exercise-select" aria-label="Tuple-operation">
+                            <option value="read">Läs värde på index</option>
+                            <option value="change">Försök ändra värde</option>
+                        </select>
+                        <input class="exercise-number-input" type="number" value="0" min="0" aria-label="Index">
+                        <input class="exercise-value-input" type="text" value="99" aria-label="Nytt värde">
+                        <button type="button" class="exercise-run">Kör val</button>
+                        <button type="button" class="exercise-reset">Starta om</button>
+                    </div>
+
+                    <label for="chapter-2-4-tuple-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-2-4-tuple-result" class="exercise-result">coordinates = (10, 20)</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> tuples passar när värden hör
+                        ihop och inte ska ändras, till exempel koordinater eller fasta inställningar.
+                    </p>
+                </section>
 
                 <p>Tuples används ofta för att returnera flera värden från en funktion:</p>
                 <pre><code>def get_user():
