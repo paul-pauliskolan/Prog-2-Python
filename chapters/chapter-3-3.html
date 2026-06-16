@@ -65,6 +65,42 @@ car1.honk()</code></pre>
                     <li><code>honk()</code> är en metod som använder objektets data för att skriva ut ett meddelande.</li>
                 </ul>
 
+                <section class="interactive-exercise" data-exercise="chapter-3-car-constructor">
+                    <h2>Interaktiv övning: konstruktor och metod</h2>
+                    <p>Skapa först ett <code>Car</code>-objekt. Då körs <code>__init__</code> och objektet får värden
+                        för <code>brand</code> och <code>year</code>. Kör sedan metoden <code>honk()</code>.</p>
+
+                    <label for="chapter-3-3-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-3-3-code" class="exercise-code" rows="10" spellcheck="false">class Car:
+    def __init__(self, brand, year):
+        self.brand = brand
+        self.year = year
+
+    def honk(self):
+        print(f"{self.brand} från {self.year} tutar!")
+
+car1 = Car("Volvo", 2020)
+car1.honk()</textarea>
+
+                    <div class="exercise-controls">
+                        <input id="chapter-3-3-brand" class="exercise-text-input" type="text" value="Volvo" aria-label="Märke">
+                        <input id="chapter-3-3-year" class="exercise-number-input" type="number" value="2020" aria-label="År">
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run" data-action="create">Skapa nästa bil</button>
+                        <button type="button" class="exercise-run" data-action="honk">Kör honk()</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-3-3-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-3-3-result" class="exercise-result">Inget bilobjekt är skapat än.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> <code>Car("Volvo", 2020)</code>
+                        skapar objektet och kör konstruktorn. <code>car1.honk()</code> kör en metod på objektet som redan
+                        finns.</p>
+                </section>
+
                 <h2>Metoder med parametrar</h2>
                 <p>Du kan även skapa metoder som tar emot parametrar och ändrar objektets data.</p>
                 <pre><code>def change_year(self, new_year):

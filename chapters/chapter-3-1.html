@@ -67,11 +67,50 @@
     def skriv_ut_info(self):
         print(f"{self.titel} av {self.forfattare}")
 
-bok1 = Bok("Bröderna Lejonhjärta", "Astrid Lindgren")
-bok2 = Bok("Cirkeln", "Mats Strandberg och Sara Bergmark Elfgren")
+bok1 = Bok("Project Hail Mary", "Andy Weir")
+bok2 = Bok("Surely You're Joking, Mr. Feynman!", "Richard P. Feynman")
 
 bok1.skriv_ut_info()
 bok2.skriv_ut_info()</code></pre>
+
+                <section class="interactive-exercise" data-exercise="chapter-3-book-objects">
+                    <h2>Interaktiv övning: skapa bokobjekt</h2>
+                    <p>Testa hur klassen <code>Bok</code> används som mall. Varje gång du skapar en bok får objektet
+                        egna värden i attributen <code>titel</code> och <code>forfattare</code>. När du kör metoden
+                        <code>skriv_ut_info()</code> används objektets egna attribut.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>skapa <code>bok1</code> och kör metoden</li>
+                            <li>ändra titel och författare och skapa <code>bok2</code></li>
+                            <li>jämföra hur objekten sparar olika attribut</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-3-1-object" class="exercise-label">Objektnamn</label>
+                    <select id="chapter-3-1-object" class="exercise-select">
+                        <option value="bok1">bok1</option>
+                        <option value="bok2">bok2</option>
+                    </select>
+
+                    <div class="exercise-controls">
+                        <input id="chapter-3-1-title" class="exercise-title-input" type="text" value="Project Hail Mary" aria-label="Titel">
+                        <input id="chapter-3-1-author" class="exercise-author-input" type="text" value="Andy Weir" aria-label="Författare">
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run" data-action="create">Skapa objekt</button>
+                        <button type="button" class="exercise-run" data-action="print">Kör skriv_ut_info()</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-3-1-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-3-1-result" class="exercise-result">Inga bokobjekt är skapade än. Välj bok1 eller bok2 och tryck på Skapa objekt.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> klassen är mallen, men varje
+                        objekt har egna attributvärden. Samma metod kan därför ge olika utskrift för olika objekt.</p>
+                </section>
 
                 <p>OOP är särskilt användbart när du bygger större program. Det gör koden mer strukturerad, lättare att
                     felsöka och enklare att återanvända.</p>

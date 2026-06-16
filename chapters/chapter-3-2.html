@@ -78,6 +78,42 @@ book1.print_info()</code></pre>
                     <li>Lägg till en metod <code>say_hello()</code> som skriver ut informationen.</li>
                 </ul>
 
+                <section class="interactive-exercise" data-exercise="chapter-3-person-class">
+                    <h2>Interaktiv övning: skapa ett Person-objekt</h2>
+                    <p>Fyll i namn och ålder. Tryck först på <strong>Skapa objekt</strong> för att simulera
+                        <code>person1 = Person(name, age)</code>. Kör sedan metoden <code>say_hello()</code>.</p>
+
+                    <label for="chapter-3-2-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-3-2-code" class="exercise-code" rows="10" spellcheck="false">class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def say_hello(self):
+        print(f"Hej, jag heter {self.name} och är {self.age} år.")
+
+person1 = Person("Ada", 17)
+person1.say_hello()</textarea>
+
+                    <div class="exercise-controls">
+                        <input id="chapter-3-2-name" class="exercise-text-input" type="text" value="Ada" aria-label="Namn">
+                        <input id="chapter-3-2-age" class="exercise-number-input" type="number" value="17" min="0" aria-label="Ålder">
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run" data-action="create">Skapa objekt</button>
+                        <button type="button" class="exercise-run" data-action="hello">Kör say_hello()</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-3-2-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-3-2-result" class="exercise-result">Inget Person-objekt är skapat än.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> <code>__init__</code> sparar
+                        värdena i objektet, och metoden använder sedan <code>self.name</code> och <code>self.age</code>
+                        för utskriften.</p>
+                </section>
+
                 <h2>Sammanfattning</h2>
                 <ul>
                     <li>En klass i Python skapas med <code>class</code> och innehåller metoder och attribut.</li>

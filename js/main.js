@@ -1290,6 +1290,276 @@ function formatLibraryBook(book) {
   return book.title + " av " + book.author + " (" + book.year + ")";
 }
 
+function runChapterThreeBookObjectsExercise(exercise) {
+  const objectInput = exercise.querySelector(".exercise-select");
+  const titleInput = exercise.querySelector(".exercise-title-input");
+  const authorInput = exercise.querySelector(".exercise-author-input");
+  const createButton = exercise.querySelector('[data-action="create"]');
+  const printButton = exercise.querySelector('[data-action="print"]');
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!objectInput || !titleInput || !authorInput || !createButton || !printButton || !resetButton || !result) {
+    return;
+  }
+
+  const books = {};
+  const history = [];
+  const starterBooks = {
+    bok1: {
+      titel: "Project Hail Mary",
+      forfattare: "Andy Weir",
+    },
+    bok2: {
+      titel: "Surely You're Joking, Mr. Feynman!",
+      forfattare: "Richard P. Feynman",
+    },
+  };
+
+  function renderBooks() {
+    const rows = Object.keys(books).map((name) => {
+      const book = books[name];
+      return (
+        name +
+        ' = Bok("' +
+        book.titel +
+        '", "' +
+        book.forfattare +
+        '")'
+      );
+    });
+
+    result.textContent = history.concat(rows.length ? ["", "Objekt just nu:", ...rows] : []).join("\n");
+  }
+
+  function resetExercise() {
+    Object.keys(books).forEach((name) => {
+      delete books[name];
+    });
+    history.length = 0;
+    history.push("Klassen Bok är laddad.");
+    history.push("Inga objekt är skapade än.");
+    history.push('Nästa steg: kör till exempel bok1 = Bok("Project Hail Mary", "Andy Weir").');
+    titleInput.value = starterBooks.bok1.titel;
+    authorInput.value = starterBooks.bok1.forfattare;
+    renderBooks();
+  }
+
+  createButton.addEventListener("click", () => {
+    const objectName = objectInput.value;
+    const title = titleInput.value.trim();
+    const author = authorInput.value.trim();
+
+    if (!title || !author) {
+      history.push("Fyll i både titel och författare innan du skapar objektet.");
+      renderBooks();
+      return;
+    }
+
+    books[objectName] = {
+      titel: title,
+      forfattare: author,
+    };
+
+    history.push("");
+    history.push(objectName + ' = Bok("' + title + '", "' + author + '")');
+    history.push("self.titel = " + title);
+    history.push("self.forfattare = " + author);
+    renderBooks();
+  });
+
+  printButton.addEventListener("click", () => {
+    const objectName = objectInput.value;
+    const book = books[objectName];
+
+    history.push("");
+    history.push(objectName + ".skriv_ut_info()");
+
+    if (!book) {
+      history.push(objectName + " finns inte än. Skapa objektet först.");
+    } else {
+      history.push(book.titel + " av " + book.forfattare);
+    }
+
+    renderBooks();
+  });
+
+  objectInput.addEventListener("change", () => {
+    const objectName = objectInput.value;
+    const selectedBook = books[objectName] || starterBooks[objectName];
+    if (selectedBook) {
+      titleInput.value = selectedBook.titel;
+      authorInput.value = selectedBook.forfattare;
+    }
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterThreePersonClassExercise(exercise) {
+  const code = exercise.querySelector(".exercise-code");
+  const nameInput = exercise.querySelector(".exercise-text-input");
+  const ageInput = exercise.querySelector(".exercise-number-input");
+  const createButton = exercise.querySelector('[data-action="create"]');
+  const helloButton = exercise.querySelector('[data-action="hello"]');
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!code || !nameInput || !ageInput || !createButton || !helloButton || !resetButton || !result) {
+    return;
+  }
+
+  let person = null;
+  const history = [];
+
+  function render() {
+    result.textContent = history.join("\n");
+  }
+
+  function resetExercise() {
+    person = null;
+    nameInput.value = "Ada";
+    ageInput.value = "17";
+    history.length = 0;
+    history.push("Klassen Person är definierad.");
+    history.push("Inget objekt är skapat än.");
+    history.push('Nästa steg: person1 = Person("Ada", 17)');
+    render();
+  }
+
+  createButton.addEventListener("click", () => {
+    const name = nameInput.value.trim();
+    const age = Number.parseInt(ageInput.value, 10);
+
+    history.push("");
+
+    if (!name) {
+      history.push("Skriv ett namn innan du skapar objektet.");
+      render();
+      return;
+    }
+
+    if (!Number.isInteger(age) || age < 0) {
+      history.push("Ålder måste vara ett heltal som är 0 eller större.");
+      render();
+      return;
+    }
+
+    person = { name, age };
+    history.push('person1 = Person("' + name + '", ' + age + ")");
+    history.push("__init__ körs:");
+    history.push("self.name = " + name);
+    history.push("self.age = " + age);
+    render();
+  });
+
+  helloButton.addEventListener("click", () => {
+    history.push("");
+    history.push("person1.say_hello()");
+
+    if (!person) {
+      history.push("person1 finns inte än. Skapa objektet först.");
+    } else if (!code.value.includes("say_hello")) {
+      history.push("Metoden say_hello() saknas i koden.");
+    } else {
+      history.push("Hej, jag heter " + person.name + " och är " + person.age + " år.");
+    }
+
+    render();
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterThreeCarConstructorExercise(exercise) {
+  const code = exercise.querySelector(".exercise-code");
+  const brandInput = exercise.querySelector(".exercise-text-input");
+  const yearInput = exercise.querySelector(".exercise-number-input");
+  const createButton = exercise.querySelector('[data-action="create"]');
+  const honkButton = exercise.querySelector('[data-action="honk"]');
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!code || !brandInput || !yearInput || !createButton || !honkButton || !resetButton || !result) {
+    return;
+  }
+
+  const cars = [];
+  let activeCar = null;
+  const history = [];
+
+  function render() {
+    const rows = cars.map((car) => {
+      return car.name + ' = Car("' + car.brand + '", ' + car.year + ")";
+    });
+
+    result.textContent = history.concat(rows.length ? ["", "Objekt just nu:", ...rows] : []).join("\n");
+  }
+
+  function resetExercise() {
+    cars.length = 0;
+    activeCar = null;
+    brandInput.value = "Volvo";
+    yearInput.value = "2020";
+    history.length = 0;
+    history.push("Klassen Car är definierad.");
+    history.push("Inget objekt är skapat än.");
+    history.push('Nästa steg: car1 = Car("Volvo", 2020)');
+    render();
+  }
+
+  createButton.addEventListener("click", () => {
+    const brand = brandInput.value.trim();
+    const year = Number.parseInt(yearInput.value, 10);
+
+    history.push("");
+
+    if (!brand) {
+      history.push("Skriv ett bilmärke innan du skapar objektet.");
+      render();
+      return;
+    }
+
+    if (!Number.isInteger(year)) {
+      history.push("År måste vara ett heltal.");
+      render();
+      return;
+    }
+
+    const objectName = "car" + (cars.length + 1);
+    const car = { name: objectName, brand, year };
+    cars.push(car);
+    activeCar = car;
+
+    history.push(objectName + ' = Car("' + brand + '", ' + year + ")");
+    history.push("__init__ körs automatiskt:");
+    history.push("self.brand = " + brand);
+    history.push("self.year = " + year);
+    render();
+  });
+
+  honkButton.addEventListener("click", () => {
+    history.push("");
+
+    if (!activeCar) {
+      history.push("Det finns ingen bil än. Skapa ett objekt först.");
+    } else if (!code.value.includes("honk")) {
+      history.push(activeCar.name + ".honk()");
+      history.push("Metoden honk() saknas i koden.");
+    } else {
+      history.push(activeCar.name + ".honk()");
+      history.push(activeCar.brand + " från " + activeCar.year + " tutar!");
+    }
+
+    render();
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
 function runChapterTwoLibraryExercise(exercise) {
   const operationInput = exercise.querySelector(".exercise-select");
   const titleInput = exercise.querySelector(".exercise-title-input");
@@ -1461,4 +1731,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-2-library"]')
     .forEach(runChapterTwoLibraryExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-3-book-objects"]')
+    .forEach(runChapterThreeBookObjectsExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-3-person-class"]')
+    .forEach(runChapterThreePersonClassExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-3-car-constructor"]')
+    .forEach(runChapterThreeCarConstructorExercise);
 });
