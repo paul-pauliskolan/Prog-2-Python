@@ -4,9 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 1.7 - Miniuppgift: struktur och funktioner</title>
+    <title>Kap 1.7 - Flödesscheman och pseudokod</title>
     <link rel="stylesheet" href="../css/style.css">
-    <meta name="description" content="Kap 1.7: Miniuppgift om struktur, funktioner, villkor, loopar och inmatning i Python.">
 </head>
 
 <body class="chapter-page">
@@ -15,191 +14,214 @@
         <article class="chapter-main">
             <header class="chapter-hero">
                 <p class="eyebrow">Programmering nivå 2</p>
-                <h1>Kap 1.7 – Miniuppgift: struktur och funktioner</h1>
-                <p class="subtitle">Planera och bygg ett enklare menyprogram med funktioner, villkor och loopar.</p>
+                <h1>Kap 1.7 – Flödesscheman och pseudokod</h1>
+                <p class="subtitle">Analysera, strukturera och visualisera programflöden.</p>
             </header>
 
             <section class="content-section">
-                <h2>Mål med lektionen</h2>
+                <h3><strong>Lektion 1.7 – Flödesscheman och pseudokod</strong></h3>
+                <h4><strong>Mål med lektionen</strong></h4>
                 <p>När du har arbetat klart med denna lektion ska du:</p>
-                <ul>
-                    <li>Ha planerat och genomfört ett enklare Pythonprogram.</li>
-                    <li>Ha tränat på att använda funktioner, villkor, loopar och inmatning.</li>
-                    <li>Ha strukturerat koden i en tydlig huvudfunktion och minst två egna funktioner.</li>
-                    <li>Kunna följa en arbetsgång från pseudokod till fungerande program.</li>
-                </ul>
+                <blockquote>
+                    <p>· Kunna beskriva hur ett program fungerar med hjälp av flödesscheman.</p>
+                    <p>· Förstå vad pseudokod är och hur det används för att planera program.</p>
+                    <p>· Kunna skapa egna flödesscheman och pseudokod för enklare program.</p>
+                    <p>· Veta hur dessa verktyg hjälper dig att analysera och lösa programmeringsproblem.</p>
+                </blockquote>
 
-                <h2>Så här lär du dig bäst</h2>
-                <p>Denna lektion är en möjlighet att visa vad du lärt dig under Modul 1. Försök arbeta självständigt,
-                    men våga använda AI för att få tips, kontrollera logik eller få förslag på förbättringar. Gå gärna
-                    tillbaka till tidigare lektioner och använd strukturer därifrån som mall.</p>
+                <h4><strong>Så här lär du dig bäst</strong></h4>
+                <p>Tänk inte på exakt syntax i denna lektion – fokusera istället på <strong>vad som ska hända</strong> i
+                    ett program och <strong>i vilken ordning</strong>. Visualisering är ett verktyg för att förstå och
+                    planera. Träna på att rita flöden för uppgifter du redan kan lösa i kod.</p>
 
-                <h2>Uppgift: Interaktivt valprogram</h2>
-                <p>Skapa ett program som fungerar som en enkel meny där användaren kan:</p>
+                <h3><strong>Vad är ett flödesschema?</strong></h3>
+                <p>Ett flödesschema är en visuell modell av hur ett program fungerar – steg för steg. Det används för
+                    att:</p>
+                <blockquote>
+                    <p>· Strukturera logik innan du skriver kod.</p>
+                    <p>· Förklara din lösning för andra.</p>
+                    <p>· Felsöka och förbättra befintlig kod.</p>
+                </blockquote>
+
+                <h4><em>Exempel: Kontrollera om ett tal är jämnt</em></h4>
+                <pre><code class="language-mermaid">flowchart TD
+    A([Start]) --> B[Läs in tal]
+    B --> C{Delbart med 2?}
+    C -->|Ja| D[Jämnt]
+    C -->|Nej| E[Udda]
+    D --> F([Slut])
+    E --> F</code></pre>
+
+                <p>Vanliga symboler:</p>
+                <blockquote>
+                    <p>· Ovala former: start/slut</p>
+                    <p>· Rektanglar: instruktioner</p>
+                    <p>· Diamanter: beslut (villkor)</p>
+                    <p>· Pilar: flödet</p>
+                </blockquote>
+
+                <h3><strong>Vad är pseudokod?</strong></h3>
+                <p>Pseudokod är en förenklad beskrivning av programlogik, skriven med ord och programmeringsliknande
+                    struktur – men utan krav på korrekt syntax. Du kan blanda svenska och engelska, så länge strukturen
+                    är tydlig.</p>
+
+                <h3><strong>Användningsfall och kravanalys</strong></h3>
+                <p>Ett användningsfall är ett sätt att beskriva <strong>vem</strong> som använder ett system,
+                    <strong>vad</strong> personen vill göra och <strong>vilket resultat</strong> som ska uppnås. Det är
+                    ett bra analysverktyg när du ska förstå ett problem innan du väljer lösning.
+                </p>
+                <p>Det här hänger direkt ihop med kravet att du ska kunna <strong>analysera, bryta ned och modellera
+                        programmeringstekniska problem</strong> med lämpliga verktyg. Först identifierar du
+                    användningsfall, sedan bryter du ned problemet och väljer till exempel flödesschema, pseudokod eller
+                    annan modell för att designa lösningen.</p>
+
+                <pre><code class="language-mermaid">flowchart TD
+    A[Analysera behov] --> B[Skapa användningsfall]
+    B --> C[Bryt ned problemet]
+    C --> D[Modellera med flödesschema eller pseudokod]
+    D --> E[Designa lösningen]</code></pre>
+
+                <p>Exempel på användningsfall i den här lektionen:</p>
+                <blockquote>
+                    <p>· Eleven vill läsa en lektion.</p>
+                    <p>· Eleven vill köra ett quiz och få rättning direkt.</p>
+                    <p>· Eleven vill kunna få tips om svaret är fel.</p>
+                </blockquote>
+
+                <h4><em>Exempel: Användningsfallsdiagram</em></h4>
+                <p>Det här är ett enklare exempel som visar en elev som använder en kursportal. Diagrammet följer samma
+                    grundidé som i riktiga use case-diagram: aktören är utanför systemgränsen och användningsfallen
+                    visar vad systemet ska hjälpa användaren att göra.</p>
+                <pre><code class="language-mermaid">flowchart LR
+    elev["Elev"]
+
+    subgraph system["Kursportal för Programmering 2"]
+        UC1((Läsa lektion))
+        UC2((Köra quiz))
+        UC3((Rätta svar))
+        UC4((Visa resultat))
+        UC5((Visa tips))
+        UC6((Hantera frågor))
+        UC8((Exportera rapporter))
+    end
+
+    admin["Admin"]
+
+    elev --> UC1
+    elev --> UC2
+    elev --> UC4
+    UC2 -.->|&lt;&lt;include&gt;&gt;| UC3
+    UC2 -.->|&lt;&lt;include&gt;&gt;| UC4
+    UC5 -.->|&lt;&lt;extend&gt;&gt;| UC2
+
+    UC2 --> UC6
+    UC6 --> admin
+    UC8 --> admin</code></pre>
+
+                <p>I ett klassiskt UML-diagram skulle elev vara en streckgubbe och användningsfallen ritas som ovaler.
+                    Här använder vi Mermaid för att få samma struktur i en enklare form som går att läsa direkt på
+                    sidan.</p>
+
+                <h4><em>Exempel 2: Logga in i en kursportal</em></h4>
+                <p>Det här exemplet visar olika roller i en kursportal: elev till vänster, och lärare samt admin till
+                    höger. Lärare kan ändra kursinnehåll, medan admin dessutom kan göra mer, till exempel hantera
+                    användare.</p>
+                <pre><code class="language-mermaid">flowchart LR
+    elev["Elev"]
+
+    subgraph system["Kursportal"]
+        UC1((Logga in))
+        UC2((Se kursinnehåll))
+        UC3((Ändra kursinnehåll))
+        UC4((Hantera användare))
+    end
+
+    larare["Lärare"]
+    admin["Admin"]
+
+    elev --- UC1
+    elev --> UC1
+    elev --> UC2
+    UC3 --> larare
+    UC3 --> admin
+    UC4 --> admin</code></pre>
+
+                <h4><em>Exempel 3: Webbutik</em></h4>
+                <p>Det här exemplet liknar bilden du skickade: två aktörer som interagerar med samma system, och flera
+                    användningsfall som visar vad systemet ska klara av.</p>
+                <pre><code class="language-mermaid">flowchart LR
+    visitor["Visitor"]
+    admin["Admin"]
+
+    subgraph system["Online Store"]
+        UC1((Place Order))
+        UC2((Cancel Order))
+        UC3((Manage Order))
+        UC4((Change Order Status))
+        UC5((Update Products))
+    end
+
+    visitor --- UC1
+    visitor --- UC2
+    visitor --- UC3
+    UC2 --- admin
+    UC3 --- admin
+    UC4 --- admin
+    UC5 --- admin</code></pre>
+
+                <p>Det här är ett bra exempel på hur man kan hålla ett use case-diagram enkelt: identifiera aktörer
+                    först, lista bara de viktigaste funktionerna och visa systemgränsen tydligt.</p>
+
+                <h4><em>Exempel:</em></h4>
+                <p>Börja<br />Läs in ett heltal<br />Om talet är jämnt<br />Skriv "Jämnt tal"<br />Annars<br />Skriv
+                    "Udda tal"<br />Slut</p>
+                <p>Eller:</p>
+                <p>BEGIN<br />INPUT number<br />IF number MOD 2 == 0 THEN<br />PRINT "Even"<br />ELSE<br />PRINT
+                    "Odd"<br />END</p>
+
+                <h3><strong>Varför använda flödesscheman och pseudokod?</strong></h3>
+                <blockquote>
+                    <p>· Du får bättre struktur på din kod.</p>
+                    <p>· Du ser logiska fel innan du programmerar.</p>
+                    <p>· Du kan dela din lösning med andra utan att de behöver förstå ett visst språk.</p>
+                    <p>· Du tränar din förmåga att <strong>tänka som en programmerare</strong>.</p>
+                </blockquote>
+
+                <h3><strong>Öva själv</strong></h3>
                 <ol>
-                    <li>Ange namn och ålder.</li>
-                    <li>Få ett personligt meddelande som visar när hen fyller 100 år.</li>
-                    <li>Upprepa eller avsluta.</li>
+                    <li>Rita ett flödesschema som visar hur ett program frågar efter ett lösenord tills det är rätt, och
+                        därefter skriver “Access granted”.</li>
+                    <li>Skriv pseudokod för ett program som:</li>
+                </ol>
+                <blockquote>
+                    <p>o Frågar efter ett pris.</p>
+                    <p>o Frågar efter användarens ålder.</p>
+                    <p>o Räknar ut rabatt (10 % för under 18, 15 % för över 65).</p>
+                    <p>o Skriver ut det nya priset.</p>
+                </blockquote>
+                <ol start="3">
+                    <li>Kombinera: Gör först ett flödesschema, skriv sedan pseudokod, och sist skriv programmet i Python
+                        eller C#.</li>
                 </ol>
 
-                <h2>Programkrav</h2>
-                <ul>
-                    <li>Programmet ska ha en huvudfunktion <code>main()</code>.</li>
-                    <li>Du ska skapa minst två egna funktioner med in- och utdata.</li>
-                    <li>Använd loop för att hålla igång programmet tills användaren väljer att avsluta.</li>
-                    <li>Använd villkor för att hantera val i menyn.</li>
-                    <li>Använd <code>input()</code> för att hämta information och <code>print()</code> för att visa resultat.</li>
-                    <li>Strukturera koden så den är läsbar, uppdelad och återanvändbar.</li>
-                </ul>
+                <h3><strong>Reflektion</strong></h3>
+                <blockquote>
+                    <p>· Kände du att flödesschemat hjälpte dig att tänka igenom logiken?</p>
+                    <p>· Hur kan pseudokod fungera som en bro mellan problemformulering och kod?</p>
+                    <p>· Vill du använda detta arbetssätt även i kommande projekt?</p>
+                </blockquote>
 
-                <h2>Förslag på arbetsgång</h2>
-                <ol>
-                    <li>
-                        <strong>Pseudokod:</strong> Beskriv först i ord vad programmet ska göra. Dela upp det i steg:
-                        vilka beslut ska tas och vad ska upprepas?
-                    </li>
-                    <li>
-                        <strong>Funktioner:</strong> Skapa en funktion som hämtar namn och ålder, och en funktion som
-                        räknar ut vilket år användaren fyller 100.
-                    </li>
-                    <li>
-                        <strong>Struktur:</strong> Använd en <code>while</code>-loop för menyn och avsluta med
-                        <code>break</code> eller en logisk kontroll.
-                    </li>
-                </ol>
+                <p>Det här är ett förslag på innehåll. Vad vill du justera? Du kan till exempel ändra språket, justera
+                    tonen, lägga mer fokus på ett visst ämne eller anpassa strukturen. Saknas något viktigt? Vill du att
+                    jag går vidare med Lektion 1.7 (Python)?</p>
 
-                <h2>Exempel på meny</h2>
-                <pre><code>1. Enter name and age
-2. Calculate 100-year message
-3. Exit</code></pre>
-
-                <h2>Exempel på kodstruktur</h2>
-                <pre><code>def hamta_namn_och_alder():
-    namn = input("Vad heter du? ")
-    alder = int(input("Hur gammal är du? "))
-    return namn, alder
-
-def berakna_100_arsdag(namn, alder):
-    from datetime import datetime
-    nuvarande_ar = datetime.now().year
-    fyller_100_ar = nuvarande_ar + (100 - alder)
-    return f"{namn}, du fyller 100 år år {fyller_100_ar}."
-
-def main():
-    namn = None
-    alder = None
-
-    while True:
-        print("1. Ange namn och ålder")
-        print("2. Beräkna när du fyller 100 år")
-        print("3. Avsluta")
-
-        val = input("Välj ett alternativ: ")
-
-        if val == "1":
-            namn, alder = hamta_namn_och_alder()
-        elif val == "2":
-            if namn is None or alder is None:
-                print("Du måste först ange namn och ålder.")
-            else:
-                print(berakna_100_arsdag(namn, alder))
-        elif val == "3":
-            break
-        else:
-            print("Ogiltigt val.")
-
-main()</code></pre>
-
-                <section class="interactive-exercise" data-exercise="chapter-1-choice-program">
-                    <h2>Interaktivt exempel: valprogram steg för steg</h2>
-                    <p>Testa samma programflöde direkt på sidan. Välj ett alternativ, kör valet och titta på resultatet
-                        innan du väljer nästa steg.</p>
-
-                    <div class="exercise-hint">
-                        <h3>Prova till exempel att:</h3>
-                        <ul>
-                            <li>välja <code>2</code> innan du har angett namn och ålder</li>
-                            <li>välja <code>1</code>, fylla i namn och ålder, och sedan välja <code>2</code></li>
-                            <li>välja <code>3</code> för att avsluta programmet</li>
-                        </ul>
-                    </div>
-
-                    <label for="chapter-1-7-code" class="exercise-label">Kod</label>
-                    <textarea id="chapter-1-7-code" class="exercise-code" rows="30" spellcheck="false">def hamta_namn_och_alder():
-    namn = input("Vad heter du? ")
-    alder = int(input("Hur gammal är du? "))
-    return namn, alder
-
-def berakna_100_arsdag(namn, alder):
-    from datetime import datetime
-    nuvarande_ar = datetime.now().year
-    fyller_100_ar = nuvarande_ar + (100 - alder)
-    return f"{namn}, du fyller 100 år år {fyller_100_ar}."
-
-def main():
-    namn = None
-    alder = None
-
-    while True:
-        print("1. Ange namn och ålder")
-        print("2. Beräkna när du fyller 100 år")
-        print("3. Avsluta")
-
-        val = input("Välj ett alternativ: ")
-
-        if val == "1":
-            namn, alder = hamta_namn_och_alder()
-        elif val == "2":
-            if namn is None or alder is None:
-                print("Du måste först ange namn och ålder.")
-            else:
-                print(berakna_100_arsdag(namn, alder))
-        elif val == "3":
-            break
-        else:
-            print("Ogiltigt val.")
-
-main()</textarea>
-
-                    <label class="exercise-label">Inmatning</label>
-                    <div class="exercise-controls">
-                        <select class="exercise-select" aria-label="Menyval">
-                            <option value="1">1. Ange namn och ålder</option>
-                            <option value="2">2. Beräkna 100-årsmeddelande</option>
-                            <option value="3">3. Avsluta</option>
-                            <option value="9">Ogiltigt val</option>
-                        </select>
-                        <input class="exercise-text-input" type="text" value="Alex" aria-label="Namn">
-                        <input class="exercise-number-input" type="number" value="17" min="0" aria-label="Ålder">
-                        <button type="button" class="exercise-run">Kör val</button>
-                        <button type="button" class="exercise-reset">Starta om</button>
-                    </div>
-
-                    <label for="chapter-1-7-result" class="exercise-label">Resultat</label>
-                    <output id="chapter-1-7-result" class="exercise-result">1. Ange namn och ålder
-2. Beräkna när du fyller 100 år
-3. Avsluta
-Välj ett alternativ och tryck på Kör val.</output>
-
-                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> exemplet binder ihop
-                        funktioner, returvärden, menyval, villkor och en loop som håller programmet igång.
-                    </p>
+                <section class="aside-card" aria-label="Läs mer">
+                    <p class="eyebrow">Läs mer</p>
+                    <h3>Fördjupa dig i planering innan du kodar</h3>
+                    <p>På Kapitel 3 går vi vidare med flödesscheman, pseudokod och hur du planerar en lösning innan du
+                        skriver själva koden.</p>
+                    <p><a class="button button-secondary" href="chapter-3.html">Till Kapitel 3</a></p>
                 </section>
-
-                <h2>Bedömningsfokus i denna uppgift</h2>
-                <ul>
-                    <li>Har du använt funktioner på ett tydligt och meningsfullt sätt?</li>
-                    <li>Är koden uppdelad, läsbar och kommenterad där det behövs?</li>
-                    <li>Hanterar programmet upprepning och val korrekt?</li>
-                    <li>Visar du förståelse för programflöde och logik?</li>
-                </ul>
-
-                <h2>Reflektion</h2>
-                <ul>
-                    <li>Vilka delar gick lätt? Vad blev du osäker på?</li>
-                    <li>Hur kan du förbättra programmets struktur eller användarvänlighet?</li>
-                    <li>Vad är nästa steg du vill kunna i programmering?</li>
-                </ul>
             </section>
 
             <div id="quiz-1-7" aria-label="Quiz Kap 1.7"></div>
@@ -209,71 +231,133 @@ Välj ett alternativ och tryck på Kör val.</output>
     </main>
     <script src="../js/main.js"></script>
     <script src="../js/quiz.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                background: '#121212',
+                primaryColor: '#1e1e1e',
+                primaryBorderColor: '#ffffff',
+                primaryTextColor: '#ffffff',
+                secondaryColor: '#1e1e1e',
+                tertiaryColor: '#1e1e1e',
+                lineColor: '#ffffff',
+                textColor: '#ffffff',
+                fontFamily: '"Trebuchet MS", "Segoe UI", sans-serif'
+            },
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        })
+
+        function renderMermaidForRoot(root = document) {
+            const codes = (root.querySelectorAll)
+                ? root.querySelectorAll('code.language-mermaid')
+                : []
+            const toRender = []
+
+            codes.forEach(code => {
+                if (code.dataset.mermaidProcessed) return
+                const txt = code.textContent.trim()
+                if (!txt) return
+
+                const container = document.createElement('div')
+                container.className = 'mermaid'
+                container.textContent = txt
+                const wrapper = code.parentNode
+                wrapper.parentNode.insertBefore(container, wrapper)
+                wrapper.remove()
+                code.dataset.mermaidProcessed = '1'
+                toRender.push(container)
+            })
+
+            if (toRender.length) mermaid.init(undefined, toRender)
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMermaidForRoot(document)
+            const observer = new MutationObserver(mutations => {
+                mutations.forEach(m => {
+                    m.addedNodes.forEach(node => {
+                        if (node.nodeType !== 1) return
+                        if (node.matches && node.matches('code.language-mermaid')) renderMermaidForRoot(node.parentNode || node)
+                        else if (node.querySelectorAll) renderMermaidForRoot(node)
+                    })
+                })
+            })
+            observer.observe(document.body, { childList: true, subtree: true })
+        })
+    </script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             if (window.renderQuiz) {
                 window.renderQuiz(document.getElementById('quiz-1-7'), {
-                    title: 'Quiz: Kap 1.7 - Miniuppgift: struktur och funktioner',
+                    title: 'Quiz: Kap 1.7 - Flödesscheman och pseudokod',
                     questions: [
                         {
-                            question: 'Varför är det ofta bra att dela upp ett program i flera funktioner?',
+                            question: 'Vad är huvudsyftet med ett flödesschema?',
                             options: [
-                                'För att programmet då alltid körs utan fel',
-                                'För att koden blir lättare att läsa, testa och återanvända',
-                                'För att funktioner gör att variabler inte behövs',
-                                'För att Python kräver minst tre funktioner i varje program'
-                            ],
-                            correct: 1,
-                            feedback: 'Funktioner gör program lättare att strukturera, testa och återanvända.',
-                            explanation: 'När varje funktion har ett tydligt ansvar blir programmet enklare att förstå och vidareutveckla.'
-                        },
-                        {
-                            question: 'Varför används en loop i menyprogrammet?',
-                            options: [
-                                'För att skapa en ny fil automatiskt',
-                                'För att ta bort behovet av funktioner',
-                                'För att menyn ska kunna visas igen tills användaren väljer att avsluta',
-                                'För att programmet ska ignorera alla val'
+                                'Att ersätta kommentarer helt',
+                                'Att skapa användargränssnittet automatiskt',
+                                'Att planera logiken steg för steg innan kodning',
+                                'Att beskriva programmets visuella layout'
                             ],
                             correct: 2,
-                            feedback: 'Loopen håller igång programmet medan användaren gör val.',
-                            explanation: 'En while-loop passar när programmet ska fortsätta tills ett avslutningsvillkor uppfylls.'
+                            feedback: 'Flödesscheman används för att planera och visualisera programflödet.',
+                            explanation: 'De hjälper dig strukturera logiken innan du skriver kod.'
                         },
                         {
-                            question: 'Vilken roll har villkor i uppgiften?',
+                            question: 'Vad är pseudokod?',
                             options: [
-                                'Att automatiskt rätta stavfel i funktionsnamn',
-                                'Att ersätta all pseudokod',
-                                'Att skriva ut samma svar oavsett användarens val',
-                                'Att bestämma vilket menyval som ska köras'
+                                'En exekverbar version av kod',
+                                'En typ av komprimeringsalgoritm',
+                                'En databasstandard',
+                                'Ett informellt, språkoberoende sätt att beskriva algoritmer'
                             ],
                             correct: 3,
-                            feedback: 'Villkor används för att hantera olika menyval.',
-                            explanation: 'Med if, elif och else kan programmet reagera olika beroende på användarens inmatning.'
+                            feedback: 'Pseudokod beskriver algoritmer utan strikt syntax.',
+                            explanation: 'Det är användbart för att planera lösningar innan implementation.'
                         },
                         {
-                            question: 'Vad betyder det att en funktion returnerar ett värde?',
+                            question: 'Vilket element i ett flödesschema indikerar ett beslut?',
                             options: [
-                                'Att funktionen alltid skriver ut text med print()',
-                                'Att funktionen skickar tillbaka ett resultat som kan användas av annan kod',
-                                'Att funktionen avslutar hela programmet',
-                                'Att funktionen bara kan användas en gång'
+                                'Ellips',
+                                'Rektangel',
+                                'Romb',
+                                'Streck'
                             ],
-                            correct: 1,
-                            feedback: 'Ett returnerat värde skickas tillbaka från funktionen till den kod som anropade den.',
-                            explanation: 'Det gör att resultatet kan sparas i en variabel, skickas vidare eller användas i en beräkning.'
+                            correct: 2,
+                            feedback: 'En romb (diamant) används för villkorsbeslut i flödesscheman.',
+                            explanation: 'Romb indikerar en punkt där flödet delar sig beroende på ett villkor.'
                         },
                         {
-                            question: 'Varför är pseudokod ett bra första steg i denna uppgift?',
+                            question: 'Vad beskriver ett användningsfall?',
                             options: [
-                                'För att pseudokod gör att programmet körs utan Python',
-                                'För att pseudokod hjälper dig planera steg, beslut och upprepning innan du kodar',
-                                'För att pseudokod ersätter alla funktioner',
-                                'För att pseudokod alltid är kortare än en kommentar'
+                                'Exakt vilken syntax som ska skrivas i Python',
+                                'Vem som använder systemet, vad personen vill göra och vilket resultat som ska uppnås',
+                                'Vilka färger ett program ska använda',
+                                'Hur snabbt datorns processor arbetar'
                             ],
                             correct: 1,
-                            feedback: 'Pseudokod hjälper dig tänka igenom programflödet innan implementationen.',
-                            explanation: 'När du vet vilka steg, val och loopar som behövs blir Pythonkoden lättare att skriva.'
+                            feedback: 'Ett användningsfall beskriver aktör, mål och önskat resultat.',
+                            explanation: 'Det hjälper dig analysera problemet innan du väljer lösning eller modell.'
+                        },
+                        {
+                            question: 'Varför är det bra att skriva pseudokod innan du kodar?',
+                            options: [
+                                'För att programmet då körs snabbare automatiskt',
+                                'För att pseudokod ersätter all testning',
+                                'För att pseudokod bara fungerar i C#',
+                                'För att planera lösningens logik utan att fastna i detaljerad syntax'
+                            ],
+                            correct: 3,
+                            feedback: 'Pseudokod hjälper dig fokusera på logiken innan implementationen.',
+                            explanation: 'När strukturen är tydlig blir det lättare att översätta lösningen till riktig kod.'
                         }
                     ]
                 })

@@ -128,6 +128,26 @@ for key, value in person.items():
                 <pre><code>coordinates = (10, 20)
 print(coordinates[0])  # 10</code></pre>
 
+                <h3>Tuple-uppackning</h3>
+                <p>Tuple-uppackning betyder att du tar värdena från en tuple och lägger dem i separata variabler på en
+                    gång. Antalet variabler måste matcha antalet värden i tuplen.</p>
+
+                <pre><code>coordinates = (10, 20)
+
+x, y = coordinates
+
+print(x)  # 10
+print(y)  # 20</code></pre>
+
+                <p>Det här är samma idé som när en funktion returnerar flera värden:</p>
+                <pre><code>def get_user():
+    return ("Alice", 25)
+
+name, age = get_user()
+
+print(name)  # Alice
+print(age)   # 25</code></pre>
+
                 <section class="interactive-exercise" data-exercise="chapter-2-tuple">
                     <h2>Interaktiv övning: tuple</h2>
                     <p>Testa att läsa värden från en tuple och jämför med vad som händer om du försöker ändra den.
@@ -138,14 +158,20 @@ print(coordinates[0])  # 10</code></pre>
                         <ul>
                             <li>läsa index <code>0</code> och få första värdet</li>
                             <li>läsa index <code>1</code> och få andra värdet</li>
+                            <li>packa upp tuplen med <code>x, y = coordinates</code></li>
                             <li>försöka ändra index <code>0</code> och se felmeddelandet</li>
                         </ul>
                     </div>
 
                     <label for="chapter-2-4-tuple-code" class="exercise-label">Kod</label>
-                    <textarea id="chapter-2-4-tuple-code" class="exercise-code" rows="9" spellcheck="false">coordinates = (10, 20)
+                    <textarea id="chapter-2-4-tuple-code" class="exercise-code" rows="14" spellcheck="false">coordinates = (10, 20)
 
 print(coordinates[0])
+
+# Tuple-uppackning
+x, y = coordinates
+print(x)
+print(y)
 
 # Detta fungerar inte, eftersom tuples inte kan ändras
 coordinates[0] = 99</textarea>
@@ -154,6 +180,7 @@ coordinates[0] = 99</textarea>
                     <div class="exercise-controls">
                         <select class="exercise-select" aria-label="Tuple-operation">
                             <option value="read">Läs värde på index</option>
+                            <option value="unpack">Packa upp tuple</option>
                             <option value="change">Försök ändra värde</option>
                         </select>
                         <input class="exercise-number-input" type="number" value="0" min="0" aria-label="Index">
@@ -170,11 +197,14 @@ coordinates[0] = 99</textarea>
                     </p>
                 </section>
 
-                <p>Tuples används ofta för att returnera flera värden från en funktion:</p>
+                <p>Tuples används ofta för att returnera flera värden från en funktion. Då kan mottagaren packa upp
+                    värdena direkt i tydliga variabler:</p>
                 <pre><code>def get_user():
     return ("Alice", 25)
 
-name, age = get_user()</code></pre>
+name, age = get_user()
+print(name)
+print(age)</code></pre>
 
                 <h2>Skillnad mot listor</h2>
                 <ul>
@@ -274,6 +304,18 @@ name, age = get_user()</code></pre>
                             correct: 3,
                             feedback: 'Immutable betyder oföränderlig.',
                             explanation: 'Tuples passar när en grupp värden ska behållas fast och inte ändras av misstag.'
+                        },
+                        {
+                            question: 'Vad händer vid tuple-uppackning, till exempel x, y = coordinates?',
+                            options: [
+                                'Tuplen raderas automatiskt',
+                                'Värdena i tuplen läggs i separata variabler',
+                                'Alla värden i tuplen ändras till text',
+                                'Python skapar alltid en dictionary'
+                            ],
+                            correct: 1,
+                            feedback: 'Tuple-uppackning lägger tuple-värden i separata variabler.',
+                            explanation: 'Om coordinates är (10, 20) blir x = 10 och y = 20.'
                         },
                         {
                             question: 'När passar en dictionary bättre än en lista?',

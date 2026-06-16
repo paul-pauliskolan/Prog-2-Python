@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 1.4 - Lägg upp projektet på GitHub</title>
+    <title>Kap 1.4 - Villkor och logik i funktioner</title>
     <link rel="stylesheet" href="../css/style.css">
-    <meta name="description" content="Kap 1.4: Publicera på GitHub och använda Pages.">
+    <meta name="description" content="Kap 1.4: Villkor, logiska uttryck och if/elif/else i funktioner.">
 </head>
 
 <body class="chapter-page">
@@ -24,6 +24,7 @@
                 <ul>
                     <li>Kunna använda if, elif och else i funktioner.</li>
                     <li>Veta hur du strukturerar logik för att fatta beslut i kod.</li>
+                    <li>Kunna använda logiska uttryck med <code>and</code>, <code>or</code> och <code>not</code>.</li>
                     <li>Förstå hur kodflöde och returvärden fungerar i funktioner med villkor.</li>
                     <li>Kunna skriva funktioner som tar beslut baserat på indata.</li>
                 </ul>
@@ -143,6 +144,95 @@ print("Resultat:", grade_feedback(score))</textarea>
                     </p>
                 </section>
 
+                <h2>Logiska uttryck</h2>
+                <p>Ibland räcker det inte att kontrollera ett enda villkor. Ett program kan behöva kontrollera flera
+                    saker samtidigt. Då använder man <strong>logiska operatorer</strong>.</p>
+                <p>De tre vanligaste logiska operatorerna i Python är <code>and</code>, <code>or</code> och
+                    <code>not</code>.</p>
+
+                <h3><code>and</code> – båda villkoren måste vara sanna</h3>
+                <p><code>and</code> betyder att båda delarna måste vara <code>True</code> för att hela villkoret ska
+                    vara sant.</p>
+                <pre><code>age = int(input("Ålder: "))
+has_ticket = input("Har biljett? (ja/nej): ")
+
+if age >= 18 and has_ticket == "ja":
+    print("Du får gå in.")
+else:
+    print("Du får inte gå in.")</code></pre>
+                <p>Programmet skriver bara <code>Du får gå in.</code> om personen både är minst 18 år och har biljett.</p>
+
+                <h3><code>or</code> – minst ett villkor måste vara sant</h3>
+                <p><code>or</code> betyder att det räcker att ett av villkoren är <code>True</code>.</p>
+                <pre><code>day = input("Vilken dag är det? ")
+
+if day == "lördag" or day == "söndag":
+    print("Det är helg.")
+else:
+    print("Det är vardag.")</code></pre>
+                <p>Här blir villkoret sant om dagen är lördag <strong>eller</strong> söndag.</p>
+
+                <h3><code>not</code> – vänder på ett villkor</h3>
+                <p><code>not</code> betyder <strong>inte</strong>. Det vänder ett villkor från <code>True</code> till
+                    <code>False</code>, eller från <code>False</code> till <code>True</code>.</p>
+                <pre><code>logged_in = False
+
+if not logged_in:
+    print("Du måste logga in.")</code></pre>
+                <p>Eftersom <code>logged_in</code> är <code>False</code> blir <code>not logged_in</code> sant.</p>
+
+                <h3>Exempel kopplat till kap 2.7</h3>
+                <p>I bibliotekskatalogen används <code>or</code> för att söka i antingen titel eller författare:</p>
+                <pre><code>if query in book["title"].lower() or query in book["author"].lower():
+    print("Boken matchar sökningen.")</code></pre>
+                <p>Det betyder: om sökordet finns i titeln <strong>eller</strong> om sökordet finns i författaren, då
+                    räknas boken som en träff.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-1-logical">
+                    <h2>Interaktiv övning: logiska uttryck</h2>
+                    <p>Testa skillnaden mellan <code>and</code> och <code>or</code>. Ändra ålder, biljett och operator
+                        och se när villkoret blir sant.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>använda <code>and</code> med ålder <code>18</code> och biljett <code>ja</code></li>
+                            <li>använda <code>and</code> med ålder <code>17</code> och biljett <code>ja</code></li>
+                            <li>byta till <code>or</code> och jämföra resultatet</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-1-4-logical-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-1-4-logical-code" class="exercise-code" rows="11" spellcheck="false">age = int(input("Ålder: "))
+has_ticket = input("Har biljett? (ja/nej): ")
+
+if age >= 18 and has_ticket == "ja":
+    print("Du får gå in.")
+else:
+    print("Du får inte gå in.")</textarea>
+
+                    <label class="exercise-label">Inmatning</label>
+                    <div class="exercise-controls">
+                        <input class="exercise-number-input" type="number" value="18" min="0" aria-label="Ålder">
+                        <select class="exercise-select" aria-label="Logisk operator">
+                            <option value="and">and - båda måste stämma</option>
+                            <option value="or">or - minst en måste stämma</option>
+                        </select>
+                        <select class="exercise-ticket-input" aria-label="Har biljett">
+                            <option value="ja">Biljett: ja</option>
+                            <option value="nej">Biljett: nej</option>
+                        </select>
+                        <button type="button" class="exercise-run">Kör kod</button>
+                    </div>
+
+                    <label for="chapter-1-4-logical-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-1-4-logical-result" class="exercise-result">Tryck på Kör kod för att testa and och or.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> logiska uttryck används när ett
+                        program behöver kombinera flera villkor, till exempel vid behörighet, sökning eller validering.
+                    </p>
+                </section>
+
                 <h2>Öva själv</h2>
                 <ol>
                     <li>Skriv en funktion `is_even(number)` som returnerar `True` om ett tal är jämnt.</li>
@@ -153,12 +243,15 @@ print("Resultat:", grade_feedback(score))</textarea>
                         <li>20–30: “Comfortable”</li>
                         <li>Under 20: “Too cold!”</li>
                     </ul>
+                    <li>Skriv ett program som frågar efter ålder och om användaren har studentkort. Programmet ska ge
+                        rabatt om användaren är under 20 <strong>eller</strong> har studentkort.</li>
                 </ol>
 
                 <h2>Reflektion</h2>
                 <ul>
                     <li>Vad är skillnaden mellan att skriva `print()` och `return` i en funktion?</li>
                     <li>Hur påverkar villkor flödet i ett program?</li>
+                    <li>Vad är skillnaden mellan <code>and</code> och <code>or</code>?</li>
                     <li>Vad händer om du utelämnar `else` och inget villkor uppfylls?</li>
                 </ul>
             </section>
@@ -211,6 +304,18 @@ print("Resultat:", grade_feedback(score))</textarea>
                             correct: 2,
                             feedback: 'När ett villkor matchar stoppas kedjan och bara den grenen körs.',
                             explanation: 'I en if/elif/else-kedja körs bara första matchande gren.'
+                        },
+                        {
+                            question: 'Vad betyder operatorn `or` i ett villkor?',
+                            options: [
+                                'Att båda villkoren måste vara sanna',
+                                'Att minst ett av villkoren måste vara sant',
+                                'Att villkoret alltid blir falskt',
+                                'Att Python hoppar över hela if-satsen'
+                            ],
+                            correct: 1,
+                            feedback: '`or` används när minst ett villkor måste stämma.',
+                            explanation: 'I kap 2.7 används or för att söka i titel eller författare.'
                         }
                     ]
                 })

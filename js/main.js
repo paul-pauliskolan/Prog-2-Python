@@ -180,6 +180,7 @@ const LESSON_ORDER = [
   "chapter-1-5.html",
   "chapter-1-6.html",
   "chapter-1-7.html",
+  "chapter-1-8.html",
   "chapter-2-1.html",
   "chapter-2-2.html",
   "chapter-2-3.html",
@@ -441,6 +442,75 @@ function runChapterOneGradeExercise(exercise) {
     }
 
     output.push("Resultat: " + feedback);
+    result.textContent = output.join("\n");
+  });
+}
+
+function runChapterOneLogicalExercise(exercise) {
+  const ageInput = exercise.querySelector(".exercise-number-input");
+  const operatorInput = exercise.querySelector(".exercise-select");
+  const ticketInput = exercise.querySelector(".exercise-ticket-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!ageInput || !operatorInput || !ticketInput || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const age = Number.parseInt(ageInput.value, 10);
+    const hasTicket = ticketInput.value === "ja";
+    const isAdult = Number.isInteger(age) && age >= 18;
+    const usesAnd = operatorInput.value === "and";
+    const condition = usesAnd ? isAdult && hasTicket : isAdult || hasTicket;
+    const output = [
+      "Ålder: " + ageInput.value,
+      "Har biljett? " + ticketInput.value,
+      "age >= 18 är " + String(isAdult),
+      'has_ticket == "ja" är ' + String(hasTicket),
+      "Operator: " + operatorInput.value,
+      "Hela villkoret är " + String(condition),
+      condition ? "Du får gå in." : "Du får inte gå in.",
+    ];
+
+    result.textContent = output.join("\n");
+  });
+}
+
+function runChapterOneExceptionExercise(exercise) {
+  const operationInput = exercise.querySelector(".exercise-select");
+  const textInput = exercise.querySelector(".exercise-text-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!operationInput || !textInput || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const rawValue = textInput.value.trim();
+    const number = Number.parseInt(rawValue, 10);
+    const isInteger = Number.isInteger(number) && String(number) === rawValue;
+    const output = [];
+
+    if (operationInput.value === "age") {
+      output.push("Hur gammal är du? " + rawValue);
+
+      if (!isInteger) {
+        output.push("ValueError: invalid literal for int()");
+        output.push("Du måste skriva ett heltal.");
+      } else {
+        output.push(String(number + 5));
+      }
+    } else {
+      output.push("Skriv ett tal: " + rawValue);
+
+      if (!isInteger) {
+        output.push("ValueError: invalid literal for int()");
+        output.push("Fel inmatning, försök igen.");
+      } else if (number === 0) {
+        output.push("Du kan inte dela med 0.");
+      } else {
+        output.push(String(100 / number));
+      }
+    }
+
     result.textContent = output.join("\n");
   });
 }
@@ -1023,7 +1093,9 @@ function runChapterTwoTupleExercise(exercise) {
   const history = [];
 
   function syncTupleInputs() {
-    valueInput.disabled = operationInput.value === "read";
+    const operation = operationInput.value;
+    indexInput.disabled = operation === "unpack";
+    valueInput.disabled = operation === "read" || operation === "unpack";
   }
 
   function renderTuple() {
@@ -1037,8 +1109,16 @@ function runChapterTwoTupleExercise(exercise) {
   }
 
   button.addEventListener("click", () => {
-    const index = Number.parseInt(indexInput.value, 10);
+    if (operationInput.value === "unpack") {
+      const [x, y] = coordinates;
+      history.push("x, y = coordinates");
+      history.push("x = " + x);
+      history.push("y = " + y);
+      renderTuple();
+      return;
+    }
 
+    const index = Number.parseInt(indexInput.value, 10);
     if (!Number.isInteger(index) || index < 0 || index >= coordinates.length) {
       history.push("IndexError: tuple index out of range");
       renderTuple();
@@ -1063,6 +1143,263 @@ function runChapterTwoTupleExercise(exercise) {
   syncTupleInputs();
 }
 
+function formatScoreTuples(scores) {
+  return "[" + scores.map((score) => "('" + score.name + "', " + score.points + ")").join(", ") + "]";
+}
+
+function parseScoreInput(value) {
+  return value
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean)
+    .map((item) => {
+      const [name, points] = item.split(":").map((part) => part.trim());
+      return { name, points: Number.parseInt(points, 10), raw: item };
+    });
+}
+
+function runChapterTwoLambdaSortExercise(exercise) {
+  const input = exercise.querySelector(".exercise-text-input");
+  const sortInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!input || !sortInput || !button || !result) return;
+
+  button.addEventListener("click", () => {
+    const scores = parseScoreInput(input.value);
+    const invalid = scores.find((score) => {
+      return !score.name || !Number.isInteger(score.points);
+    });
+
+    if (scores.length === 0 || invalid) {
+      result.textContent =
+        "Skriv resultat som namn:poäng, till exempel Alice:120, Bo:95.";
+      return;
+    }
+
+    const output = ["scores = " + formatScoreTuples(scores)];
+
+    if (sortInput.value === "name") {
+      const sortedByName = scores
+        .slice()
+        .sort((a, b) => a.name.localeCompare(b.name, "sv"));
+      output.push("key=lambda x: x[0]");
+      output.push("Lambda hämtar namnet från varje tuple.");
+      output.push("Resultat: " + formatScoreTuples(sortedByName));
+    } else {
+      const sortedByPoints = scores
+        .slice()
+        .sort((a, b) => b.points - a.points);
+      output.push("key=lambda x: x[1]");
+      output.push("Lambda hämtar poängen från varje tuple.");
+      output.push("reverse=True gör att högst poäng kommer först.");
+      output.push("Resultat: " + formatScoreTuples(sortedByPoints));
+    }
+
+    result.textContent = output.join("\n");
+  });
+}
+
+function runChapterTwoScoreListExercise(exercise) {
+  const operationInput = exercise.querySelector(".exercise-select");
+  const nameInput = exercise.querySelector(".exercise-text-input");
+  const scoreInput = exercise.querySelector(".exercise-score-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!operationInput || !nameInput || !scoreInput || !button || !result) return;
+
+  const scores = [];
+  const history = ["scores = []"];
+
+  function syncScoreInputs() {
+    const shouldDisableFields = operationInput.value !== "add";
+    nameInput.disabled = shouldDisableFields;
+    scoreInput.disabled = shouldDisableFields;
+  }
+
+  function renderScores() {
+    result.textContent = history.join("\n");
+  }
+
+  button.addEventListener("click", () => {
+    const operation = operationInput.value;
+
+    if (operation === "add") {
+      const name = nameInput.value.trim();
+      const points = Number.parseInt(scoreInput.value, 10);
+
+      history.push("Ange namn: " + name);
+      history.push("Ange poäng: " + scoreInput.value.trim());
+
+      if (!name) {
+        history.push("Namn saknas.");
+      } else if (!Number.isInteger(points) || String(points) !== scoreInput.value.trim()) {
+        history.push("Du måste ange ett heltal.");
+      } else {
+        scores.push({ name, points });
+        history.push("scores.append(('" + name + "', " + points + "))");
+        history.push("scores = " + formatScoreTuples(scores));
+      }
+    } else if (operation === "show") {
+      const sortedScores = scores.slice().sort((a, b) => b.points - a.points);
+      history.push("scores.sort(key=lambda x: x[1], reverse=True)");
+      history.push("");
+      history.push("Topplista:");
+
+      if (sortedScores.length === 0) {
+        history.push("Listan är tom.");
+      } else {
+        sortedScores.forEach((score) => {
+          history.push(score.name + ": " + score.points);
+        });
+      }
+    } else if (operation === "reset") {
+      scores.length = 0;
+      history.length = 0;
+      history.push("scores = []");
+    }
+
+    renderScores();
+  });
+
+  operationInput.addEventListener("change", syncScoreInputs);
+  syncScoreInputs();
+}
+
+function formatLibraryCatalog(catalog) {
+  if (catalog.length === 0) return "catalog = []";
+
+  const lines = catalog.map((book) => {
+    return (
+      '    {"title": "' +
+      book.title +
+      '", "author": "' +
+      book.author +
+      '", "year": "' +
+      book.year +
+      '"}'
+    );
+  });
+
+  return "catalog = [\n" + lines.join(",\n") + "\n]";
+}
+
+function formatLibraryBook(book) {
+  return book.title + " av " + book.author + " (" + book.year + ")";
+}
+
+function runChapterTwoLibraryExercise(exercise) {
+  const operationInput = exercise.querySelector(".exercise-select");
+  const titleInput = exercise.querySelector(".exercise-title-input");
+  const authorInput = exercise.querySelector(".exercise-author-input");
+  const yearInput = exercise.querySelector(".exercise-year-input");
+  const searchInput = exercise.querySelector(".exercise-search-input");
+  const button = exercise.querySelector(".exercise-run");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!operationInput || !titleInput || !authorInput || !yearInput || !searchInput || !button || !result) {
+    return;
+  }
+
+  const catalog = [];
+  const history = ["catalog = []"];
+
+  function syncLibraryInputs() {
+    const operation = operationInput.value;
+    const adding = operation === "add";
+    const searching = operation === "search";
+
+    titleInput.disabled = !adding;
+    authorInput.disabled = !adding;
+    yearInput.disabled = !adding;
+    searchInput.disabled = !searching;
+  }
+
+  function renderLibrary() {
+    result.textContent = history.join("\n");
+  }
+
+  button.addEventListener("click", () => {
+    const operation = operationInput.value;
+
+    if (operation === "add") {
+      const title = titleInput.value.trim();
+      const author = authorInput.value.trim();
+      const year = yearInput.value.trim();
+
+      history.push("Titel: " + title);
+      history.push("Författare: " + author);
+      history.push("År: " + year);
+
+      if (!title || !author || !year) {
+        history.push("Titel, författare och år måste fyllas i.");
+      } else {
+        const book = { title, author, year };
+        catalog.push(book);
+        history.push("catalog.append(book)");
+        history.push(formatLibraryCatalog(catalog));
+      }
+    } else if (operation === "search") {
+      const query = searchInput.value.trim().toLowerCase();
+      history.push("Sök titel eller författare: " + searchInput.value.trim());
+
+      if (!query) {
+        history.push("Skriv ett sökord först.");
+      } else {
+        const found = catalog.filter((book) => {
+          return (
+            book.title.toLowerCase().includes(query) ||
+            book.author.toLowerCase().includes(query)
+          );
+        });
+
+        if (found.length === 0) {
+          history.push("Inga träffar.");
+        } else {
+          found.forEach((book) => {
+            history.push(formatLibraryBook(book));
+          });
+        }
+      }
+    } else if (operation === "show") {
+      const sortedBooks = catalog
+        .slice()
+        .sort((a, b) => a.title.localeCompare(b.title, "sv"));
+      history.push('sorted(catalog, key=lambda x: x["title"])');
+
+      if (sortedBooks.length === 0) {
+        history.push("Katalogen är tom.");
+      } else {
+        sortedBooks.forEach((book) => {
+          history.push(formatLibraryBook(book));
+        });
+      }
+    } else if (operation === "exit") {
+      history.push("Programmet avslutas med break.");
+      button.disabled = true;
+      operationInput.disabled = true;
+      titleInput.disabled = true;
+      authorInput.disabled = true;
+      yearInput.disabled = true;
+      searchInput.disabled = true;
+    } else if (operation === "reset") {
+      catalog.length = 0;
+      history.length = 0;
+      history.push("catalog = []");
+      button.disabled = false;
+      operationInput.disabled = false;
+      syncLibraryInputs();
+    }
+
+    renderLibrary();
+  });
+
+  operationInput.addEventListener("change", syncLibraryInputs);
+  syncLibraryInputs();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-1-programming"]')
@@ -1076,6 +1413,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-1-grade"]')
     .forEach(runChapterOneGradeExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-1-logical"]')
+    .forEach(runChapterOneLogicalExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-1-exception-handling"]')
+    .forEach(runChapterOneExceptionExercise);
   document
     .querySelectorAll('[data-exercise="chapter-1-for-sum"]')
     .forEach(runChapterOneForSumExercise);
@@ -1109,4 +1452,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-2-tuple"]')
     .forEach(runChapterTwoTupleExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-2-lambda-sort"]')
+    .forEach(runChapterTwoLambdaSortExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-2-score-list"]')
+    .forEach(runChapterTwoScoreListExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-2-library"]')
+    .forEach(runChapterTwoLibraryExercise);
 });

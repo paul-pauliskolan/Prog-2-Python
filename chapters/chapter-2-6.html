@@ -56,35 +56,199 @@ Sortera listan efter poäng
 Skriv ut topplistan</code></pre>
 
                 <h2>Kodexempel</h2>
-                <pre><code>def add_score(scores):
+                <pre><code># Funktion som lägger till ett nytt resultat i listan
+def add_score(scores):
+    # Läs in spelarens namn
     name = input("Ange namn: ")
 
+    # Försök göra om poängen till ett heltal
     try:
         points = int(input("Ange poäng: "))
+
+        # Spara namn och poäng tillsammans som en tuple
         scores.append((name, points))
     except ValueError:
+        # Om poängen inte är ett heltal visas ett felmeddelande
         print("Du måste ange ett heltal.")
 
+# Funktion som sorterar och skriver ut topplistan
 def print_high_scores(scores):
+    # Sortera listan efter poängen, alltså värdet på index 1 i varje tuple
     scores.sort(key=lambda x: x[1], reverse=True)
 
     print("\nTopplista:")
+
+    # Gå igenom varje tuple och packa upp namn och poäng
     for name, points in scores:
         print(f"{name}: {points}")
 
+# Programmets huvudfunktion
 def main():
+    # Här sparas alla resultat
     scores = []
 
+    # Loopen håller programmet igång tills användaren vill sluta
     while True:
         add_score(scores)
         cont = input("Vill du lägga till fler resultat? (j/n): ")
 
+        # Om användaren inte skriver j avslutas loopen
         if cont.lower() != "j":
             break
 
+    # När inmatningen är klar skrivs topplistan ut
     print_high_scores(scores)
 
+# Startar programmet
 main()</code></pre>
+
+                <h2>Steg för steg: så fungerar hela programmet</h2>
+                <ol>
+                    <li><code>main()</code> startar programmet och skapar en tom lista: <code>scores = []</code>.</li>
+                    <li><code>while True</code> gör att programmet kan fortsätta fråga efter fler resultat.</li>
+                    <li><code>add_score(scores)</code> anropas och får listan <code>scores</code> som argument.</li>
+                    <li>I <code>add_score()</code> frågar programmet efter namn och poäng.</li>
+                    <li><code>int(input(...))</code> försöker göra om poängen till ett heltal.</li>
+                    <li>Om det lyckas sparas resultatet som en tuple, till exempel <code>("Alice", 120)</code>.</li>
+                    <li>Om användaren skriver något som inte är ett heltal fångas felet av <code>except ValueError</code>.</li>
+                    <li>Efter varje inmatning frågar programmet om användaren vill fortsätta.</li>
+                    <li>Om svaret inte är <code>j</code> körs <code>break</code>, och loopen avslutas.</li>
+                    <li><code>print_high_scores(scores)</code> sorterar listan och skriver ut topplistan.</li>
+                </ol>
+
+                <h2>Vad är <code>lambda</code>?</h2>
+                <p><code>lambda</code> är ett kort sätt att skriva en liten funktion direkt där den behövs. I det här
+                    kapitlet används den för att tala om <em>vilken del</em> av varje tuple sorteringen ska titta på.</p>
+
+                <p>Den här raden:</p>
+                <pre><code>scores.sort(key=lambda x: x[1], reverse=True)</code></pre>
+
+                <p>betyder ungefär samma sak som:</p>
+                <pre><code>def get_points(x):
+    return x[1]
+
+scores.sort(key=get_points, reverse=True)</code></pre>
+
+                <p>Om varje resultat är en tuple som <code>("Alice", 120)</code>, betyder <code>x[0]</code> namnet och
+                    <code>x[1]</code> poängen. Därför sorterar <code>lambda x: x[1]</code> efter poäng.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-2-lambda-sort">
+                    <h2>Interaktiv övning: lambda vid sortering</h2>
+                    <p>Testa hur samma lista kan sorteras på olika sätt beroende på vad lambda-funktionen returnerar.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>sortera efter namn med <code>lambda x: x[0]</code></li>
+                            <li>sortera efter poäng med <code>lambda x: x[1]</code></li>
+                            <li>ändra poängen och se hur sorteringen påverkas</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-2-6-lambda-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-2-6-lambda-code" class="exercise-code" rows="9" spellcheck="false">scores = [("Alice", 120), ("Bo", 95), ("Cleo", 150)]
+
+# Sortera efter namn
+sorted_by_name = sorted(scores, key=lambda x: x[0])
+
+# Sortera efter poäng
+sorted_by_points = sorted(scores, key=lambda x: x[1], reverse=True)</textarea>
+
+                    <label class="exercise-label">Inmatning</label>
+                    <div class="exercise-controls">
+                        <input class="exercise-text-input" type="text" value="Alice:120, Bo:95, Cleo:150" aria-label="Resultatlista">
+                        <select class="exercise-select" aria-label="Sortera efter">
+                            <option value="points">lambda x: x[1] - sortera efter poäng</option>
+                            <option value="name">lambda x: x[0] - sortera efter namn</option>
+                        </select>
+                        <button type="button" class="exercise-run">Kör sortering</button>
+                    </div>
+
+                    <label for="chapter-2-6-lambda-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-2-6-lambda-result" class="exercise-result">Tryck på Kör sortering för att testa lambda.</output>
+                </section>
+
+                <section class="interactive-exercise" data-exercise="chapter-2-score-list">
+                    <h2>Interaktiv övning: problemlösning med listor</h2>
+                    <p>Testa poängprogrammet steg för steg. Lägg till namn och poäng i listan, skriv ut topplistan och
+                        se hur sorteringen använder poängen i varje tuple.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>lägga till <code>Alice</code> med <code>120</code> poäng</li>
+                            <li>lägga till <code>Bo</code> med <code>95</code> poäng</li>
+                            <li>skriva ut topplistan och se högsta poängen först</li>
+                            <li>skriva text i poängfältet och se hur felhanteringen fungerar</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-2-6-score-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-2-6-score-code" class="exercise-code" rows="45" spellcheck="false"># Funktion som lägger till ett nytt resultat i listan
+def add_score(scores):
+    # Läs in spelarens namn
+    name = input("Ange namn: ")
+
+    # Försök göra om poängen till ett heltal
+    try:
+        points = int(input("Ange poäng: "))
+
+        # Spara namn och poäng tillsammans som en tuple
+        scores.append((name, points))
+    except ValueError:
+        # Om poängen inte är ett heltal visas ett felmeddelande
+        print("Du måste ange ett heltal.")
+
+# Funktion som sorterar och skriver ut topplistan
+def print_high_scores(scores):
+    # Sortera listan efter poängen, alltså värdet på index 1 i varje tuple
+    scores.sort(key=lambda x: x[1], reverse=True)
+
+    print("\nTopplista:")
+
+    # Gå igenom varje tuple och packa upp namn och poäng
+    for name, points in scores:
+        print(f"{name}: {points}")
+
+# Programmets huvudfunktion
+def main():
+    # Här sparas alla resultat
+    scores = []
+
+    # Loopen håller programmet igång tills användaren vill sluta
+    while True:
+        add_score(scores)
+        cont = input("Vill du lägga till fler resultat? (j/n): ")
+
+        # Om användaren inte skriver j avslutas loopen
+        if cont.lower() != "j":
+            break
+
+    # När inmatningen är klar skrivs topplistan ut
+    print_high_scores(scores)
+
+# Startar programmet
+main()</textarea>
+
+                    <label class="exercise-label">Val</label>
+                    <div class="exercise-controls">
+                        <select class="exercise-select" aria-label="Poängprogramval">
+                            <option value="add">Lägg till resultat</option>
+                            <option value="show">Skriv ut topplista</option>
+                            <option value="reset">Töm listan</option>
+                        </select>
+                        <input class="exercise-text-input" type="text" value="Alice" aria-label="Namn">
+                        <input class="exercise-score-input" type="text" value="120" aria-label="Poäng">
+                        <button type="button" class="exercise-run">Kör val</button>
+                    </div>
+
+                    <label for="chapter-2-6-score-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-2-6-score-result" class="exercise-result">scores = []</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> övningen kombinerar lista,
+                        tuple, funktioner, felhantering och sortering med <code>key=lambda x: x[1]</code>.
+                    </p>
+                </section>
 
                 <h2>Vad händer i programmet?</h2>
                 <ul>

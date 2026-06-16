@@ -857,6 +857,10 @@ blockquote {
 .exercise-search-input,
 .exercise-key-input,
 .exercise-value-input,
+.exercise-score-input,
+.exercise-title-input,
+.exercise-author-input,
+.exercise-year-input,
 .exercise-number-input,
 .exercise-result {
   width: 100%;
@@ -887,6 +891,10 @@ blockquote {
 .exercise-search-input,
 .exercise-key-input,
 .exercise-value-input,
+.exercise-score-input,
+.exercise-title-input,
+.exercise-author-input,
+.exercise-year-input,
 .exercise-number-input {
   flex: 1 1 10rem;
   min-height: 2.9rem;
@@ -897,6 +905,10 @@ blockquote {
 .exercise-search-input:disabled,
 .exercise-key-input:disabled,
 .exercise-value-input:disabled,
+.exercise-score-input:disabled,
+.exercise-title-input:disabled,
+.exercise-author-input:disabled,
+.exercise-year-input:disabled,
 .exercise-number-input:disabled {
   opacity: 0.42;
   cursor: not-allowed;

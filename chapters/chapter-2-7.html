@@ -59,6 +59,122 @@ IF val == Sök:
 IF val == Visa alla:
     Sortera listan och skriv ut</code></pre>
 
+                <h2>Innan hela programmet: förstå byggstenarna</h2>
+                <p>Bibliotekskatalogen består av flera mindre delar. Läs dessa exempel först. Då blir den fullständiga
+                    koden längre ner mycket lättare att förstå.</p>
+
+                <h3>Del 1: En bok som dictionary</h3>
+                <p>En bok har flera egenskaper: titel, författare och år. Därför passar en dictionary bra. Varje
+                    egenskap får en tydlig nyckel.</p>
+                <pre><code>book = {
+    "title": "1984",
+    "author": "George Orwell",
+    "year": "1949"
+}
+
+print(book["title"])   # 1984
+print(book["author"])  # George Orwell</code></pre>
+                <p>Här betyder <code>book["title"]</code>: hämta värdet som hör till nyckeln
+                    <code>"title"</code>.</p>
+
+                <h3>Del 2: En katalog som lista med dictionaries</h3>
+                <p>Katalogen ska kunna innehålla flera böcker. Därför använder vi en lista. Varje element i listan är en
+                    dictionary som beskriver en bok.</p>
+                <pre><code>catalog = []
+
+book = {"title": "1984", "author": "George Orwell", "year": "1949"}
+catalog.append(book)
+
+print(catalog)</code></pre>
+                <p>Efter <code>catalog.append(book)</code> ligger boken sparad i listan. Det är alltså inte bara en
+                    vanlig lista med text, utan en lista med mer strukturerade objekt.</p>
+
+                <h3>Del 3: Göra en funktion som lägger till en bok</h3>
+                <p>När samma arbetsmoment har ett tydligt ansvar kan det bli en egen funktion. Funktionen
+                    <code>add_book()</code> tar emot listan <code>catalog</code> och lägger till en ny bok i den.</p>
+                <pre><code>def add_book(catalog):
+    title = input("Titel: ")
+    author = input("Författare: ")
+    year = input("År: ")
+
+    book = {"title": title, "author": author, "year": year}
+    catalog.append(book)</code></pre>
+                <ol>
+                    <li><code>title</code>, <code>author</code> och <code>year</code> hämtas från användaren.</li>
+                    <li>Värdena samlas i en dictionary.</li>
+                    <li>Dictionaryn läggs till i listan med <code>append()</code>.</li>
+                </ol>
+
+                <h3>Del 4: Söka med <code>in</code> och <code>lower()</code></h3>
+                <p>När användaren söker ska programmet hitta böcker även om användaren skriver med små bokstäver.
+                    Därför används <code>lower()</code>, som gör texten till små bokstäver.</p>
+                <pre><code>title = "Bröderna Lejonhjärta"
+query = "lejon"
+
+if query in title.lower():
+    print("Träff!")</code></pre>
+                <p><code>query in title.lower()</code> betyder: finns sökordet någonstans i titeln?</p>
+
+                <h3>Del 5: Söka med en vanlig loop</h3>
+                <p>Innan vi använder en kortare lösning är det bra att se den tydliga varianten med en vanlig
+                    <code>for</code>-loop.</p>
+                <pre><code>found = []
+
+for book in catalog:
+    if query in book["title"].lower() or query in book["author"].lower():
+        found.append(book)</code></pre>
+                <ol>
+                    <li><code>found = []</code> skapar en tom lista för böcker som matchar sökningen.</li>
+                    <li><code>for book in catalog</code> går igenom en bok i taget.</li>
+                    <li><code>if</code>-satsen kontrollerar både titel och författare.</li>
+                    <li>Om boken matchar läggs den till i <code>found</code>.</li>
+                </ol>
+
+                <h3>Del 6: Samma sökning med list comprehension</h3>
+                <p>List comprehension är ett kortare sätt att skapa en ny lista från en befintlig lista. Den här raden
+                    gör samma sak som loopen i del 5.</p>
+                <pre><code>found = [
+    book for book in catalog
+    if query in book["title"].lower() or query in book["author"].lower()
+]</code></pre>
+                <p>Läs raden så här:</p>
+                <ol>
+                    <li>Skapa en ny lista som heter <code>found</code>.</li>
+                    <li>Gå igenom varje <code>book</code> i <code>catalog</code>.</li>
+                    <li>Ta bara med boken om sökordet finns i titeln eller författaren.</li>
+                </ol>
+
+                <h3>Del 7: Skriva ut böcker med f-string</h3>
+                <p>När en bok ska visas hämtas värdena från dictionaryn och sätts in i en text.</p>
+                <pre><code>for book in found:
+    print(f"{book['title']} av {book['author']} ({book['year']})")</code></pre>
+                <p>Det här kan till exempel skriva ut:</p>
+                <pre><code>1984 av George Orwell (1949)</code></pre>
+
+                <h3>Del 8: Sortera listan efter titel</h3>
+                <p>Katalogen ska visas i alfabetisk ordning efter titel. Då används <code>sorted()</code> tillsammans
+                    med <code>key</code>.</p>
+                <pre><code>sorted_books = sorted(catalog, key=lambda x: x["title"])</code></pre>
+                <p>Här betyder <code>x</code> en bok i listan. Eftersom varje bok är en dictionary betyder
+                    <code>x["title"]</code> bokens titel. Sorteringen använder alltså titeln som sorteringsvärde.</p>
+
+                <h3>Del 9: Menyn som styr programmet</h3>
+                <p>Huvudprogrammet använder en meny med <code>while True</code>. Loopen fortsätter tills användaren
+                    väljer att avsluta.</p>
+                <pre><code>while True:
+    print("1. Lägg till bok")
+    print("2. Sök bok")
+    print("3. Visa alla")
+    print("4. Avsluta")
+
+    choice = input("Välj: ")
+
+    if choice == "1":
+        add_book(catalog)
+    elif choice == "4":
+        break</code></pre>
+                <p>Menyn kopplar ihop de mindre funktionerna till ett helt program.</p>
+
                 <h2>Kodexempel</h2>
                 <pre><code>def add_book(catalog):
     title = input("Titel: ")
@@ -104,6 +220,72 @@ def main():
             print("Ogiltigt val.")
 
 main()</code></pre>
+
+                <section class="interactive-exercise" data-exercise="chapter-2-library">
+                    <h2>Interaktiv övning: bibliotekskatalog</h2>
+                    <p>Testa uppgiften steg för steg. Lägg till böcker som dictionaries, sök efter titel eller
+                        författare och visa hela katalogen sorterad efter titel.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>lägga till <code>1984</code>, <code>George Orwell</code>, <code>1949</code></li>
+                            <li>lägga till <code>Bröderna Lejonhjärta</code>, <code>Astrid Lindgren</code>,
+                                <code>1973</code></li>
+                            <li>söka efter <code>orwell</code> eller <code>astrid</code></li>
+                            <li>visa alla och se att böckerna sorteras alfabetiskt efter titel</li>
+                        </ul>
+                    </div>
+
+                    <label for="chapter-2-7-library-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-2-7-library-code" class="exercise-code" rows="34" spellcheck="false">def add_book(catalog):
+    title = input("Titel: ")
+    author = input("Författare: ")
+    year = input("År: ")
+
+    book = {"title": title, "author": author, "year": year}
+    catalog.append(book)
+
+def search_books(catalog):
+    query = input("Sök titel eller författare: ").lower()
+
+    found = [
+        book for book in catalog
+        if query in book["title"].lower() or query in book["author"].lower()
+    ]
+
+    for book in found:
+        print(f"{book['title']} av {book['author']} ({book['year']})")
+
+def print_catalog(catalog):
+    sorted_books = sorted(catalog, key=lambda x: x["title"])
+
+    for book in sorted_books:
+        print(f"{book['title']} av {book['author']} ({book['year']})")</textarea>
+
+                    <label class="exercise-label">Val</label>
+                    <div class="exercise-controls">
+                        <select class="exercise-select" aria-label="Bibliotekskatalogval">
+                            <option value="add">1. Lägg till bok</option>
+                            <option value="search">2. Sök bok</option>
+                            <option value="show">3. Visa alla</option>
+                            <option value="exit">4. Avsluta</option>
+                            <option value="reset">Starta om katalogen</option>
+                        </select>
+                        <input class="exercise-title-input" type="text" value="1984" aria-label="Titel">
+                        <input class="exercise-author-input" type="text" value="George Orwell" aria-label="Författare">
+                        <input class="exercise-year-input" type="text" value="1949" aria-label="År">
+                        <input class="exercise-search-input" type="text" value="orwell" aria-label="Sökord">
+                        <button type="button" class="exercise-run">Kör val</button>
+                    </div>
+
+                    <label for="chapter-2-7-library-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-2-7-library-result" class="exercise-result">catalog = []</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> katalogen kombinerar en lista
+                        med dictionaries, sökning med <code>in</code>, sortering med <code>sorted()</code> och en meny
+                        med villkor.</p>
+                </section>
 
                 <h2>Utmaning</h2>
                 <ul>

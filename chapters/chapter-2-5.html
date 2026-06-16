@@ -41,6 +41,19 @@
                     <li>identifiera mönster, repetitioner och beslutspunkter,</li>
                     <li>göra lösningen oberoende av vilket språk du använder.</li>
                 </ul>
+                <p>Det viktiga är inte att börja med perfekt kod. Det viktiga är att förstå problemet så tydligt att
+                    koden nästan blir en översättning av din plan. Om planen är rörig blir koden ofta rörig också.</p>
+
+                <h2>En enkel arbetsmodell</h2>
+                <p>När du planerar ett program kan du använda samma ordning nästan varje gång:</p>
+                <ol>
+                    <li><strong>Input:</strong> Vad behöver programmet få in från användaren eller från data?</li>
+                    <li><strong>Bearbetning:</strong> Vilka beräkningar, beslut eller loopar behövs?</li>
+                    <li><strong>Output:</strong> Vad ska programmet visa, spara eller returnera?</li>
+                    <li><strong>Datastruktur:</strong> Ska informationen lagras i variabler, listor, dictionaries eller
+                        tuples?</li>
+                    <li><strong>Funktioner:</strong> Vilka delar kan delas upp i egna funktioner?</li>
+                </ol>
 
                 <h2>Exempel: poäng i ett spel</h2>
                 <p>Du vill skapa ett program som hanterar användarens poäng i ett spel. Du kan bryta ner problemet så här:</p>
@@ -67,9 +80,61 @@ ANNARS
 SPARA poängen i en lista
 STOPP</code></pre>
 
+                <h3>Från pseudokod till Python</h3>
+                <p>När pseudokoden är tydlig kan du börja översätta den till Python. En möjlig första version kan se ut
+                    så här:</p>
+                <pre><code>scores = []
+
+name = input("Vad heter spelaren? ")
+score = int(input("Hur många poäng fick spelaren? "))
+
+if score &gt; 100:
+    print("Grattis!")
+else:
+    print("Försök igen")
+
+scores.append(score)
+print(scores)</code></pre>
+
+                <p>Den här koden är inte stor, men den innehåller flera viktiga delar: inmatning, villkor, lista och
+                    utskrift. Det är precis sådana delar du letar efter när du planerar.</p>
+
                 <h2>Flödesscheman: visualisera logiken</h2>
                 <p>Ett flödesschema gör det enklare att se logiken i ett program. Du använder symboler för att visa start,
                     beslut, process och stopp. Det passar särskilt bra när programmet innehåller flera vägval.</p>
+
+                <h3>Vanliga symboler i flödesscheman</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Del</th>
+                            <th>Betyder</th>
+                            <th>Exempel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Start/stopp</td>
+                            <td>Programmet börjar eller slutar</td>
+                            <td>Starta menyprogrammet</td>
+                        </tr>
+                        <tr>
+                            <td>Input/output</td>
+                            <td>Programmet läser in eller skriver ut data</td>
+                            <td>Fråga efter temperatur</td>
+                        </tr>
+                        <tr>
+                            <td>Process</td>
+                            <td>Programmet gör något</td>
+                            <td>Beräkna medelvärde</td>
+                        </tr>
+                        <tr>
+                            <td>Beslut</td>
+                            <td>Programmet väljer väg</td>
+                            <td>Är poängen över 100?</td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <h2>Algoritmisk planering i praktiken</h2>
                 <p><strong>Scenario:</strong> Skapa en app där användaren skriver in dagens temperatur och får en
@@ -92,12 +157,84 @@ ELSE IF temperatur &lt; 15
 ELSE
     Skriv "Ta på t-shirt"</code></pre>
 
+                <p>Efter planeringen kan du skriva en funktion som bara ansvarar för själva beslutet:</p>
+                <pre><code>def clothing_advice(temperature):
+    if temperature &lt; 0:
+        return "Ta på vinterjacka"
+    elif temperature &lt; 15:
+        return "Ta på en tröja"
+    else:
+        return "Ta på t-shirt"
+
+temp = float(input("Temperatur: "))
+print(clothing_advice(temp))</code></pre>
+
+                <p>Fördelen med funktionen är att den går att testa separat. Du kan till exempel kontrollera vad den
+                    returnerar för <code>-5</code>, <code>10</code> och <code>20</code> utan att ändra resten av
+                    programmet.</p>
+
                 <h2>Att välja rätt struktur</h2>
                 <p>När du planerar en algoritm bör du också tänka på:</p>
                 <ul>
                     <li>Ska jag använda en lista eller en dictionary?</li>
                     <li>Behöver jag en loop för att upprepa inmatning?</li>
                     <li>Ska jag skapa en funktion eller metod för detta?</li>
+                </ul>
+
+                <h3>Snabb hjälp: vilken struktur passar?</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Behov</th>
+                            <th>Passande struktur</th>
+                            <th>Exempel</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Flera värden i ordning</td>
+                            <td>Lista</td>
+                            <td>Poäng från flera spelrundor</td>
+                        </tr>
+                        <tr>
+                            <td>Värden som hör till tydliga nycklar</td>
+                            <td>Dictionary</td>
+                            <td>En spelare med namn, nivå och poäng</td>
+                        </tr>
+                        <tr>
+                            <td>Fasta värden som inte ska ändras</td>
+                            <td>Tuple</td>
+                            <td>Koordinater eller färdiga inställningar</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Planeringsmall</h2>
+                <p>Använd den här mallen innan du börjar koda ett eget program:</p>
+                <pre><code>Problem:
+Vad ska programmet lösa?
+
+Input:
+Vilken information behöver programmet?
+
+Bearbetning:
+Vilka beslut, loopar och beräkningar behövs?
+
+Output:
+Vad ska programmet visa eller spara?
+
+Datastruktur:
+Vilka variabler, listor, dictionaries eller tuples behövs?
+
+Funktioner:
+Vilka delar bör bli egna funktioner?</code></pre>
+
+                <h2>Vanliga misstag</h2>
+                <ul>
+                    <li>Att börja skriva kod innan problemet är tydligt.</li>
+                    <li>Att lägga all kod i en lång sekvens utan funktioner.</li>
+                    <li>Att välja lista när en dictionary hade gjort koden tydligare.</li>
+                    <li>Att inte testa små delar av programmet innan allt byggs ihop.</li>
                 </ul>
 
                 <h2>Öva själv</h2>
