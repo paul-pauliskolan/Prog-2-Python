@@ -67,6 +67,94 @@
                     <li>Kommentera komplex logik, inte självklarheter.</li>
                 </ul>
 
+                <h2>Struktur i praktiken</h2>
+                <p>Kodstandard handlar inte bara om hur koden ser ut. Det handlar också om att dela upp programmet så
+                    att varje del har ett tydligt ansvar. En vanlig förbättring är att flytta upprepade eller
+                    svårlästa kodblock till egna funktioner.</p>
+
+                <p><strong>Dåligt strukturerat:</strong></p>
+                <pre><code class="language-python">x = 0
+
+while True:
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
+    v = input("Val: ")
+
+    if v == "1":
+        print(x)
+    elif v == "2":
+        x = x + 100
+    elif v == "3":
+        break</code></pre>
+
+                <p>Koden fungerar, men namnen <code>x</code> och <code>v</code> berättar inte vad de betyder. Menyn,
+                    inmatningen och logiken ligger också blandade i samma block.</p>
+
+                <p><strong>Bättre strukturerat:</strong></p>
+                <pre><code class="language-python">def skriv_ut_meny():
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
+
+saldo = 0
+
+while True:
+    skriv_ut_meny()
+    val = input("Val: ")
+
+    if val == "1":
+        print(saldo)
+    elif val == "2":
+        saldo += 100
+    elif val == "3":
+        break</code></pre>
+
+                <p>Nu säger namnen mer om syftet. Funktionen <code>skriv_ut_meny()</code> gör bara en sak: skriver ut
+                    menyn. Variabeln <code>saldo</code> är tydligare än <code>x</code>, och <code>val</code> är
+                    tydligare än <code>v</code>.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-4-code-style">
+                    <h2>Interaktiv övning: förbättra kodstruktur</h2>
+                    <p>Välj en förbättring och se hur den gör koden lättare att läsa. Övningen handlar om kodkvalitet,
+                        inte om att ändra vad programmet gör.</p>
+
+                    <label for="chapter-4-4-before" class="exercise-label">Före</label>
+                    <textarea id="chapter-4-4-before" class="exercise-code" rows="14" spellcheck="false">x = 0
+
+while True:
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
+    v = input("Val: ")
+
+    if v == "1":
+        print(x)
+    elif v == "2":
+        x = x + 100
+    elif v == "3":
+        break</textarea>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-4-4-improvement" class="exercise-select" aria-label="Förbättring">
+                            <option value="names">Byt till tydliga namn</option>
+                            <option value="function">Flytta menyn till en funktion</option>
+                            <option value="both">Gör båda förbättringarna</option>
+                        </select>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Visa förbättring</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-4-4-result" class="exercise-label">Efter</label>
+                    <output id="chapter-4-4-result" class="exercise-result">Välj en förbättring och tryck på Visa förbättring.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> bra struktur gör det lättare att
+                        felsöka, testa och bygga vidare på programmet i senare kapitel.</p>
+                </section>
+
                 <h2>Sammanfattning</h2>
                 <ul>
                     <li>Kodstandard gör att fler kan läsa, förstå och vidareutveckla din kod.</li>

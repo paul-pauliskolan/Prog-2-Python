@@ -47,6 +47,43 @@
                         arbetar med.</li>
                 </ul>
 
+                <h2>Begreppen förklarade enklare</h2>
+                <h3>Generisk kod</h3>
+                <p>Generisk kod betyder att du skriver samma lösning en gång, men låter den fungera med flera typer.
+                    Funktionen <code>första()</code> behöver till exempel inte veta om listan innehåller namn, poäng
+                    eller bokobjekt. Den gör alltid samma sak: hämtar första värdet.</p>
+
+                <h3>Typvariabeln <code>T</code></h3>
+                <p><code>T</code> är inte en vanlig variabel som får ett värde när programmet körs. Den är en
+                    typmarkering. Den betyder: "den typ som används här ska vara samma typ på de andra platserna där
+                    <code>T</code> står".</p>
+                <pre><code class="language-python">def första(värden: list[T]) -> T:
+    return värden[0]</code></pre>
+                <p>Om <code>värden</code> är <code>list[str]</code> betyder <code>T</code> text, alltså
+                    <code>str</code>. Om <code>värden</code> är <code>list[int]</code> betyder <code>T</code> heltal,
+                    alltså <code>int</code>. Poängen är sambandet: funktionen returnerar samma typ som listan innehåller.</p>
+
+                <h3><code>TypeVar</code></h3>
+                <p><code>TypeVar("T")</code> skapar typvariabeln <code>T</code>. Utan den vet inte Python eller editorn
+                    att <code>T</code> är tänkt att vara en typ.</p>
+                <pre><code class="language-python">from typing import TypeVar
+
+T = TypeVar("T")</code></pre>
+
+                <h3><code>Generic[T]</code></h3>
+                <p><code>Generic[T]</code> används när en hel klass ska arbeta med en typ som bestäms senare. Klassen
+                    <code>Register</code> kan till exempel vara ett register för böcker, elever eller recept, men ett
+                    specifikt register bör hålla sig till en typ åt gången.</p>
+                <pre><code class="language-python">bokregister = Register[Bok]()
+elevregister = Register[Elev]()</code></pre>
+                <p><code>Register[Bok]</code> betyder: detta register är tänkt att lagra <code>Bok</code>-objekt.
+                    <code>Register[Elev]</code> betyder: detta register är tänkt att lagra <code>Elev</code>-objekt.</p>
+
+                <h3>Typhintar kör inte programmet åt dig</h3>
+                <p>Typhintar som <code>list[T]</code>, <code>-&gt; T</code> och <code>Register[Bok]</code> är främst
+                    hjälp för människor, editorer och typkontrollverktyg. De gör koden tydligare, men Python stoppar
+                    normalt inte automatiskt alla typfel när programmet körs.</p>
+
                 <h2>Varför behövs generiska typer?</h2>
                 <p>Tänk att du vill skriva en funktion som hämtar första värdet ur en lista. Funktionen fungerar på
                     samma sätt oavsett om listan innehåller tal, text eller objekt.</p>
@@ -79,8 +116,8 @@ print(poäng)</code></pre>
                     returvärdet <code>int</code>.</p>
 
                 <h2>Generisk metod</h2>
-                <p>En metod kan också vara generisk. Här används samma metod för att kontrollera om ett värde finns i en
-                    lista, oavsett vilken typ listan innehåller.</p>
+                <p>Samma idé kan användas i metoder, men exemplet nedan är en fristående funktion för att göra grunden
+                    tydlig. Funktionen kontrollerar om ett värde finns i en lista, oavsett vilken typ listan innehåller.</p>
 
                 <pre><code class="language-python">from typing import TypeVar
 
@@ -93,7 +130,9 @@ print(finns_i("Adam", ["Adam", "Bo"]))
 print(finns_i(3, [1, 2, 3]))</code></pre>
 
                 <p>Det viktiga är kopplingen mellan <code>värde</code> och <code>värden</code>: de ska höra ihop
-                    typmässigt. Det gör koden lättare att förstå och bättre för editorstöd.</p>
+                    typmässigt. När <code>värde</code> är en sträng ska listan också vara en lista med strängar. När
+                    <code>värde</code> är ett heltal ska listan vara en lista med heltal. Det gör koden lättare att
+                    förstå och bättre för editorstöd.</p>
 
                 <h2>Generisk klass</h2>
                 <p>En generisk klass passar när klassen ska kunna lagra eller hantera olika typer av objekt, men med

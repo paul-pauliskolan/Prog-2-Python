@@ -33,6 +33,13 @@
                     hantera det. Arbeta med små exempel och koppla dem till tidigare uppgifter, till exempel fel vid
                     filhantering eller felaktig inmatning från användaren.</p>
 
+                <h2>Repetition och fördjupning</h2>
+                <p>Du har redan mött <code>try</code> och <code>except</code> i kapitel 1.6. Där låg fokus på grunden:
+                    att fånga <code>ValueError</code> när användaren skriver fel typ av inmatning.</p>
+                <p>I detta kapitel repeterar vi grunden, men går vidare med fler vanliga feltyper och felsökning. Du får
+                    se hur samma idé används vid filhantering, division med noll och när du läser en traceback för att
+                    hitta var felet uppstod.</p>
+
                 <h2>Centrala begrepp</h2>
                 <ul>
                     <li><strong>undantag (exceptions)</strong> - Fel som uppstår när program körs, till exempel
@@ -74,6 +81,46 @@ except ZeroDivisionError:
                 <p>Om användaren skriver till exempel <code>2</code> fungerar programmet och skriver ut resultatet
                     <code>5.0</code>. Om användaren skriver <code>0</code> fångas felet av <code>except</code> och
                     programmet visar ett tydligt felmeddelande i stället för att krascha.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-4-exception-cases">
+                    <h2>Interaktiv övning: fånga olika fel</h2>
+                    <p>Välj exempel och kör koden. Övningen visar vilken rad som orsakar felet och vilket
+                        <code>except</code>-block som fångar det.</p>
+
+                    <label for="chapter-4-2-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-4-2-code" class="exercise-code" rows="16" spellcheck="false">try:
+    with open("saknas.txt", "r") as f:
+        innehåll = f.read()
+except FileNotFoundError:
+    print("Filen hittades inte.")
+
+try:
+    tal = int(input("Skriv ett tal att dividera 10 med: "))
+    resultat = 10 / tal
+    print(f"Resultatet blir {resultat}")
+except ZeroDivisionError:
+    print("Du kan inte dividera med noll!")</textarea>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-4-2-case" class="exercise-select" aria-label="Exempel">
+                            <option value="missing-file">Fil saknas</option>
+                            <option value="division">Division med tal</option>
+                        </select>
+                        <input id="chapter-4-2-value" class="exercise-text-input" type="text" value="0" aria-label="Inmatning">
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör exempel</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-4-2-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-4-2-result" class="exercise-result">Välj ett exempel och tryck på Kör exempel.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> olika fel kräver olika
+                        undantagstyper. <code>FileNotFoundError</code> passar när en fil saknas.
+                        <code>ZeroDivisionError</code> passar när programmet försöker dividera med noll.</p>
+                </section>
 
                 <h2>Felsökning</h2>
                 <p>När ett fel uppstår visar Python ett spår, en <em>traceback</em>, som berättar vilken typ av fel som

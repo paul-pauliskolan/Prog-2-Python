@@ -42,6 +42,18 @@
 
                 <h2>Innehåll och exempel</h2>
 
+                <h3>Hur hänger filerna ihop?</h3>
+                <p>En modul är en vanlig Python-fil som innehåller kod du vill kunna återanvända. Om filen heter
+                    <code>verktyg.py</code> blir modulens namn <code>verktyg</code>. En annan fil, till exempel
+                    <code>main.py</code>, kan importera modulen och använda funktionerna därifrån.</p>
+
+                <pre><code class="language-python">projekt/
+├── main.py
+└── verktyg.py</code></pre>
+
+                <p>Det viktiga är att filerna ligger så att Python kan hitta modulen. I de första exemplen ligger
+                    <code>main.py</code> och <code>verktyg.py</code> i samma mapp.</p>
+
                 <h3>Skapa en modul: verktyg.py</h3>
                 <pre><code class="language-python">def hälsa(namn):
     print(f"Hej, {namn}!")
@@ -54,16 +66,61 @@ def kvadrat(tal):
 
 verktyg.hälsa("Ella")
 print(verktyg.kvadrat(5))</code></pre>
+                <p>När du skriver <code>import verktyg</code> importeras hela modulen. Då behöver du skriva modulnamnet
+                    före funktionen, till exempel <code>verktyg.hälsa("Ella")</code>. Det gör det tydligt var funktionen
+                    kommer ifrån.</p>
 
                 <h3>Importera bara det du behöver</h3>
                 <pre><code class="language-python">from verktyg import hälsa
 
 hälsa("Leo")</code></pre>
+                <p>Med <code>from verktyg import hälsa</code> importeras bara funktionen <code>hälsa</code>. Då kan du
+                    anropa den direkt, utan <code>verktyg.</code> framför.</p>
 
                 <h3>Byta namn med alias</h3>
                 <pre><code class="language-python">import verktyg as v
 
 v.hälsa("Tove")</code></pre>
+                <p>Alias används när du vill ge modulen ett kortare namn i den aktuella filen. Här betyder
+                    <code>v</code> samma sak som <code>verktyg</code>.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-4-modules-import">
+                    <h2>Interaktiv övning: importera en egen modul</h2>
+                    <p>Välj importsätt och kör exemplet. Jämför hur anropet ändras beroende på om hela modulen,
+                        en funktion eller ett alias importeras.</p>
+
+                    <label for="chapter-4-3-module-code" class="exercise-label">verktyg.py</label>
+                    <textarea id="chapter-4-3-module-code" class="exercise-code" rows="5" spellcheck="false">def hälsa(namn):
+    print(f"Hej, {namn}!")
+
+def kvadrat(tal):
+    return tal * tal</textarea>
+
+                    <label for="chapter-4-3-main-code" class="exercise-label">main.py</label>
+                    <textarea id="chapter-4-3-main-code" class="exercise-code" rows="5" spellcheck="false">import verktyg
+
+verktyg.hälsa("Ella")
+print(verktyg.kvadrat(5))</textarea>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-4-3-mode" class="exercise-select" aria-label="Importsätt">
+                            <option value="module">import verktyg</option>
+                            <option value="function">from verktyg import hälsa</option>
+                            <option value="alias">import verktyg as v</option>
+                        </select>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör import</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-4-3-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-4-3-result" class="exercise-result">Välj ett importsätt och tryck på Kör import.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> moduler gör att funktioner kan
+                        ligga i en egen fil och återanvändas från flera huvudprogram.</p>
+                </section>
 
                 <h2>Öva – tillämpning i ett projekt</h2>
                 <p>Om du har ett projekt som innehåller både spel- och användarfunktioner:</p>

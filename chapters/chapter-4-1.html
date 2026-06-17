@@ -43,11 +43,29 @@
 
                 <h2>Innehåll och exempel</h2>
 
+                <h3>Vad händer när ett program skriver till en fil?</h3>
+                <p>Vanliga variabler finns bara medan programmet körs. Om du sparar ett namn i en variabel och avslutar
+                    programmet försvinner värdet. En fil kan däremot ligga kvar på datorn efter att programmet har
+                    avslutats. Därför används filer när program behöver spara data mellan körningar.</p>
+
+                <p>Funktionen <code>open()</code> öppnar en fil. Det andra argumentet bestämmer vad programmet får göra
+                    med filen:</p>
+                <ul>
+                    <li><code>"w"</code> betyder write. Filen skrivs från början och gammalt innehåll tas bort.</li>
+                    <li><code>"a"</code> betyder append. Ny text läggs till sist i filen.</li>
+                    <li><code>"r"</code> betyder read. Programmet läser filen utan att skriva ny text.</li>
+                </ul>
+
+                <p><code>with</code> används för att Python automatiskt ska stänga filen när blocket är klart. Det är
+                    säkrare än att öppna och stänga filen manuellt, särskilt om ett fel skulle uppstå mitt i koden.</p>
+
                 <h3>Skriva till fil</h3>
                 <pre><code class="language-python">with open("exempel.txt", "w") as fil:
     fil.write("Hej filvärlden!\n")
     fil.write("Denna text skrivs till filen.")</code></pre>
-                <p>Läget <strong>w</strong> betyder att filen skrivs över om den redan finns.</p>
+                <p>Läget <strong>w</strong> betyder att filen skrivs över om den redan finns.
+                    <code>fil.write(...)</code> skriver exakt den text du skickar in. Vill du ha radbrytning behöver
+                    texten innehålla <code>\n</code>.</p>
 
                 <h3>Lägga till i fil</h3>
                 <pre><code class="language-python">with open("exempel.txt", "a") as fil:
@@ -61,6 +79,47 @@
 
 print(innehåll)</code></pre>
                 <p>Läget <strong>r</strong> står för <em>read</em> - läser innehållet som en hel sträng.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-4-file-writing">
+                    <h2>Interaktiv övning: simulera skrivning till fil</h2>
+                    <p>Testa hur filen förändras när du använder <code>"w"</code>, <code>"a"</code> och <code>"r"</code>.
+                        Övningen skriver inte till en riktig fil på datorn, utan visar hur innehållet i
+                        <code>exempel.txt</code> skulle ändras.</p>
+
+                    <label for="chapter-4-1-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-4-1-code" class="exercise-code" rows="12" spellcheck="false">with open("exempel.txt", "w") as fil:
+    fil.write("Hej filvärlden!\n")
+    fil.write("Denna text skrivs till filen.")
+
+with open("exempel.txt", "a") as fil:
+    fil.write("\nEn ny rad läggs till.")
+
+with open("exempel.txt", "r") as fil:
+    innehåll = fil.read()
+
+print(innehåll)</textarea>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-4-1-mode" class="exercise-select" aria-label="Filläge">
+                            <option value="w">Skriv över med w</option>
+                            <option value="a">Lägg till med a</option>
+                            <option value="r">Läs med r</option>
+                        </select>
+                        <input id="chapter-4-1-text" class="exercise-text-input" type="text" value="Hej filvärlden!" aria-label="Text">
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör filkommando</button>
+                        <button type="button" class="exercise-reset">Återställ fil</button>
+                    </div>
+
+                    <label for="chapter-4-1-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-4-1-result" class="exercise-result">Filen exempel.txt är tom.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> läget <code>"w"</code> ersätter
+                        filens innehåll, <code>"a"</code> lägger till i slutet och <code>"r"</code> läser det som redan
+                        finns.</p>
+                </section>
 
                 <h2>Öva - tillämpning i ett projekt</h2>
                 <p>Koppla filhantering till något du byggt tidigare, till exempel:</p>

@@ -1863,6 +1863,402 @@ function runChapterThreeGenericsExercise(exercise) {
   resetExercise();
 }
 
+function runChapterFourFileWritingExercise(exercise) {
+  const modeInput = exercise.querySelector(".exercise-select");
+  const textInput = exercise.querySelector(".exercise-text-input");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!modeInput || !textInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  let fileContent = "";
+  const history = [];
+
+  function render() {
+    const content = fileContent || "(tom fil)";
+    result.textContent = history.concat(["", "Innehåll i exempel.txt:", content]).join("\n");
+  }
+
+  function resetExercise() {
+    fileContent = "";
+    modeInput.value = "w";
+    textInput.value = "Hej filvärlden!";
+    textInput.disabled = false;
+    history.length = 0;
+    history.push("Filen exempel.txt är tom.");
+    render();
+  }
+
+  button.addEventListener("click", () => {
+    const mode = modeInput.value;
+    const text = textInput.value;
+    history.push("");
+
+    if (mode === "w") {
+      fileContent = text;
+      history.push('with open("exempel.txt", "w") as fil:');
+      history.push("    fil.write(" + JSON.stringify(text) + ")");
+      history.push('"w" skriver över hela filen.');
+    } else if (mode === "a") {
+      fileContent += text;
+      history.push('with open("exempel.txt", "a") as fil:');
+      history.push("    fil.write(" + JSON.stringify(text) + ")");
+      history.push('"a" lägger till text sist i filen.');
+    } else if (mode === "r") {
+      history.push('with open("exempel.txt", "r") as fil:');
+      history.push("    innehåll = fil.read()");
+      history.push("print(innehåll)");
+      history.push(fileContent || "");
+    }
+
+    render();
+  });
+
+  modeInput.addEventListener("change", () => {
+    textInput.disabled = modeInput.value === "r";
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterFourExceptionCasesExercise(exercise) {
+  const caseInput = exercise.querySelector(".exercise-select");
+  const valueInput = exercise.querySelector(".exercise-text-input");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!caseInput || !valueInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  function syncInput() {
+    const isDivision = caseInput.value === "division";
+    valueInput.disabled = !isDivision;
+    if (!isDivision) {
+      valueInput.value = "";
+    } else if (!valueInput.value) {
+      valueInput.value = "0";
+    }
+  }
+
+  function resetExercise() {
+    caseInput.value = "missing-file";
+    valueInput.value = "";
+    result.textContent = "Välj ett exempel och tryck på Kör exempel.";
+    syncInput();
+  }
+
+  button.addEventListener("click", () => {
+    const output = [];
+
+    if (caseInput.value === "missing-file") {
+      output.push('try:');
+      output.push('    with open("saknas.txt", "r") as f:');
+      output.push("        innehåll = f.read()");
+      output.push("");
+      output.push('open("saknas.txt", "r") hittar ingen fil.');
+      output.push("Python skapar undantaget FileNotFoundError.");
+      output.push("");
+      output.push("except FileNotFoundError:");
+      output.push("    print(\"Filen hittades inte.\")");
+      output.push("");
+      output.push("Utskrift:");
+      output.push("Filen hittades inte.");
+    } else {
+      const rawValue = valueInput.value.trim();
+      const number = Number.parseInt(rawValue, 10);
+
+      output.push("Skriv ett tal att dividera 10 med: " + rawValue);
+
+      if (!Number.isInteger(number) || String(number) !== rawValue) {
+        output.push("");
+        output.push("int(...) kan inte göra om inmatningen till ett heltal.");
+        output.push("Det skulle ge ValueError.");
+        output.push("Obs: kodexemplet fångar bara ZeroDivisionError.");
+      } else if (number === 0) {
+        output.push("tal = 0");
+        output.push("resultat = 10 / tal");
+        output.push("");
+        output.push("Division med noll skapar undantaget ZeroDivisionError.");
+        output.push("");
+        output.push("except ZeroDivisionError:");
+        output.push("    print(\"Du kan inte dividera med noll!\")");
+        output.push("");
+        output.push("Utskrift:");
+        output.push("Du kan inte dividera med noll!");
+      } else {
+        output.push("tal = " + number);
+        output.push("resultat = 10 / tal");
+        output.push("Utskrift:");
+        output.push("Resultatet blir " + 10 / number);
+      }
+    }
+
+    result.textContent = output.join("\n");
+  });
+
+  caseInput.addEventListener("change", syncInput);
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterFourModulesImportExercise(exercise) {
+  const modeInput = exercise.querySelector(".exercise-select");
+  const mainCode = exercise.querySelector("#chapter-4-3-main-code");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!modeInput || !mainCode || !button || !resetButton || !result) {
+    return;
+  }
+
+  const examples = {
+    module: {
+      code: 'import verktyg\n\nverktyg.hälsa("Ella")\nprint(verktyg.kvadrat(5))',
+      output: [
+        "Python laddar filen verktyg.py som modulen verktyg.",
+        'verktyg.hälsa("Ella")',
+        "Hej, Ella!",
+        "verktyg.kvadrat(5)",
+        "25",
+      ],
+    },
+    function: {
+      code: 'from verktyg import hälsa\n\nhälsa("Leo")',
+      output: [
+        "Python hämtar bara funktionen hälsa från verktyg.py.",
+        'hälsa("Leo")',
+        "Hej, Leo!",
+        "kvadrat finns inte importerat i detta exempel.",
+      ],
+    },
+    alias: {
+      code: 'import verktyg as v\n\nv.hälsa("Tove")',
+      output: [
+        "Python laddar verktyg.py men ger modulen aliaset v.",
+        'v.hälsa("Tove")',
+        "Hej, Tove!",
+        "v betyder samma modul som verktyg i den här filen.",
+      ],
+    },
+  };
+
+  function syncCode() {
+    mainCode.value = examples[modeInput.value].code;
+  }
+
+  function resetExercise() {
+    modeInput.value = "module";
+    syncCode();
+    result.textContent = "Välj ett importsätt och tryck på Kör import.";
+  }
+
+  button.addEventListener("click", () => {
+    syncCode();
+    result.textContent = examples[modeInput.value].output.join("\n");
+  });
+
+  modeInput.addEventListener("change", syncCode);
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterFourCodeStyleExercise(exercise) {
+  const improvementInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!improvementInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  const examples = {
+    names: {
+      note: "Förbättring: variablerna får namn som beskriver vad de betyder.",
+      code: `saldo = 0
+
+while True:
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
+    val = input("Val: ")
+
+    if val == "1":
+        print(saldo)
+    elif val == "2":
+        saldo = saldo + 100
+    elif val == "3":
+        break`,
+    },
+    function: {
+      note: "Förbättring: menyutskriften flyttas till en egen funktion med ett tydligt ansvar.",
+      code: `def skriv_ut_meny():
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
+
+x = 0
+
+while True:
+    skriv_ut_meny()
+    v = input("Val: ")
+
+    if v == "1":
+        print(x)
+    elif v == "2":
+        x = x + 100
+    elif v == "3":
+        break`,
+    },
+    both: {
+      note: "Förbättring: koden får både tydliga namn och en separat menyfunktion.",
+      code: `def skriv_ut_meny():
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
+
+saldo = 0
+
+while True:
+    skriv_ut_meny()
+    val = input("Val: ")
+
+    if val == "1":
+        print(saldo)
+    elif val == "2":
+        saldo += 100
+    elif val == "3":
+        break`,
+    },
+  };
+
+  function resetExercise() {
+    improvementInput.value = "names";
+    result.textContent = "Välj en förbättring och tryck på Visa förbättring.";
+  }
+
+  button.addEventListener("click", () => {
+    const example = examples[improvementInput.value];
+    result.textContent = example.note + "\n\n" + example.code;
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterFourRecipeCollectionExercise(exercise) {
+  const nameInput = exercise.querySelector("#chapter-4-5-name");
+  const ingredientsInput = exercise.querySelector("#chapter-4-5-ingredients");
+  const actionInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!nameInput || !ingredientsInput || !actionInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  const fileRows = [];
+  const history = [];
+
+  function formatFile() {
+    return fileRows.length ? fileRows.join("\n") : "(tom fil)";
+  }
+
+  function formatRecipes() {
+    if (fileRows.length === 0) {
+      return ["Inga recept hittades."];
+    }
+
+    const lines = [];
+    fileRows.forEach((row) => {
+      const parts = row.split("|");
+      const recipeName = parts[0] || "";
+      const ingredients = parts[1] || "";
+
+      lines.push("");
+      lines.push("Recept: " + recipeName);
+      lines.push("Ingredienser:");
+      ingredients.split(",").forEach((ingredient) => {
+        const trimmed = ingredient.trim();
+        if (trimmed) {
+          lines.push("- " + trimmed);
+        }
+      });
+    });
+
+    return lines;
+  }
+
+  function render() {
+    result.textContent = history.concat(["", "Innehåll i recept.txt:", formatFile()]).join("\n");
+  }
+
+  function resetExercise() {
+    fileRows.length = 0;
+    history.length = 0;
+    nameInput.value = "Pannkakor";
+    ingredientsInput.value = "mjölk, ägg, mjöl";
+    actionInput.value = "add";
+    nameInput.disabled = false;
+    ingredientsInput.disabled = false;
+    history.push("Den simulerade filen recept.txt är tom.");
+    render();
+  }
+
+  function syncInputs() {
+    const adding = actionInput.value === "add";
+    nameInput.disabled = !adding;
+    ingredientsInput.disabled = !adding;
+  }
+
+  button.addEventListener("click", () => {
+    const action = actionInput.value;
+    history.push("");
+
+    if (action === "add") {
+      const recipeName = nameInput.value.trim();
+      const ingredients = ingredientsInput.value.trim();
+
+      if (!recipeName || !ingredients) {
+        history.push("Receptnamn och ingredienser måste fyllas i.");
+      } else if (recipeName.includes("|") || ingredients.includes("|")) {
+        history.push('Tecknet "|" används som avskiljare och kan inte användas i receptet.');
+      } else {
+        const row = recipeName + "|" + ingredients;
+        fileRows.push(row);
+        history.push("lägga_till_recept()");
+        history.push("meddelande = " + JSON.stringify(row + "\n"));
+        history.push("with open(RECEPTFIL, \"a\") as fil:");
+        history.push("    fil.write(meddelande)");
+        history.push("Recept sparat.");
+      }
+    } else if (action === "show") {
+      history.push("visa_recept()");
+      history.push("with open(RECEPTFIL, \"r\") as fil:");
+      history.push("    rader = fil.readlines()");
+      history.push("Utskrift:");
+      history.push(...formatRecipes());
+    } else if (action === "clear") {
+      fileRows.length = 0;
+      history.push("recept.txt tömdes i simuleringen.");
+    }
+
+    render();
+  });
+
+  actionInput.addEventListener("change", syncInputs);
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
 function runChapterTwoLibraryExercise(exercise) {
   const operationInput = exercise.querySelector(".exercise-select");
   const titleInput = exercise.querySelector(".exercise-title-input");
@@ -2052,4 +2448,19 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-3-generics"]')
     .forEach(runChapterThreeGenericsExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-4-file-writing"]')
+    .forEach(runChapterFourFileWritingExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-4-exception-cases"]')
+    .forEach(runChapterFourExceptionCasesExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-4-modules-import"]')
+    .forEach(runChapterFourModulesImportExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-4-code-style"]')
+    .forEach(runChapterFourCodeStyleExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-4-recipe-collection"]')
+    .forEach(runChapterFourRecipeCollectionExercise);
 });

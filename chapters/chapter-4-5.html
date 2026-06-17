@@ -149,6 +149,39 @@ def main():
 if __name__ == "__main__":
     main()</code></pre>
 
+                <section class="interactive-exercise" data-exercise="chapter-4-recipe-collection">
+                    <h2>Interaktiv övning: Receptsamling</h2>
+                    <p>Testa lösningsförslaget utan att skriva till en riktig fil. Övningen simulerar
+                        <code>recept.txt</code> och visar hur <code>lägga_till_recept()</code> sparar rader och hur
+                        <code>visa_recept()</code> läser upp dem.</p>
+
+                    <label class="exercise-label">Receptdata</label>
+                    <div class="exercise-controls">
+                        <input id="chapter-4-5-name" class="exercise-text-input" type="text" value="Pannkakor" aria-label="Receptnamn">
+                        <input id="chapter-4-5-ingredients" class="exercise-text-input" type="text" value="mjölk, ägg, mjöl" aria-label="Ingredienser">
+                    </div>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-4-5-action" class="exercise-select" aria-label="Åtgärd">
+                            <option value="add">Lägg till recept</option>
+                            <option value="show">Visa recept</option>
+                            <option value="clear">Töm recept.txt</option>
+                        </select>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör val</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-4-5-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-4-5-result" class="exercise-result">Den simulerade filen recept.txt är tom.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> lösningen sparar varje recept
+                        som en rad i formatet <code>namn|ingredienser</code>. När recepten visas delas raden först vid
+                        <code>|</code> och ingredienserna delas sedan vid kommatecken.</p>
+                </section>
+
                 <h2>Funktioner i lösningen</h2>
                 <ul>
                     <li><strong>lägga_till_recept()</strong> - Sparar recept i formatet
