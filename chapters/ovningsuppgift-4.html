@@ -52,6 +52,22 @@
                     <li>Koden ska vara läsbar, kommenterad och följa kodstandard.</li>
                 </ul>
 
+                <h2>Repetera innan du börjar</h2>
+                <ul>
+                    <li><a href="chapter-4-3.html">Kap 4.3</a> - egna moduler och import.</li>
+                    <li><a href="chapter-4-4.html">Kap 4.4</a> - kodstandard och struktur.</li>
+                    <li><a href="chapter-4-6.html">Kap 4.6</a> - använda SQLite-databaser.</li>
+                    <li><a href="chapter-4-7.html">Kap 4.7</a> - miniuppgift med SQLite-databas.</li>
+                </ul>
+
+                <h2>Validering och fel som ska hanteras</h2>
+                <ul>
+                    <li>Tom titel ska inte sparas.</li>
+                    <li>Tom författare ska inte sparas.</li>
+                    <li>Tom sökning ska ge ett tydligt meddelande i stället för att visa alla böcker.</li>
+                    <li>Databasfel ska fångas med <code>try/except</code> så programmet inte kraschar direkt.</li>
+                </ul>
+
                 <h2>Exempel på användarflöde</h2>
                 <pre><code>1. Lägg till bok
 2. Sök bok
@@ -69,6 +85,39 @@
                     <li>Du har testat att lägga till och visa flera böcker.</li>
                 </ul>
 
+                <h2>Testfall</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Indata</th>
+                            <th>Förväntat resultat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lägg till bok</td>
+                            <td>Titel: "Project Hail Mary", Författare: "Andy Weir"</td>
+                            <td>Boken sparas i databasen.</td>
+                        </tr>
+                        <tr>
+                            <td>Tom titel</td>
+                            <td>Titel: "", Författare: "Andy Weir"</td>
+                            <td>Programmet visar felmeddelande och sparar inte boken.</td>
+                        </tr>
+                        <tr>
+                            <td>Sök bok</td>
+                            <td>Sökord: "Project"</td>
+                            <td>Matchande bok visas.</td>
+                        </tr>
+                        <tr>
+                            <td>Tom sökning</td>
+                            <td>Sökord: ""</td>
+                            <td>Programmet ber användaren skriva ett sökord.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <h2>Förväntade kunskaper och färdigheter</h2>
                 <ul>
                     <li>Skapa och använda en SQLite-databas i Python.</li>
@@ -81,6 +130,15 @@
                 <p>Låt <code>databas.py</code> innehålla funktioner som skapar tabellen, lägger till böcker, söker och
                     hämtar alla böcker. Låt <code>main.py</code> innehålla menyn och anropa funktionerna från
                     <code>databas.py</code>.</p>
+
+                <h2>Det här ska lämnas in</h2>
+                <ul>
+                    <li><code>main.py</code>.</li>
+                    <li><code>databas.py</code>.</li>
+                    <li>Eventuell databasfil om läraren vill kontrollera sparad data.</li>
+                    <li>En kort lista över testfall du har provat.</li>
+                    <li>En kort kommentar om hur du delat upp koden mellan modulerna.</li>
+                </ul>
             </section>
 
             <p><a href="../index.html">Till startsidan</a></p>

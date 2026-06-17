@@ -24,7 +24,8 @@
                 <p>Den här uppgiften bygger på det du har lärt dig i Modul 2. Du ska visa att du kan:</p>
                 <ul>
                     <li>Planera program med algoritmtänk.</li>
-                    <li>Använda listor, dictionaries och tuples.</li>
+                    <li>Använda listor och dictionaries för att lagra strukturerad data.</li>
+                    <li>Använda en tuple där det passar, till exempel när en funktion returnerar flera värden.</li>
                     <li>Skriva funktioner för att strukturera din kod.</li>
                     <li>Använda loopar, villkor och användarinmatning.</li>
                     <li>Använda sökning och sortering i listor.</li>
@@ -44,6 +45,14 @@
                 <p>Du ska använda funktioner för att dela upp din kod. Ditt program ska vara användarvänligt, tydligt
                     kommenterat och skrivet med god struktur.</p>
 
+                <h2>Repetera innan du börjar</h2>
+                <ul>
+                    <li><a href="chapter-2-2.html">Kap 2.2</a> - listor och iteration.</li>
+                    <li><a href="chapter-2-3.html">Kap 2.3</a> - sökning och sortering.</li>
+                    <li><a href="chapter-2-4.html">Kap 2.4</a> - dictionaries och tuples.</li>
+                    <li><a href="chapter-2-5.html">Kap 2.5</a> - planera program med algoritmtänk.</li>
+                </ul>
+
                 <h2>Bedömning</h2>
                 <ul>
                     <li>Användning av listor och dictionaries.</li>
@@ -58,9 +67,61 @@
                 <ul>
                     <li>Jag har en fungerande meny med val 1-4.</li>
                     <li>Jag använder en lista med dictionaries för att lagra användare.</li>
+                    <li>Jag använder en tuple på ett rimligt sätt, till exempel för att returnera två värden från en funktion.</li>
                     <li>Jag har skapat och använt minst tre egna funktioner.</li>
                     <li>Jag har testat mitt program så att alla val fungerar.</li>
                     <li>Jag har kommenterat min kod där det behövs.</li>
+                </ul>
+
+                <h2>Exempel på tuple i uppgiften</h2>
+                <p>Du kan till exempel låta en funktion läsa in namn och e-post och returnera dem som en tuple:</p>
+                <pre><code class="language-python">def read_name_and_email():
+    name = input("Ange namn: ")
+    email = input("Ange e-post: ")
+    return name, email</code></pre>
+
+                <p>Då kan du packa upp värdena när du skapar din dictionary:</p>
+                <pre><code class="language-python">name, email = read_name_and_email()
+user = {"name": name, "age": age, "email": email}</code></pre>
+
+                <h2>Testfall</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Indata</th>
+                            <th>Förväntat resultat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lägg till användare</td>
+                            <td>Anna, 17, anna@example.com</td>
+                            <td>Användaren sparas i listan.</td>
+                        </tr>
+                        <tr>
+                            <td>Fel ålder</td>
+                            <td>Anna, sjutton, anna@example.com</td>
+                            <td>Programmet visar felmeddelande och kraschar inte.</td>
+                        </tr>
+                        <tr>
+                            <td>Sök e-post</td>
+                            <td>anna@example.com</td>
+                            <td>Programmet hittar rätt användare.</td>
+                        </tr>
+                        <tr>
+                            <td>Visa sorterat</td>
+                            <td>Flera användare i osorterad ordning</td>
+                            <td>Användarna visas alfabetiskt efter namn.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Det här ska lämnas in</h2>
+                <ul>
+                    <li>Din Pythonfil, till exempel <code>main.py</code>.</li>
+                    <li>En kort lista över testfall du har provat.</li>
+                    <li>Eventuell kort kommentar om hur du använde listor, dictionaries och tuple.</li>
                 </ul>
 
                 <h2>Mallkod att utgå ifrån</h2>
@@ -105,8 +166,13 @@ def main():
 main()</code></pre>
 
                 <h2>Lösningsförslag</h2>
-                <pre><code class="language-python">def add_user(users):
+                <pre><code class="language-python">def read_name_and_email():
     name = input("Ange namn: ")
+    email = input("Ange e-post: ")
+    return name, email
+
+def add_user(users):
+    name, email = read_name_and_email()
 
     try:
         age = int(input("Ange ålder: "))
@@ -114,7 +180,6 @@ main()</code></pre>
         print("Fel: Åldern måste vara ett heltal.")
         return
 
-    email = input("Ange e-post: ")
     user = {"name": name, "age": age, "email": email}
     users.append(user)
 

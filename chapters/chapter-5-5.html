@@ -35,6 +35,10 @@
                     som förklarar syfte och funktion i viktiga delar. Skriv sedan en kort reflektion över vad du har lärt
                     dig, vilka utmaningar du stött på och hur du löste dem.</p>
 
+                <p>Ett vanligt misstag är att bara testa programmet när allt skrivs in korrekt. Då vet du bara att
+                    programmet fungerar i bästa fall. Ett färdigt projekt behöver också testas när användaren gör fel,
+                    när data saknas och när programmet körs flera gånger i rad.</p>
+
                 <h2>Centrala begrepp</h2>
                 <ul>
                     <li><strong>Testfall</strong> - Specifika situationer som testas i programmet, ofta med förväntat
@@ -59,6 +63,17 @@
 
                 <p>Använd gärna en checklista där du skriver vad du testar, vilken indata du använder och vad du förväntar
                     dig att programmet ska göra.</p>
+
+                <h3>Olika typer av testfall</h3>
+                <p>Försök att blanda flera typer av testfall. Då blir testningen mer systematisk.</p>
+                <ul>
+                    <li><strong>Normala testfall</strong> - användaren skriver det programmet förväntar sig.</li>
+                    <li><strong>Feltest</strong> - användaren skriver fel typ av data, till exempel text där ett tal krävs.</li>
+                    <li><strong>Gränsfall</strong> - värden som ligger precis på gränsen, till exempel <code>0</code>,
+                        tom sträng eller väldigt långt namn.</li>
+                    <li><strong>Upprepade test</strong> - samma funktion körs flera gånger för att se att programmet inte
+                        bara fungerar första gången.</li>
+                </ul>
 
                 <table>
                     <thead>
@@ -91,6 +106,43 @@
                     </tbody>
                 </table>
 
+                <h3>Exempel: testfall för ett databasprojekt</h3>
+                <p>Om ditt projekt använder SQLite kan testningen till exempel se ut så här:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Funktion</th>
+                            <th>Test</th>
+                            <th>Förväntat resultat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lägg till</td>
+                            <td>Namn: "Pasta", info: "Tomatsås"</td>
+                            <td>Raden sparas och visas i listan.</td>
+                        </tr>
+                        <tr>
+                            <td>Lägg till</td>
+                            <td>Namn: "", info: "Saknar namn"</td>
+                            <td>Programmet visar felmeddelande och sparar inte raden.</td>
+                        </tr>
+                        <tr>
+                            <td>Sök</td>
+                            <td>Sökord: "Pasta"</td>
+                            <td>Programmet visar poster som matchar sökordet.</td>
+                        </tr>
+                        <tr>
+                            <td>Sök</td>
+                            <td>Sökord: ""</td>
+                            <td>Programmet ber användaren skriva ett sökord.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>Skriv gärna resultatet efter att du testat. Då kan du tydligt visa vad som fungerar och vad som behöver
+                    förbättras.</p>
+
                 <h2>2. Dokumentera koden</h2>
                 <p>Kommentarer ska hjälpa läsaren att förstå syftet med koden. Det görs ofta på engelska i professionella
                     projekt, men i den här kursen kan du välja svenska eller engelska.</p>
@@ -98,6 +150,17 @@
                 <pre><code class="language-python">def add_recipe():
     # Hämtar input från användaren och lägger till recept i databasen
     ...</code></pre>
+
+                <p>En bra kommentar förklarar sådant som inte redan är uppenbart av kodens namn. Kommentera särskilt
+                    kod som hanterar fel, databasanslutningar, API-anrop eller annan logik där det är lätt att missa
+                    varför koden finns.</p>
+
+                <h3>Mindre bra och bättre kommentarer</h3>
+                <pre><code class="language-python"># Mindre bra: upprepar bara raden
+antal = antal + 1  # ökar antal med 1
+
+# Bättre: förklarar varför räknaren ändras
+antal = antal + 1  # räknar hur många poster som faktiskt sparades</code></pre>
 
                 <p>Skapa också en README-fil för projektet. Den bör innehålla:</p>
                 <ul>
@@ -125,6 +188,18 @@ Kort beskrivning av vad programmet gör.
 ## Kända begränsningar
 - Programmet hanterar ännu inte alla typer av felaktig inmatning.</code></pre>
 
+                <p>En README ska hjälpa någon annan att komma igång utan att behöva läsa all kod först. Därför är det bra
+                    att skriva konkret: vilken fil startar programmet, vilka paket behövs och vad kan användaren göra?</p>
+
+                <h3>README-checklista</h3>
+                <ul>
+                    <li>Finns projektets syfte beskrivet med en eller två meningar?</li>
+                    <li>Står det vilken fil som ska köras, till exempel <code>main.py</code>?</li>
+                    <li>Står det om projektet använder <code>sqlite3</code>, <code>requests</code> eller <code>tkinter</code>?</li>
+                    <li>Finns exempel på hur användaren använder programmet?</li>
+                    <li>Finns kända begränsningar eller saker du vill förbättra senare?</li>
+                </ul>
+
                 <h2>3. Reflektera</h2>
                 <p>Svara på dessa frågor i din reflektion, muntligt eller skriftligt:</p>
                 <ul>
@@ -135,11 +210,44 @@ Kort beskrivning av vad programmet gör.
                     <li>Vad vill du lära dig mer om?</li>
                 </ul>
 
+                <p>En bra reflektion är konkret. Skriv inte bara "det gick bra" eller "det var svårt". Beskriv vad som
+                    gick bra, varför det gick bra, vad som var svårt och hur du tog dig vidare.</p>
+
+                <h3>Exempel på reflektion</h3>
+                <blockquote>
+                    <p>Det som fungerade bäst var att dela upp projektet i <code>main.py</code> och <code>databas.py</code>.
+                        Då blev det tydligare vilken kod som hanterade menyn och vilken kod som pratade med databasen.
+                        Det svåraste var att hantera tom sökning, eftersom min första version visade alla poster. Jag
+                        löste det genom att kontrollera sökordet innan SQL-frågan kördes. Nästa gång vill jag testa
+                        tidigare och skriva testfall redan när jag bygger varje funktion.</p>
+                </blockquote>
+
+                <h3>Reflektionsmall</h3>
+                <ul>
+                    <li><strong>Planering:</strong> Hur hjälpte planeringen dig? Vad saknades?</li>
+                    <li><strong>Implementation:</strong> Vilka delar byggde du först och varför?</li>
+                    <li><strong>Problem:</strong> Vilka fel eller svårigheter uppstod?</li>
+                    <li><strong>Lösningar:</strong> Hur hittade du orsaken och vad ändrade du?</li>
+                    <li><strong>Testning:</strong> Vilka testfall visade att programmet fungerade?</li>
+                    <li><strong>Vidareutveckling:</strong> Vad skulle du förbättra om du fortsatte?</li>
+                </ul>
+
+                <h2>Arbetsgång innan inlämning</h2>
+                <ol>
+                    <li>Kör programmet från början och kontrollera att det startar utan fel.</li>
+                    <li>Testa vanliga fall, felaktig inmatning och gränsfall.</li>
+                    <li>Skriv ner testfallen och resultatet.</li>
+                    <li>Läs igenom koden och lägg till kommentarer där de faktiskt hjälper.</li>
+                    <li>Skriv eller uppdatera README-filen.</li>
+                    <li>Skriv reflektionen medan du fortfarande minns problemen och lösningarna.</li>
+                </ol>
+
                 <h2>Sammanfattning</h2>
                 <ul>
                     <li>Du har testat programmet med olika scenarier.</li>
                     <li>Du har dokumenterat din kod och skapat en README-fil.</li>
                     <li>Du har reflekterat över hur du arbetat och vad du lärt dig.</li>
+                    <li>Du har sett hur testfall, dokumentation och reflektion visar kvaliteten i projektet.</li>
                     <li>Du har utvecklat både tekniska och analytiska färdigheter.</li>
                 </ul>
             </section>

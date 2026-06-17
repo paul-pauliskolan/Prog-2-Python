@@ -118,6 +118,40 @@ root.mainloop()</code></pre>
                     <li>Användaren kan klicka på <strong>Visa alla skämt</strong> för att läsa ut sparade rader.</li>
                 </ol>
 
+                <section class="interactive-exercise" data-exercise="chapter-5-joke-register">
+                    <h2>Interaktiv simulering: skämtregister i tkinter</h2>
+                    <p>Testa samma flöde som i koden. Det simulerade fönstret hämtar ett skämt, sparar det senaste
+                        skämtet i en simulerad SQLite-tabell och visar alla sparade skämt.</p>
+
+                    <div class="tkinter-simulator" aria-label="Simulerat tkinter-fönster för skämtregister">
+                        <div class="tkinter-window">
+                            <div class="tkinter-titlebar">
+                                <span>Skämtregister</span>
+                                <span class="tkinter-window-controls" aria-hidden="true">_ □ x</span>
+                            </div>
+                            <div class="tkinter-window-body">
+                                <button type="button" class="tkinter-button" data-joke-action="fetch">Hämta skämt</button>
+                                <button type="button" class="tkinter-button" data-joke-action="save">Spara skämt</button>
+                                <button type="button" class="tkinter-button" data-joke-action="show">Visa alla skämt</button>
+                                <p class="tkinter-result-label tkinter-joke-label" aria-live="polite"></p>
+                            </div>
+                        </div>
+
+                        <div class="tkinter-code-panel">
+                            <h3>Vad händer i koden?</h3>
+                            <output id="chapter-5-6-result" class="exercise-result">Programmet har skapat skamt.db och väntar på knapptryck.</output>
+                        </div>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-reset">Återställ simuleringen</button>
+                    </div>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> simuleringen visar hur
+                        <code>tkinter</code> hanterar klick, <code>requests</code> hämtar data från API:et och
+                        <code>sqlite3</code> sparar skämtet i databasen.</p>
+                </section>
+
                 <h2>Att testa och bygga vidare</h2>
                 <ul>
                     <li>Testa att spara flera skämt.</li>

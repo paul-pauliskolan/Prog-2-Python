@@ -87,6 +87,41 @@ rot.mainloop()</code></pre>
                     dess widgets. Sedan väntar programmet på händelser, till exempel att användaren klickar på en knapp.
                     När knappen trycks körs funktionen som är kopplad till <code>command</code>.</p>
 
+                <section class="interactive-exercise" data-exercise="chapter-5-tkinter-gui">
+                    <h2>Interaktiv simulering: tkinter-fönster</h2>
+                    <p>Det här är en webbsimulering av fönstret som koden skapar. Skriv i fältet och klicka på knappen
+                        i det simulerade fönstret för att se hur <code>Entry</code>, <code>Button</code>,
+                        <code>command</code> och <code>Label.config()</code> samarbetar.</p>
+
+                    <div class="tkinter-simulator" aria-label="Simulerat tkinter-fönster">
+                        <div class="tkinter-window">
+                            <div class="tkinter-titlebar">
+                                <span>Mitt första GUI</span>
+                                <span class="tkinter-window-controls" aria-hidden="true">_ □ x</span>
+                            </div>
+                            <div class="tkinter-window-body">
+                                <label for="chapter-5-4-name" class="tkinter-widget-label">Vad heter du?</label>
+                                <input id="chapter-5-4-name" class="tkinter-entry" type="text" value="Ada" aria-label="Namn i textfältet">
+                                <button type="button" class="tkinter-button">Säg hej</button>
+                                <p class="tkinter-result-label" aria-live="polite"></p>
+                            </div>
+                        </div>
+
+                        <div class="tkinter-code-panel">
+                            <h3>Vad händer i koden?</h3>
+                            <output id="chapter-5-4-result" class="exercise-result">mainloop() väntar på att användaren ska skriva eller klicka.</output>
+                        </div>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-reset">Återställ simuleringen</button>
+                    </div>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> övningen visar skillnaden mellan
+                        att skapa widgets och att reagera på en händelse. Funktionen <code>visa_meddelande</code> körs
+                        först när knappen klickas, inte när knappen skapas.</p>
+                </section>
+
                 <h2>Öva - Gör ett eget GUI-program</h2>
                 <ol>
                     <li>Skapa ett program med ett fönster där användaren kan skriva in data, till exempel ett namn eller

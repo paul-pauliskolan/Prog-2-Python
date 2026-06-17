@@ -35,17 +35,43 @@
                     problemet i delar. Skriv ut dina idéer och diskutera dem med en klasskamrat eller din lärare. En god
                     plan gör programmeringen mycket enklare.</p>
 
+                <p>Planering betyder inte att allt måste vara perfekt från början. Det betyder att du gör problemet
+                    tillräckligt tydligt för att kunna börja koda i rätt ordning. När du planerar upptäcker du ofta
+                    oklarheter innan de blir svåra kodproblem.</p>
+
                 <h2>Centrala begrepp</h2>
                 <ul>
                     <li><strong>Användningsfall</strong> - Ett enkelt sätt att beskriva hur olika typer av användare ska
-                        kunna använda ditt program. Det hjälper dig att identifiera vilka funktioner som behövs.</li>
+                        kunna använda ditt program. Det hjälper dig att identifiera vilka funktioner som behövs.
+                        Repetera i <a href="chapter-1-7.html">Kap 1.7</a> eller
+                        <a href="chapter-3.html#s33">Kapitel 3, avsnitt 3.3</a>.</li>
                     <li><strong>Flödesschema</strong> - Ett diagram som visar logiken och stegen i ett program. Det är
-                        användbart för att tänka igenom beslut och loopar.</li>
+                        användbart för att tänka igenom beslut och loopar. Repetera i
+                        <a href="chapter-1-7.html">Kap 1.7</a>, <a href="chapter-2-1.html">Kap 2.1</a> eller
+                        <a href="chapter-2-5.html">Kap 2.5</a>.</li>
                     <li><strong>Pseudokod</strong> - En blandning av naturligt språk och programmering som beskriver hur
-                        en funktion ska fungera utan att skriva riktig kod.</li>
+                        en funktion ska fungera utan att skriva riktig kod. Repetera i
+                        <a href="chapter-1-7.html">Kap 1.7</a>, <a href="chapter-1-8.html">Kap 1.8</a>,
+                        <a href="chapter-2-1.html">Kap 2.1</a> eller <a href="chapter-2-5.html">Kap 2.5</a>.</li>
                     <li><strong>MVP</strong> - Minimum Viable Product, den enklaste versionen av ett program som fungerar.
-                        Det är ett bra första mål i projektet.</li>
+                        Det är ett bra första mål i projektet. Det här begreppet introduceras i detta kapitel.</li>
                 </ul>
+
+                <h2>Från idé till krav</h2>
+                <p>En vanlig fälla är att börja med kod direkt: skapa filer, skriva menyer och lägga till funktioner utan
+                    att först veta exakt vad programmet ska klara. I ett projekt är det bättre att först skriva enkla
+                    krav. Ett krav beskriver något programmet ska kunna göra.</p>
+
+                <p>Exempel på tydliga krav för ett lånebibliotek:</p>
+                <ul>
+                    <li>Användaren ska kunna lägga till en bok med titel och författare.</li>
+                    <li>Användaren ska kunna söka efter en bok med titel.</li>
+                    <li>Programmet ska visa om boken är tillgänglig eller utlånad.</li>
+                    <li>Programmet ska kunna spara data så att böckerna finns kvar nästa gång programmet startas.</li>
+                </ul>
+
+                <p>De här kraven är lättare att programmera än en vag idé som "gör ett bibliotekssystem". De hjälper dig
+                    också att se vilka delar som behövs: inmatning, lagring, sökning och utskrift.</p>
 
                 <h2>Så planerar du ett programmeringsprojekt</h2>
                 <p>När du startar ett programmeringsprojekt är det viktigt att först förstå problemet du vill lösa. Här
@@ -81,6 +107,72 @@
                 <p>Gör en första lista över programmets delar, till exempel databas, menyer, formulär, användarinmatning,
                     filhantering, klassstruktur eller API-anrop.</p>
 
+                <h3>6. Bestäm din MVP</h3>
+                <p>MVP är den minsta versionen som fortfarande fungerar. Den ska inte innehålla allt du kan tänka dig.
+                    Den ska bara innehålla det viktigaste så att du snabbt får ett körbart program.</p>
+
+                <p>För lånebiblioteket kan en rimlig MVP vara:</p>
+                <ul>
+                    <li>lägga till böcker</li>
+                    <li>visa alla böcker</li>
+                    <li>söka efter titel</li>
+                </ul>
+
+                <p>Funktioner som kan vänta till senare:</p>
+                <ul>
+                    <li>inloggning</li>
+                    <li>grafiskt gränssnitt</li>
+                    <li>statistik över mest lånade böcker</li>
+                    <li>export till PDF eller CSV</li>
+                </ul>
+
+                <h2>Exempel: plan för ett elevregister</h2>
+                <p>Här ser du hur en enkel projektplan kan se ut innan någon kod skrivs.</p>
+
+                <h3>Syfte</h3>
+                <p>Programmet ska hjälpa en lärare att registrera elever och deras poäng på en uppgift.</p>
+
+                <h3>Användningsfall</h3>
+                <blockquote>
+                    <p>Användare: Lärare<br>
+                        Mål: Registrera en elevs namn och poäng<br>
+                        Steg: Läraren väljer "lägg till elev", skriver namn och poäng, programmet sparar eleven och
+                        visar en bekräftelse.</p>
+                </blockquote>
+
+                <h3>Pseudokod</h3>
+                <pre><code>Visa meny
+Om användaren väljer "lägg till elev":
+    Fråga efter namn
+    Fråga efter poäng
+    Kontrollera att poängen är ett tal
+    Spara eleven
+    Skriv "Elev sparad"</code></pre>
+
+                <h3>Möjlig kodstruktur</h3>
+                <pre><code>elevregister/
+    main.py        # meny och användarens val
+    databas.py     # spara, hämta och söka elever
+    modeller.py    # klasser, till exempel Elev</code></pre>
+
+                <p>Planen behöver inte vara lång. Det viktiga är att den gör nästa steg tydligt: vilka filer som behövs,
+                    vilka funktioner som ska byggas först och hur användaren ska arbeta med programmet.</p>
+
+                <h2>Planeringschecklista</h2>
+                <p>Innan du börjar koda, kontrollera att du kan svara på dessa frågor:</p>
+                <ul>
+                    <li>Vad är programmets syfte?</li>
+                    <li>Vem ska använda programmet?</li>
+                    <li>Vilka tre funktioner är viktigast?</li>
+                    <li>Vad är den minsta fungerande versionen?</li>
+                    <li>Vilken data behöver programmet spara eller hantera?</li>
+                    <li>Vilka fel kan användaren råka göra?</li>
+                    <li>Vilken funktion ska du bygga först?</li>
+                </ul>
+
+                <p>Om du inte kan svara på en fråga är det inte ett misslyckande. Det betyder bara att den delen behöver
+                    tänkas igenom innan du skriver för mycket kod.</p>
+
                 <h2>Öva - Planeringsuppgift</h2>
                 <p>Välj ett eget projekt, eller använd ett exempel som <em>Receptregister</em>, <em>RPG-strid</em> eller
                     <em>Elevregister</em>. Gör sedan följande:</p>
@@ -90,12 +182,14 @@
                     <li>Skapa minst ett användningsfall.</li>
                     <li>Rita ett flödesschema för ett centralt flöde.</li>
                     <li>Skriv pseudokod för minst en funktion.</li>
+                    <li>Bestäm vad som ingår i din MVP och vad som får vänta.</li>
                 </ol>
 
                 <h2>Sammanfattning</h2>
                 <ul>
                     <li>Du har nu verktyg för att planera ditt projekt på ett strukturerat sätt.</li>
                     <li>Du har lärt dig att använda användningsfall, flödesscheman och pseudokod.</li>
+                    <li>Du har sett hur krav och MVP hjälper dig att avgränsa projektet.</li>
                     <li>Du har påbörjat planeringen av ditt avslutande projekt, vilket gör att du kan programmera mer
                         effektivt.</li>
                 </ul>

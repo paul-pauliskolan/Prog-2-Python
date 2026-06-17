@@ -2259,6 +2259,782 @@ function runChapterFourRecipeCollectionExercise(exercise) {
   resetExercise();
 }
 
+function runChapterFourSqliteRecipesExercise(exercise) {
+  const nameInput = exercise.querySelector("#chapter-4-6-name");
+  const ingredientsInput = exercise.querySelector("#chapter-4-6-ingredients");
+  const actionInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!nameInput || !ingredientsInput || !actionInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  let databaseCreated = false;
+  let nextId = 1;
+  const rows = [];
+  const history = [];
+
+  function formatTable() {
+    if (!databaseCreated) {
+      return ["Databas: recept.db saknas i simuleringen."];
+    }
+
+    if (rows.length === 0) {
+      return ["Tabell: recept", "(inga rader)"];
+    }
+
+    return ["Tabell: recept", "id | namn | ingredienser"].concat(
+      rows.map((row) => row.id + " | " + row.namn + " | " + row.ingredienser),
+    );
+  }
+
+  function render() {
+    result.textContent = history.concat(["", ...formatTable()]).join("\n");
+  }
+
+  function resetExercise() {
+    databaseCreated = false;
+    nextId = 1;
+    rows.length = 0;
+    history.length = 0;
+    nameInput.value = "Pannkakor";
+    ingredientsInput.value = "mjölk, mjöl, ägg";
+    actionInput.value = "create";
+    nameInput.disabled = true;
+    ingredientsInput.disabled = true;
+    history.push("Databasen recept.db är inte skapad i simuleringen ännu.");
+    render();
+  }
+
+  function syncInputs() {
+    const inserting = actionInput.value === "insert";
+    nameInput.disabled = !inserting;
+    ingredientsInput.disabled = !inserting;
+  }
+
+  button.addEventListener("click", () => {
+    const action = actionInput.value;
+    history.push("");
+
+    if (action === "create") {
+      databaseCreated = true;
+      history.push('conn = sqlite3.connect("recept.db")');
+      history.push("cursor.execute(\"\"\"CREATE TABLE IF NOT EXISTS recept (...)\"\"\")");
+      history.push("conn.commit()");
+      history.push("Tabellen recept är redo.");
+    } else if (action === "insert") {
+      if (!databaseCreated) {
+        history.push("Skapa databasen och tabellen först.");
+      } else {
+        const name = nameInput.value.trim();
+        const ingredients = ingredientsInput.value.trim();
+
+        if (!name || !ingredients) {
+          history.push("Receptnamn och ingredienser måste fyllas i.");
+        } else {
+          const row = { id: nextId, namn: name, ingredienser: ingredients };
+          nextId += 1;
+          rows.push(row);
+          history.push('cursor.execute("INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",');
+          history.push("    (" + JSON.stringify(name) + ", " + JSON.stringify(ingredients) + ")");
+          history.push(")");
+          history.push("conn.commit()");
+          history.push("Receptet '" + name + "' har lagts till.");
+        }
+      }
+    } else if (action === "select") {
+      if (!databaseCreated) {
+        history.push("Skapa databasen och tabellen först.");
+      } else {
+        history.push('cursor.execute("SELECT * FROM recept")');
+        history.push("rader = cursor.fetchall()");
+
+        if (rows.length === 0) {
+          history.push("Inga recept hittades.");
+        } else {
+          history.push("fetchall() returnerar " + rows.length + " rad(er).");
+          rows.forEach((row) => {
+            history.push("");
+            history.push("Recept: " + row.namn);
+            history.push("Ingredienser: " + row.ingredienser);
+          });
+        }
+      }
+    } else if (action === "reset") {
+      databaseCreated = true;
+      nextId = 1;
+      rows.length = 0;
+      history.push("Alla rader i den simulerade tabellen togs bort.");
+    }
+
+    render();
+  });
+
+  actionInput.addEventListener("change", syncInputs);
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterFourLibrarySqliteExercise(exercise) {
+  const titleInput = exercise.querySelector("#chapter-4-7-title");
+  const authorInput = exercise.querySelector("#chapter-4-7-author");
+  const searchInput = exercise.querySelector("#chapter-4-7-search");
+  const actionInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!titleInput || !authorInput || !searchInput || !actionInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  let databaseCreated = false;
+  let stopped = false;
+  let nextId = 1;
+  const books = [];
+  const history = [];
+
+  function formatTable() {
+    if (!databaseCreated) {
+      return ["Databas: bibliotek.db saknas i simuleringen."];
+    }
+
+    if (books.length === 0) {
+      return ["Tabell: bocker", "(inga rader)"];
+    }
+
+    return ["Tabell: bocker", "id | titel | forfattare"].concat(
+      books.map((book) => book.id + " | " + book.titel + " | " + book.forfattare),
+    );
+  }
+
+  function render() {
+    result.textContent = history.concat(["", ...formatTable()]).join("\n");
+  }
+
+  function syncInputs() {
+    const action = actionInput.value;
+    titleInput.disabled = action !== "add" || stopped;
+    authorInput.disabled = action !== "add" || stopped;
+    searchInput.disabled = action !== "search" || stopped;
+    button.disabled = stopped && action !== "reset";
+  }
+
+  function resetExercise() {
+    databaseCreated = false;
+    stopped = false;
+    nextId = 1;
+    books.length = 0;
+    history.length = 0;
+    titleInput.value = "Project Hail Mary";
+    authorInput.value = "Andy Weir";
+    searchInput.value = "Project";
+    actionInput.value = "create";
+    history.push("Programmet är inte startat i simuleringen ännu.");
+    syncInputs();
+    render();
+  }
+
+  function ensureDatabase() {
+    if (!databaseCreated) {
+      history.push("Databasen finns inte än. Kör först: Starta programmet och skapa databas.");
+      return false;
+    }
+
+    return true;
+  }
+
+  button.addEventListener("click", () => {
+    const action = actionInput.value;
+    history.push("");
+
+    if (action === "create") {
+      databaseCreated = true;
+      stopped = false;
+      history.push("main.py:");
+      history.push("databas.skapa_databas()");
+      history.push("");
+      history.push("databas.py:");
+      history.push('conn = sqlite3.connect("bibliotek.db")');
+      history.push("CREATE TABLE IF NOT EXISTS bocker (...)");
+      history.push("conn.commit()");
+      history.push("conn.close() i finally");
+      history.push("Tabellen bocker är redo.");
+    } else if (action === "add") {
+      if (ensureDatabase()) {
+        const title = titleInput.value.trim();
+        const author = authorInput.value.trim();
+
+        history.push("main.py:");
+        history.push('databas.lagg_till_bok("' + title + '", "' + author + '")');
+        history.push("");
+
+        if (!title || !author) {
+          history.push("databas.py:");
+          history.push("Titel och författare måste fyllas i.");
+        } else {
+          books.push({ id: nextId, titel: title, forfattare: author });
+          nextId += 1;
+          history.push("databas.py:");
+          history.push('INSERT INTO bocker (titel, forfattare) VALUES (?, ?)');
+          history.push("(" + JSON.stringify(title) + ", " + JSON.stringify(author) + ")");
+          history.push("conn.commit()");
+          history.push("Bok tillagd!");
+        }
+      }
+    } else if (action === "search") {
+      if (ensureDatabase()) {
+        const keyword = searchInput.value.trim();
+        history.push("main.py:");
+        history.push('databas.sok_bok("' + keyword + '")');
+        history.push("");
+
+        if (!keyword) {
+          history.push("databas.py:");
+          history.push("Skriv ett sökord.");
+        } else {
+          const lowerKeyword = keyword.toLowerCase();
+          const found = books.filter((book) => {
+            return (
+              book.titel.toLowerCase().includes(lowerKeyword) ||
+              book.forfattare.toLowerCase().includes(lowerKeyword)
+            );
+          });
+
+          history.push("databas.py:");
+          history.push("SELECT * FROM bocker WHERE titel LIKE ? OR forfattare LIKE ?");
+          history.push('("%' + keyword + '%", "%' + keyword + '%")');
+
+          if (found.length === 0) {
+            history.push("Inga träffar.");
+          } else {
+            found.forEach((book) => {
+              history.push(book.id + ". " + book.titel + " - " + book.forfattare);
+            });
+          }
+        }
+      }
+    } else if (action === "show") {
+      if (ensureDatabase()) {
+        history.push("main.py:");
+        history.push("databas.visa_alla_bocker()");
+        history.push("");
+        history.push("databas.py:");
+        history.push("SELECT * FROM bocker");
+        history.push("resultat = cursor.fetchall()");
+
+        if (books.length === 0) {
+          history.push("Inga böcker finns än.");
+        } else {
+          books.forEach((book) => {
+            history.push(book.id + ". " + book.titel + " - " + book.forfattare);
+          });
+        }
+      }
+    } else if (action === "exit") {
+      stopped = true;
+      history.push("main.py:");
+      history.push('print("Avslutar...")');
+      history.push("break");
+      history.push("Programmet är avslutat i simuleringen.");
+    } else if (action === "reset") {
+      databaseCreated = true;
+      stopped = false;
+      nextId = 1;
+      books.length = 0;
+      history.push("Den simulerade tabellen bocker tömdes.");
+    }
+
+    syncInputs();
+    render();
+  });
+
+  actionInput.addEventListener("change", syncInputs);
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterFiveDatabaseProjectExercise(exercise) {
+  const nameInput = exercise.querySelector("#chapter-5-2-name");
+  const infoInput = exercise.querySelector("#chapter-5-2-info");
+  const searchInput = exercise.querySelector("#chapter-5-2-search");
+  const actionInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!nameInput || !infoInput || !searchInput || !actionInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  let tableCreated = false;
+  let stopped = false;
+  let nextId = 1;
+  const rows = [];
+  const history = [];
+
+  function formatRows() {
+    if (!tableCreated) {
+      return ["Databas: poster.db saknas i simuleringen."];
+    }
+
+    if (rows.length === 0) {
+      return ["Tabell: poster", "(inga poster sparade)"];
+    }
+
+    return ["Tabell: poster", "id | namn | info"].concat(
+      rows.map((row) => row.id + " | " + row.namn + " | " + row.info),
+    );
+  }
+
+  function render() {
+    result.textContent = history.concat(["", ...formatRows()]).join("\n");
+  }
+
+  function syncInputs() {
+    const action = actionInput.value;
+    nameInput.disabled = action !== "add" || stopped;
+    infoInput.disabled = action !== "add" || stopped;
+    searchInput.disabled = action !== "search" || stopped;
+    button.disabled = stopped && action !== "reset";
+  }
+
+  function resetExercise() {
+    tableCreated = false;
+    stopped = false;
+    nextId = 1;
+    rows.length = 0;
+    history.length = 0;
+    nameInput.value = "Projekt Hail Mary";
+    infoInput.value = "Bok i registret";
+    searchInput.value = "Hail";
+    actionInput.value = "create";
+    history.push("Projektet är inte startat i simuleringen ännu.");
+    syncInputs();
+    render();
+  }
+
+  function ensureTable() {
+    if (!tableCreated) {
+      history.push("Tabellen finns inte än. Kör först: Starta projektet och skapa tabell.");
+      return false;
+    }
+
+    return true;
+  }
+
+  button.addEventListener("click", () => {
+    const action = actionInput.value;
+    history.push("");
+
+    if (action === "create") {
+      tableCreated = true;
+      stopped = false;
+      history.push("main.py:");
+      history.push("databas.skapa_tabell()");
+      history.push("");
+      history.push("databas.py:");
+      history.push('sqlite3.connect("poster.db")');
+      history.push("CREATE TABLE IF NOT EXISTS poster (...)");
+      history.push("conn.commit()");
+      history.push("Tabellen poster är redo.");
+    } else if (action === "add") {
+      if (ensureTable()) {
+        const name = nameInput.value.trim();
+        const info = infoInput.value.trim();
+
+        history.push("main.py:");
+        history.push('val == "1" -> databas.lagg_till()');
+        history.push("");
+
+        if (!name) {
+          history.push("databas.py:");
+          history.push("namn TEXT NOT NULL betyder att namn behöver fyllas i.");
+        } else {
+          rows.push({ id: nextId, namn: name, info });
+          nextId += 1;
+          history.push("databas.py:");
+          history.push('INSERT INTO poster (namn, info) VALUES (?, ?)');
+          history.push("(" + JSON.stringify(name) + ", " + JSON.stringify(info) + ")");
+          history.push("conn.commit()");
+          history.push("Post tillagd.");
+        }
+      }
+    } else if (action === "show") {
+      if (ensureTable()) {
+        history.push("main.py:");
+        history.push('val == "2" -> databas.visa_alla()');
+        history.push("");
+        history.push("databas.py:");
+        history.push("SELECT * FROM poster");
+        history.push("resultat = cursor.fetchall()");
+
+        if (rows.length === 0) {
+          history.push("Inga poster hittades.");
+        } else {
+          rows.forEach((row) => {
+            history.push(row.id + ". " + row.namn + " - " + row.info);
+          });
+        }
+      }
+    } else if (action === "search") {
+      if (ensureTable()) {
+        const keyword = searchInput.value.trim();
+        history.push("main.py:");
+        history.push('val == "3" -> databas.sok()');
+        history.push("");
+
+        if (!keyword) {
+          history.push("databas.py:");
+          history.push("Sökordet är tomt. I ett riktigt projekt bör du stoppa tom sökning.");
+        } else {
+          const lowerKeyword = keyword.toLowerCase();
+          const found = rows.filter((row) => {
+            return (
+              row.namn.toLowerCase().includes(lowerKeyword) ||
+              row.info.toLowerCase().includes(lowerKeyword)
+            );
+          });
+
+          history.push("databas.py:");
+          history.push("SELECT * FROM poster WHERE namn LIKE ? OR info LIKE ?");
+          history.push('("%' + keyword + '%", "%' + keyword + '%")');
+
+          if (found.length === 0) {
+            history.push("Inga träffar.");
+          } else {
+            found.forEach((row) => {
+              history.push(row.id + ". " + row.namn + " - " + row.info);
+            });
+          }
+        }
+      }
+    } else if (action === "exit") {
+      stopped = true;
+      history.push("main.py:");
+      history.push('val == "4" -> break');
+      history.push("Programmet är avslutat i simuleringen.");
+    } else if (action === "reset") {
+      tableCreated = true;
+      stopped = false;
+      nextId = 1;
+      rows.length = 0;
+      history.push("Den simulerade tabellen poster tömdes.");
+    }
+
+    syncInputs();
+    render();
+  });
+
+  actionInput.addEventListener("change", syncInputs);
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterFiveApiRequestsExercise(exercise) {
+  const urlInput = exercise.querySelector("#chapter-5-3-url");
+  const scenarioInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!urlInput || !scenarioInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  const defaultUrl = "https://official-joke-api.appspot.com/random_joke";
+
+  function render(lines) {
+    result.textContent = lines.join("\n");
+  }
+
+  function resetExercise() {
+    urlInput.value = defaultUrl;
+    scenarioInput.value = "success";
+    render(["Välj ett API-svar och kör simuleringen."]);
+  }
+
+  button.addEventListener("click", () => {
+    const url = urlInput.value.trim() || defaultUrl;
+    const scenario = scenarioInput.value;
+    const lines = [];
+
+    lines.push("Pythonkod:");
+    lines.push("response = requests.get(" + JSON.stringify(url) + ")");
+    lines.push("");
+
+    if (scenario === "success") {
+      lines.push("Simulerat API-svar:");
+      lines.push("status_code = 200");
+      lines.push('JSON = {"setup": "Why was the stadium so cool?", "punchline": "Because it was filled with fans!"}');
+      lines.push("");
+      lines.push("Steg:");
+      lines.push("1. requests.get(url) hämtar svaret.");
+      lines.push("2. status_code == 200, alltså lyckades anropet.");
+      lines.push("3. response.json() gör om JSON-texten till en Python-dictionary.");
+      lines.push('4. data["setup"] och data["punchline"] skrivs ut.');
+      lines.push("");
+      lines.push("Utskrift:");
+      lines.push("Skämt:");
+      lines.push("Why was the stadium so cool?");
+      lines.push("Because it was filled with fans!");
+    } else if (scenario === "http-error") {
+      lines.push("Simulerat API-svar:");
+      lines.push("status_code = 404");
+      lines.push("");
+      lines.push("Enkel variant:");
+      lines.push("if response.status_code == 200 är falskt.");
+      lines.push("Kunde inte hämta skämt. Statuskod: 404");
+      lines.push("");
+      lines.push("Robust variant:");
+      lines.push("response.raise_for_status() kastar ett HTTPError.");
+      lines.push("except requests.exceptions.RequestException fångar felet.");
+    } else if (scenario === "network-error") {
+      lines.push("Simulerat fel:");
+      lines.push("API:et svarar inte eller nätverket fungerar inte.");
+      lines.push("");
+      lines.push("Steg:");
+      lines.push("1. requests.get(url) hinner inte få ett vanligt response-objekt.");
+      lines.push("2. requests kastar ett RequestException-fel.");
+      lines.push("3. except-blocket skriver ett begripligt felmeddelande.");
+      lines.push("");
+      lines.push("Utskrift:");
+      lines.push("Kunde inte hämta skämt. Felmeddelande: nätverksfel");
+    } else if (scenario === "bad-json") {
+      lines.push("Simulerat API-svar:");
+      lines.push("status_code = 200");
+      lines.push("Svarstext = Detta är inte JSON");
+      lines.push("");
+      lines.push("Steg:");
+      lines.push("1. Statuskoden säger att HTTP-anropet lyckades.");
+      lines.push("2. response.json() försöker tolka svaret som JSON.");
+      lines.push("3. Tolkningen misslyckas eftersom svaret inte har JSON-format.");
+      lines.push("");
+      lines.push("Lärdom:");
+      lines.push("Ett API-anrop kan lyckas tekniskt men ändå ge data som programmet inte kan tolka.");
+    }
+
+    render(lines);
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterFiveTkinterGuiExercise(exercise) {
+  const nameInput = exercise.querySelector("#chapter-5-4-name");
+  const tkButton = exercise.querySelector(".tkinter-button");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+  const resultLabel = exercise.querySelector(".tkinter-result-label");
+
+  if (!nameInput || !tkButton || !resetButton || !result || !resultLabel) {
+    return;
+  }
+
+  function renderTrace(lines) {
+    result.textContent = lines.join("\n");
+  }
+
+  function resetExercise() {
+    nameInput.value = "Ada";
+    resultLabel.textContent = "";
+    renderTrace([
+      "Fönstret har skapats av koden:",
+      "rot = tk.Tk()",
+      'rot.title("Mitt första GUI")',
+      'tk.Label(rot, text="Vad heter du?").pack()',
+      "namn_entry = tk.Entry(rot)",
+      'tk.Button(rot, text="Säg hej", command=visa_meddelande).pack()',
+      'resultat_label = tk.Label(rot, text="")',
+      "rot.mainloop()",
+      "",
+      "mainloop() väntar nu på att användaren ska skriva eller klicka.",
+    ]);
+  }
+
+  nameInput.addEventListener("input", () => {
+    renderTrace([
+      "Användaren skriver i Entry-widgeten.",
+      "Texten finns i fältet, men funktionen visa_meddelande körs inte ännu.",
+      "",
+      "I tkinter händer detta:",
+      "namn_entry visar " + JSON.stringify(nameInput.value),
+      "mainloop() fortsätter att vänta på nästa händelse.",
+    ]);
+  });
+
+  tkButton.addEventListener("click", () => {
+    const name = nameInput.value;
+    const greeting = "Hej, " + name + "!";
+    resultLabel.textContent = greeting;
+
+    renderTrace([
+      "Knappen Säg hej klickas.",
+      "",
+      "Eftersom knappen skapades med:",
+      'tk.Button(rot, text="Säg hej", command=visa_meddelande)',
+      "",
+      "körs funktionen:",
+      "def visa_meddelande():",
+      "    namn = namn_entry.get()",
+      '    resultat_label.config(text=f"Hej, {namn}!")',
+      "",
+      "Steg för steg:",
+      "1. namn_entry.get() läser texten i Entry.",
+      "2. namn blir " + JSON.stringify(name) + ".",
+      "3. resultat_label.config(...) ändrar texten i Label.",
+      "4. Resultatet i fönstret blir " + JSON.stringify(greeting) + ".",
+    ]);
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterFiveJokeRegisterExercise(exercise) {
+  const fetchButton = exercise.querySelector('[data-joke-action="fetch"]');
+  const saveButton = exercise.querySelector('[data-joke-action="save"]');
+  const showButton = exercise.querySelector('[data-joke-action="show"]');
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+  const jokeLabel = exercise.querySelector(".tkinter-joke-label");
+
+  if (!fetchButton || !saveButton || !showButton || !resetButton || !result || !jokeLabel) {
+    return;
+  }
+
+  const jokes = [
+    {
+      setup: "Why was the stadium so cool?",
+      punchline: "Because it was filled with fans!",
+    },
+    {
+      setup: "Why did the programmer quit his job?",
+      punchline: "Because he did not get arrays.",
+    },
+    {
+      setup: "Why do bees have sticky hair?",
+      punchline: "Because they use honeycombs.",
+    },
+  ];
+
+  let nextJokeIndex = 0;
+  let latestJoke = null;
+  const savedJokes = [];
+
+  function formatJoke(joke) {
+    return joke.setup + " - " + joke.punchline;
+  }
+
+  function renderTrace(lines) {
+    result.textContent = lines.join("\n");
+  }
+
+  function resetExercise() {
+    nextJokeIndex = 0;
+    latestJoke = null;
+    savedJokes.length = 0;
+    jokeLabel.textContent = "";
+    renderTrace([
+      "Programmet startar:",
+      'conn = sqlite3.connect("skamt.db")',
+      "CREATE TABLE IF NOT EXISTS skamt (...)",
+      "senaste_skamt = None",
+      "",
+      "root.mainloop() väntar på att användaren klickar på en knapp.",
+    ]);
+  }
+
+  fetchButton.addEventListener("click", () => {
+    const joke = jokes[nextJokeIndex % jokes.length];
+    nextJokeIndex += 1;
+    latestJoke = joke;
+    jokeLabel.textContent = formatJoke(joke);
+
+    renderTrace([
+      "Knappen Hämta skämt klickas.",
+      "",
+      "Funktionen hamta_skamt() körs:",
+      'response = requests.get("https://official-joke-api.appspot.com/random_joke")',
+      "response.status_code == 200",
+      "data = response.json()",
+      "",
+      "Label uppdateras:",
+      "skamt_label.config(text=setup + punchline)",
+      "",
+      "Variabeln senaste_skamt får värdet:",
+      JSON.stringify([joke.setup, joke.punchline]),
+    ]);
+  });
+
+  saveButton.addEventListener("click", () => {
+    if (!latestJoke) {
+      jokeLabel.textContent = "Hämta ett skämt först.";
+      renderTrace([
+        "Knappen Spara skämt klickas.",
+        "",
+        "Funktionen spara_skamt() körs:",
+        "if senaste_skamt:",
+        "",
+        "senaste_skamt är None, så inget sparas i databasen.",
+        "Hämta ett skämt först.",
+      ]);
+      return;
+    }
+
+    savedJokes.push(latestJoke);
+    jokeLabel.textContent = "Skämtet sparat!";
+
+    renderTrace([
+      "Knappen Spara skämt klickas.",
+      "",
+      "Funktionen spara_skamt() körs:",
+      "if senaste_skamt:",
+      'cursor.execute("INSERT INTO skamt (setup, punchline) VALUES (?, ?)", senaste_skamt)',
+      "conn.commit()",
+      "",
+      "Databasen innehåller nu " + savedJokes.length + " sparat skämt.",
+      'skamt_label.config(text="Skämtet sparat!")',
+    ]);
+  });
+
+  showButton.addEventListener("click", () => {
+    if (savedJokes.length === 0) {
+      jokeLabel.textContent = "Inga sparade skämt än.";
+      renderTrace([
+        "Knappen Visa alla skämt klickas.",
+        "",
+        "Funktionen visa_skamt() körs:",
+        'cursor.execute("SELECT * FROM skamt")',
+        "rader = cursor.fetchall()",
+        "",
+        "Tabellen är tom i simuleringen.",
+      ]);
+      return;
+    }
+
+    const output = savedJokes.map(formatJoke).join("\n");
+    jokeLabel.textContent = output.length > 300 ? output.slice(0, 300) + "..." : output;
+
+    renderTrace([
+      "Knappen Visa alla skämt klickas.",
+      "",
+      "Funktionen visa_skamt() körs:",
+      'cursor.execute("SELECT * FROM skamt")',
+      "rader = cursor.fetchall()",
+      'output = "\\n".join([f"{r[1]} - {r[2]}" for r in rader])',
+      "",
+      "Antal rader som visas: " + savedJokes.length,
+    ]);
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
 function runChapterTwoLibraryExercise(exercise) {
   const operationInput = exercise.querySelector(".exercise-select");
   const titleInput = exercise.querySelector(".exercise-title-input");
@@ -2463,4 +3239,22 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-4-recipe-collection"]')
     .forEach(runChapterFourRecipeCollectionExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-4-sqlite-recipes"]')
+    .forEach(runChapterFourSqliteRecipesExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-4-library-sqlite"]')
+    .forEach(runChapterFourLibrarySqliteExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-5-database-project"]')
+    .forEach(runChapterFiveDatabaseProjectExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-5-api-requests"]')
+    .forEach(runChapterFiveApiRequestsExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-5-tkinter-gui"]')
+    .forEach(runChapterFiveTkinterGuiExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-5-joke-register"]')
+    .forEach(runChapterFiveJokeRegisterExercise);
 });

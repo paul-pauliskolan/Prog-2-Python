@@ -37,15 +37,22 @@
                     <li>Felhantering vid ogiltiga menyval.</li>
                 </ul>
 
+                <h2>Repetera innan du börjar</h2>
+                <ul>
+                    <li><a href="chapter-1-3.html">Kap 1.3</a> - strukturera problem med funktioner.</li>
+                    <li><a href="chapter-1-4.html">Kap 1.4</a> - villkor och logik.</li>
+                    <li><a href="chapter-1-5.html">Kap 1.5</a> - loopar och menyprogram.</li>
+                </ul>
+
                 <h2>Exempel på användning</h2>
-                <pre><code>1. Enter your name and age
-2. Show when you will turn 100
-3. Exit
+                <pre><code>1. Ange namn och ålder
+2. Visa vilket år du fyller 100
+3. Avsluta
 > 1
-Enter name: Sofia
-Enter age: 25
+Ange namn: Sofia
+Ange ålder: 25
 > 2
-Sofia, you will turn 100 in the year 2099.</code></pre>
+Sofia, du fyller 100 år 2099.</code></pre>
 
                 <h2>Bedömningsaspekter</h2>
                 <ul>
@@ -64,14 +71,48 @@ Sofia, you will turn 100 in the year 2099.</code></pre>
                     <li>Programmet avslutas korrekt.</li>
                 </ul>
 
+                <h2>Testfall</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Indata</th>
+                            <th>Förväntat resultat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Spara namn och ålder</td>
+                            <td>Sofia, 25</td>
+                            <td>Programmet sparar värdena och kan använda dem i nästa menyval.</td>
+                        </tr>
+                        <tr>
+                            <td>Visa 100-årsår</td>
+                            <td>Namn och ålder är redan angivna</td>
+                            <td>Programmet skriver vilket år personen fyller 100.</td>
+                        </tr>
+                        <tr>
+                            <td>Ogiltigt menyval</td>
+                            <td>9</td>
+                            <td>Programmet visar ett felmeddelande och menyn fortsätter.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Det här ska lämnas in</h2>
+                <ul>
+                    <li>Din Pythonfil, till exempel <code>main.py</code>.</li>
+                    <li>En kort kommentar eller text som beskriver vilka testfall du har provat.</li>
+                </ul>
+
                 <h2>Tips</h2>
                 <p>Spara namn och ålder i variabler som flera funktioner kan använda. Börja med att få menyn att fungera,
                     och lägg sedan till beräkningen av 100-årsåret.</p>
 
                 <pre><code class="language-python">def visa_meny():
-    print("1. Enter your name and age")
-    print("2. Show when you will turn 100")
-    print("3. Exit")
+    print("1. Ange namn och ålder")
+    print("2. Visa vilket år du fyller 100")
+    print("3. Avsluta")
 
 def main():
     while True:
@@ -85,7 +126,7 @@ def main():
         elif val == "3":
             break
         else:
-            print("Invalid choice")
+            print("Ogiltigt val")
 
 if __name__ == "__main__":
     main()</code></pre>

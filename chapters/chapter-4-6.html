@@ -45,6 +45,30 @@
 
                 <h2>Innehåll och exempel</h2>
 
+                <h3>Från textfil till databas</h3>
+                <p>I kapitel 4.1 och 4.5 sparades data i textfiler. Det fungerar bra för enkla program, men det blir
+                    snabbt svårt att söka, sortera och uppdatera enskilda poster. En SQLite-databas är fortfarande en
+                    fil på datorn, men informationen ligger i tabeller med kolumner och rader.</p>
+
+                <p>I detta kapitel används recept som exempel. Tabellen <code>recept</code> kan jämföras med ett
+                    kalkylblad:</p>
+                <ul>
+                    <li><code>id</code> är ett unikt nummer för varje rad.</li>
+                    <li><code>namn</code> är receptets namn.</li>
+                    <li><code>ingredienser</code> är texten med ingredienser.</li>
+                </ul>
+
+                <h3>Arbetsflödet i sqlite3</h3>
+                <p>När Python arbetar med SQLite återkommer samma grundsteg:</p>
+                <ol>
+                    <li><code>sqlite3.connect(...)</code> öppnar eller skapar databasfilen.</li>
+                    <li><code>conn.cursor()</code> skapar ett cursor-objekt som kan köra SQL-kommandon.</li>
+                    <li><code>cursor.execute(...)</code> kör SQL, till exempel <code>CREATE TABLE</code>,
+                        <code>INSERT INTO</code> eller <code>SELECT</code>.</li>
+                    <li><code>conn.commit()</code> sparar ändringar, till exempel efter <code>INSERT INTO</code>.</li>
+                    <li><code>conn.close()</code> stänger anslutningen till databasen.</li>
+                </ol>
+
                 <h3>Skapa databas och tabell</h3>
                 <pre><code class="language-python">import sqlite3
 
@@ -65,6 +89,8 @@ conn.close()</code></pre>
                 <p><code>sqlite3.connect("recept.db")</code> skapar databasfilen om den inte redan finns.
                     <code>CREATE TABLE IF NOT EXISTS</code> gör att tabellen skapas första gången programmet körs, men
                     inte skapas om ifall den redan finns.</p>
+                <p><code>INTEGER PRIMARY KEY AUTOINCREMENT</code> gör att varje recept får ett automatiskt id.
+                    <code>TEXT NOT NULL</code> betyder att kolumnen <code>namn</code> måste ha ett värde.</p>
 
                 <p>För att kunna titta på databasen direkt i VS Code kan du installera tillägget
                     <strong>SQLite Viewer</strong> av publisher <strong>Florian Klampfer</strong>. När programmet har
@@ -87,6 +113,8 @@ conn.close()</code></pre>
 
                 <p>Frågetecknen i SQL-frågan är platshållare. Värdena skickas in separat i en tuple. Det gör koden
                     tydligare och säkrare än att bygga SQL-frågan genom att klistra ihop textsträngar.</p>
+                <p><code>conn.commit()</code> är viktigt här. <code>INSERT INTO</code> förbereder ändringen, men
+                    <code>commit()</code> sparar den i databasfilen.</p>
 
                 <h3>Hämta och visa data</h3>
                 <pre><code class="language-python">conn = sqlite3.connect("recept.db")
@@ -103,6 +131,8 @@ conn.close()</code></pre>
 
                 <p><code>SELECT * FROM recept</code> hämtar alla rader från tabellen. Med <code>fetchall()</code> får du
                     tillbaka raderna så att du kan loopa igenom dem i Python.</p>
+                <p>Varje rad kommer tillbaka som en tuple. I exemplet betyder <code>rad[0]</code> id,
+                    <code>rad[1]</code> receptets namn och <code>rad[2]</code> ingredienserna.</p>
 
                 <h2>Öva - Gör ett mini-receptregister</h2>
                 <ol>
@@ -181,6 +211,40 @@ def main():
 
 if __name__ == "__main__":
     main()</code></pre>
+
+                <section class="interactive-exercise" data-exercise="chapter-4-sqlite-recipes">
+                    <h2>Interaktiv övning: simulera SQLite-recept</h2>
+                    <p>Testa det kompletta kodexemplet utan att skapa en riktig databasfil. Övningen simulerar tabellen
+                        <code>recept</code>, men visar samma steg som koden använder: skapa tabell, <code>INSERT INTO</code>,
+                        <code>commit()</code>, <code>SELECT</code> och <code>fetchall()</code>.</p>
+
+                    <label class="exercise-label">Receptdata</label>
+                    <div class="exercise-controls">
+                        <input id="chapter-4-6-name" class="exercise-text-input" type="text" value="Pannkakor" aria-label="Receptnamn">
+                        <input id="chapter-4-6-ingredients" class="exercise-text-input" type="text" value="mjölk, mjöl, ägg" aria-label="Ingredienser">
+                    </div>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-4-6-action" class="exercise-select" aria-label="Databasåtgärd">
+                            <option value="create">Skapa databas och tabell</option>
+                            <option value="insert">Lägg till recept</option>
+                            <option value="select">Visa alla recept</option>
+                            <option value="reset">Töm simuleringen</option>
+                        </select>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör databassteg</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-4-6-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-4-6-result" class="exercise-result">Databasen recept.db är inte skapad i simuleringen ännu.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> i ett riktigt program skapas
+                        filen <code>recept.db</code>. Här visas samma logik i webbläsaren så du kan se vad som händer
+                        steg för steg.</p>
+                </section>
 
                 <h2>Sammanfattning</h2>
                 <ul>

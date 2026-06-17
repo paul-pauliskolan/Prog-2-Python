@@ -22,9 +22,12 @@
             <section class="content-section">
                 <h2>Uppgiftsbeskrivning</h2>
                 <p>I den här uppgiften ska du planera, bygga, testa och dokumentera ett eget mindre program i Python.
-                    Programmet ska ha ett grafiskt användargränssnitt och använda en SQLite-databas samt ett valfritt
-                    öppet API. Du ska visa att du kan strukturera kod, spara och hämta data samt skapa ett användarvänligt
-                    gränssnitt.</p>
+                    Målet är att kombinera ett grafiskt användargränssnitt med SQLite och ett valfritt öppet API. Du ska
+                    visa att du kan strukturera kod, spara och hämta data samt skapa ett användarvänligt gränssnitt.</p>
+
+                <p>Uppgiften tränar på att kombinera <code>tkinter</code>, <code>sqlite3</code> och <code>requests</code>.
+                    För en enklare godkänd lösning kan API eller databas vara mycket enkelt, men målet är att du ska
+                    försöka få alla tre delarna att samverka.</p>
 
                 <h2>Dina uppgifter</h2>
                 <ul>
@@ -50,6 +53,15 @@
                     <li><strong>Receptverktyg:</strong> användare kan lägga in recept, söka dem och få matfakta via API.</li>
                 </ul>
 
+                <h2>Repetera innan du börjar</h2>
+                <ul>
+                    <li><a href="chapter-5-1.html">Kap 5.1</a> - planera ett projekt.</li>
+                    <li><a href="chapter-5-2.html">Kap 5.2</a> - projektarbete med databas.</li>
+                    <li><a href="chapter-5-3.html">Kap 5.3</a> - hämta data från API med <code>requests</code>.</li>
+                    <li><a href="chapter-5-4.html">Kap 5.4</a> - skapa GUI med <code>tkinter</code>.</li>
+                    <li><a href="chapter-5-5.html">Kap 5.5</a> - testning, dokumentation och reflektion.</li>
+                </ul>
+
                 <h2>Betygskrav för uppgiften</h2>
                 <h3>Betyget E</h3>
                 <ul>
@@ -57,6 +69,8 @@
                         eller mata in data.</li>
                     <li>Programmet använder API eller databas på ett fungerande men enkelt sätt, till exempel hämtar
                         information från ett API och visar den, eller sparar enkel data i SQLite.</li>
+                    <li>Om både API och databas finns med får de vara enkla, till exempel en knapp som hämtar data och en
+                        knapp som sparar ett värde.</li>
                     <li>Programmet har viss anpassning till syfte och användare, till exempel tydliga knappar,
                         enkel instruktion och något begripligt felmeddelande.</li>
                     <li>Koden är tillräckligt strukturerad för att gå att följa, till exempel med funktioner för
@@ -106,12 +120,59 @@
                     <li>Inlämningen innehåller programfiler, README och eventuell reflektion.</li>
                 </ul>
 
+                <h2>Testfall</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Indata eller händelse</th>
+                            <th>Förväntat resultat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Starta programmet</td>
+                            <td>Kör <code>main.py</code></td>
+                            <td>GUI-fönstret öppnas utan fel.</td>
+                        </tr>
+                        <tr>
+                            <td>API-anrop</td>
+                            <td>Klicka på knappen som hämtar data</td>
+                            <td>Data visas i gränssnittet eller ett tydligt felmeddelande visas.</td>
+                        </tr>
+                        <tr>
+                            <td>Spara data</td>
+                            <td>Spara ett API-resultat eller användarens inmatning</td>
+                            <td>Raden sparas i SQLite och kan visas igen.</td>
+                        </tr>
+                        <tr>
+                            <td>Felaktig inmatning</td>
+                            <td>Tomt fält eller ogiltigt värde</td>
+                            <td>Programmet visar begriplig återkoppling och kraschar inte.</td>
+                        </tr>
+                        <tr>
+                            <td>Saknat internet eller API-fel</td>
+                            <td>API-anrop misslyckas</td>
+                            <td>Programmet hanterar felet med <code>try/except</code>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <h2>Tekniska tips</h2>
                 <ul>
                     <li>Installera <code>requests</code> med <code>pip3 install requests</code> om importen inte fungerar.</li>
                     <li>Börja med GUI och en hårdkodad knapp innan du kopplar på API och databas.</li>
                     <li>Testa API-anropet separat i terminalen innan du kopplar det till gränssnittet.</li>
                     <li>Testa databasen separat innan du låter GUI:t spara data.</li>
+                </ul>
+
+                <h2>Det här ska lämnas in</h2>
+                <ul>
+                    <li>Alla Pythonfiler som behövs för att köra programmet.</li>
+                    <li>README-fil med syfte, funktioner, installation och instruktioner för att köra programmet.</li>
+                    <li>En kort testlista med resultat.</li>
+                    <li>En reflektion över arbetsprocess, problem och förbättringar.</li>
+                    <li>Eventuell databasfil om läraren vill se sparad testdata.</li>
                 </ul>
             </section>
 

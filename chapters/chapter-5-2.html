@@ -171,6 +171,43 @@ def sok():
     except Exception as e:
         print("Fel vid sökning:", e)</code></pre>
 
+                <section class="interactive-exercise" data-exercise="chapter-5-database-project">
+                    <h2>Interaktiv övning: bygg grunden till databasprojektet</h2>
+                    <p>Testa hur projektet växer fram steg för steg. Övningen simulerar filerna
+                        <code>main.py</code> och <code>databas.py</code>, databasen <code>poster.db</code> och tabellen
+                        <code>poster</code>.</p>
+
+                    <label class="exercise-label">Postdata</label>
+                    <div class="exercise-controls">
+                        <input id="chapter-5-2-name" class="exercise-title-input" type="text" value="Projekt Hail Mary" aria-label="Namn">
+                        <input id="chapter-5-2-info" class="exercise-author-input" type="text" value="Bok i registret" aria-label="Info">
+                        <input id="chapter-5-2-search" class="exercise-search-input" type="text" value="Hail" aria-label="Sökord">
+                    </div>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-5-2-action" class="exercise-select" aria-label="Menyval">
+                            <option value="create">Starta projektet och skapa tabell</option>
+                            <option value="add">1. Lägg till post</option>
+                            <option value="show">2. Visa alla</option>
+                            <option value="search">3. Sök</option>
+                            <option value="exit">4. Avsluta</option>
+                            <option value="reset">Töm simuleringen</option>
+                        </select>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör steg</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-5-2-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-5-2-result" class="exercise-result">Projektet är inte startat i simuleringen ännu.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> övningen visar hur
+                        <code>main.py</code> ansvarar för menyval medan <code>databas.py</code> ansvarar för SQL,
+                        databasanslutning och tabellen.</p>
+                </section>
+
                 <h2>Öva - Starta ditt projekt</h2>
                 <ol>
                     <li>Välj ett av projekten ovan eller hitta på ett eget.</li>

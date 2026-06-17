@@ -25,7 +25,8 @@
                 <ul>
                     <li>Skapa och använda egna klasser i Python.</li>
                     <li>Strukturera ett objektorienterat program med flera objekt.</li>
-                    <li>Använda arv, metoder, konstruktorer och attribut.</li>
+                    <li>Använda metoder, konstruktorer och attribut.</li>
+                    <li>Använda arv och metodöverskuggning om du siktar på en mer utvecklad lösning.</li>
                     <li>Testa och dokumentera din kod.</li>
                 </ul>
 
@@ -38,6 +39,15 @@
                     <li>Testa programmet och säkerställa att det fungerar korrekt.</li>
                     <li>Kommentera din kod så att den är lätt att förstå.</li>
                 </ol>
+
+                <h2>Repetera innan du börjar</h2>
+                <ul>
+                    <li><a href="chapter-3-1.html">Kap 3.1</a> - vad objektorientering är.</li>
+                    <li><a href="chapter-3-2.html">Kap 3.2</a> - skapa klasser och objekt.</li>
+                    <li><a href="chapter-3-3.html">Kap 3.3</a> - konstruktorer och metoder.</li>
+                    <li><a href="chapter-3-5.html">Kap 3.5</a> - arv och polymorfism.</li>
+                    <li><a href="chapter-3-6.html">Kap 3.6</a> - UML för objektmodeller.</li>
+                </ul>
 
                 <h2>Välj ett av följande projekt</h2>
 
@@ -70,6 +80,7 @@
                     <li>Skapa ett fungerande program med minst två egna klasser.</li>
                     <li>Använda metoder och attribut korrekt.</li>
                     <li>Visa att du förstår syftet med objektorientering.</li>
+                    <li>Arv är inte ett krav för E-nivå, men programmet ska tydligt använda objekt.</li>
                 </ul>
 
                 <h3>För C-nivå</h3>
@@ -93,6 +104,47 @@
                     <li>Har du testat alla funktioner?</li>
                     <li>Är din kod kommenterad?</li>
                     <li>Har du använt arv eller flera objekt om det krävs?</li>
+                </ul>
+
+                <h2>Testfall</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Exempel</th>
+                            <th>Förväntat resultat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Skapa objekt</td>
+                            <td>Skapa en bok, karaktär eller ett recept</td>
+                            <td>Objektet får rätt attribut via <code>__init__</code>.</td>
+                        </tr>
+                        <tr>
+                            <td>Anropa metod</td>
+                            <td>Låna bok, attackera fiende eller visa recept</td>
+                            <td>Metoden ändrar eller visar objektets data korrekt.</td>
+                        </tr>
+                        <tr>
+                            <td>Felaktigt eller oväntat val</td>
+                            <td>Försök låna en bok som inte finns</td>
+                            <td>Programmet ger tydlig återkoppling och kraschar inte.</td>
+                        </tr>
+                        <tr>
+                            <td>Arv, om du använder det</td>
+                            <td><code>Player</code> och <code>Enemy</code> ärver från <code>Character</code></td>
+                            <td>Subklasserna återanvänder basklassens kod och kan ha eget beteende.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2>Det här ska lämnas in</h2>
+                <ul>
+                    <li>Pythonfil eller Pythonfiler med din lösning.</li>
+                    <li>En enkel UML-skiss eller textbeskrivning av dina klasser.</li>
+                    <li>En kort lista över testfall du har provat.</li>
+                    <li>En kort kommentar om hur dina klasser samarbetar.</li>
                 </ul>
             </section>
 
