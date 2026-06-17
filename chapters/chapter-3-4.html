@@ -79,6 +79,65 @@ print(account.get_balance())</code></pre>
 
                 <p>Detta säkerställer att inga negativa uttag kan ske och att balansen skyddas.</p>
 
+                <section class="interactive-exercise" data-exercise="chapter-3-bank-account">
+                    <h2>Interaktiv övning: inkapslat bankkonto</h2>
+                    <p>Välj <code>account1</code> eller <code>account2</code>. Skapa kontot en gång och testa sedan att
+                        sätta in pengar, ta ut pengar och läsa saldot med <code>get_balance()</code>. Varje konto har
+                        sitt eget <code>_balance</code>.</p>
+
+                    <label for="chapter-3-4-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-3-4-code" class="exercise-code" rows="18" spellcheck="false">class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self._balance = balance  # privat attribut
+
+    def deposit(self, amount):
+        if amount > 0:
+            self._balance += amount
+
+    def withdraw(self, amount):
+        if 0 < amount <= self._balance:
+            self._balance -= amount
+
+    def get_balance(self):
+        return self._balance
+
+account = BankAccount("Emma", 1000)
+account.deposit(500)
+account.withdraw(200)
+print(account.get_balance())</textarea>
+
+                    <div class="exercise-controls">
+                        <input id="chapter-3-4-owner" class="exercise-text-input" type="text" value="Emma" aria-label="Ägare">
+                        <input id="chapter-3-4-balance" class="exercise-number-input" type="number" value="1000" aria-label="Startsaldo">
+                    </div>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-3-4-account" class="exercise-select" aria-label="Konto">
+                            <option value="account1">account1</option>
+                            <option value="account2">account2</option>
+                        </select>
+                        <select id="chapter-3-4-action" class="exercise-select" aria-label="Åtgärd">
+                            <option value="create">Skapa valt konto</option>
+                            <option value="deposit">deposit(amount)</option>
+                            <option value="withdraw">withdraw(amount)</option>
+                            <option value="balance">get_balance()</option>
+                        </select>
+                        <input id="chapter-3-4-amount" class="exercise-number-input" type="number" value="500" aria-label="Belopp">
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör åtgärd</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-3-4-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-3-4-result" class="exercise-result">Inget konto är skapat än.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> direkt åtkomst till
+                        <code>_balance</code> undviks. I stället styr metoderna vilka ändringar som är tillåtna.</p>
+                </section>
+
                 <h2>Öva: skapa egna inkapslade attribut</h2>
                 <ol>
                     <li>Skapa en klass <code>Student</code> med namnet publikt och betyg som ett privat attribut <code>_grade</code>.</li>

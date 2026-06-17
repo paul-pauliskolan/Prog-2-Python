@@ -42,6 +42,90 @@
                     <li><strong>Polymorfism:</strong> samma metodnamn kan användas på olika objekt och ge olika resultat.</li>
                 </ul>
 
+                <h2>Begreppen förklarade med exempel</h2>
+                <h3>Arv</h3>
+                <p>Arv betyder att en klass kan få egenskaper och metoder från en annan klass. Om flera klasser har
+                    något gemensamt kan du lägga det gemensamma i en basklass. Då slipper du skriva samma kod flera
+                    gånger.</p>
+                <pre><code>class Animal:
+    def breathe(self):
+        print("Djuret andas.")
+
+class Dog(Animal):
+    def wag_tail(self):
+        print("Hunden viftar på svansen.")
+
+dog = Dog()
+dog.breathe()</code></pre>
+                <p>Klassen <code>Dog</code> har en egen metod, <code>wag_tail()</code>, men ingen egen
+                    <code>breathe()</code>. Objektet kan ändå använda <code>breathe()</code> eftersom <code>Dog</code>
+                    ärver från <code>Animal</code>.</p>
+
+                <h3>Superklass eller basklass</h3>
+                <p>Superklassen, även kallad basklassen, är klassen som andra klasser ärver från. I exemplet ovan är
+                    <code>Animal</code> superklassen. Den beskriver sådant som kan gälla för flera sorters djur.</p>
+                <pre><code>class Animal:
+    def speak(self):
+        print("Djuret låter.")</code></pre>
+                <p>Man kan tänka att <code>Animal</code> är den allmänna modellen. Den behöver inte beskriva exakt hur
+                    varje djur låter, men den ger en gemensam struktur.</p>
+
+                <h3>Subklass</h3>
+                <p>En subklass är en klass som bygger vidare på en superklass. I Python skriver du superklassens namn
+                    inom parentes efter subklassens namn.</p>
+                <pre><code>class Dog(Animal):
+    def wag_tail(self):
+        print("Hunden viftar på svansen.")</code></pre>
+                <p>Här betyder <code>Dog(Animal)</code> att <code>Dog</code> är en subklass till <code>Animal</code>.
+                    <code>Dog</code> kan använda metoder från <code>Animal</code>, men kan också få egna metoder eller
+                    skriva om ärvda metoder.</p>
+
+                <h3>Override</h3>
+                <p>Override betyder att en subklass skriver en egen version av en metod som redan finns i basklassen.
+                    Metoden har samma namn, men beteendet blir annorlunda.</p>
+                <pre><code>class Animal:
+    def speak(self):
+        print("Djuret låter.")
+
+class Dog(Animal):
+    def speak(self):
+        print("Hunden säger voff.")</code></pre>
+                <p>När <code>speak()</code> körs på ett <code>Dog</code>-objekt används hundens version. Basklassens
+                    metod finns fortfarande, men subklassens metod tar över för just <code>Dog</code>.</p>
+
+                <h3>Polymorfism</h3>
+                <p>Polymorfism betyder att samma metodanrop kan användas på flera olika objekt. Programmet behöver inte
+                    veta exakt vilken klass objektet har, så länge objektet har metoden som anropas.</p>
+                <pre><code>animals = [Dog(), Cat(), Bird()]
+
+for animal in animals:
+    animal.speak()</code></pre>
+                <p>Loopen kör alltid <code>animal.speak()</code>. Ändå blir utskriften olika, eftersom <code>Dog</code>,
+                    <code>Cat</code> och <code>Bird</code> har egna versioner av metoden.</p>
+
+                <h3>Skillnaden mellan override och polymorfism</h3>
+                <p><strong>Override</strong> handlar om hur en subklass ändrar en metod. <strong>Polymorfism</strong>
+                    handlar om hur samma metodanrop kan fungera på flera olika objekt.</p>
+                <pre><code>class Animal:
+    def speak(self):
+        print("Djuret låter.")
+
+class Dog(Animal):
+    def speak(self):
+        print("Hunden säger voff.")</code></pre>
+                <p>I koden ovan sker <strong>override</strong>, eftersom <code>Dog</code> skriver en egen version av
+                    <code>speak()</code>. Metoden i <code>Animal</code> finns kvar, men för <code>Dog</code>-objekt
+                    används hundens version.</p>
+                <pre><code>animals = [Dog(), Animal()]
+
+for animal in animals:
+    animal.speak()</code></pre>
+                <p>I loopen ovan ser du <strong>polymorfism</strong>. Samma rad, <code>animal.speak()</code>, körs för
+                    båda objekten. Resultatet blir ändå olika eftersom objekten tillhör olika klasser.</p>
+                <p>En enkel minnesregel är: <strong>override</strong> betyder att subklassen skriver om metoden.
+                    <strong>Polymorfism</strong> betyder att samma metodanrop kan ge olika beteende. Override gör ofta
+                    polymorfism möjlig.</p>
+
                 <h2>Arv i Python</h2>
                 <p>Python använder parenteser för att visa att en klass ärver från en annan:</p>
 
@@ -60,8 +144,9 @@ dog = Dog()
 animal.speak()  # Djuret låter.
 dog.speak()     # Hunden säger voff.</code></pre>
 
-                <p>Här ärver <code>Dog</code> från <code>Animal</code>, men metoden <code>speak()</code> har skrivits om
-                    i subklassen. Det kallas override.</p>
+                <p>Här ärver <code>Dog</code> från <code>Animal</code>. Parentesen i <code>class Dog(Animal):</code>
+                    visar arvet. Eftersom <code>Dog</code> har en egen metod som också heter <code>speak()</code>
+                    används hundens version när <code>dog.speak()</code> körs. Det är override.</p>
 
                 <h2>Polymorfism i praktiken</h2>
                 <pre><code>animals = [Dog(), Animal()]
@@ -70,7 +155,8 @@ for animal in animals:
     animal.speak()</code></pre>
 
                 <p>Alla objekt kan hanteras med samma metodanrop, men svarar på olika sätt beroende på vilken klass de
-                    tillhör.</p>
+                    tillhör. Variabeln <code>animal</code> får först hålla ett <code>Dog</code>-objekt och sedan ett
+                    <code>Animal</code>-objekt. Samma rad, <code>animal.speak()</code>, fungerar för båda.</p>
 
                 <h2>Flera subklasser med polymorfism</h2>
                 <pre><code>class Cat(Animal):
@@ -85,6 +171,60 @@ animals = [Dog(), Cat(), Bird()]
 
 for animal in animals:
     animal.speak()</code></pre>
+
+                <p>I detta exempel är <code>Dog</code>, <code>Cat</code> och <code>Bird</code> olika subklasser till
+                    <code>Animal</code>. De har samma metodnamn, <code>speak()</code>, men varje klass har sin egen
+                    version. Det gör att listan kan innehålla olika typer av objekt utan att loopen behöver specialfall
+                    för hund, katt eller fågel.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-3-inheritance-polymorphism">
+                    <h2>Interaktiv övning: arv och polymorfism</h2>
+                    <p>Välj vilka objekt som ska finnas i listan och kör loopen. Alla objekt anropas med samma metod,
+                        <code>speak()</code>, men utskriften beror på vilken klass objektet tillhör.</p>
+
+                    <label for="chapter-3-5-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-3-5-code" class="exercise-code" rows="22" spellcheck="false">class Animal:
+    def speak(self):
+        print("Djuret låter.")
+
+class Dog(Animal):
+    def speak(self):
+        print("Hunden säger voff.")
+
+class Cat(Animal):
+    def speak(self):
+        print("Katten säger mjau.")
+
+class Bird(Animal):
+    def speak(self):
+        print("Fågeln kvittrar.")
+
+animals = [Dog(), Cat(), Bird()]
+
+for animal in animals:
+    animal.speak()</textarea>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-3-5-mode" class="exercise-select" aria-label="Exempel">
+                            <option value="single">Arv: Animal och Dog</option>
+                            <option value="mixed">Polymorfism: Dog och Animal</option>
+                            <option value="subclasses">Flera subklasser: Dog, Cat och Bird</option>
+                        </select>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör exempel</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-3-5-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-3-5-result" class="exercise-result">Välj ett exempel och tryck på Kör exempel.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> <code>Dog</code>,
+                        <code>Cat</code> och <code>Bird</code> ärver från <code>Animal</code>, men skriver om
+                        <code>speak()</code>. Det är override. När loopen kör <code>animal.speak()</code> används rätt
+                        version automatiskt.</p>
+                </section>
 
                 <h2>Beräkningsexempel med olika former</h2>
                 <pre><code>class Shape:

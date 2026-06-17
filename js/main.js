@@ -1560,6 +1560,309 @@ function runChapterThreeCarConstructorExercise(exercise) {
   resetExercise();
 }
 
+function runChapterThreeBankAccountExercise(exercise) {
+  const accountInput = exercise.querySelector("#chapter-3-4-account");
+  const ownerInput = exercise.querySelector(".exercise-text-input");
+  const balanceInput = exercise.querySelector("#chapter-3-4-balance");
+  const actionInput = exercise.querySelector("#chapter-3-4-action");
+  const amountInput = exercise.querySelector("#chapter-3-4-amount");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!accountInput || !ownerInput || !balanceInput || !actionInput || !amountInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  const accounts = {
+    account1: null,
+    account2: null,
+  };
+  const starterAccounts = {
+    account1: { owner: "Emma", balance: 1000 },
+    account2: { owner: "Pelle", balance: 500 },
+  };
+  const history = [];
+
+  function selectedAccountName() {
+    return accountInput.value;
+  }
+
+  function selectedAccount() {
+    return accounts[selectedAccountName()];
+  }
+
+  function render() {
+    const stateRows = ["", "Objekt just nu:"].concat(
+      Object.keys(accounts).map((name) => {
+        const account = accounts[name];
+        const selectedLabel = name === selectedAccountName() ? "  <- valt konto" : "";
+
+        if (!account) {
+          return name + " är inte skapat" + selectedLabel;
+        }
+
+        return (
+          name +
+          ' = BankAccount("' +
+          account.owner +
+          '", ' +
+          account.startBalance +
+          "), _balance = " +
+          account.balance +
+          selectedLabel
+        );
+      }),
+    );
+
+    result.textContent = history.concat(stateRows).join("\n");
+  }
+
+  function parseAmount(input) {
+    const value = Number.parseFloat(input.value);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  function syncSelectedAccountInputs() {
+    const account = selectedAccount() || starterAccounts[selectedAccountName()];
+    ownerInput.value = account.owner;
+    balanceInput.value = String(account.balance);
+  }
+
+  function resetExercise() {
+    accounts.account1 = null;
+    accounts.account2 = null;
+    accountInput.value = "account1";
+    syncSelectedAccountInputs();
+    amountInput.value = "500";
+    actionInput.value = "create";
+    amountInput.disabled = true;
+    history.length = 0;
+    history.push("Klassen BankAccount är definierad.");
+    history.push("Inget konto är skapat än.");
+    history.push('Nästa steg: account1 = BankAccount("Emma", 1000)');
+    render();
+  }
+
+  button.addEventListener("click", () => {
+    const action = actionInput.value;
+    history.push("");
+
+    if (action === "create") {
+      const objectName = selectedAccountName();
+      const owner = ownerInput.value.trim();
+      const balance = parseAmount(balanceInput);
+
+      if (accounts[objectName]) {
+        history.push(objectName + " är redan skapat. Välj det andra kontot eller tryck på Återställ.");
+      } else if (!owner) {
+        history.push("Skriv en ägare innan du skapar kontot.");
+      } else if (balance === null) {
+        history.push("Startsaldo måste vara ett tal.");
+      } else {
+        const account = { name: objectName, owner, startBalance: balance, balance };
+        accounts[objectName] = account;
+        history.push(objectName + ' = BankAccount("' + owner + '", ' + balance + ")");
+        history.push("__init__ körs:");
+        history.push("self.owner = " + owner);
+        history.push("self._balance = " + balance);
+      }
+
+      render();
+      return;
+    }
+
+    const account = selectedAccount();
+
+    if (!account) {
+      history.push(selectedAccountName() + " finns inte än. Skapa valt konto först.");
+      render();
+      return;
+    }
+
+    if (action === "deposit") {
+      const amount = parseAmount(amountInput);
+      history.push(account.name + ".deposit(" + amountInput.value + ")");
+
+      if (amount === null) {
+        history.push("Beloppet måste vara ett tal.");
+      } else if (amount > 0) {
+        account.balance += amount;
+        history.push("amount > 0 är True, så _balance ökar.");
+      } else {
+        history.push("amount > 0 är False, så _balance ändras inte.");
+      }
+    } else if (action === "withdraw") {
+      const amount = parseAmount(amountInput);
+      history.push(account.name + ".withdraw(" + amountInput.value + ")");
+
+      if (amount === null) {
+        history.push("Beloppet måste vara ett tal.");
+      } else if (amount > 0 && amount <= account.balance) {
+        account.balance -= amount;
+        history.push("0 < amount <= self._balance är True, så _balance minskar.");
+      } else {
+        history.push("Uttaget stoppas eftersom beloppet är ogiltigt eller för högt.");
+      }
+    } else if (action === "balance") {
+      history.push(account.name + ".get_balance()");
+      history.push(String(account.balance));
+    }
+
+    render();
+  });
+
+  accountInput.addEventListener("change", () => {
+    syncSelectedAccountInputs();
+    history.push("");
+    history.push("Valt konto: " + selectedAccountName());
+    render();
+  });
+
+  actionInput.addEventListener("change", () => {
+    amountInput.disabled = actionInput.value === "create" || actionInput.value === "balance";
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterThreeInheritancePolymorphismExercise(exercise) {
+  const modeInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!modeInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  const messages = {
+    Animal: "Djuret låter.",
+    Dog: "Hunden säger voff.",
+    Cat: "Katten säger mjau.",
+    Bird: "Fågeln kvittrar.",
+  };
+
+  function runSpeak(className) {
+    return messages[className] || messages.Animal;
+  }
+
+  function resetExercise() {
+    modeInput.value = "single";
+    result.textContent = "Välj ett exempel och tryck på Kör exempel.";
+  }
+
+  button.addEventListener("click", () => {
+    const mode = modeInput.value;
+    const output = [];
+
+    if (mode === "single") {
+      output.push("animal = Animal()");
+      output.push("dog = Dog()");
+      output.push("");
+      output.push("animal.speak()");
+      output.push(runSpeak("Animal"));
+      output.push("");
+      output.push("dog.speak()");
+      output.push(runSpeak("Dog"));
+      output.push("");
+      output.push("Dog ärver från Animal men skriver om speak(). Det kallas override.");
+    } else if (mode === "mixed") {
+      const animals = ["Dog", "Animal"];
+      output.push("animals = [Dog(), Animal()]");
+      output.push("");
+      animals.forEach((className, index) => {
+        output.push("Varv " + (index + 1) + ": animal är " + className);
+        output.push("animal.speak()");
+        output.push(runSpeak(className));
+      });
+      output.push("");
+      output.push("Samma metodanrop används, men olika klass ger olika utskrift.");
+    } else if (mode === "subclasses") {
+      const animals = ["Dog", "Cat", "Bird"];
+      output.push("animals = [Dog(), Cat(), Bird()]");
+      output.push("");
+      animals.forEach((className, index) => {
+        output.push("Varv " + (index + 1) + ": animal är " + className);
+        output.push("animal.speak()");
+        output.push(runSpeak(className));
+      });
+      output.push("");
+      output.push("Alla tre är subklasser till Animal och har egen speak().");
+    }
+
+    result.textContent = output.join("\n");
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
+function runChapterThreeGenericsExercise(exercise) {
+  const modeInput = exercise.querySelector(".exercise-select");
+  const button = exercise.querySelector(".exercise-run");
+  const resetButton = exercise.querySelector(".exercise-reset");
+  const result = exercise.querySelector(".exercise-result");
+
+  if (!modeInput || !button || !resetButton || !result) {
+    return;
+  }
+
+  function resetExercise() {
+    modeInput.value = "first";
+    result.textContent = "Välj ett exempel och tryck på Kör exempel.";
+  }
+
+  button.addEventListener("click", () => {
+    const output = [];
+
+    if (modeInput.value === "first") {
+      const names = ["Adam", "Bo", "Cia"];
+      const scores = [10, 20, 30];
+
+      output.push('namn = första(["Adam", "Bo", "Cia"])');
+      output.push("T blir str eftersom listan innehåller strängar.");
+      output.push("print(namn)");
+      output.push(names[0]);
+      output.push("");
+      output.push("poäng = första([10, 20, 30])");
+      output.push("T blir int eftersom listan innehåller heltal.");
+      output.push("print(poäng)");
+      output.push(String(scores[0]));
+    } else if (modeInput.value === "contains") {
+      const hasAdam = ["Adam", "Bo"].includes("Adam");
+      const hasThree = [1, 2, 3].includes(3);
+
+      output.push('finns_i("Adam", ["Adam", "Bo"])');
+      output.push("värde och listans innehåll är båda str.");
+      output.push(String(hasAdam));
+      output.push("");
+      output.push("finns_i(3, [1, 2, 3])");
+      output.push("värde och listans innehåll är båda int.");
+      output.push(String(hasThree));
+    } else if (modeInput.value === "register") {
+      const register = [];
+      const book = { titel: "Python" };
+      register.push(book);
+      const firstBook = register[0];
+
+      output.push("bokregister = Register[Bok]()");
+      output.push('bokregister.lägg_till(Bok("Python"))');
+      output.push("första_boken = bokregister.alla()[0]");
+      output.push("print(första_boken.titel)");
+      output.push(firstBook.titel);
+      output.push("");
+      output.push("Register[Bok] visar att registret är tänkt att lagra Bok-objekt.");
+    }
+
+    result.textContent = output.join("\n");
+  });
+
+  resetButton.addEventListener("click", resetExercise);
+  resetExercise();
+}
+
 function runChapterTwoLibraryExercise(exercise) {
   const operationInput = exercise.querySelector(".exercise-select");
   const titleInput = exercise.querySelector(".exercise-title-input");
@@ -1740,4 +2043,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-3-car-constructor"]')
     .forEach(runChapterThreeCarConstructorExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-3-bank-account"]')
+    .forEach(runChapterThreeBankAccountExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-3-inheritance-polymorphism"]')
+    .forEach(runChapterThreeInheritancePolymorphismExercise);
+  document
+    .querySelectorAll('[data-exercise="chapter-3-generics"]')
+    .forEach(runChapterThreeGenericsExercise);
 });
