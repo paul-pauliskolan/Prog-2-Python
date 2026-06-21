@@ -42,6 +42,8 @@
                     <li>skriver ut en topplista baserat på poäng,</li>
                     <li>håller igång tills användaren väljer att avsluta.</li>
                 </ul>
+                <p>Det här är ett bra exempel på problemlösning med listor eftersom programmet måste samla flera
+                    värden, bearbeta dem och sedan presentera dem i en annan ordning än de matades in.</p>
 
                 <h2>Programstruktur</h2>
                 <p>Pseudokod:</p>
@@ -54,6 +56,25 @@ WHILE användaren vill fortsätta:
 
 Sortera listan efter poäng
 Skriv ut topplistan</code></pre>
+
+                <h3>Planera datan först</h3>
+                <p>Innan du skriver funktionerna behöver du bestämma hur varje resultat ska lagras. I exemplet används
+                    en lista med tuples:</p>
+                <pre><code>scores = [
+    ("Alice", 120),
+    ("Bo", 95),
+    ("Cleo", 150)
+]</code></pre>
+                <p>Listan behövs eftersom det finns flera resultat. Varje tuple behövs eftersom namn och poäng hör ihop.
+                    När du planerar ett program med listor bör du alltid fråga: <em>vad är ett element i listan?</em></p>
+                <p class="exercise-note"><strong>Tuple eller dictionary?</strong> En tuple fungerar här eftersom varje
+                    resultat bara består av två värden som inte behöver ändras: namn och poäng. Om programmet senare ska
+                    kunna ändra poäng, lägga till datum eller spara flera uppgifter om spelaren är en dictionary ofta
+                    tydligare.</p>
+                <pre><code>result = {
+    "name": "Alice",
+    "points": 120
+}</code></pre>
 
                 <h2>Kodexempel</h2>
                 <pre><code># Funktion som lägger till ett nytt resultat i listan
@@ -131,6 +152,10 @@ scores.sort(key=get_points, reverse=True)</code></pre>
 
                 <p>Om varje resultat är en tuple som <code>("Alice", 120)</code>, betyder <code>x[0]</code> namnet och
                     <code>x[1]</code> poängen. Därför sorterar <code>lambda x: x[1]</code> efter poäng.</p>
+
+                <p class="exercise-note"><strong>Obs:</strong> <code>scores.sort(...)</code> ändrar listan direkt.
+                    Om du vill behålla originalordningen kan du använda <code>sorted(scores, ...)</code>, som skapar en
+                    ny sorterad lista.</p>
 
                 <section class="interactive-exercise" data-exercise="chapter-2-lambda-sort">
                     <h2>Interaktiv övning: lambda vid sortering</h2>
@@ -257,6 +282,41 @@ main()</textarea>
                     <li>Funktioner används för att strukturera koden.</li>
                 </ul>
 
+                <h2>Testfall och kantfall</h2>
+                <p>Testa inte bara när användaren gör rätt. Ett program med listor behöver också klara tomma listor,
+                    felaktig inmatning och flera värden med samma poäng.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Exempel</th>
+                            <th>Vad du kontrollerar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Vanlig inmatning</td>
+                            <td><code>Alice 120</code>, <code>Bo 95</code>, <code>Cleo 150</code></td>
+                            <td>Högsta poängen skrivs ut först.</td>
+                        </tr>
+                        <tr>
+                            <td>Fel poäng</td>
+                            <td><code>Anna abc</code></td>
+                            <td>Programmet visar felmeddelande i stället för att krascha.</td>
+                        </tr>
+                        <tr>
+                            <td>Tom topplista</td>
+                            <td>Användaren avslutar utan resultat.</td>
+                            <td>Programmet hanterar en tom lista tydligt.</td>
+                        </tr>
+                        <tr>
+                            <td>Samma poäng</td>
+                            <td><code>Ali 100</code>, <code>Sam 100</code></td>
+                            <td>Programmet skriver fortfarande ut båda resultaten.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <h2>Utvidgning</h2>
                 <ul>
                     <li>Lägg till kontroll för dubbletter.</li>
@@ -266,9 +326,11 @@ main()</textarea>
 
                 <h2>Öva själv</h2>
                 <ol>
-                    <li>Skapa en variant av programmet där du lagrar inmatningar som dictionaries i stället för tuples.</li>
+                    <li>Skapa filen <code>kap2-6-topplista.py</code> i din kursmapp.</li>
+                    <li>Skriv först en kort plan: input, bearbetning, output, datastruktur och funktioner.</li>
+                    <li>Bygg ett menyprogram där användaren kan lägga till resultat, visa hela topplistan och avsluta.</li>
                     <li>Lägg till ett val som bara visar de tre bästa resultaten.</li>
-                    <li>Gör programmet flerspråkigt genom att definiera meddelanden som en dictionary.</li>
+                    <li>Testa minst tre kantfall från tabellen och skriv ner vad som händer.</li>
                 </ol>
 
                 <h2>Reflektion</h2>
@@ -305,16 +367,16 @@ main()</textarea>
                             explanation: 'I exemplet kan varje spelares namn och poäng sparas som ett element i listan.'
                         },
                         {
-                            question: 'Vad är fördelen med att spara namn och poäng som en tuple?',
+                            question: 'Varför fungerar en tuple för namn och poäng i det här enkla exemplet?',
                             options: [
-                                'Att värden som hör ihop kan lagras tillsammans',
+                                'För att två värden som hör ihop kan sparas tillsammans när de inte behöver ändras',
                                 'Att programmet inte behöver någon lista',
                                 'Att poängen alltid blir större än 100',
                                 'Att tuple automatiskt skriver ut topplistan'
                             ],
                             correct: 0,
-                            feedback: 'En tuple kan samla flera relaterade värden.',
-                            explanation: 'Exempelvis kan ("Alice", 120) representera en spelares namn och poäng.'
+                            feedback: 'En tuple fungerar när värdena hör ihop och inte behöver ändras.',
+                            explanation: 'Exempelvis kan ("Alice", 120) representera ett enkelt resultat. Om fler fält ska ändras eller namnges är en dictionary ofta tydligare.'
                         },
                         {
                             question: 'Vad gör uttrycket key=lambda x: x[1] vid sortering av resultat?',

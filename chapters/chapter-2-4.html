@@ -46,6 +46,9 @@
 
                 <h3>Åtkomst</h3>
                 <pre><code>print(person["name"])  # Alice</code></pre>
+                <p>Om du försöker hämta en nyckel som inte finns får du <code>KeyError</code>. När du är osäker kan du
+                    använda <code>get()</code> och ange ett standardvärde:</p>
+                <pre><code>print(person.get("email", "Ingen e-post finns"))</code></pre>
 
                 <h3>Ändra eller lägga till</h3>
                 <pre><code>person["age"] = 26
@@ -57,6 +60,17 @@ person["email"] = "alice@example.com"</code></pre>
                 <h3>Loopa genom en dictionary</h3>
                 <pre><code>for key, value in person.items():
     print(f"{key}: {value}")</code></pre>
+
+                <h3>Realistiskt exempel: flera dictionaries i en lista</h3>
+                <p>Ofta använder du dictionaries för objektliknande data och lägger flera sådana dictionaries i en
+                    lista.</p>
+                <pre><code>books = [
+    {"title": "Python", "year": 2024},
+    {"title": "Webbutveckling", "year": 2023}
+]
+
+for book in books:
+    print(book["title"])</code></pre>
 
                 <section class="interactive-exercise" data-exercise="chapter-2-dictionary">
                     <h2>Interaktiv övning: dictionary steg för steg</h2>
@@ -124,6 +138,9 @@ for key, value in person.items():
                 <h2>Vad är en tuple?</h2>
                 <p>En <strong>tuple</strong> är en <strong>ordnad, oföränderlig samling</strong>. Den används när du inte
                     vill att värden ska kunna ändras.</p>
+                <p>Oföränderlig betyder att du inte kan byta ut, lägga till eller ta bort positioner i tuplen. Om en
+                    tuple innehåller ett ändringsbart objekt, till exempel en lista, kan själva listan fortfarande
+                    ändras. Det viktiga här är att tuple-strukturen är fast.</p>
 
                 <pre><code>coordinates = (10, 20)
 print(coordinates[0])  # 10</code></pre>
@@ -211,6 +228,9 @@ print(age)</code></pre>
                     <li><strong>Listor:</strong> ändringsbara, alltså <em>mutable</em>.</li>
                     <li><strong>Tuples:</strong> fasta, alltså <em>immutable</em>.</li>
                 </ul>
+                <p>Använd en tuple när värdena hör ihop och inte ska bytas ut, till exempel en koordinat
+                    <code>(x, y)</code>. Använd en dictionary när varje värde behöver ett tydligt namn, till exempel
+                    <code>{"name": "Alice", "age": 25}</code>.</p>
 
                 <h2>Jämförelse: när används vad?</h2>
                 <table>

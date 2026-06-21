@@ -35,6 +35,9 @@
                     för att få både förståelse och kontroll.</p>
 
                 <h2>Sökning i listor</h2>
+                <p>Sökning betyder att programmet letar efter ett värde i en samling data. Resultatet kan till exempel
+                    vara indexet där värdet finns, eller <code>-1</code> om värdet saknas.</p>
+
                 <h3>Linjär sökning</h3>
                 <p>Linjär sökning går igenom varje element i listan tills rätt värde hittas.</p>
                 <pre><code>def linear_search(lst, target):
@@ -108,6 +111,8 @@ print(linear_search(names, "Bo"))</textarea>
 
                 <h3>Binär sökning</h3>
                 <p>Binär sökning är mycket snabbare, men kräver att listan är <strong>sorterad</strong>.</p>
+                <p class="exercise-note"><strong>Viktigt:</strong> Binär sökning fungerar inte korrekt på en osorterad
+                    lista. Om listan inte är sorterad ska du antingen sortera den först eller använda linjär sökning.</p>
                 <pre><code>def binary_search(lst, target):
     low = 0
     high = len(lst) - 1
@@ -152,9 +157,24 @@ print(binary_search(numbers, 12))  # 3</code></pre>
                     högra delen av listan. Där hittar det <code>12</code> på index <code>3</code>.
                 </p>
 
+                <h3>När ska du använda vilken sökning?</h3>
+                <ul>
+                    <li>Använd <strong>linjär sökning</strong> när listan är liten eller inte sorterad.</li>
+                    <li>Använd <strong>binär sökning</strong> när listan redan är sorterad och du behöver söka snabbt.</li>
+                    <li>I vanliga Pythonprogram använder du ofta inbyggda verktyg först, men egna algoritmer hjälper dig
+                        att förstå vad som händer bakom kulisserna.</li>
+                </ul>
+
                 <h2>Sortering av listor</h2>
                 <h3>Inbyggd sortering</h3>
                 <p>Python gör det enkelt att sortera listor:</p>
+                <p><code>sort()</code> och <code>sorted()</code> använder Pythons inbyggda sortering. Den är snabb,
+                    stabil och optimerad för många vanliga typer av data. I riktiga program ska du därför nästan alltid
+                    använda <code>sort()</code> eller <code>sorted()</code> i stället för att skriva en egen
+                    sorteringsalgoritm från grunden. Läs mer i
+                    <a href="https://docs.python.org/3/howto/sorting.html" target="_blank" rel="noopener noreferrer">Pythons Sorting HOWTO</a>.</p>
+                <p>Skillnaden är att <code>sort()</code> ändrar listan direkt, medan <code>sorted()</code> skapar en ny
+                    sorterad lista och lämnar originalet oförändrat.</p>
                 <pre><code>numbers = [5, 3, 9, 1]
 numbers.sort()  # Ändrar listan direkt
 print(numbers)  # [1, 3, 5, 9]
@@ -204,6 +224,9 @@ print("Efter sort():", names)</textarea>
                 <h3>Egen sortering: bubble sort</h3>
                 <p>Bubble sort används mest i undervisning. Den visar principen för jämförelse och byte, som återkommer i
                     många sorteringsalgoritmer.</p>
+                <p class="exercise-note">I riktiga projekt använder du nästan alltid Pythons inbyggda
+                    <code>sort()</code> eller <code>sorted()</code>. Bubble sort är med här för att visa hur en
+                    sorteringsalgoritm kan byggas upp steg för steg.</p>
                 <pre><code>def bubble_sort(lst):
     for i in range(len(lst)):
         for j in range(0, len(lst) - i - 1):
@@ -251,9 +274,18 @@ print(bubble_sort([9, 3, 7, 1]))</textarea>
                 <ol>
                     <li>Skriv en funktion som söker efter ett namn i en lista med linjär sökning.</li>
                     <li>Använd <code>.sort()</code> för att sortera en lista med användarnamn.</li>
-                    <li>Implementera en egen bubble sort och jämför resultatet med inbyggd sortering.</li>
-                    <li>Skapa ett program som frågar efter 5 tal, sorterar dem och söker efter ett valfritt tal.</li>
+                    <li>Använd <code>sorted()</code> för att skapa en sorterad kopia utan att ändra originallistan.</li>
+                    <li>Skapa ett program som frågar efter 5 tal, sorterar dem med <code>sort()</code> eller
+                        <code>sorted()</code> och söker efter ett valfritt tal.</li>
                 </ol>
+                <p>Testa dina lösningar med flera olika fall:</p>
+                <ul>
+                    <li>värdet finns först i listan</li>
+                    <li>värdet finns sist i listan</li>
+                    <li>värdet finns inte alls</li>
+                    <li>listan är redan sorterad</li>
+                    <li>listan är i omvänd ordning</li>
+                </ul>
 
                 <h2>Reflektion</h2>
                 <ul>

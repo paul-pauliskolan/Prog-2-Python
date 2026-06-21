@@ -54,6 +54,9 @@
                         tuples?</li>
                     <li><strong>Funktioner:</strong> Vilka delar kan delas upp i egna funktioner?</li>
                 </ol>
+                <p>Lägg också till <strong>testfall</strong> i planen. Ett testfall är ett konkret exempel på indata
+                    och vilket resultat du förväntar dig. Testfall hjälper dig att upptäcka om planen saknar något
+                    innan du skriver mycket kod.</p>
 
                 <h2>Exempel: poäng i ett spel</h2>
                 <p>Du vill skapa ett program som hanterar användarens poäng i ett spel. Du kan bryta ner problemet så här:</p>
@@ -102,6 +105,9 @@ print(scores)</code></pre>
                 <h2>Flödesscheman: visualisera logiken</h2>
                 <p>Ett flödesschema gör det enklare att se logiken i ett program. Du använder symboler för att visa start,
                     beslut, process och stopp. Det passar särskilt bra när programmet innehåller flera vägval.</p>
+                <p class="exercise-note">Behöver du repetera grunderna? Läs mer i
+                    <a href="https://paul-pauliskolan.github.io/prog1-python/chapters/chapter-3.html#s35"
+                        target="_blank" rel="noopener noreferrer">Programmering 1, kapitel 3: flödesscheman</a>.</p>
 
                 <h3>Vanliga symboler i flödesscheman</h3>
                 <table>
@@ -173,6 +179,30 @@ print(clothing_advice(temp))</code></pre>
                     returnerar för <code>-5</code>, <code>10</code> och <code>20</code> utan att ändra resten av
                     programmet.</p>
 
+                <h3>Testfall för klädprogrammet</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Input</th>
+                            <th>Förväntat resultat</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>-5</code></td>
+                            <td><code>Ta på vinterjacka</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>10</code></td>
+                            <td><code>Ta på en tröja</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>20</code></td>
+                            <td><code>Ta på t-shirt</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <h2>Att välja rätt struktur</h2>
                 <p>När du planerar en algoritm bör du också tänka på:</p>
                 <ul>
@@ -229,6 +259,31 @@ Vilka variabler, listor, dictionaries eller tuples behövs?
 Funktioner:
 Vilka delar bör bli egna funktioner?</code></pre>
 
+                <h3>Planeringsexempel: menyprogram</h3>
+                <p>Om du ska planera ett menyprogram kan en kort plan se ut så här:</p>
+                <pre><code>Problem:
+Användaren ska kunna lägga till namn, visa alla namn och avsluta.
+
+Input:
+Menyval och namn.
+
+Bearbetning:
+Upprepa menyn tills användaren väljer avsluta.
+Om valet är 1: lägg till namn i listan.
+Om valet är 2: skriv ut alla namn.
+Om valet är 3: avsluta.
+
+Output:
+Meny, bekräftelser och lista med namn.
+
+Datastruktur:
+En lista med namn.
+
+Funktioner:
+print_menu()
+add_name(names)
+show_names(names)</code></pre>
+
                 <h2>Vanliga misstag</h2>
                 <ul>
                     <li>Att börja skriva kod innan problemet är tydligt.</li>
@@ -239,9 +294,12 @@ Vilka delar bör bli egna funktioner?</code></pre>
 
                 <h2>Öva själv</h2>
                 <ol>
-                    <li>Välj ett vardagsproblem, till exempel planera en måltid eller organisera en packlista, och skriv pseudokod som löser det.</li>
+                    <li>Välj ett vardagsproblem, till exempel planera en måltid eller organisera en packlista, och skriv
+                        en plan med rubrikerna i planeringsmallen.</li>
                     <li>Skapa ett flödesschema för en meny med tre alternativ.</li>
-                    <li>Analysera ett tidigare program du skrivit och bryt ner det i tydliga steg.</li>
+                    <li>Skriv minst tre testfall till programmet innan du börjar koda.</li>
+                    <li>Analysera ett tidigare program du skrivit och bryt ner det i input, bearbetning, output,
+                        datastruktur och funktioner.</li>
                 </ol>
 
                 <h2>Reflektion</h2>

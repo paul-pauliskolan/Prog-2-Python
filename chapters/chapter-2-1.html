@@ -38,6 +38,20 @@
                 <p>En algoritm är en <strong>väldefinierad sekvens av steg</strong> som löser ett problem eller utför en
                     uppgift. Det är grunden i varje program, oavsett om du vill sortera tal, beräkna en rabatt eller
                     kontrollera ett lösenord.</p>
+                <p>Exemplen i det här kapitlet är enkla för att visa grundidén. I verkliga program kan algoritmer vara
+                    mycket mer komplicerade, till exempel när de hanterar stora datamängder, söker bästa vägen på en
+                    karta eller rekommenderar innehåll till en användare.</p>
+                <p>En bra algoritm ska vara tydlig nog för att någon annan ska kunna följa den utan att gissa vad som
+                    menas. Den ska också gå att testa med olika indata.</p>
+
+                <h3>En bra algoritm har</h3>
+                <ul>
+                    <li><strong>Indata:</strong> vad algoritmen behöver veta från början.</li>
+                    <li><strong>Steg:</strong> vad som ska hända och i vilken ordning.</li>
+                    <li><strong>Villkor:</strong> vilka beslut som ska fattas.</li>
+                    <li><strong>Resultat:</strong> vad algoritmen ska ge tillbaka eller skriva ut.</li>
+                    <li><strong>Testfall:</strong> exempel som visar att algoritmen fungerar.</li>
+                </ul>
 
                 <h2>Exempel: algoritm i vardagen</h2>
                 <p>Algoritm för att koka kaffe:</p>
@@ -71,6 +85,16 @@ IF number MOD 2 == 0 THEN
 ELSE
     PRINT "Odd"</code></pre>
 
+                <p>Samma idé i Python:</p>
+                <pre><code>number = int(input("Skriv ett tal: "))
+
+if number % 2 == 0:
+    print("Jämnt")
+else:
+    print("Udda")</code></pre>
+                <p>Här betyder <code>%</code> resten vid division. Om resten blir <code>0</code> när talet delas med
+                    <code>2</code>, är talet jämnt.</p>
+
                 <h2>Olika typer av algoritmer</h2>
                 <p>I programmering finns många typer av algoritmer. Här är några du kommer att stöta på:</p>
                 <ul>
@@ -99,13 +123,32 @@ IF age &lt; 18 THEN
 ELSE
     PRINT "No discount"</code></pre>
 
-                <p>Senare i kursen kommer du att översätta sådana algoritmer till Python eller C#.</p>
+                <p>Senare i kursen kommer du att översätta fler sådana algoritmer till Python.</p>
+
+                <h2>Testa en algoritm</h2>
+                <p>En algoritm är inte klar bara för att den låter rimlig. Du behöver testa den med olika exempel.</p>
+                <p>För ungdomsrabatten kan du testa:</p>
+                <ul>
+                    <li>Ålder <code>12</code> - ska ge rabatt.</li>
+                    <li>Ålder <code>17</code> - ska ge rabatt.</li>
+                    <li>Ålder <code>18</code> - ska inte ge rabatt.</li>
+                    <li>Ålder <code>30</code> - ska inte ge rabatt.</li>
+                </ul>
+
+                <h2>Vanliga misstag</h2>
+                <ul>
+                    <li>Stegen är för otydliga, till exempel "räkna ut svaret" utan att beskriva hur.</li>
+                    <li>Villkoret använder fel gräns, till exempel <code>age &lt;= 18</code> när 18-åringar inte ska få rabatt.</li>
+                    <li>Algoritmen saknar vad som ska hända i <code>else</code>-fallet.</li>
+                    <li>Algoritmen testas bara med ett enda värde.</li>
+                </ul>
 
                 <h2>Öva själv</h2>
                 <ol>
-                    <li>Skriv en algoritm i textform som beskriver hur du gör dig redo för skolan.</li>
+                    <li>Skriv en algoritm i textform som kontrollerar om en person får ungdomsrabatt.</li>
                     <li>Skriv pseudokod som beräknar medelvärdet av tre tal.</li>
-                    <li>Skapa ett flödesschema som visar en algoritm för att kontrollera lösenord.</li>
+                    <li>Skriv Pythonkod för algoritmen som kontrollerar om ett tal är jämnt eller udda.</li>
+                    <li>Skapa minst fyra testfall till en egen algoritm.</li>
                 </ol>
 
                 <h2>Reflektion</h2>
