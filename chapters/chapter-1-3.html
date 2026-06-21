@@ -29,9 +29,10 @@
                 </ul>
 
                 <h2>Så här lär du dig bäst</h2>
-                <p>Du har redan använt variabler, villkor och loopar – nu är det dags att börja tänka mer strukturerat.
-                    Fundera över hur du kan dela upp koden så att varje del gör en sak. Läsbar kod är bättre kod.
-                    Kommentera, namnge tydligt och använd funktioner för att undvika upprepning.</p>
+                <p>I Programmering 1 har du lärt dig grunderna i variabler, villkor och loopar. Det kommer vi att
+                    repetera i kommande kapitel, men nu är fokus att börja tänka mer strukturerat. Fundera över hur du
+                    kan dela upp koden så att varje del gör en sak. Läsbar kod är bättre kod. Kommentera, namnge tydligt
+                    och använd funktioner för att undvika upprepning.</p>
 
                 <h2>Varför strukturera kod?</h2>
                 <p>Genom att dela upp programmet i <strong>funktioner</strong> kan du göra koden lättare att förstå,
@@ -52,17 +53,31 @@ def main():
     print(f"The average is {average:.2f}")
 
 main()</code></pre>
+                <p class="exercise-note"><strong>Obs:</strong> Om du får <code>SyntaxError</code> på raden med
+                    <code>print(f"...")</code>, kontrollera att du kör filen med <code>python3 filnamn.py</code> och
+                    inte <code>python filnamn.py</code>. På vissa Mac-datorer pekar <code>python</code> fortfarande på
+                    Python 2.</p>
+                <div class="exercise-note">
+                    <p><strong>I VS Code kan du ändra Python-version så här:</strong></p>
+                    <ol>
+                        <li>Tryck <kbd>Cmd</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>.</li>
+                        <li>Skriv <code>Python: Select Interpreter</code>.</li>
+                        <li>Välj en version som börjar med Python 3, till exempel Python 3.13.7.</li>
+                        <li>Kör filen igen.</li>
+                    </ol>
+                </div>
 
                 <section class="interactive-exercise" data-exercise="chapter-1-average">
                     <h2>Interaktiv övning: beräkna medelvärde</h2>
                     <p>Testa hur programmet använder tre funktioner: en för inmatning, en för beräkning och en
-                        <code>main()</code>-funktion som styr ordningen.
+                        <code>main()</code>-funktion som styr ordningen. Skriv ett tal i taget, precis som i ett
+                        vanligt Python-program.
                     </p>
 
                     <div class="exercise-hint">
                         <h3>Prova till exempel att:</h3>
                         <ul>
-                            <li>skriva tre heltal, till exempel <code>10</code>, <code>20</code> och <code>30</code></li>
+                            <li>starta programmet och skriva första talet när programmet frågar</li>
                             <li>skriva decimaltal med punkt, till exempel <code>7.5</code></li>
                             <li>skriva något som inte är ett tal och se felmeddelandet</li>
                         </ul>
@@ -85,14 +100,13 @@ def main():
 main()</textarea>
 
                     <label for="chapter-1-3-input" class="exercise-label">Inmatning</label>
-                    <textarea id="chapter-1-3-input" class="exercise-input" rows="3" spellcheck="false">10
-20
-30</textarea>
+                    <input id="chapter-1-3-input" class="exercise-text-input exercise-average-input" type="text"
+                        spellcheck="false" placeholder="Starta programmet först" disabled>
 
-                    <button type="button" class="exercise-run">Kör kod</button>
+                    <button type="button" class="exercise-run">Starta program</button>
 
                     <label for="chapter-1-3-result" class="exercise-label">Resultat</label>
-                    <output id="chapter-1-3-result" class="exercise-result">Tryck på Kör kod för att testa programmet.</output>
+                    <output id="chapter-1-3-result" class="exercise-result">Tryck på Starta program för att testa programmet.</output>
 
                     <p class="exercise-note"><strong>Programmering 2-koppling:</strong> funktionen
                         <code>calculate_average()</code> är lätt att testa eftersom den bara tar emot tre tal och
@@ -101,6 +115,21 @@ main()</textarea>
                 </section>
 
                 <h2>Öva själv</h2>
+                <p>Skriv in koden själv i din editor och testa att den fungerar. Skapa först en egen kursmapp för dina
+                    Python-filer, till exempel <code>programmering-2</code>, och döp filerna strukturerat efter kapitel.
+                    För den här lektionen kan filen heta <code>kap1-3.py</code>.</p>
+                <p>När programmet fungerar ska du ändra koden medvetet så att du stoppar in fel och ser vad som händer.
+                    Läs felmeddelandet noggrant och försök förstå vilken rad och vilken typ av fel Python pekar på.</p>
+                <h3>Exempel på fel att testa</h3>
+                <ul>
+                    <li>Ta bort kolon efter <code>def main()</code>.</li>
+                    <li>Ta bort indraget framför en rad inne i en funktion.</li>
+                    <li>Byt <code>float(input(prompt))</code> till <code>float(input)</code>.</li>
+                    <li>Skriv <code>calculate_averge</code> i stället för <code>calculate_average</code>.</li>
+                    <li>Ta bort ett citattecken i en text, till exempel <code>"Enter first number: </code>.</li>
+                    <li>Skriv in text i programmet när det frågar efter ett tal, till exempel <code>hej</code>.</li>
+                    <li>Ändra divisionen från <code>/ 3</code> till <code>/ 0</code>.</li>
+                </ul>
                 <ol>
                     <li>Fråga efter användarens namn och ålder.</li>
                     <li>Beräkna vilket år de fyller 100 år.</li>

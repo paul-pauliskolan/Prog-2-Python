@@ -288,23 +288,46 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function runChapterOneProgrammingExercise(exercise) {
   const code = exercise.querySelector(".exercise-code");
-  const input = exercise.querySelector(".exercise-input");
+  const input = exercise.querySelector(".exercise-console-input");
   const button = exercise.querySelector(".exercise-run");
   const result = exercise.querySelector(".exercise-result");
 
   if (!code || !input || !button || !result) return;
 
-  button.addEventListener("click", () => {
-    const inputRows = input.value.split(/\r?\n/);
-    const name = inputRows[0]?.trim() || "någon";
-    const interest = inputRows[1]?.trim() || "något med kod";
-    const source = code.value;
-    const output = [];
+  const initialMessage = result.textContent;
+  const prompts = {
+    name: "Vad heter du? ",
+    interest: "Vad vill du skapa med kod? ",
+  };
+  const answers = {
+    name: "",
+    interest: "",
+  };
+  const output = [];
+  let step = "ready";
 
-    if (source.includes("input(")) {
-      output.push("Vad heter du? " + name);
-      output.push("Vad vill du skapa med kod? " + interest);
-    }
+  function renderOutput() {
+    result.textContent = output.length ? output.join("\n") : initialMessage;
+  }
+
+  function startProgram() {
+    answers.name = "";
+    answers.interest = "";
+    output.length = 0;
+    step = "name";
+    input.disabled = false;
+    input.value = "";
+    input.placeholder = "Skriv ditt namn";
+    button.textContent = "Skicka svar";
+    output.push(prompts.name);
+    renderOutput();
+    input.focus();
+  }
+
+  function finishProgram() {
+    const source = code.value;
+    const name = answers.name || "någon";
+    const interest = answers.interest || "något med kod";
 
     if (source.includes("Hej")) {
       output.push("Hej " + name + "!");
@@ -314,57 +337,154 @@ function runChapterOneProgrammingExercise(exercise) {
       output.push("Du vill skapa: " + interest);
     }
 
-    result.textContent = output.length
-      ? output.join("\n")
-      : "Programmet kördes, men den här övningen känner bara igen input() och print-raderna i exemplet.";
+    if (!output.length) {
+      output.push(
+        "Programmet kördes, men den här övningen känner bara igen input() och print-raderna i exemplet.",
+      );
+    }
+
+    step = "done";
+    input.disabled = true;
+    input.value = "";
+    input.placeholder = "Programmet är klart";
+    button.textContent = "Kör igen";
+    renderOutput();
+  }
+
+  function submitAnswer() {
+    const answer = input.value.trim();
+
+    if (step === "ready" || step === "done") {
+      startProgram();
+      return;
+    }
+
+    if (step === "name") {
+      answers.name = answer;
+      output[output.length - 1] = prompts.name + (answer || "någon");
+      output.push(prompts.interest);
+      step = "interest";
+      input.value = "";
+      input.placeholder = "Skriv vad du vill skapa";
+      renderOutput();
+      input.focus();
+      return;
+    }
+
+    if (step === "interest") {
+      answers.interest = answer;
+      output[output.length - 1] = prompts.interest + (answer || "något med kod");
+      finishProgram();
+    }
+  }
+
+  button.addEventListener("click", submitAnswer);
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      submitAnswer();
+    }
   });
 }
 
 function runChapterOneAverageExercise(exercise) {
   const code = exercise.querySelector(".exercise-code");
-  const input = exercise.querySelector(".exercise-input");
+  const input = exercise.querySelector(".exercise-average-input");
   const button = exercise.querySelector(".exercise-run");
   const result = exercise.querySelector(".exercise-result");
 
   if (!code || !input || !button || !result) return;
 
-  button.addEventListener("click", () => {
-    const prompts = [
-      "Enter first number: ",
-      "Enter second number: ",
-      "Enter third number: ",
-    ];
-    const inputRows = input.value.split(/\r?\n/);
-    const numbers = prompts.map((prompt, index) => ({
-      prompt,
-      raw: inputRows[index]?.trim() || "",
-      value: Number.parseFloat(inputRows[index]),
-    }));
-    const invalid = numbers.find((number) => Number.isNaN(number.value));
+  const initialMessage = result.textContent;
+  const prompts = [
+    "Enter first number: ",
+    "Enter second number: ",
+    "Enter third number: ",
+  ];
+  const numbers = [];
+  const output = [];
+  let step = -1;
 
-    if (invalid) {
-      result.textContent =
-        invalid.prompt +
-        invalid.raw +
-        "\nValueError: could not convert string to float";
-      return;
-    }
+  function renderOutput() {
+    result.textContent = output.length ? output.join("\n") : initialMessage;
+  }
 
-    const average =
-      (numbers[0].value + numbers[1].value + numbers[2].value) / 3;
-    const output = [];
+  function startProgram() {
+    numbers.length = 0;
+    output.length = 0;
+    step = 0;
+    input.disabled = false;
+    input.value = "";
+    input.placeholder = "Skriv första talet";
+    button.textContent = "Skicka svar";
+    output.push(prompts[step]);
+    renderOutput();
+    input.focus();
+  }
 
-    if (code.value.includes("get_number")) {
-      numbers.forEach((number) => {
-        output.push(number.prompt + number.raw);
-      });
-    }
+  function finishProgram() {
+    const average = (numbers[0] + numbers[1] + numbers[2]) / 3;
 
     if (code.value.includes("calculate_average")) {
       output.push("The average is " + average.toFixed(2));
     }
 
-    result.textContent = output.join("\n");
+    step = prompts.length;
+    input.disabled = true;
+    input.value = "";
+    input.placeholder = "Programmet är klart";
+    button.textContent = "Kör igen";
+    renderOutput();
+  }
+
+  function finishWithError(rawValue) {
+    output[output.length - 1] = prompts[step] + rawValue;
+    output.push("ValueError: could not convert string to float");
+    step = prompts.length;
+    input.disabled = true;
+    input.value = "";
+    input.placeholder = "Programmet stoppade vid felet";
+    button.textContent = "Kör igen";
+    renderOutput();
+  }
+
+  function submitAnswer() {
+    if (step < 0 || step >= prompts.length) {
+      startProgram();
+      return;
+    }
+
+    const rawValue = input.value.trim();
+    const value = Number(rawValue);
+
+    if (rawValue === "" || Number.isNaN(value)) {
+      finishWithError(rawValue);
+      return;
+    }
+
+    numbers.push(value);
+    output[output.length - 1] = prompts[step] + rawValue;
+    step += 1;
+
+    if (step >= prompts.length) {
+      finishProgram();
+      return;
+    }
+
+    output.push(prompts[step]);
+    input.value = "";
+    input.placeholder =
+      step === 1 ? "Skriv andra talet" : "Skriv tredje talet";
+    renderOutput();
+    input.focus();
+  }
+
+  button.addEventListener("click", submitAnswer);
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      submitAnswer();
+    }
   });
 }
 
@@ -447,15 +567,26 @@ function runChapterOneGradeExercise(exercise) {
 }
 
 function runChapterOneLogicalExercise(exercise) {
+  const code = exercise.querySelector(".exercise-code");
   const ageInput = exercise.querySelector(".exercise-number-input");
   const operatorInput = exercise.querySelector(".exercise-select");
   const ticketInput = exercise.querySelector(".exercise-ticket-input");
   const button = exercise.querySelector(".exercise-run");
   const result = exercise.querySelector(".exercise-result");
 
-  if (!ageInput || !operatorInput || !ticketInput || !button || !result) return;
+  if (!code || !ageInput || !operatorInput || !ticketInput || !button || !result) return;
+
+  function updateCodeOperator() {
+    code.value = code.value.replace(
+      /if age >= 18 (and|or) has_ticket == "ja":/,
+      'if age >= 18 ' + operatorInput.value + ' has_ticket == "ja":',
+    );
+  }
+
+  operatorInput.addEventListener("change", updateCodeOperator);
 
   button.addEventListener("click", () => {
+    updateCodeOperator();
     const age = Number.parseInt(ageInput.value, 10);
     const hasTicket = ticketInput.value === "ja";
     const isAdult = Number.isInteger(age) && age >= 18;
@@ -553,46 +684,85 @@ function runChapterOneForSumExercise(exercise) {
 }
 
 function runChapterOneWhilePasswordExercise(exercise) {
-  const input = exercise.querySelector(".exercise-input");
+  const input = exercise.querySelector(".exercise-while-input");
   const button = exercise.querySelector(".exercise-run");
   const result = exercise.querySelector(".exercise-result");
 
   if (!input || !button || !result) return;
 
-  button.addEventListener("click", () => {
-    const attempts = input.value.split(/\r?\n/);
-    const output = [];
-    let granted = false;
+  const initialMessage = result.textContent;
+  const prompt = "Enter password: ";
+  const output = [];
+  let attempts = 0;
+  let running = false;
 
-    for (let index = 0; index < attempts.length; index += 1) {
-      const password = attempts[index].trim();
-      if (!password) continue;
+  function renderOutput() {
+    result.textContent = output.length ? output.join("\n") : initialMessage;
+  }
 
-      output.push("Enter password: " + password);
+  function startProgram() {
+    output.length = 0;
+    attempts = 0;
+    running = true;
+    input.disabled = false;
+    input.value = "";
+    input.placeholder = "Skriv lösenord";
+    button.textContent = "Skicka svar";
+    output.push(prompt);
+    renderOutput();
+    input.focus();
+  }
 
-      if (password === "secret") {
-        output.push("Access granted.");
-        output.push("Loopen avslutades efter " + (index + 1) + " försök.");
-        granted = true;
-        break;
-      }
+  function finishProgram() {
+    output.push("Access granted.");
+    output.push("Loopen avslutades efter " + attempts + " försök.");
+    running = false;
+    input.disabled = true;
+    input.value = "";
+    input.placeholder = "Programmet är klart";
+    button.textContent = "Kör igen";
+    renderOutput();
+  }
+
+  function submitPassword() {
+    if (!running) {
+      startProgram();
+      return;
     }
 
-    if (!granted) {
-      output.push("Loopen skulle fortsätta eftersom rätt lösenord saknas.");
+    const password = input.value.trim();
+    attempts += 1;
+    output[output.length - 1] = prompt + password;
+
+    if (password === "secret") {
+      finishProgram();
+      return;
     }
 
-    result.textContent = output.join("\n");
+    output.push(prompt);
+    input.value = "";
+    input.placeholder = "Försök igen";
+    renderOutput();
+    input.focus();
+  }
+
+  button.addEventListener("click", submitPassword);
+  input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      submitPassword();
+    }
   });
 }
 
 function runChapterOneMenuExercise(exercise) {
   const choiceInput = exercise.querySelector(".exercise-select");
+  const amountInput = exercise.querySelector(".exercise-amount-input");
   const button = exercise.querySelector(".exercise-run");
   const resetButton = exercise.querySelector(".exercise-reset");
   const result = exercise.querySelector(".exercise-result");
 
-  if (!choiceInput || !button || !resetButton || !result) return;
+  if (!choiceInput || !amountInput || !button || !resetButton || !result) return;
 
   let balance = 500;
   let stopped = false;
@@ -617,13 +787,25 @@ function runChapterOneMenuExercise(exercise) {
     history.push("Välj ett alternativ och tryck på Kör val.");
     button.disabled = false;
     choiceInput.disabled = false;
+    updateAmountInputState();
     renderHistory();
   }
+
+  function updateAmountInputState() {
+    amountInput.disabled =
+      stopped || (choiceInput.value !== "2" && choiceInput.value !== "3");
+  }
+
+  choiceInput.addEventListener("change", updateAmountInputState);
 
   button.addEventListener("click", () => {
     if (stopped) return;
 
     const choice = choiceInput.value;
+    const rawAmount = amountInput.value.trim();
+    const amount = Number.parseInt(rawAmount, 10);
+    const validAmount =
+      Number.isInteger(amount) && String(amount) === rawAmount && amount > 0;
 
     if (history.length > 0) {
       history.push("");
@@ -635,16 +817,27 @@ function runChapterOneMenuExercise(exercise) {
     if (choice === "1") {
       history.push("Saldo: " + balance + " kr");
     } else if (choice === "2") {
-      balance += 100;
-      history.push("Du satte in 100 kr.");
+      history.push("Belopp: " + rawAmount);
+      if (!validAmount) {
+        history.push("Skriv ett positivt heltal som belopp.");
+      } else {
+        balance += amount;
+        history.push("Du satte in " + amount + " kr.");
+      }
     } else if (choice === "3") {
-      balance -= 100;
-      history.push("Du tog ut 100 kr.");
+      history.push("Belopp: " + rawAmount);
+      if (!validAmount) {
+        history.push("Skriv ett positivt heltal som belopp.");
+      } else {
+        balance -= amount;
+        history.push("Du tog ut " + amount + " kr.");
+      }
     } else if (choice === "4") {
       history.push("Programmet avslutas med break.");
       stopped = true;
       button.disabled = true;
       choiceInput.disabled = true;
+      updateAmountInputState();
     } else {
       history.push("Ogiltigt val.");
     }

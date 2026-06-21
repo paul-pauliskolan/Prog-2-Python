@@ -927,6 +927,10 @@ blockquote {
   flex: 1 1 14rem;
 }
 
+.exercise-controls .exercise-ticket-input {
+  flex: 0 1 9rem;
+}
+
 .exercise-result {
   display: block;
   min-height: 5rem;

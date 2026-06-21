@@ -187,6 +187,8 @@ if not logged_in:
     print("Boken matchar sökningen.")</code></pre>
                 <p>Det betyder: om sökordet finns i titeln <strong>eller</strong> om sökordet finns i författaren, då
                     räknas boken som en träff.</p>
+                <p class="exercise-note">Du behöver inte förstå hela bibliotekskoden just nu. Poängen är att känna igen
+                    att logiska operatorer som <code>or</code> kommer tillbaka senare i kursen.</p>
 
                 <section class="interactive-exercise" data-exercise="chapter-1-logical">
                     <h2>Interaktiv övning: logiska uttryck</h2>
@@ -218,7 +220,7 @@ else:
                             <option value="and">and - båda måste stämma</option>
                             <option value="or">or - minst en måste stämma</option>
                         </select>
-                        <select class="exercise-ticket-input" aria-label="Har biljett">
+                        <select class="exercise-select exercise-ticket-input" aria-label="Har biljett">
                             <option value="ja">Biljett: ja</option>
                             <option value="nej">Biljett: nej</option>
                         </select>
@@ -231,21 +233,60 @@ else:
                     <p class="exercise-note"><strong>Programmering 2-koppling:</strong> logiska uttryck används när ett
                         program behöver kombinera flera villkor, till exempel vid behörighet, sökning eller validering.
                     </p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken operator, <code>and</code> eller
+                        <code>or</code>, gör att programmet fungerar bäst i verkligheten om personen både måste vara
+                        minst 18 år och ha biljett?</p>
                 </section>
 
                 <h2>Öva själv</h2>
-                <ol>
-                    <li>Skriv en funktion `is_even(number)` som returnerar `True` om ett tal är jämnt.</li>
-                    <li>Skriv en funktion `temperature_message(temp)` som returnerar olika meddelanden beroende på
-                        temperaturen:</li>
+                <section class="interactive-exercise">
+                    <h2>Samlad övning: inträde till evenemang</h2>
+                    <p>Skriv in koden i din editor och spara filen som <code>kap1-4-event.py</code>. Programmet
+                        kontrollerar om en person får komma in på ett kvällsevenemang. Här tränar du på funktioner,
+                        <code>return</code>, <code>if</code>, <code>elif</code>, <code>else</code>,
+                        <code>and</code>, <code>or</code> och <code>not</code> i samma exempel.</p>
+                    <pre><code>def check_entry(age, has_ticket, has_parent, is_blocked):
+    # Skriv villkoren här.
+    # Funktionen ska returnera rätt meddelande.
+    pass
+
+def main():
+    age = int(input("Ålder: "))
+    has_ticket = input("Har biljett? (ja/nej): ") == "ja"
+    has_parent = input("Har vårdnadshavare med? (ja/nej): ") == "ja"
+    is_blocked = input("Är personen avstängd? (ja/nej): ") == "ja"
+
+    message = check_entry(age, has_ticket, has_parent, is_blocked)
+    print(message)
+
+main()</code></pre>
+                    <h3>Programmet ska hantera</h3>
                     <ul>
-                        <li>Över 30: “Too hot!”</li>
-                        <li>20–30: “Comfortable”</li>
-                        <li>Under 20: “Too cold!”</li>
+                        <li>Ogiltig ålder: <code>0</code> eller negativa tal.</li>
+                        <li>Avstängd person.</li>
+                        <li>Person utan biljett.</li>
+                        <li>Person som är minst 18 år och har biljett.</li>
+                        <li>Person som är under 18 år men har biljett och vårdnadshavare med.</li>
+                        <li>Person som är under 18 år, har biljett men saknar vårdnadshavare.</li>
                     </ul>
-                    <li>Skriv ett program som frågar efter ålder och om användaren har studentkort. Programmet ska ge
-                        rabatt om användaren är under 20 <strong>eller</strong> har studentkort.</li>
-                </ol>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li>Ålder <code>20</code>, biljett <code>ja</code>, vårdnadshavare <code>nej</code>, avstängd
+                            <code>nej</code>.</li>
+                        <li>Ålder <code>16</code>, biljett <code>ja</code>, vårdnadshavare <code>ja</code>, avstängd
+                            <code>nej</code>.</li>
+                        <li>Ålder <code>16</code>, biljett <code>ja</code>, vårdnadshavare <code>nej</code>, avstängd
+                            <code>nej</code>.</li>
+                        <li>Ålder <code>20</code>, biljett <code>nej</code>, vårdnadshavare <code>nej</code>, avstängd
+                            <code>nej</code>.</li>
+                        <li>Ålder <code>20</code>, biljett <code>ja</code>, vårdnadshavare <code>nej</code>, avstängd
+                            <code>ja</code>.</li>
+                        <li>Ålder <code>0</code> eller <code>-3</code>.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Var används <code>and</code>, <code>or</code>
+                        och <code>not</code>? Varför ligger kontrollen för avstängd person före kontrollen för biljett?
+                    </p>
+                </section>
 
                 <h2>Reflektion</h2>
                 <ul>
