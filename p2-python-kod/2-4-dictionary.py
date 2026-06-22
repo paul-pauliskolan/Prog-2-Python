@@ -1,10 +1,10 @@
 person = {
-    "name": "Alice",
+    "name": "Anna",
     "age": 25,
     "city": "Stockholm"
 }
 
-print(person["name"])  # Alice
+print(person["name"])  # Anna
 
 person["age"] = 26
 person["email"] = "alice@example.com"

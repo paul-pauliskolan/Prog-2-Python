@@ -1209,7 +1209,7 @@ function runChapterTwoDictionaryExercise(exercise) {
 
   function resetDictionary() {
     person = {
-      name: "Alice",
+      name: "Anna",
       age: 25,
       city: "Stockholm",
     };
@@ -1367,7 +1367,7 @@ function runChapterTwoLambdaSortExercise(exercise) {
 
     if (scores.length === 0 || invalid) {
       result.textContent =
-        "Skriv resultat som namn:poäng, till exempel Alice:120, Bo:95.";
+        "Skriv resultat som namn:poäng, till exempel Anna:120, Erik:95.";
       return;
     }
 

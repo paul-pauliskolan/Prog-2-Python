@@ -61,9 +61,9 @@ Skriv ut topplistan</code></pre>
                 <p>Innan du skriver funktionerna behöver du bestämma hur varje resultat ska lagras. I exemplet används
                     en lista med tuples:</p>
                 <pre><code>scores = [
-    ("Alice", 120),
-    ("Bo", 95),
-    ("Cleo", 150)
+    ("Anna", 120),
+    ("Erik", 95),
+    ("Sara", 150)
 ]</code></pre>
                 <p>Listan behövs eftersom det finns flera resultat. Varje tuple behövs eftersom namn och poäng hör ihop.
                     När du planerar ett program med listor bör du alltid fråga: <em>vad är ett element i listan?</em></p>
@@ -72,7 +72,7 @@ Skriv ut topplistan</code></pre>
                     kunna ändra poäng, lägga till datum eller spara flera uppgifter om spelaren är en dictionary ofta
                     tydligare.</p>
                 <pre><code>result = {
-    "name": "Alice",
+    "name": "Anna",
     "points": 120
 }</code></pre>
 
@@ -130,7 +130,7 @@ main()</code></pre>
                     <li><code>add_score(scores)</code> anropas och får listan <code>scores</code> som argument.</li>
                     <li>I <code>add_score()</code> frågar programmet efter namn och poäng.</li>
                     <li><code>int(input(...))</code> försöker göra om poängen till ett heltal.</li>
-                    <li>Om det lyckas sparas resultatet som en tuple, till exempel <code>("Alice", 120)</code>.</li>
+                    <li>Om det lyckas sparas resultatet som en tuple, till exempel <code>("Anna", 120)</code>.</li>
                     <li>Om användaren skriver något som inte är ett heltal fångas felet av <code>except ValueError</code>.</li>
                     <li>Efter varje inmatning frågar programmet om användaren vill fortsätta.</li>
                     <li>Om svaret inte är <code>j</code> körs <code>break</code>, och loopen avslutas.</li>
@@ -150,7 +150,7 @@ main()</code></pre>
 
 scores.sort(key=get_points, reverse=True)</code></pre>
 
-                <p>Om varje resultat är en tuple som <code>("Alice", 120)</code>, betyder <code>x[0]</code> namnet och
+                <p>Om varje resultat är en tuple som <code>("Anna", 120)</code>, betyder <code>x[0]</code> namnet och
                     <code>x[1]</code> poängen. Därför sorterar <code>lambda x: x[1]</code> efter poäng.</p>
 
                 <p class="exercise-note"><strong>Obs:</strong> <code>scores.sort(...)</code> ändrar listan direkt.
@@ -171,7 +171,7 @@ scores.sort(key=get_points, reverse=True)</code></pre>
                     </div>
 
                     <label for="chapter-2-6-lambda-code" class="exercise-label">Kod</label>
-                    <textarea id="chapter-2-6-lambda-code" class="exercise-code" rows="9" spellcheck="false">scores = [("Alice", 120), ("Bo", 95), ("Cleo", 150)]
+                    <textarea id="chapter-2-6-lambda-code" class="exercise-code" rows="9" spellcheck="false">scores = [("Anna", 120), ("Erik", 95), ("Sara", 150)]
 
 # Sortera efter namn
 sorted_by_name = sorted(scores, key=lambda x: x[0])
@@ -181,7 +181,7 @@ sorted_by_points = sorted(scores, key=lambda x: x[1], reverse=True)</textarea>
 
                     <label class="exercise-label">Inmatning</label>
                     <div class="exercise-controls">
-                        <input class="exercise-text-input" type="text" value="Alice:120, Bo:95, Cleo:150" aria-label="Resultatlista">
+                        <input class="exercise-text-input" type="text" value="Anna:120, Erik:95, Sara:150" aria-label="Resultatlista">
                         <select class="exercise-select" aria-label="Sortera efter">
                             <option value="points">lambda x: x[1] - sortera efter poäng</option>
                             <option value="name">lambda x: x[0] - sortera efter namn</option>
@@ -201,8 +201,8 @@ sorted_by_points = sorted(scores, key=lambda x: x[1], reverse=True)</textarea>
                     <div class="exercise-hint">
                         <h3>Prova till exempel att:</h3>
                         <ul>
-                            <li>lägga till <code>Alice</code> med <code>120</code> poäng</li>
-                            <li>lägga till <code>Bo</code> med <code>95</code> poäng</li>
+                            <li>lägga till <code>Anna</code> med <code>120</code> poäng</li>
+                            <li>lägga till <code>Erik</code> med <code>95</code> poäng</li>
                             <li>skriva ut topplistan och se högsta poängen först</li>
                             <li>skriva text i poängfältet och se hur felhanteringen fungerar</li>
                         </ul>
@@ -262,7 +262,7 @@ main()</textarea>
                             <option value="show">Skriv ut topplista</option>
                             <option value="reset">Töm listan</option>
                         </select>
-                        <input class="exercise-text-input" type="text" value="Alice" aria-label="Namn">
+                        <input class="exercise-text-input" type="text" value="Anna" aria-label="Namn">
                         <input class="exercise-score-input" type="text" value="120" aria-label="Poäng">
                         <button type="button" class="exercise-run">Kör val</button>
                     </div>
@@ -296,7 +296,7 @@ main()</textarea>
                     <tbody>
                         <tr>
                             <td>Vanlig inmatning</td>
-                            <td><code>Alice 120</code>, <code>Bo 95</code>, <code>Cleo 150</code></td>
+                            <td><code>Anna 120</code>, <code>Erik 95</code>, <code>Sara 150</code></td>
                             <td>Högsta poängen skrivs ut först.</td>
                         </tr>
                         <tr>
@@ -311,7 +311,7 @@ main()</textarea>
                         </tr>
                         <tr>
                             <td>Samma poäng</td>
-                            <td><code>Ali 100</code>, <code>Sam 100</code></td>
+                            <td><code>Oskar 100</code>, <code>Maja 100</code></td>
                             <td>Programmet skriver fortfarande ut båda resultaten.</td>
                         </tr>
                     </tbody>
@@ -332,6 +332,12 @@ main()</textarea>
                     <li>Lägg till ett val som bara visar de tre bästa resultaten.</li>
                     <li>Testa minst tre kantfall från tabellen och skriv ner vad som händer.</li>
                 </ol>
+                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
+                    <a href="../p2-python-kod/kap2-6-topplista-losningsforslag.py" download>kap2-6-topplista-losningsforslag.py</a>
+                </p>
+                <p class="exercise-note">Lösningsförslaget använder en lista med dictionaries eftersom varje resultat
+                    får tydliga nycklar: <code>name</code> och <code>points</code>. Det gör programmet lättare att bygga
+                    vidare på än om varje resultat bara sparas som en tuple.</p>
 
                 <h2>Reflektion</h2>
                 <ul>
@@ -376,7 +382,7 @@ main()</textarea>
                             ],
                             correct: 0,
                             feedback: 'En tuple fungerar när värdena hör ihop och inte behöver ändras.',
-                            explanation: 'Exempelvis kan ("Alice", 120) representera ett enkelt resultat. Om fler fält ska ändras eller namnges är en dictionary ofta tydligare.'
+                            explanation: 'Exempelvis kan ("Anna", 120) representera ett enkelt resultat. Om fler fält ska ändras eller namnges är en dictionary ofta tydligare.'
                         },
                         {
                             question: 'Vad gör uttrycket key=lambda x: x[1] vid sortering av resultat?',

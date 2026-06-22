@@ -39,13 +39,13 @@
                     nyckel är unik. Den används när du vill koppla ett värde till ett specifikt namn eller en identitet.</p>
 
                 <pre><code>person = {
-    "name": "Alice",
+    "name": "Anna",
     "age": 25,
     "city": "Stockholm"
 }</code></pre>
 
                 <h3>Åtkomst</h3>
-                <pre><code>print(person["name"])  # Alice</code></pre>
+                <pre><code>print(person["name"])  # Anna</code></pre>
                 <p>Om du försöker hämta en nyckel som inte finns får du <code>KeyError</code>. När du är osäker kan du
                     använda <code>get()</code> och ange ett standardvärde:</p>
                 <pre><code>print(person.get("email", "Ingen e-post finns"))</code></pre>
@@ -90,7 +90,7 @@ for book in books:
 
                     <label for="chapter-2-4-dict-code" class="exercise-label">Kod</label>
                     <textarea id="chapter-2-4-dict-code" class="exercise-code" rows="18" spellcheck="false">person = {
-    "name": "Alice",
+    "name": "Anna",
     "age": 25,
     "city": "Stockholm"
 }
@@ -118,14 +118,14 @@ for key, value in person.items():
                             <option value="loop">Loopa genom dictionaryn</option>
                         </select>
                         <input class="exercise-key-input" type="text" value="name" aria-label="Nyckel">
-                        <input class="exercise-value-input" type="text" value="Alice" aria-label="Värde">
+                        <input class="exercise-value-input" type="text" value="Anna" aria-label="Värde">
                         <button type="button" class="exercise-run">Kör val</button>
                         <button type="button" class="exercise-reset">Starta om</button>
                     </div>
 
                     <label for="chapter-2-4-dict-result" class="exercise-label">Resultat</label>
                     <output id="chapter-2-4-dict-result" class="exercise-result">person = {
-    'name': 'Alice',
+    'name': 'Anna',
     'age': 25,
     'city': 'Stockholm'
 }</output>
@@ -158,11 +158,11 @@ print(y)  # 20</code></pre>
 
                 <p>Det här är samma idé som när en funktion returnerar flera värden:</p>
                 <pre><code>def get_user():
-    return ("Alice", 25)
+    return ("Anna", 25)
 
 name, age = get_user()
 
-print(name)  # Alice
+print(name)  # Anna
 print(age)   # 25</code></pre>
 
                 <section class="interactive-exercise" data-exercise="chapter-2-tuple">
@@ -217,7 +217,7 @@ coordinates[0] = 99</textarea>
                 <p>Tuples används ofta för att returnera flera värden från en funktion. Då kan mottagaren packa upp
                     värdena direkt i tydliga variabler:</p>
                 <pre><code>def get_user():
-    return ("Alice", 25)
+    return ("Anna", 25)
 
 name, age = get_user()
 print(name)
@@ -230,7 +230,7 @@ print(age)</code></pre>
                 </ul>
                 <p>Använd en tuple när värdena hör ihop och inte ska bytas ut, till exempel en koordinat
                     <code>(x, y)</code>. Använd en dictionary när varje värde behöver ett tydligt namn, till exempel
-                    <code>{"name": "Alice", "age": 25}</code>.</p>
+                    <code>{"name": "Anna", "age": 25}</code>.</p>
 
                 <h2>Jämförelse: när används vad?</h2>
                 <table>

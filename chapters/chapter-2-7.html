@@ -42,6 +42,23 @@
                     <li>Skriva ut hela katalogen i alfabetisk ordning efter titel.</li>
                 </ol>
 
+                <h3>Det här bygger på tidigare kapitel</h3>
+                <p>Uppgiften ska kunna lösas med sådant som redan har gåtts igenom:</p>
+                <ul>
+                    <li><strong>Kap 1.3:</strong> funktioner och tydlig kodstruktur.</li>
+                    <li><strong>Kap 1.4:</strong> villkor med <code>if</code>, <code>elif</code>, <code>else</code> och
+                        logiska operatorer som <code>or</code>.</li>
+                    <li><strong>Kap 1.5:</strong> loopar och menyprogram med <code>while</code>.</li>
+                    <li><strong>Kap 1.6:</strong> enkel felhantering om du vill kontrollera årtal.</li>
+                    <li><strong>Kap 2.2:</strong> listor och <code>append()</code>.</li>
+                    <li><strong>Kap 2.3:</strong> sökning och sortering med <code>sorted()</code>.</li>
+                    <li><strong>Kap 2.4:</strong> dictionaries.</li>
+                    <li><strong>Kap 2.5:</strong> planering, pseudokod och testfall.</li>
+                    <li><strong>Kap 2.6:</strong> problemlösning med listor och dictionaries.</li>
+                </ul>
+                <p class="exercise-note">Du behöver inte spara böckerna till en fil i den här uppgiften. Datan får
+                    försvinna när programmet avslutas.</p>
+
                 <h2>Förslag på struktur</h2>
                 <p>Pseudokod:</p>
                 <pre><code>Skapa tom lista för böcker som dictionaries
@@ -130,9 +147,10 @@ for book in catalog:
                     <li>Om boken matchar läggs den till i <code>found</code>.</li>
                 </ol>
 
-                <h3>Del 6: Samma sökning med list comprehension</h3>
-                <p>List comprehension är ett kortare sätt att skapa en ny lista från en befintlig lista. Den här raden
-                    gör samma sak som loopen i del 5.</p>
+                <h3>Del 6: Kortare sökning, om du vill</h3>
+                <p>Du kan lösa uppgiften med den vanliga loopen i del 5. Om du vill kan du också använda list
+                    comprehension, som är ett kortare sätt att skapa en ny lista från en befintlig lista. Det är inte ett
+                    krav i övningen.</p>
                 <pre><code>found = [
     book for book in catalog
     if query in book["title"].lower() or query in book["author"].lower()
@@ -187,10 +205,11 @@ for book in catalog:
 def search_books(catalog):
     query = input("Sök titel eller författare: ").lower()
 
-    found = [
-        book for book in catalog
-        if query in book["title"].lower() or query in book["author"].lower()
-    ]
+    found = []
+
+    for book in catalog:
+        if query in book["title"].lower() or query in book["author"].lower():
+            found.append(book)
 
     for book in found:
         print(f"{book['title']} av {book['author']} ({book['year']})")
@@ -249,10 +268,11 @@ main()</code></pre>
 def search_books(catalog):
     query = input("Sök titel eller författare: ").lower()
 
-    found = [
-        book for book in catalog
-        if query in book["title"].lower() or query in book["author"].lower()
-    ]
+    found = []
+
+    for book in catalog:
+        if query in book["title"].lower() or query in book["author"].lower():
+            found.append(book)
 
     for book in found:
         print(f"{book['title']} av {book['author']} ({book['year']})")
@@ -299,6 +319,53 @@ def print_catalog(catalog):
                         <strong>Svårare extrautmaning:</strong> lägg till ett menyval som ändrar årtal på en bok.
                     </li>
                 </ol>
+
+                <h2>Öva själv</h2>
+                <p>Skapa en Python-fil som heter <code>kap2-7-bibliotek.py</code>. Filen ska innehålla:</p>
+                <ul>
+                    <li>en kort plan som kommentarer högst upp: input, bearbetning, output, datastruktur och funktioner,</li>
+                    <li>en lista som lagrar böcker,</li>
+                    <li>böcker sparade som dictionaries med titel, författare och år,</li>
+                    <li>en meny där användaren kan lägga till bok, söka bok, visa alla böcker och avsluta,</li>
+                    <li>minst tre egna funktioner, till exempel <code>add_book()</code>, <code>search_books()</code> och
+                        <code>print_catalog()</code>,</li>
+                    <li>sortering efter titel när hela katalogen visas,</li>
+                    <li>minst tre testfall som kommentarer längst ner i filen.</li>
+                </ul>
+
+                <h3>Testfall att prova</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Test</th>
+                            <th>Vad du ska kontrollera</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lägg till två böcker och visa alla</td>
+                            <td>Böckerna visas i alfabetisk ordning efter titel.</td>
+                        </tr>
+                        <tr>
+                            <td>Sök på en del av en titel</td>
+                            <td>Rätt bok visas även om du bara skriver en del av titeln.</td>
+                        </tr>
+                        <tr>
+                            <td>Sök på en författare</td>
+                            <td>Alla böcker av den författaren visas.</td>
+                        </tr>
+                        <tr>
+                            <td>Sök på något som inte finns</td>
+                            <td>Programmet bör visa ett tydligt meddelande.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p class="exercise-note">Extrautmaningarna är frivilliga. Bygg hellre ett tydligt fungerande
+                    grundprogram än ett större program där grundkraven inte fungerar.</p>
+                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
+                    <a href="../p2-python-kod/kap2-7-bibliotek-losningsforslag.py" download>kap2-7-bibliotek-losningsforslag.py</a>
+                </p>
 
                 <h2>Reflektion</h2>
                 <ul>

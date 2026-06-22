@@ -215,10 +215,10 @@ lib = Library()
 
 lib.add_book("1984", "George Orwell")
 lib.add_book("Sagan om ringen", "J.R.R. Tolkien")
-lib.register_member("Ali")
+lib.register_member("Oskar")
 
 book1 = lib.find_book("1984")
-member = lib.find_member("Ali")
+member = lib.find_member("Oskar")
 
 if book1 and member:
     member.borrow_book(book1)

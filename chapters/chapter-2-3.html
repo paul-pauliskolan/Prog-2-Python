@@ -47,7 +47,7 @@
 
     return -1
 
-names = ["Anna", "Bo", "Cleo"]
+names = ["Anna", "Bo", "Sara"]
 print(linear_search(names, "Bo"))  # 1</code></pre>
 
                 <p><strong>Fördel:</strong> fungerar alltid. <strong>Nackdel:</strong> kan bli långsam för stora listor.</p>
@@ -68,7 +68,7 @@ print(linear_search(names, "Bo"))  # 1</code></pre>
                         värdet inte finns i listan.</li>
                 </ol>
 
-                <p>I exemplet är listan <code>["Anna", "Bo", "Cleo"]</code> och vi söker efter <code>"Bo"</code>.
+                <p>I exemplet är listan <code>["Anna", "Bo", "Sara"]</code> och vi söker efter <code>"Bo"</code>.
                     Programmet jämför först <code>"Anna"</code> på index <code>0</code>. Det är fel. Sedan jämför det
                     <code>"Bo"</code> på index <code>1</code>. Det är rätt, därför returnerar funktionen
                     <code>1</code>.
@@ -82,7 +82,7 @@ print(linear_search(names, "Bo"))  # 1</code></pre>
                         <h3>Prova till exempel att:</h3>
                         <ul>
                             <li>söka efter <code>Bo</code> och se att sökningen stannar på index <code>1</code></li>
-                            <li>söka efter <code>Cleo</code> och se att fler jämförelser behövs</li>
+                            <li>söka efter <code>Sara</code> och se att fler jämförelser behövs</li>
                             <li>söka efter ett namn som inte finns</li>
                         </ul>
                     </div>
@@ -95,12 +95,12 @@ print(linear_search(names, "Bo"))  # 1</code></pre>
 
     return -1
 
-names = ["Anna", "Bo", "Cleo"]
+names = ["Anna", "Bo", "Sara"]
 print(linear_search(names, "Bo"))</textarea>
 
                     <label class="exercise-label">Inmatning</label>
                     <div class="exercise-controls">
-                        <input class="exercise-text-input" type="text" value="Anna, Bo, Cleo" aria-label="Lista med namn">
+                        <input class="exercise-text-input" type="text" value="Anna, Bo, Sara" aria-label="Lista med namn">
                         <input class="exercise-search-input" type="text" value="Bo" aria-label="Sök efter namn">
                         <button type="button" class="exercise-run">Kör sökning</button>
                     </div>

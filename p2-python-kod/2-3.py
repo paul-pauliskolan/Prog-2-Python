@@ -6,7 +6,7 @@ def linear_search(lst, target):
 
     return -1
 
-names = ["Anna", "Bo", "Cleo"]
+names = ["Anna", "Bo", "Sara"]
 print(linear_search(names, "Bo"))  # 1
 
 #Binär sökning
