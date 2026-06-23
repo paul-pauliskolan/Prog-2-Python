@@ -37,47 +37,91 @@
                 <ul>
                     <li><strong>Inkapsling:</strong> att dölja objektets inre data och endast ge åtkomst via metoder.</li>
                     <li><strong>Publikt attribut:</strong> ett fält som kan nås direkt utifrån.</li>
-                    <li><strong>Privat attribut:</strong> ett fält som är avsett att döljas, ofta skrivet med ett inledande understreck.</li>
-                    <li><strong>Getter och setter:</strong> metoder som används för att läsa eller ändra privata fält.</li>
+                    <li><strong>Privat eller internt attribut:</strong> ett fält som är avsett att användas inuti klassen,
+                        ofta skrivet med ett inledande understreck.</li>
+                    <li><strong>Läsa via metod:</strong> att hämta ett värde med en metod, till exempel
+                        <code>get_balance()</code>.</li>
+                    <li><strong>Ändra via metod:</strong> att ändra ett värde med en metod som först kontrollerar om
+                        ändringen är tillåten, till exempel <code>deposit()</code> eller <code>withdraw()</code>.</li>
+                    <li><strong>Getter och setter:</strong> vanliga namn på metoder som läser eller ändrar privata fält.</li>
                 </ul>
 
                 <p>Inkapsling är en grundsten i OOP eftersom det skyddar objektets inre tillstånd och minskar risken för
                     fel. Det gör också din kod tydligare och mer kontrollerad.</p>
 
-                <h2>Använda inkapsling i Python</h2>
-                <p>I Python är inget egentligen helt privat, men det är praxis att markera ett attribut som privat med ett
-                    inledande understreck: <code>_</code>.</p>
+                <h2>Problemet: attribut kan ändras direkt</h2>
+                <p>I tidigare kapitel har du ändrat attribut direkt, till exempel <code>car1.year = 2023</code>. Det kan
+                    fungera i enkla exempel. Problemet är att ett attribut också kan få ett orimligt värde om inget
+                    kontrollerar ändringen.</p>
 
                 <pre><code>class BankAccount:
     def __init__(self, owner, balance):
         self.owner = owner
+        self.balance = balance
+
+account = BankAccount("Emma", 1000)
+print(account.balance)
+
+account.balance = -999
+print(account.balance)</code></pre>
+
+                <p>Här kan saldot bli negativt direkt utifrån. Objektet får ingen chans att säga nej. Det är just detta
+                    inkapsling försöker lösa.</p>
+
+                <h2>Lösningen: styr ändringar med metoder</h2>
+                <p>I Python är inget egentligen helt privat, men det är praxis att markera ett internt attribut med ett
+                    inledande understreck: <code>_</code>. Det betyder: använd inte detta direkt utifrån, utan gå via
+                    klassens metoder.</p>
+
+                <pre><code>class BankAccount:
+    def __init__(self, owner, balance):
+        # Publikt attribut: kan läsas direkt.
+        self.owner = owner
+
+        # Internt attribut: ska ändras via metoder.
         self._balance = balance  # privat attribut
 
     def deposit(self, amount):
+        # Sätt bara in positiva belopp.
         if amount &gt; 0:
             self._balance += amount
 
     def withdraw(self, amount):
+        # Ta bara ut pengar om beloppet är positivt
+        # och det finns tillräckligt med pengar.
         if 0 &lt; amount &lt;= self._balance:
             self._balance -= amount
+        else:
+            print("Uttaget nekas. Du får inte övertrassera kontot.")
 
     def get_balance(self):
-        return self._balance</code></pre>
+        # Läs saldot via en metod.
+        return self._balance
+
+account = BankAccount("Emma", 1000)
+
+print(account.get_balance())
+
+account.deposit(500)
+print(account.get_balance())
+
+account.withdraw(200)
+print(account.get_balance())</code></pre>
 
                 <p>Här används metoderna <code>deposit()</code>, <code>withdraw()</code> och
                     <code>get_balance()</code> för att hantera saldot på ett kontrollerat sätt.</p>
+                <p><code>owner</code> är publikt och kan läsas direkt. <code>_balance</code> är däremot markerat som
+                    internt. Det går tekniskt att skriva <code>account._balance</code> i Python, men understrecket
+                    betyder att annan kod inte ska använda attributet direkt.</p>
                 <p>En setter är användbar när du vill kontrollera ett nytt värde innan det sparas i objektet. Du kan
                     till exempel stoppa negativa tal, för höga betyg eller andra ogiltiga värden innan de ändrar
                     objektets tillstånd.</p>
 
-                <pre><code>account = BankAccount("Emma", 1000)
+                <p class="exercise-note"><strong>Enklare sagt:</strong> först lärde du dig att objekt kan ha attribut.
+                    Nu lär du dig att objekt också bör få bestämma hur attributen får ändras.</p>
 
-account.deposit(500)
-account.withdraw(200)
-
-print(account.get_balance())</code></pre>
-
-                <p>Detta säkerställer att inga negativa uttag kan ske och att balansen skyddas.</p>
+                <p>Utskrifterna visar hur saldot ändras steg för steg: först startvärdet, sedan efter insättning och
+                    sist efter uttag. Metoderna säkerställer att ogiltiga belopp inte ändrar saldot.</p>
 
                 <section class="interactive-exercise" data-exercise="chapter-3-bank-account">
                     <h2>Interaktiv övning: inkapslat bankkonto</h2>
@@ -86,24 +130,38 @@ print(account.get_balance())</code></pre>
                         sitt eget <code>_balance</code>.</p>
 
                     <label for="chapter-3-4-code" class="exercise-label">Kod</label>
-                    <textarea id="chapter-3-4-code" class="exercise-code" rows="18" spellcheck="false">class BankAccount:
+                    <textarea id="chapter-3-4-code" class="exercise-code" rows="29" spellcheck="false">class BankAccount:
     def __init__(self, owner, balance):
+        # Publikt attribut: kan läsas direkt.
         self.owner = owner
+
+        # Internt attribut: ska ändras via metoder.
         self._balance = balance  # privat attribut
 
     def deposit(self, amount):
+        # Sätt bara in positiva belopp.
         if amount > 0:
             self._balance += amount
 
     def withdraw(self, amount):
+        # Ta bara ut pengar om beloppet är positivt
+        # och det finns tillräckligt med pengar.
         if 0 < amount <= self._balance:
             self._balance -= amount
+        else:
+            print("Uttaget nekas. Du får inte övertrassera kontot.")
 
     def get_balance(self):
+        # Läs saldot via en metod.
         return self._balance
 
 account = BankAccount("Emma", 1000)
+
+print(account.get_balance())
+
 account.deposit(500)
+print(account.get_balance())
+
 account.withdraw(200)
 print(account.get_balance())</textarea>
 
