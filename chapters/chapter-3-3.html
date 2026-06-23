@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 3.3 - Konstruktorer och metoder</title>
+    <title>Kap 3.3 - Metoder som ändrar objekt</title>
     <link rel="stylesheet" href="../css/style.css">
-    <meta name="description" content="Kap 3.3: Konstruktorer, self, instansvariabler och metoder i Python-klasser.">
+    <meta name="description" content="Kap 3.3: Metoder som läser, ändrar och kontrollerar objektets data.">
 </head>
 
 <body class="chapter-page">
@@ -15,37 +15,39 @@
         <article class="chapter-main">
             <header class="chapter-hero">
                 <p class="eyebrow">Programmering nivå 2</p>
-                <h1>Kap 3.3 – Konstruktorer och metoder</h1>
-                <p class="subtitle">Ge objekt startvärden och skapa beteenden med metoder.</p>
+                <h1>Kap 3.3 – Metoder som ändrar objekt</h1>
+                <p class="subtitle">Använd metoder för att läsa, ändra och kontrollera objektets data.</p>
             </header>
 
             <section class="content-section">
                 <h2>Mål med lektionen</h2>
                 <p>När du har arbetat klart med denna lektion ska du:</p>
                 <ul>
-                    <li>Förstå vad en konstruktor gör och hur den används.</li>
-                    <li>Kunna skriva egna metoder i en klass och använda <code>self</code>.</li>
-                    <li>Kunna skilja på att skapa objekt och att anropa metoder.</li>
+                    <li>Kunna skriva metoder som läser objektets attribut.</li>
+                    <li>Kunna skriva metoder som ändrar objektets attribut.</li>
+                    <li>Förstå varför metoder kan vara bättre än att ändra attribut direkt.</li>
                 </ul>
 
                 <h2>Så här lär du dig bäst</h2>
-                <p>Läs exemplen och kör dem steg för steg. Tänk på varje klass som en maskin: konstruktorn bygger
-                    maskinen, och metoderna är vad den kan göra. Prova att skriva egna metoder med indata, eller låt en
-                    metod ändra ett värde i objektet.</p>
+                <p>Kör exemplen och följ hur objektets värden förändras. Titta särskilt på skillnaden mellan en metod
+                    som bara skriver ut information och en metod som faktiskt ändrar ett attribut.</p>
 
                 <h2>Centrala begrepp</h2>
+                <p>Du har redan mött klass, objekt, konstruktor och <code>self</code>. I det här kapitlet använder du
+                    dem för att skapa metoder som styr hur objekt får ändras.</p>
                 <ul>
-                    <li><strong><code>__init__()</code>:</strong> konstruktor som används när objektet skapas för att ge det startvärden.</li>
-                    <li><strong><code>self</code>:</strong> referens till det aktuella objektet, används för att komma åt dess egenskaper och metoder.</li>
-                    <li><strong>Metod:</strong> en funktion inuti en klass som definierar ett beteende.</li>
-                    <li><strong>Instansvariabler:</strong> variabler som är unika för varje objekt och ofta definieras i konstruktorn.</li>
+                    <li><strong>Läsande metod:</strong> en metod som visar eller returnerar data utan att ändra objektet.</li>
+                    <li><strong>Ändrande metod:</strong> en metod som ändrar ett eller flera attribut i objektet.</li>
+                    <li><strong>Validering:</strong> att kontrollera att ett nytt värde är rimligt innan objektet ändras.</li>
+                    <li><strong>Instansvariabel:</strong> ett attribut som är unikt för varje objekt, till exempel <code>self.year</code>.</li>
                 </ul>
 
-                <p>Det är viktigt att förstå dessa delar för att du ska kunna skapa objekt med både data och funktionalitet.</p>
+                <h2>Kort repetition</h2>
+                <p><code>__init__()</code> ger objektet startvärden när objektet skapas. <code>self</code> betyder
+                    "det här objektet". Nu ska metoderna få mer ansvar än att bara skriva ut text.</p>
 
-                <h2>Konstruktorer och metoder i Python</h2>
-                <p>En konstruktor är en speciell metod som heter <code>__init__</code>. Den körs automatiskt när ett nytt
-                    objekt skapas.</p>
+                <h2>Metoder som läser data</h2>
+                <p>En läsande metod använder objektets attribut utan att ändra dem.</p>
 
                 <pre><code>class Car:
     def __init__(self, brand, year):
@@ -58,20 +60,21 @@
                 <p>När du skapar ett objekt använder du klassen som en funktion:</p>
                 <pre><code>car1 = Car("Volvo", 2020)
 car1.honk()</code></pre>
+                <p>Skapa sedan ett eget objekt, <code>car2</code>, med en egen bil och årsmodell. Då tränar du på att
+                    samma klass kan skapa flera objekt med olika värden.</p>
+                <pre><code>car2 = Car("Toyota", 2018)
+car2.honk()</code></pre>
 
                 <p>I detta exempel:</p>
                 <ul>
-                    <li><code>__init__</code> tilldelar värden till <code>brand</code> och <code>year</code>.</li>
-                    <li><code>honk()</code> är en metod som använder objektets data för att skriva ut ett meddelande.</li>
+                    <li><code>brand</code> och <code>year</code> sparas som attribut i objektet.</li>
+                    <li><code>honk()</code> läser attributen och skriver ut ett meddelande.</li>
+                    <li><code>honk()</code> ändrar inte bilen.</li>
                 </ul>
 
-                <section class="interactive-exercise" data-exercise="chapter-3-car-constructor">
-                    <h2>Interaktiv övning: konstruktor och metod</h2>
-                    <p>Skapa först ett <code>Car</code>-objekt. Då körs <code>__init__</code> och objektet får värden
-                        för <code>brand</code> och <code>year</code>. Kör sedan metoden <code>honk()</code>.</p>
-
-                    <label for="chapter-3-3-code" class="exercise-label">Kod</label>
-                    <textarea id="chapter-3-3-code" class="exercise-code" rows="10" spellcheck="false">class Car:
+                <h2>Metoder som ändrar data</h2>
+                <p>En ändrande metod uppdaterar objektets attribut. Det gör att objektet får ett nytt tillstånd.</p>
+                <pre><code>class Car:
     def __init__(self, brand, year):
         self.brand = brand
         self.year = year
@@ -79,7 +82,50 @@ car1.honk()</code></pre>
     def honk(self):
         print(f"{self.brand} från {self.year} tutar!")
 
+    def change_year(self, new_year):
+        self.year = new_year
+
 car1 = Car("Volvo", 2020)
+car1.change_year(2023)
+car1.honk()</code></pre>
+
+                <p><code>new_year</code> är en parameter. När koden kör <code>car1.change_year(2023)</code> är
+                    <code>2023</code> argumentet. Metoden sparar argumentet i <code>self.year</code>.</p>
+
+                <h2>Varför använda en metod för att ändra?</h2>
+                <p>Du kan ändra ett attribut direkt:</p>
+                <pre><code>car1.year = 2023</code></pre>
+                <p>Men en metod är bättre när du vill kontrollera värdet innan objektet ändras.</p>
+                <pre><code>def change_year(self, new_year):
+    if new_year &gt; 0:
+        self.year = new_year
+    else:
+        print("Årtalet måste vara större än 0.")</code></pre>
+                <p>Nu skyddar metoden objektet från ett orimligt årtal.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-3-car-constructor">
+                    <h2>Interaktiv övning: ändra objekt med metod</h2>
+                    <p>Skapa ett <code>Car</code>-objekt, kör <code>honk()</code> och ändra sedan årtalet med en metod.
+                        Skapa sedan en till bil med egna värden så du får ett <code>car2</code>-objekt. Testa också ett
+                        negativt årtal och se varför validering behövs.</p>
+
+                    <label for="chapter-3-3-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-3-3-code" class="exercise-code" rows="16" spellcheck="false">class Car:
+    def __init__(self, brand, year):
+        self.brand = brand
+        self.year = year
+
+    def honk(self):
+        print(f"{self.brand} från {self.year} tutar!")
+
+    def change_year(self, new_year):
+        if new_year &gt; 0:
+            self.year = new_year
+        else:
+            print("Årtalet måste vara större än 0.")
+
+car1 = Car("Volvo", 2020)
+car1.change_year(2023)
 car1.honk()</textarea>
 
                     <div class="exercise-controls">
@@ -87,42 +133,42 @@ car1.honk()</textarea>
                         <input id="chapter-3-3-year" class="exercise-number-input" type="number" value="2020" aria-label="År">
                     </div>
 
+                    <label for="chapter-3-3-car" class="exercise-label">Välj bil</label>
+                    <select id="chapter-3-3-car" class="exercise-select" aria-label="Välj bil">
+                        <option value="">Ingen bil skapad än</option>
+                    </select>
+
                     <div class="exercise-controls">
-                        <button type="button" class="exercise-run" data-action="create">Skapa nästa bil</button>
+                        <button type="button" class="exercise-run" data-action="create">Skapa bil</button>
                         <button type="button" class="exercise-run" data-action="honk">Kör honk()</button>
+                        <button type="button" class="exercise-run" data-action="change">Ändra år</button>
                         <button type="button" class="exercise-reset">Återställ</button>
                     </div>
 
                     <label for="chapter-3-3-result" class="exercise-label">Resultat</label>
                     <output id="chapter-3-3-result" class="exercise-result">Inget bilobjekt är skapat än.</output>
 
-                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> <code>Car("Volvo", 2020)</code>
-                        skapar objektet och kör konstruktorn. <code>car1.honk()</code> kör en metod på objektet som redan
-                        finns.</p>
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> <code>honk()</code> läser
+                        objektets data. <code>change_year()</code> ändrar objektets data efter kontroll.</p>
                 </section>
-
-                <h2>Metoder med parametrar</h2>
-                <p>Du kan även skapa metoder som tar emot parametrar och ändrar objektets data.</p>
-                <pre><code>def change_year(self, new_year):
-    self.year = new_year</code></pre>
-
-                <p>Anrop:</p>
-                <pre><code>car1.change_year(2023)</code></pre>
 
                 <h2>Öva: skriv egna metoder</h2>
                 <ol>
-                    <li>Skapa en klass <code>Dog</code> med attributen <code>name</code> och <code>age</code>.</li>
-                    <li>Skriv en metod <code>bark()</code> som skriver ut <code>[name] säger voff!</code>.</li>
-                    <li>Skriv en metod <code>have_birthday()</code> som ökar <code>age</code> med 1.</li>
-                    <li>Testa genom att skapa en hund, låta den skälla och sedan ha födelsedag.</li>
+                    <li>Skapa filen <code>kap3-3-car.py</code>.</li>
+                    <li>Skriv klassen <code>Car</code> med attributen <code>brand</code> och <code>year</code>.</li>
+                    <li>Skriv metoden <code>honk()</code> som visar bilens märke och årtal utan att ändra objektet.</li>
+                    <li>Skriv metoden <code>change_year(new_year)</code> som bara ändrar årtalet om det är större än 0.</li>
+                    <li>Skriv metoden <code>is_old()</code> som returnerar <code>True</code> om bilen är äldre än 20 år,
+                        annars <code>False</code>.</li>
+                    <li>Testa med ett giltigt årtal, ett negativt årtal och två olika bilobjekt.</li>
                 </ol>
 
                 <h2>Sammanfattning</h2>
                 <ul>
-                    <li>En konstruktor, <code>__init__</code>, används för att ge objekt startvärden.</li>
-                    <li><code>self</code> används inom metoder för att hänvisa till objektets egna data.</li>
-                    <li>Metoder beskriver vad objektet kan göra.</li>
-                    <li>Du kan skapa metoder både med och utan parametrar.</li>
+                    <li>Läsande metoder använder objektets data utan att ändra den.</li>
+                    <li>Ändrande metoder uppdaterar objektets attribut.</li>
+                    <li>Metoder kan validera nya värden innan objektet ändras.</li>
+                    <li>Metoder med parametrar kan ta emot nya värden, till exempel <code>new_year</code>.</li>
                 </ul>
             </section>
 
@@ -137,67 +183,67 @@ car1.honk()</textarea>
         document.addEventListener('DOMContentLoaded', function () {
             if (window.renderQuiz) {
                 window.renderQuiz(document.getElementById('quiz-3-3'), {
-                    title: 'Quiz: Kap 3.3 - Konstruktorer och metoder',
+                    title: 'Quiz: Kap 3.3 - Metoder som ändrar objekt',
                     questions: [
                         {
-                            question: 'Vad gör konstruktorn __init__?',
+                            question: 'Vad gör en läsande metod?',
                             options: [
-                                'Den körs när objektet skapas och kan ge objektet startvärden',
-                                'Den avslutar alltid programmet',
-                                'Den tar bort alla metoder från klassen',
-                                'Den sorterar objekt automatiskt'
+                                'Den använder objektets data utan att ändra objektet',
+                                'Den tar alltid bort objektet',
+                                'Den skapar alltid en ny klass',
+                                'Den ändrar alla attribut automatiskt'
                             ],
                             correct: 0,
-                            feedback: '__init__ körs när ett nytt objekt skapas.',
-                            explanation: 'Den används ofta för att skapa instansvariabler som self.brand och self.year.'
+                            feedback: 'En läsande metod hämtar eller visar data.',
+                            explanation: 'honk() använder self.brand och self.year för utskrift, men ändrar inte bilen.'
                         },
                         {
-                            question: 'Vad används self till i en metod?',
+                            question: 'Vad gör en ändrande metod?',
                             options: [
-                                'Att skapa en ny Python-fil',
-                                'Att referera till det aktuella objektets egna data och metoder',
-                                'Att stoppa alla loopar',
-                                'Att skriva kommentarer automatiskt'
-                            ],
-                            correct: 1,
-                            feedback: 'self pekar på objektet som metoden körs på.',
-                            explanation: 'Med self.year använder du year-värdet på just detta objekt.'
-                        },
-                        {
-                            question: 'Vad är en instansvariabel?',
-                            options: [
-                                'En variabel som är unik för varje objekt',
-                                'En variabel som alltid är global',
-                                'Ett annat namn för en klass',
-                                'En metod utan parametrar'
+                                'Den ändrar ett eller flera attribut i objektet',
+                                'Den får inte använda self',
+                                'Den fungerar bara innan objektet skapas',
+                                'Den kan bara skriva kommentarer'
                             ],
                             correct: 0,
-                            feedback: 'Instansvariabler tillhör ett specifikt objekt.',
-                            explanation: 'Två Car-objekt kan till exempel ha olika värden på self.brand och self.year.'
+                            feedback: 'En ändrande metod uppdaterar objektets tillstånd.',
+                            explanation: 'change_year(self, new_year) kan ändra self.year.'
                         },
                         {
-                            question: 'Vad är skillnaden mellan att skapa ett objekt och att anropa en metod?',
+                            question: 'Varför kan en metod vara bättre än att ändra ett attribut direkt?',
                             options: [
-                                'Det finns ingen skillnad',
-                                'Att skapa ett objekt görs med class-nyckelordet varje gång',
-                                'Ett objekt skapas från klassen, medan en metod kör ett beteende på objektet',
-                                'Metoder kan bara anropas innan objektet finns'
-                            ],
-                            correct: 2,
-                            feedback: 'Objektet skapas först, sedan kan metoder anropas på det.',
-                            explanation: 'Exempel: car1 = Car(...) skapar objektet, car1.honk() anropar en metod.'
-                        },
-                        {
-                            question: 'Vad kan en metod med parameter göra?',
-                            options: [
-                                'Ta emot ett värde som påverkar vad metoden gör',
-                                'Bara skriva ut samma text varje gång',
-                                'Fungera utan att tillhöra en klass',
-                                'Ersätta hela konstruktorn automatiskt'
+                                'Metoden kan kontrollera värdet innan objektet ändras',
+                                'Metoden gör alltid programmet kortare',
+                                'Metoden gör att objektet inte behöver skapas',
+                                'Metoden tar bort behovet av klasser'
                             ],
                             correct: 0,
-                            feedback: 'Parametrar gör metoder mer flexibla.',
-                            explanation: 'Exempelvis kan change_year(self, new_year) använda new_year för att ändra objektets år.'
+                            feedback: 'Metoder kan skydda objektets data.',
+                            explanation: 'change_year() kan till exempel stoppa negativa årtal.'
+                        },
+                        {
+                            question: 'Vad händer i car1.change_year(2023)?',
+                            options: [
+                                '2023 skickas in som argument och kan sparas i self.year',
+                                'car1 blir en klass',
+                                'Metoden __init__ raderas',
+                                'Alla bilobjekt får alltid samma årtal'
+                            ],
+                            correct: 0,
+                            feedback: 'Argumentet 2023 skickas till metoden.',
+                            explanation: 'I change_year(self, new_year) hamnar 2023 i parametern new_year.'
+                        },
+                        {
+                            question: 'Vilket exempel visar validering?',
+                            options: [
+                                'if new_year > 0: self.year = new_year',
+                                'class Car:',
+                                'car1 = Car("Volvo", 2020)',
+                                'print("Hej")'
+                            ],
+                            correct: 0,
+                            feedback: 'Validering betyder att värdet kontrolleras först.',
+                            explanation: 'Villkoret stoppar orimliga värden innan objektets attribut ändras.'
                         }
                     ]
                 })

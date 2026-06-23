@@ -25,7 +25,7 @@
                 <ul>
                     <li>Känna till grunderna i objektorienterad programmering (OOP).</li>
                     <li>Förstå varför OOP används och vad det innebär att tänka i objekt.</li>
-                    <li>Kunna skilja mellan begreppen klass, objekt, egenskap och metod.</li>
+                    <li>Kunna skilja mellan begreppen klass, objekt, konstruktor, attribut och metod.</li>
                 </ul>
 
                 <h2>Så här lär du dig bäst</h2>
@@ -35,16 +35,24 @@
 
                 <h2>Centrala begrepp</h2>
                 <ul>
-                    <li><strong>Objekt:</strong> ett självständigt paket av data och funktionalitet, till exempel en specifik bok.</li>
                     <li><strong>Klass:</strong> en mall eller ritning för att skapa objekt, till exempel typen <code>Bok</code>.</li>
-                    <li><strong>Egenskap eller attribut:</strong> data som hör till ett objekt, till exempel en boks titel eller författare.</li>
+                    <li><strong>Objekt:</strong> ett självständigt paket av data och funktionalitet, till exempel en specifik bok.</li>
                     <li><strong>Metod:</strong> en funktion som hör till en klass eller ett objekt, till exempel <code>skriv_ut_info()</code>.</li>
+                    <li><strong>Konstruktor:</strong> den metod som körs när ett nytt objekt skapas. I Python heter den
+                        <code>__init__()</code>.</li>
+                    <li><strong>Egenskap eller attribut:</strong> data som hör till ett objekt, till exempel en boks titel eller författare.</li>
+                    <li><strong>Funktion:</strong> en fristående koddel som kan anropas med sitt namn, till exempel
+                        <code>print()</code> eller <code>berakna_summa()</code>.</li>
                     <li><strong>Inkapsling:</strong> att dölja interna detaljer i ett objekt och exponera en tydlig yta.</li>
                     <li><strong>Återanvändning:</strong> att skapa kod som kan användas flera gånger genom att skapa nya objekt.</li>
                 </ul>
 
+                <p class="exercise-note"><strong>Klass och objekt:</strong> Klassen kan du se direkt i koden. Den
+                    beskriver hur objekt ska skapas och fungera. Ett objekt skapas först när programmet körs och koden
+                    anropar klassen, till exempel <code>bok = Bok(...)</code>.</p>
+
                 <p>Dessa begrepp är viktiga eftersom de bygger upp strukturen i objektorienterad programmering. När du
-                    skriver program i Python eller C# kommer du att använda dem ofta.</p>
+                    skriver program i Python kommer du att använda dem ofta.</p>
 
                 <h2>Vad är objektorienterad programmering?</h2>
                 <p>Objektorienterad programmering är ett sätt att skriva program där man utgår från
@@ -54,6 +62,28 @@
                 <p>I traditionell programmering skriver du ofta kod i fristående funktioner. I OOP organiseras programmet
                     runt <strong>klasser</strong> som beskriver hur objekt ska fungera. En klass är som en ritning. När
                     programmet körs skapas riktiga objekt, alltså instanser av klassen.</p>
+
+                <h2>Funktion, metod och konstruktor</h2>
+                <p>En <strong>funktion</strong> är en koddel som står fritt och anropas med sitt namn. En
+                    <strong>metod</strong> är också en funktion, men den ligger inuti en klass och hör till objekt som
+                    skapas från klassen.</p>
+
+                <pre><code># Funktion
+def skriv_hej():
+    print("Hej")
+
+class Bok:
+    # Metod
+    def skriv_ut_info(self):
+        print("Information om boken")</code></pre>
+
+                <p>I exemplet är <code>skriv_hej()</code> en vanlig funktion. <code>skriv_ut_info()</code> är en metod
+                    eftersom den ligger i klassen <code>Bok</code>. Metoder har ofta parametern <code>self</code>, som
+                    betyder "det här objektet".</p>
+
+                <p>En <strong>konstruktor</strong> används för att ge ett nytt objekt startvärden. I Python skrivs
+                    konstruktorn som <code>__init__()</code>. Den körs automatiskt när du skapar ett objekt, till
+                    exempel med <code>bok1 = Bok("Project Hail Mary", "Andy Weir")</code>.</p>
 
                 <h2>Exempel: böcker</h2>
                 <p>Föreställ dig att du vill skapa ett program som hanterar böcker. Med OOP kan du skapa en klass
@@ -72,6 +102,18 @@ bok2 = Bok("Surely You're Joking, Mr. Feynman!", "Richard P. Feynman")
 
 bok1.skriv_ut_info()
 bok2.skriv_ut_info()</code></pre>
+
+                <p>I exemplet är <code>Bok</code> klassen. Raden <code>def __init__(self, titel, forfattare):</code>
+                    är konstruktorn. Den tar emot startvärden när ett objekt skapas. Raderna
+                    <code>self.titel = titel</code> och <code>self.forfattare = forfattare</code> sparar värdena i det
+                    objekt som skapas. När koden kör <code>bok1.skriv_ut_info()</code> anropas metoden på just objektet
+                    <code>bok1</code>.</p>
+
+                <p class="exercise-note"><strong>Repetition från kap 1.3:</strong> <code>titel</code> och
+                    <code>forfattare</code> är parametrar eftersom de står i metodens definition. När programmet kör
+                    <code>Bok("Project Hail Mary", "Andy Weir")</code> är <code>"Project Hail Mary"</code> och
+                    <code>"Andy Weir"</code> argument eftersom de skickas in till konstruktorn. <code>self</code> är
+                    också en parameter, men Python skickar in objektet själv automatiskt när metoden anropas.</p>
 
                 <section class="interactive-exercise" data-exercise="chapter-3-book-objects">
                     <h2>Interaktiv övning: skapa bokobjekt</h2>
@@ -132,8 +174,10 @@ Metoder: skriv_ut_info(), byt_klass(ny_klass)</code></pre>
                 <ul>
                     <li>Objektorienterad programmering handlar om att organisera koden runt objekt.</li>
                     <li>En klass är en ritning och ett objekt är en instans av klassen.</li>
+                    <li>En konstruktor, <code>__init__()</code>, ger objektet startvärden när det skapas.</li>
+                    <li>En metod liknar en funktion, men hör till en klass eller ett objekt.</li>
                     <li>OOP gör det enklare att bygga stora program genom att separera logik och data.</li>
-                    <li>Centrala begrepp är klass, objekt, egenskap, metod och inkapsling.</li>
+                    <li>Centrala begrepp är klass, objekt, konstruktor, attribut, metod och inkapsling.</li>
                 </ul>
             </section>
 
@@ -197,6 +241,18 @@ Metoder: skriv_ut_info(), byt_klass(ny_klass)</code></pre>
                             correct: 1,
                             feedback: 'En metod är en funktion kopplad till en klass eller ett objekt.',
                             explanation: 'Metoder beskriver vad objektet kan göra, till exempel skriva ut information.'
+                        },
+                        {
+                            question: 'Vad är syftet med konstruktorn __init__()?',
+                            options: [
+                                'Att ge ett nytt objekt startvärden när det skapas',
+                                'Att avsluta programmet direkt',
+                                'Att sortera en lista automatiskt',
+                                'Att ta bort alla metoder från klassen'
+                            ],
+                            correct: 0,
+                            feedback: '__init__() körs när ett objekt skapas.',
+                            explanation: 'Konstruktorn används ofta för att spara startvärden i objektets attribut, till exempel titel och författare.'
                         },
                         {
                             question: 'Varför används OOP ofta i större program?',

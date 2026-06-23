@@ -53,6 +53,34 @@ def main():
     print(f"The average is {average:.2f}")
 
 main()</code></pre>
+
+                <h2>Parameter och argument</h2>
+                <p>När en funktion ska kunna arbeta med olika värden använder den <strong>parametrar</strong> och
+                    <strong>argument</strong>. Orden liknar varandra, men de betyder inte samma sak.</p>
+
+                <ul>
+                    <li><strong>Parameter:</strong> namnet som står i funktionsdefinitionen.</li>
+                    <li><strong>Argument:</strong> värdet som skickas in när funktionen anropas.</li>
+                </ul>
+
+                <pre><code>def greet(name):
+    print("Hej " + name)
+
+greet("Anna")</code></pre>
+
+                <p>I exemplet är <code>name</code> en parameter. Den står i raden där funktionen skapas:
+                    <code>def greet(name):</code>. Värdet <code>"Anna"</code> är ett argument. Det skickas in när
+                    funktionen anropas: <code>greet("Anna")</code>.</p>
+
+                <p>I medelvärdesprogrammet är <code>prompt</code>, <code>n1</code>, <code>n2</code> och <code>n3</code>
+                    parametrar. När programmet kör <code>get_number("Enter first number: ")</code> är texten
+                    <code>"Enter first number: "</code> ett argument. När programmet kör
+                    <code>calculate_average(number1, number2, number3)</code> är <code>number1</code>,
+                    <code>number2</code> och <code>number3</code> argument.</p>
+
+                <p class="exercise-note"><strong>Kom ihåg:</strong> parametern är platsen i funktionen. Argumentet är
+                    värdet du skickar in till den platsen.</p>
+
                 <p class="exercise-note"><strong>Obs:</strong> Om du får <code>SyntaxError</code> på raden med
                     <code>print(f"...")</code>, kontrollera att du kör filen med <code>python3 filnamn.py</code> och
                     inte <code>python filnamn.py</code>. På vissa Mac-datorer pekar <code>python</code> fortfarande på
@@ -192,6 +220,18 @@ main()</textarea>
                             correct: 1,
                             feedback: 'Tydliga namn förbättrar läsbarheten och gör det enklare att förstå och felsöka kod.',
                             explanation: 'Bra namn gör koden lättare att läsa.'
+                        },
+                        {
+                            question: 'Vad är skillnaden mellan parameter och argument?',
+                            options: [
+                                'En parameter står i funktionsdefinitionen, ett argument skickas in när funktionen anropas',
+                                'En parameter är alltid ett felmeddelande, ett argument är alltid en loop',
+                                'En parameter används bara i HTML, ett argument används bara i CSS',
+                                'Det finns ingen skillnad mellan orden'
+                            ],
+                            correct: 0,
+                            feedback: 'Parametern är namnet i funktionen. Argumentet är värdet som skickas in.',
+                            explanation: 'I def greet(name) är name en parameter. I greet("Anna") är "Anna" ett argument.'
                         }
                     ]
                 })

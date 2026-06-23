@@ -34,6 +34,7 @@
                     beskriva verkliga företeelser.</p>
 
                 <h2>Centrala begrepp</h2>
+                <p>Kap 3.1 förklarade begreppen. Här använder du dem praktiskt när du skriver egna klasser.</p>
                 <ul>
                     <li><strong>Klass:</strong> en mall som beskriver hur ett objekt ska fungera.</li>
                     <li><strong>Objekt:</strong> en instans av en klass som skapas när programmet körs.</li>
@@ -44,6 +45,16 @@
 
                 <p>Du behöver förstå dessa begrepp för att kunna bygga program med flera objekt som samarbetar. De är
                     grunden för det objektorienterade arbetssättet.</p>
+
+                <h2>Arbetsgång: från idé till klass</h2>
+                <p>När du skapar en egen klass kan du följa samma ordning nästan varje gång:</p>
+                <ol>
+                    <li>Bestäm vad klassen ska representera, till exempel <code>Book</code> eller <code>Person</code>.</li>
+                    <li>Bestäm vilka attribut varje objekt behöver ha.</li>
+                    <li>Skriv konstruktorn <code>__init__()</code> och spara attributen med <code>self</code>.</li>
+                    <li>Lägg till metoder som beskriver vad objektet kan göra.</li>
+                    <li>Skapa ett eller flera objekt och testa metoderna.</li>
+                </ol>
 
                 <h2>Skapa och använda klasser</h2>
                 <p>I Python definierar du en klass med nyckelordet <code>class</code>. Här är ett enkelt exempel på en
@@ -66,6 +77,23 @@ book1.print_info()</code></pre>
                 <p>Detta skapar ett nytt objekt, <code>book1</code>, av typen <code>Book</code>. När du anropar metoden
                     <code>print_info()</code> använder objektet sina egna attribut.</p>
 
+                <h3>Flera objekt från samma klass</h3>
+                <p>En viktig poäng med klasser är att samma klass kan skapa flera objekt. Objekten har samma struktur,
+                    men egna värden.</p>
+                <pre><code>book1 = Book("1984", "George Orwell")
+book2 = Book("The Martian", "Andy Weir")
+
+book1.print_info()
+book2.print_info()</code></pre>
+                <p>Båda objekten är skapade från klassen <code>Book</code>, men <code>book1</code> och
+                    <code>book2</code> har olika värden i <code>title</code> och <code>author</code>.</p>
+
+                <h3>Ändra ett attribut</h3>
+                <p>Efter att ett objekt har skapats kan du ändra ett attribut med punktnotation.</p>
+                <pre><code>book1.title = "Animal Farm"
+book1.print_info()</code></pre>
+                <p>Det här ändrar bara <code>book1</code>. Andra objekt som skapats från samma klass påverkas inte.</p>
+
                 <h2>Öva: skapa en egen klass</h2>
                 <p>Skriv en klass som heter <code>Person</code>. Den ska ha attributen <code>name</code> och
                     <code>age</code>, och en metod som skriver ut:</p>
@@ -76,6 +104,8 @@ book1.print_info()</code></pre>
                     <li>Börja med att skriva <code>class Person:</code></li>
                     <li>Lägg till en <code>__init__</code>-metod med <code>self</code>, <code>name</code> och <code>age</code>.</li>
                     <li>Lägg till en metod <code>say_hello()</code> som skriver ut informationen.</li>
+                    <li>Skapa två olika objekt, till exempel <code>person1</code> och <code>person2</code>.</li>
+                    <li>Testa att ändra åldern på ett av objekten efter att det skapats.</li>
                 </ul>
 
                 <section class="interactive-exercise" data-exercise="chapter-3-person-class">
@@ -92,11 +122,11 @@ book1.print_info()</code></pre>
     def say_hello(self):
         print(f"Hej, jag heter {self.name} och är {self.age} år.")
 
-person1 = Person("Ada", 17)
+person1 = Person("Anna", 17)
 person1.say_hello()</textarea>
 
                     <div class="exercise-controls">
-                        <input id="chapter-3-2-name" class="exercise-text-input" type="text" value="Ada" aria-label="Namn">
+                        <input id="chapter-3-2-name" class="exercise-text-input" type="text" value="Anna" aria-label="Namn">
                         <input id="chapter-3-2-age" class="exercise-number-input" type="number" value="17" min="0" aria-label="Ålder">
                     </div>
 
@@ -114,12 +144,27 @@ person1.say_hello()</textarea>
                         för utskriften.</p>
                 </section>
 
+                <h2>Öva själv</h2>
+                <p>Skapa filen <code>kap3-2-person.py</code> och skriv koden själv. Använd den här ordningen:</p>
+                <ol>
+                    <li>Skriv klassen <code>Person</code>.</li>
+                    <li>Lägg till konstruktorn <code>__init__(self, name, age)</code>.</li>
+                    <li>Spara <code>name</code> och <code>age</code> som attribut med <code>self</code>.</li>
+                    <li>Skapa metoden <code>say_hello()</code>.</li>
+                    <li>Skapa två objekt med olika namn och ålder.</li>
+                    <li>Kör <code>say_hello()</code> på båda objekten.</li>
+                    <li>Ändra åldern på ett objekt och kör metoden igen.</li>
+                </ol>
+                <p class="exercise-note">Kontrollera att ändringen bara påverkar det objekt du ändrar, inte alla objekt
+                    som skapats från klassen.</p>
+
                 <h2>Sammanfattning</h2>
                 <ul>
                     <li>En klass i Python skapas med <code>class</code> och innehåller metoder och attribut.</li>
                     <li><code>__init__</code> används för att sätta upp objektets startvärden.</li>
                     <li><code>self</code> används för att referera till objektet självt.</li>
                     <li>Du skapar ett objekt genom att anropa klassen som en funktion.</li>
+                    <li>Samma klass kan skapa flera objekt med olika attributvärden.</li>
                 </ul>
             </section>
 
@@ -195,6 +240,18 @@ person1.say_hello()</textarea>
                             correct: 0,
                             feedback: 'En metod är en funktion som ligger i en klass.',
                             explanation: 'Metoder kan använda self för att läsa eller ändra objektets attribut.'
+                        },
+                        {
+                            question: 'Vad händer om du skapar två objekt från samma klass?',
+                            options: [
+                                'De kan ha olika värden i sina attribut',
+                                'Det andra objektet raderar alltid det första',
+                                'Båda objekten måste alltid ha exakt samma attributvärden',
+                                'Klassen slutar fungera efter första objektet'
+                            ],
+                            correct: 0,
+                            feedback: 'Samma klass kan skapa flera objekt med egna värden.',
+                            explanation: 'book1 och book2 kan båda vara Book-objekt, men ha olika title och author.'
                         }
                     ]
                 })

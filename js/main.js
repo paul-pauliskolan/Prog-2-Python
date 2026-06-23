@@ -1612,12 +1612,12 @@ function runChapterThreePersonClassExercise(exercise) {
 
   function resetExercise() {
     person = null;
-    nameInput.value = "Ada";
+    nameInput.value = "Anna";
     ageInput.value = "17";
     history.length = 0;
     history.push("Klassen Person är definierad.");
     history.push("Inget objekt är skapat än.");
-    history.push('Nästa steg: person1 = Person("Ada", 17)');
+    history.push('Nästa steg: person1 = Person("Anna", 17)');
     render();
   }
 
@@ -1670,20 +1670,55 @@ function runChapterThreeCarConstructorExercise(exercise) {
   const code = exercise.querySelector(".exercise-code");
   const brandInput = exercise.querySelector(".exercise-text-input");
   const yearInput = exercise.querySelector(".exercise-number-input");
+  const carInput = exercise.querySelector("#chapter-3-3-car");
   const createButton = exercise.querySelector('[data-action="create"]');
   const honkButton = exercise.querySelector('[data-action="honk"]');
+  const changeButton = exercise.querySelector('[data-action="change"]');
   const resetButton = exercise.querySelector(".exercise-reset");
   const result = exercise.querySelector(".exercise-result");
 
-  if (!code || !brandInput || !yearInput || !createButton || !honkButton || !resetButton || !result) {
+  if (!code || !brandInput || !yearInput || !carInput || !createButton || !honkButton || !changeButton || !resetButton || !result) {
     return;
   }
 
   const cars = [];
-  let activeCar = null;
   const history = [];
+  let preferredCarName = "";
+
+  function selectedCar() {
+    return cars.find((car) => car.name === carInput.value) || null;
+  }
+
+  function syncCarSelect() {
+    const previousValue = preferredCarName || carInput.value;
+    carInput.innerHTML = "";
+
+    if (cars.length === 0) {
+      const option = document.createElement("option");
+      option.value = "";
+      option.textContent = "Ingen bil skapad än";
+      carInput.appendChild(option);
+      return;
+    }
+
+    cars.forEach((car) => {
+      const option = document.createElement("option");
+      option.value = car.name;
+      option.textContent = car.name + " - " + car.brand + " (" + car.year + ")";
+      carInput.appendChild(option);
+    });
+
+    if (cars.some((car) => car.name === previousValue)) {
+      carInput.value = previousValue;
+    } else {
+      carInput.value = cars[cars.length - 1].name;
+    }
+
+    preferredCarName = "";
+  }
 
   function render() {
+    syncCarSelect();
     const rows = cars.map((car) => {
       return car.name + ' = Car("' + car.brand + '", ' + car.year + ")";
     });
@@ -1693,7 +1728,7 @@ function runChapterThreeCarConstructorExercise(exercise) {
 
   function resetExercise() {
     cars.length = 0;
-    activeCar = null;
+    preferredCarName = "";
     brandInput.value = "Volvo";
     yearInput.value = "2020";
     history.length = 0;
@@ -1724,7 +1759,7 @@ function runChapterThreeCarConstructorExercise(exercise) {
     const objectName = "car" + (cars.length + 1);
     const car = { name: objectName, brand, year };
     cars.push(car);
-    activeCar = car;
+    preferredCarName = objectName;
 
     history.push(objectName + ' = Car("' + brand + '", ' + year + ")");
     history.push("__init__ körs automatiskt:");
@@ -1734,6 +1769,7 @@ function runChapterThreeCarConstructorExercise(exercise) {
   });
 
   honkButton.addEventListener("click", () => {
+    const activeCar = selectedCar();
     history.push("");
 
     if (!activeCar) {
@@ -1744,6 +1780,44 @@ function runChapterThreeCarConstructorExercise(exercise) {
     } else {
       history.push(activeCar.name + ".honk()");
       history.push(activeCar.brand + " från " + activeCar.year + " tutar!");
+    }
+
+    render();
+  });
+
+  changeButton.addEventListener("click", () => {
+    const activeCar = selectedCar();
+    const year = Number.parseInt(yearInput.value, 10);
+
+    history.push("");
+
+    if (!activeCar) {
+      history.push("Det finns ingen bil än. Skapa ett objekt först.");
+      render();
+      return;
+    }
+
+    if (!code.value.includes("change_year")) {
+      history.push(activeCar.name + ".change_year(" + yearInput.value + ")");
+      history.push("Metoden change_year() saknas i koden.");
+      render();
+      return;
+    }
+
+    if (!Number.isInteger(year)) {
+      history.push("År måste vara ett heltal.");
+      render();
+      return;
+    }
+
+    history.push(activeCar.name + ".change_year(" + year + ")");
+
+    if (year > 0) {
+      history.push("new_year är större än 0.");
+      history.push("self.year = " + year);
+      activeCar.year = year;
+    } else {
+      history.push("Årtalet måste vara större än 0.");
     }
 
     render();
@@ -3032,7 +3106,7 @@ function runChapterFiveTkinterGuiExercise(exercise) {
   }
 
   function resetExercise() {
-    nameInput.value = "Ada";
+    nameInput.value = "Anna";
     resultLabel.textContent = "";
     renderTrace([
       "Fönstret har skapats av koden:",
