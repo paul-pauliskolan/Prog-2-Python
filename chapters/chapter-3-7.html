@@ -25,7 +25,7 @@
                 <p>När du har arbetat klart med denna lektion ska du:</p>
                 <ul>
                     <li>Självständigt kunna planera och strukturera ett objektorienterat program.</li>
-                    <li>Använda flera samverkande klasser med inkapsling, arv och metodanrop.</li>
+                    <li>Använda flera samverkande klasser med inkapsling, relationer och metodanrop.</li>
                     <li>Skapa kod som är organiserad, dokumenterad och återanvändbar.</li>
                 </ul>
 
@@ -69,7 +69,7 @@
                     <li>
                         <strong>Designa:</strong> skapa ett UML-diagram med minst tre klasser. Beskriv attribut,
                         metoder,
-                        relationer, arv och inkapsling.
+                        relationer, inkapsling och arv där det passar.
                     </li>
                     <li>
                         <strong>Bygg grundstruktur:</strong> skapa en huvudfil, till exempel <code>main.py</code>, och
@@ -94,9 +94,9 @@
                     egen variant.</p>
 
                 <pre><code class="language-mermaid">classDiagram
-    Library -- Book : contains
-    Library -- Member : registers
-    Member -- Book : borrows
+    Library --> Book : contains
+    Library --> Member : registers
+    Member --> Book : borrows
 
     class Book {
         -string title
@@ -104,6 +104,7 @@
         -bool available
         +borrow() bool
         +return_book() void
+        +get_title() string
         +__str__() string
     }
 
@@ -113,6 +114,7 @@
         +borrow_book(book) void
         +return_book(book) void
         +list_books() void
+        +get_name() string
     }
 
     class Library {
@@ -128,51 +130,57 @@
                 <h3>book.py</h3>
                 <pre><code>class Book:
     def __init__(self, title, author):
-        self.title = title
-        self.author = author
-        self.available = True
+        self._title = title
+        self._author = author
+        self._available = True
 
     def borrow(self):
-        if self.available:
-            self.available = False
+        if self._available:
+            self._available = False
             return True
         return False
 
     def return_book(self):
-        self.available = True
+        self._available = True
+
+    def get_title(self):
+        return self._title
 
     def __str__(self):
-        status = "Tillgänglig" if self.available else "Utlånad"
-        return f"{self.title} av {self.author} - {status}"</code></pre>
+        status = "Tillgänglig" if self._available else "Utlånad"
+        return f"{self._title} av {self._author} - {status}"</code></pre>
 
                 <h3>member.py</h3>
                 <pre><code>class Member:
     def __init__(self, name):
-        self.name = name
-        self.borrowed_books = []
+        self._name = name
+        self._borrowed_books = []
 
     def borrow_book(self, book):
         if book.borrow():
-            self.borrowed_books.append(book)
-            print(f"{self.name} lånade {book.title}.")
+            self._borrowed_books.append(book)
+            print(f"{self._name} lånade {book.get_title()}.")
         else:
-            print(f"{book.title} är redan utlånad.")
+            print(f"{book.get_title()} är redan utlånad.")
 
     def return_book(self, book):
-        if book in self.borrowed_books:
+        if book in self._borrowed_books:
             book.return_book()
-            self.borrowed_books.remove(book)
-            print(f"{self.name} lämnade tillbaka {book.title}.")
+            self._borrowed_books.remove(book)
+            print(f"{self._name} lämnade tillbaka {book.get_title()}.")
         else:
-            print(f"{self.name} har inte {book.title}.")
+            print(f"{self._name} har inte {book.get_title()}.")
 
     def list_books(self):
-        if not self.borrowed_books:
-            print(f"{self.name} har inga böcker.")
+        if not self._borrowed_books:
+            print(f"{self._name} har inga böcker.")
         else:
-            print(f"{self.name} har lånat:")
-            for book in self.borrowed_books:
-                print(f"- {book}")</code></pre>
+            print(f"{self._name} har lånat:")
+            for book in self._borrowed_books:
+                print(f"- {book}")
+
+    def get_name(self):
+        return self._name</code></pre>
 
                 <h3>library.py</h3>
                 <pre><code>from book import Book
@@ -180,32 +188,32 @@ from member import Member
 
 class Library:
     def __init__(self):
-        self.books = []
-        self.members = []
+        self._books = []
+        self._members = []
 
     def add_book(self, title, author):
         book = Book(title, author)
-        self.books.append(book)
+        self._books.append(book)
 
     def register_member(self, name):
         member = Member(name)
-        self.members.append(member)
+        self._members.append(member)
 
     def find_book(self, title):
-        for book in self.books:
-            if book.title == title:
+        for book in self._books:
+            if book.get_title() == title:
                 return book
         return None
 
     def find_member(self, name):
-        for member in self.members:
-            if member.name == name:
+        for member in self._members:
+            if member.get_name() == name:
                 return member
         return None
 
     def list_books(self):
         print("Böcker i biblioteket:")
-        for book in self.books:
+        for book in self._books:
             print(f"- {book}")</code></pre>
 
                 <h3>main.py</h3>
@@ -229,9 +237,9 @@ lib.list_books()</code></pre>
                 <h2>Alternativa projektstrukturer</h2>
                 <h3>RPG-strid</h3>
                 <pre><code class="language-mermaid">classDiagram
-    Character &lt;|-- Player
-    Character &lt;|-- Enemy
-    Player -- Item : uses
+    Player --&gt; Character : inherits
+    Enemy --&gt; Character : inherits
+    Player --> Item : uses
 
     class Character
     Character : name
@@ -256,8 +264,8 @@ lib.list_books()</code></pre>
 
                 <h3>Receptplanerare</h3>
                 <pre><code class="language-mermaid">classDiagram
-    MealPlanner -- Recipe : stores
-    Recipe -- Ingredient : contains
+    MealPlanner --> Recipe : stores
+    Recipe --> Ingredient : contains
 
     class Ingredient {
         -string name
@@ -288,6 +296,10 @@ lib.list_books()</code></pre>
                     <li>Skapa kod för minst tre samverkande klasser.</li>
                     <li>Presentera din kodstruktur och vad varje del gör.</li>
                 </ol>
+                <p class="exercise-note">När du har försökt själv kan du jämföra med ett lösningsförslag:
+                    <a href="chapter-3-7-bibliotek-losning.html">bibliotekssystem med UML</a> och
+                    <a href="../p2-python-kod/kap3-7-bibliotek-projekt-losningsforslag.py" download>nedladdningsbar Python-kod</a>.
+                </p>
 
                 <h2>Sammanfattning</h2>
                 <ul>

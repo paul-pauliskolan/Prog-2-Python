@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Lösningsförslag - Kap 3.5 bank-UML</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Lösningsförslag till kap 3.5: UML-diagram för en enkel bankapplikation.">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero">
+                <p class="eyebrow">Lösningsförslag</p>
+                <h1>Kap 3.5 – UML för bankapplikation</h1>
+                <p class="subtitle">Ett exempel på hur klasserna Bank, Customer och Account kan ritas som UML.</p>
+            </header>
+
+            <section class="content-section">
+                <h2>Klassdiagram</h2>
+                <p>Diagrammet visar att en <code>Bank</code> har kunder och att en <code>Customer</code> kan ha flera
+                    konton. I koden motsvaras detta av listor med objekt.</p>
+                <p>I den här kursen använder du bara enkel pil, <code>--&gt;</code>, i UML-diagram.
+                    <code>has</code> och <code>owns</code> är etiketter som beskriver relationen. <code>has</code>
+                    betyder "har" och <code>owns</code> betyder "äger" eller "ansvarar för".</p>
+
+                <pre><code class="language-mermaid">classDiagram
+    Bank --&gt; Customer : has
+    Customer --&gt; Account : owns
+
+    class Bank {
+        -string name
+        -list customers
+        +addCustomer(customer) void
+        +findCustomer(name) Customer
+    }
+
+    class Customer {
+        -string name
+        -string customerId
+        -list accounts
+        +addAccount(account) void
+        +getAccounts() list
+        +getName() string
+    }
+
+    class Account {
+        -string accountNumber
+        -float balance
+        +deposit(amount) void
+        +withdraw(amount) bool
+        +getBalance() float
+    }</code></pre>
+
+                <h2>Mermaid-kod</h2>
+                <p>Om du vill skriva diagrammet i en Markdown- eller HTML-miljö som stödjer Mermaid kan du använda
+                    koden nedan.</p>
+                <pre><code>classDiagram
+    Bank --&gt; Customer : has
+    Customer --&gt; Account : owns
+
+    class Bank {
+        -string name
+        -list customers
+        +addCustomer(customer) void
+        +findCustomer(name) Customer
+    }
+
+    class Customer {
+        -string name
+        -string customerId
+        -list accounts
+        +addAccount(account) void
+        +getAccounts() list
+        +getName() string
+    }
+
+    class Account {
+        -string accountNumber
+        -float balance
+        +deposit(amount) void
+        +withdraw(amount) bool
+        +getBalance() float
+    }</code></pre>
+
+                <h2>Python-kod</h2>
+                <p>Ladda ner kodexemplet:
+                    <a href="../p2-python-kod/kap3-5-bank-uml-losningsforslag.py" download>kap3-5-bank-uml-losningsforslag.py</a>
+                </p>
+
+                <h2>Att tänka på</h2>
+                <ul>
+                    <li>UML-diagrammet behöver inte visa varje kodrad, bara programmets struktur.</li>
+                    <li>Attributen i diagrammet motsvarar data som sparas i objekten.</li>
+                    <li>Metoderna i diagrammet motsvarar vad objekten kan göra.</li>
+                    <li>Associationerna visar att objekten hänger ihop, till exempel genom listor.</li>
+                </ul>
+            </section>
+
+            <p><a href="chapter-3-5.html">Tillbaka till kap 3.5</a></p>
+        </article>
+    </main>
+    <script src="../js/main.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                lineColor: '#f4f7fb',
+                textColor: '#f4f7fb',
+                primaryBorderColor: '#f4f7fb',
+                relationLabelColor: '#f4f7fb',
+                tertiaryTextColor: '#f4f7fb'
+            }
+        })
+
+        function renderMermaidForRoot(root = document) {
+            const blocks = root.querySelectorAll
+                ? root.querySelectorAll('code.language-mermaid')
+                : []
+            const toRender = []
+
+            blocks.forEach(code => {
+                if (code.dataset.mermaidProcessed) return
+
+                const container = document.createElement('div')
+                container.className = 'mermaid'
+                container.textContent = code.textContent
+                code.parentNode.replaceWith(container)
+                code.dataset.mermaidProcessed = '1'
+                toRender.push(container)
+            })
+
+            if (toRender.length) mermaid.init(undefined, toRender)
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMermaidForRoot(document)
+        })
+    </script>
+</body>
+
+</html>

@@ -2088,39 +2088,39 @@ function runChapterThreeGenericsExercise(exercise) {
       const names = ["Adam", "Bo", "Cia"];
       const scores = [10, 20, 30];
 
-      output.push('namn = första(["Adam", "Bo", "Cia"])');
+      output.push('name = first(["Adam", "Bo", "Cia"])');
       output.push("T blir str eftersom listan innehåller strängar.");
-      output.push("print(namn)");
+      output.push("print(name)");
       output.push(names[0]);
       output.push("");
-      output.push("poäng = första([10, 20, 30])");
+      output.push("score = first([10, 20, 30])");
       output.push("T blir int eftersom listan innehåller heltal.");
-      output.push("print(poäng)");
+      output.push("print(score)");
       output.push(String(scores[0]));
     } else if (modeInput.value === "contains") {
       const hasAdam = ["Adam", "Bo"].includes("Adam");
       const hasThree = [1, 2, 3].includes(3);
 
-      output.push('finns_i("Adam", ["Adam", "Bo"])');
-      output.push("värde och listans innehåll är båda str.");
+      output.push('contains_value("Adam", ["Adam", "Bo"])');
+      output.push("value och listans innehåll är båda str.");
       output.push(String(hasAdam));
       output.push("");
-      output.push("finns_i(3, [1, 2, 3])");
-      output.push("värde och listans innehåll är båda int.");
+      output.push("contains_value(3, [1, 2, 3])");
+      output.push("value och listans innehåll är båda int.");
       output.push(String(hasThree));
     } else if (modeInput.value === "register") {
       const register = [];
-      const book = { titel: "Python" };
+      const book = { title: "Python" };
       register.push(book);
       const firstBook = register[0];
 
-      output.push("bokregister = Register[Bok]()");
-      output.push('bokregister.lägg_till(Bok("Python"))');
-      output.push("första_boken = bokregister.alla()[0]");
-      output.push("print(första_boken.titel)");
-      output.push(firstBook.titel);
+      output.push("book_register = Register[Book]()");
+      output.push('book_register.add(Book("Python"))');
+      output.push("first_book = book_register.all_items()[0]");
+      output.push("print(first_book.title)");
+      output.push(firstBook.title);
       output.push("");
-      output.push("Register[Bok] visar att registret är tänkt att lagra Bok-objekt.");
+      output.push("Register[Book] visar att registret är tänkt att lagra Book-objekt.");
     }
 
     result.textContent = output.join("\n");

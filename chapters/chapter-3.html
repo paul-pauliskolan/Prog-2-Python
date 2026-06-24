@@ -84,9 +84,9 @@
         +List~String~ options
         +int correctIndex
       }
-      Course "1" o-- "*" Chapter : contains
-      Chapter "1" o-- "*" Quiz : contains
-      Quiz "1" o-- "*" Question : contains
+      Course --> Chapter : contains
+      Chapter --> Quiz : contains
+      Quiz --> Question : contains
     </code></pre>
         <h3>Övning</h3>
         <p>Skapa ett enkelt klassdiagram för din tidigare identifierade klasser.</p>

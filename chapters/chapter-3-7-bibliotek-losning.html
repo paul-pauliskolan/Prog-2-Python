@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Lösningsförslag - Kap 3.7 bibliotekssystem</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Lösningsförslag till kap 3.7: objektorienterat bibliotekssystem.">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero">
+                <p class="eyebrow">Lösningsförslag</p>
+                <h1>Kap 3.7 – Bibliotekssystem</h1>
+                <p class="subtitle">Ett exempel på ett objektorienterat projekt med tre samverkande klasser.</p>
+            </header>
+
+            <section class="content-section">
+                <h2>Klassdiagram</h2>
+                <pre><code class="language-mermaid">classDiagram
+    Library --> Book : contains
+    Library --> Member : registers
+    Member --> Book : borrows
+
+    class Book {
+        -string title
+        -string author
+        -bool available
+        +borrow() bool
+        +return_book() void
+        +get_title() string
+        +__str__() string
+    }
+
+    class Member {
+        -string name
+        -list borrowed_books
+        +borrow_book(book) void
+        +return_book(book) void
+        +list_books() void
+        +get_name() string
+    }
+
+    class Library {
+        -list books
+        -list members
+        +add_book(title, author) void
+        +register_member(name) void
+        +find_book(title) Book
+        +find_member(name) Member
+        +list_books() void
+    }</code></pre>
+
+                <h2>Kodstruktur</h2>
+                <ul>
+                    <li><code>Book</code> sparar titel, författare och om boken är tillgänglig.</li>
+                    <li><code>Member</code> sparar låntagarens namn och vilka böcker personen har lånat.</li>
+                    <li><code>Library</code> sparar böcker och medlemmar samt söker fram rätt objekt.</li>
+                </ul>
+
+                <h2>Attribut och metoder</h2>
+                <p><strong>Book:</strong> har attributen <code>_title</code>, <code>_author</code> och
+                    <code>_available</code>. Metoderna lånar ut, lämnar tillbaka och skriver ut bokens status.</p>
+                <p><strong>Member:</strong> har attributen <code>_name</code> och <code>_borrowed_books</code>.
+                    Metoderna lånar, lämnar tillbaka och listar böcker.</p>
+                <p><strong>Library:</strong> har attributen <code>_books</code> och <code>_members</code>. Metoderna
+                    lägger till böcker, registrerar medlemmar och söker efter objekt.</p>
+
+                <h2>Python-kod</h2>
+                <p>Ladda ner ett komplett lösningsförslag:
+                    <a href="../p2-python-kod/kap3-7-bibliotek-projekt-losningsforslag.py" download>kap3-7-bibliotek-projekt-losningsforslag.py</a>
+                </p>
+
+                <h2>Vad lösningen visar</h2>
+                <ul>
+                    <li>Tre klasser samarbetar i samma program.</li>
+                    <li>Attribut markeras som interna med understreck.</li>
+                    <li>Objekt skickas som argument mellan metoder.</li>
+                    <li>Programmet testas genom ett konkret scenario där en medlem lånar och lämnar tillbaka en bok.</li>
+                </ul>
+            </section>
+
+            <p><a href="chapter-3-7.html">Tillbaka till kap 3.7</a></p>
+        </article>
+    </main>
+    <script src="../js/main.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                lineColor: '#f4f7fb',
+                textColor: '#f4f7fb',
+                primaryBorderColor: '#f4f7fb',
+                relationLabelColor: '#f4f7fb',
+                tertiaryTextColor: '#f4f7fb'
+            }
+        })
+
+        function renderMermaidForRoot(root = document) {
+            const blocks = root.querySelectorAll
+                ? root.querySelectorAll('code.language-mermaid')
+                : []
+            const toRender = []
+
+            blocks.forEach(code => {
+                if (code.dataset.mermaidProcessed) return
+
+                const container = document.createElement('div')
+                container.className = 'mermaid'
+                container.textContent = code.textContent
+                code.parentNode.replaceWith(container)
+                code.dataset.mermaidProcessed = '1'
+                toRender.push(container)
+            })
+
+            if (toRender.length) mermaid.init(undefined, toRender)
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMermaidForRoot(document)
+        })
+    </script>
+</body>
+
+</html>

@@ -122,16 +122,27 @@ print(verktyg.kvadrat(5))</textarea>
                         ligga i en egen fil och återanvändas från flera huvudprogram.</p>
                 </section>
 
-                <h2>Öva – tillämpning i ett projekt</h2>
-                <p>Om du har ett projekt som innehåller både spel- och användarfunktioner:</p>
-                <ul>
-                    <li>Skapa <code>strid.py</code> för all stridslogik.</li>
+                <h2>Öva själv</h2>
+                <p>Skapa en projektmapp som heter <code>kap4-3-moduler</code>. Dela upp programmet i tre filer så att
+                    varje fil får ett tydligt ansvar.</p>
+                <ol>
                     <li>Skapa <code>spelare.py</code> med klassen <code>Player</code>.</li>
-                    <li>Skapa <code>main.py</code> som styr spelet.</li>
-                </ul>
-                <p>Du kan då importera som:</p>
+                    <li>Låt <code>Player</code> ha attributen <code>name</code> och <code>health</code>.</li>
+                    <li>Skriv metoderna <code>take_damage(amount)</code>, <code>is_alive()</code> och <code>print_status()</code>.</li>
+                    <li>Skapa <code>strid.py</code> med funktionerna <code>attack(attacker, defender, damage)</code> och <code>print_result(player1, player2)</code>.</li>
+                    <li>Skapa <code>main.py</code> som importerar <code>Player</code> från <code>spelare.py</code> och importerar hela modulen <code>strid</code>.</li>
+                    <li>Testa programmet genom att skapa två spelare, låta dem attackera varandra och skriva ut resultatet.</li>
+                </ol>
+                <p>Importerna i <code>main.py</code> kan se ut så här:</p>
                 <pre><code class="language-python">from spelare import Player
 import strid</code></pre>
+                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
+                    <a href="../p2-python-kod/kap4-3-moduler-losningsforslag.zip" download>kap4-3-moduler-losningsforslag.zip</a>.
+                    Du kan också öppna filerna direkt:
+                    <a href="../p2-python-kod/kap4-3-moduler-losningsforslag/main.py" download>main.py</a>,
+                    <a href="../p2-python-kod/kap4-3-moduler-losningsforslag/spelare.py" download>spelare.py</a> och
+                    <a href="../p2-python-kod/kap4-3-moduler-losningsforslag/strid.py" download>strid.py</a>.
+                </p>
 
                 <h2>Varför moduler?</h2>
                 <ul>

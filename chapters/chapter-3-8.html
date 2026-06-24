@@ -50,17 +50,21 @@
                 <h2>Begreppen förklarade enklare</h2>
                 <h3>Generisk kod</h3>
                 <p>Generisk kod betyder att du skriver samma lösning en gång, men låter den fungera med flera typer.
-                    Funktionen <code>första()</code> behöver till exempel inte veta om listan innehåller namn, poäng
+                    Funktionen <code>first()</code> behöver till exempel inte veta om listan innehåller namn, poäng
                     eller bokobjekt. Den gör alltid samma sak: hämtar första värdet.</p>
 
                 <h3>Typvariabeln <code>T</code></h3>
                 <p><code>T</code> är inte en vanlig variabel som får ett värde när programmet körs. Den är en
                     typmarkering. Den betyder: "den typ som används här ska vara samma typ på de andra platserna där
                     <code>T</code> står".</p>
-                <pre><code class="language-python">def första(värden: list[T]) -> T:
-    return värden[0]</code></pre>
-                <p>Om <code>värden</code> är <code>list[str]</code> betyder <code>T</code> text, alltså
-                    <code>str</code>. Om <code>värden</code> är <code>list[int]</code> betyder <code>T</code> heltal,
+                <pre><code class="language-python">from typing import TypeVar
+
+T = TypeVar("T")
+
+def first(values: list[T]) -> T:
+    return values[0]</code></pre>
+                <p>Om <code>values</code> är <code>list[str]</code> betyder <code>T</code> text, alltså
+                    <code>str</code>. Om <code>values</code> är <code>list[int]</code> betyder <code>T</code> heltal,
                     alltså <code>int</code>. Poängen är sambandet: funktionen returnerar samma typ som listan innehåller.</p>
 
                 <h3><code>TypeVar</code></h3>
@@ -74,13 +78,13 @@ T = TypeVar("T")</code></pre>
                 <p><code>Generic[T]</code> används när en hel klass ska arbeta med en typ som bestäms senare. Klassen
                     <code>Register</code> kan till exempel vara ett register för böcker, elever eller recept, men ett
                     specifikt register bör hålla sig till en typ åt gången.</p>
-                <pre><code class="language-python">bokregister = Register[Bok]()
-elevregister = Register[Elev]()</code></pre>
-                <p><code>Register[Bok]</code> betyder: detta register är tänkt att lagra <code>Bok</code>-objekt.
-                    <code>Register[Elev]</code> betyder: detta register är tänkt att lagra <code>Elev</code>-objekt.</p>
+                <pre><code class="language-python">book_register = Register[Book]()
+student_register = Register[Student]()</code></pre>
+                <p><code>Register[Book]</code> betyder: detta register är tänkt att lagra <code>Book</code>-objekt.
+                    <code>Register[Student]</code> betyder: detta register är tänkt att lagra <code>Student</code>-objekt.</p>
 
                 <h3>Typhintar kör inte programmet åt dig</h3>
-                <p>Typhintar som <code>list[T]</code>, <code>-&gt; T</code> och <code>Register[Bok]</code> är främst
+                <p>Typhintar som <code>list[T]</code>, <code>-&gt; T</code> och <code>Register[Book]</code> är främst
                     hjälp för människor, editorer och typkontrollverktyg. De gör koden tydligare, men Python stoppar
                     normalt inte automatiskt alla typfel när programmet körs.</p>
 
@@ -88,11 +92,11 @@ elevregister = Register[Elev]()</code></pre>
                 <p>Tänk att du vill skriva en funktion som hämtar första värdet ur en lista. Funktionen fungerar på
                     samma sätt oavsett om listan innehåller tal, text eller objekt.</p>
 
-                <pre><code class="language-python">def första_text(värden: list[str]) -> str:
-    return värden[0]
+                <pre><code class="language-python">def first_text(values: list[str]) -> str:
+    return values[0]
 
-def första_tal(värden: list[int]) -> int:
-    return värden[0]</code></pre>
+def first_number(values: list[int]) -> int:
+    return values[0]</code></pre>
 
                 <p>Det här ger duplicerad kod. Logiken är identisk. Det enda som skiljer är typen. Med en generisk
                     funktion kan vi beskriva samma idé en gång.</p>
@@ -102,20 +106,20 @@ def första_tal(värden: list[int]) -> int:
 
 T = TypeVar("T")
 
-def första(värden: list[T]) -> T:
-    return värden[0]
+def first(values: list[T]) -> T:
+    return values[0]
 
-namn = första(["Adam", "Bo", "Cia"])
-poäng = första([10, 20, 30])
+name = first(["Adam", "Bo", "Cia"])
+score = first([10, 20, 30])
 
-print(namn)
-print(poäng)</code></pre>
+print(name)
+print(score)</code></pre>
 
                 <p><code>T</code> betyder att funktionen ska returnera samma typ som listan innehåller. Om listan är
                     <code>list[str]</code> blir returvärdet <code>str</code>. Om listan är <code>list[int]</code> blir
                     returvärdet <code>int</code>.</p>
 
-                <h2>Generisk metod</h2>
+                <h2>Generisk funktion med flera parametrar</h2>
                 <p>Samma idé kan användas i metoder, men exemplet nedan är en fristående funktion för att göra grunden
                     tydlig. Funktionen kontrollerar om ett värde finns i en lista, oavsett vilken typ listan innehåller.</p>
 
@@ -123,15 +127,15 @@ print(poäng)</code></pre>
 
 T = TypeVar("T")
 
-def finns_i(värde: T, värden: list[T]) -> bool:
-    return värde in värden
+def contains_value(value: T, values: list[T]) -> bool:
+    return value in values
 
-print(finns_i("Adam", ["Adam", "Bo"]))
-print(finns_i(3, [1, 2, 3]))</code></pre>
+print(contains_value("Adam", ["Adam", "Bo"]))
+print(contains_value(3, [1, 2, 3]))</code></pre>
 
-                <p>Det viktiga är kopplingen mellan <code>värde</code> och <code>värden</code>: de ska höra ihop
-                    typmässigt. När <code>värde</code> är en sträng ska listan också vara en lista med strängar. När
-                    <code>värde</code> är ett heltal ska listan vara en lista med heltal. Det gör koden lättare att
+                <p>Det viktiga är kopplingen mellan <code>value</code> och <code>values</code>: de ska höra ihop
+                    typmässigt. När <code>value</code> är en sträng ska listan också vara en lista med strängar. När
+                    <code>value</code> är ett heltal ska listan vara en lista med heltal. Det gör koden lättare att
                     förstå och bättre för editorstöd.</p>
 
                 <h2>Generisk klass</h2>
@@ -142,20 +146,20 @@ print(finns_i(3, [1, 2, 3]))</code></pre>
 
 T = TypeVar("T")
 
-class Låda(Generic[T]):
-    def __init__(self, innehåll: T):
-        self.innehåll = innehåll
+class Box(Generic[T]):
+    def __init__(self, content: T):
+        self._content = content
 
-    def hämta(self) -> T:
-        return self.innehåll
+    def get(self) -> T:
+        return self._content
 
-textlåda = Låda("Hej")
-tallåda = Låda(42)
+text_box = Box("Hej")
+number_box = Box(42)
 
-print(textlåda.hämta())
-print(tallåda.hämta())</code></pre>
+print(text_box.get())
+print(number_box.get())</code></pre>
 
-                <p><code>Låda[str]</code> betyder en låda som innehåller text. <code>Låda[int]</code> betyder en låda
+                <p><code>Box[str]</code> betyder en låda som innehåller text. <code>Box[int]</code> betyder en låda
                     som innehåller heltal. Python tvingar normalt inte detta vid körning, men typhintarna hjälper
                     programmeraren, editorn och testningen.</p>
 
@@ -169,26 +173,26 @@ T = TypeVar("T")
 
 class Register(Generic[T]):
     def __init__(self):
-        self._saker: list[T] = []
+        self._items: list[T] = []
 
-    def lägg_till(self, sak: T) -> None:
-        self._saker.append(sak)
+    def add(self, item: T) -> None:
+        self._items.append(item)
 
-    def alla(self) -> list[T]:
-        return self._saker
+    def all_items(self) -> list[T]:
+        return self._items
 
-class Bok:
-    def __init__(self, titel: str):
-        self.titel = titel
+class Book:
+    def __init__(self, title: str):
+        self.title = title
 
-bokregister = Register[Bok]()
-bokregister.lägg_till(Bok("Python"))
+book_register = Register[Book]()
+book_register.add(Book("Python"))
 
-första_boken = bokregister.alla()[0]
-print(första_boken.titel)</code></pre>
+first_book = book_register.all_items()[0]
+print(first_book.title)</code></pre>
 
-                <p>Samma <code>Register</code>-klass kan användas för <code>Bok</code>, <code>Elev</code>,
-                    <code>Recept</code> eller andra objekt. Det minskar duplicering och gör klassens ansvar tydligt:
+                <p>Samma <code>Register</code>-klass kan användas för <code>Book</code>, <code>Student</code>,
+                    <code>Recipe</code> eller andra objekt. Det minskar duplicering och gör klassens ansvar tydligt:
                     den hanterar en samling objekt.</p>
 
                 <section class="interactive-exercise" data-exercise="chapter-3-generics">
@@ -201,26 +205,26 @@ print(första_boken.titel)</code></pre>
 
 T = TypeVar("T")
 
-def första(värden: list[T]) -> T:
-    return värden[0]
+def first(values: list[T]) -> T:
+    return values[0]
 
-def finns_i(värde: T, värden: list[T]) -> bool:
-    return värde in värden
+def contains_value(value: T, values: list[T]) -> bool:
+    return value in values
 
 class Register(Generic[T]):
     def __init__(self):
-        self._saker: list[T] = []
+        self._items: list[T] = []
 
-    def lägg_till(self, sak: T) -> None:
-        self._saker.append(sak)
+    def add(self, item: T) -> None:
+        self._items.append(item)
 
-    def alla(self) -> list[T]:
-        return self._saker</textarea>
+    def all_items(self) -> list[T]:
+        return self._items</textarea>
 
                     <div class="exercise-controls">
                         <select id="chapter-3-8-mode" class="exercise-select" aria-label="Exempel">
-                            <option value="first">Generisk funktion: första()</option>
-                            <option value="contains">Generisk metod: finns_i()</option>
+                            <option value="first">Generisk funktion: first()</option>
+                            <option value="contains">Generisk funktion: contains_value()</option>
                             <option value="register">Generisk klass: Register[T]</option>
                         </select>
                     </div>
@@ -255,11 +259,14 @@ class Register(Generic[T]):
 
                 <h2>Öva själv</h2>
                 <ol>
-                    <li>Skriv en generisk funktion <code>sista(värden)</code> som returnerar sista värdet i en lista.</li>
-                    <li>Skapa en generisk klass <code>Par</code> som lagrar två värden av samma typ.</li>
-                    <li>Skapa en klass <code>Elev</code> och använd <code>Register[Elev]</code> för att lagra elever.</li>
+                    <li>Skriv en generisk funktion <code>last(values)</code> som returnerar sista värdet i en lista.</li>
+                    <li>Skapa en generisk klass <code>Pair</code> som lagrar två värden av samma typ.</li>
+                    <li>Skapa en klass <code>Student</code> och använd <code>Register[Student]</code> för att lagra elever.</li>
                     <li>Fundera: när blir generisk kod tydligare än duplicerad kod?</li>
                 </ol>
+                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
+                    <a href="../p2-python-kod/kap3-8-generics-losningsforslag.py" download>kap3-8-generics-losningsforslag.py</a>
+                </p>
 
                 <h2>Sammanfattning</h2>
                 <ul>
@@ -308,7 +315,7 @@ class Register(Generic[T]):
                             explanation: 'T kan visa att indata och returvärde hör ihop typmässigt.'
                         },
                         {
-                            question: 'Vad betyder returtypen T i funktionen def första(värden: list[T]) -> T?',
+                            question: 'Vad betyder returtypen T i funktionen def first(values: list[T]) -> T?',
                             options: [
                                 'Funktionen returnerar alltid text',
                                 'Funktionen returnerar alltid en lista',

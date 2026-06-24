@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 3.6 - UML för objektmodeller</title>
+    <title>Kap 3.6 - Arv och polymorfism</title>
     <link rel="stylesheet" href="../css/style.css">
-    <meta name="description" content="Kap 3.6: UML-klassdiagram för objektmodeller med attribut, metoder, association och arv.">
+    <meta name="description" content="Kap 3.6: Arv, subklasser, override, polymorfism och super() i Python.">
 </head>
 
 <body class="chapter-page">
@@ -15,137 +15,401 @@
         <article class="chapter-main">
             <header class="chapter-hero">
                 <p class="eyebrow">Programmering nivå 2</p>
-                <h1>Kap 3.6 – UML för objektmodeller</h1>
-                <p class="subtitle">Planera objektorienterade program med klassdiagram, attribut, metoder och relationer.</p>
+                <h1>Kap 3.6 – Arv och polymorfism</h1>
+                <p class="subtitle">Bygg vidare på klasser och låt samma metodnamn ge olika beteenden.</p>
             </header>
 
             <section class="content-section">
                 <h2>Mål med lektionen</h2>
                 <p>När du har arbetat klart med denna lektion ska du:</p>
                 <ul>
-                    <li>Förstå vad ett UML-klassdiagram är och hur det används för att planera programstruktur.</li>
-                    <li>Kunna tolka enkla UML-diagram och koppla dem till kod.</li>
-                    <li>Kunna skapa egna UML-klassdiagram med attribut, metoder och relationer.</li>
+                    <li>Förstå vad arv innebär i objektorienterad programmering.</li>
+                    <li>Kunna skapa en klass som ärver från en annan klass.</li>
+                    <li>Förstå grunderna i polymorfism och hur metoder kan överskuggas, alltså override.</li>
                 </ul>
 
                 <h2>Så här lär du dig bäst</h2>
-                <p>UML är inte kod. Det är ett visuellt språk för att strukturera din kod innan du skriver den. Studera
-                    exemplen noggrant och försök sedan att omvandla UML till kod, eller kod till UML. UML hjälper dig att
-                    få överblick och planera logiskt.</p>
+                <p>Titta på hur du kan bygga vidare på en redan existerande klass. Börja med ett enkelt exempel och
+                    försök sedan skriva en egen basklass och subklass. Kör koden och se hur objekten beter sig beroende
+                    på vilken klass de tillhör. Läs gärna vidare om <code>super()</code> när du vill fördjupa dig.</p>
+
+                <p class="exercise-note"><strong>Viktigt fokus:</strong> använd inte arv bara för att det går. Arv passar
+                    när en subklass verkligen är en mer specialiserad version av basklassen, till exempel att
+                    <code>Dog</code> är en typ av <code>Animal</code>.</p>
 
                 <h2>Centrala begrepp</h2>
                 <ul>
-                    <li><strong>UML:</strong> ett standardiserat sätt att rita upp system och programstruktur.</li>
-                    <li><strong>Klassdiagram:</strong> en UML-modell som visar klasser, attribut, metoder och relationer.</li>
-                    <li><strong>Attribut eller fält:</strong> variabler som hör till en klass eller ett objekt, till exempel <code>self.name</code> eller <code>self.balance</code>.</li>
-                    <li><strong>Metoder:</strong> funktioner som hör till en klass eller ett objekt.</li>
-                    <li><strong>Association:</strong> en relation mellan två klasser.</li>
-                    <li><strong>Arv:</strong> en relation där en klass ärver från en annan.</li>
+                    <li><strong>Arv:</strong> en klass, subklassen, kan ärva attribut och metoder från en annan klass.</li>
+                    <li><strong>Superklass eller basklass:</strong> den ursprungliga klassen vars beteenden ärvs.</li>
+                    <li><strong>Subklass:</strong> en ny klass som bygger vidare på en annan.</li>
+                    <li><strong>Override:</strong> en metod i subklassen ersätter metoden i basklassen.</li>
+                    <li><strong>Polymorfism:</strong> samma metodnamn kan användas på olika objekt och ge olika resultat.</li>
                 </ul>
 
-                <h2>UML för objektmodeller</h2>
-                <p>Ett klassdiagram visar ofta varje klass som en ruta med tre delar:</p>
-                <ol>
-                    <li>klassens namn,</li>
-                    <li>attribut, alltså fält eller variabler,</li>
-                    <li>metoder, alltså funktioner eller beteenden.</li>
-                </ol>
+                <h2>Begreppen förklarade med exempel</h2>
+                <h3>Arv</h3>
+                <p>Arv betyder att en klass kan få egenskaper och metoder från en annan klass. Om flera klasser har
+                    något gemensamt kan du lägga det gemensamma i en basklass. Då slipper du skriva samma kod flera
+                    gånger.</p>
+                <pre><code>class Animal:
+    def breathe(self):
+        print("Djuret andas.")
 
-                <h2>Exempel: klassdiagram för Dog</h2>
+class Dog(Animal):
+    def wag_tail(self):
+        print("Hunden viftar på svansen.")
+
+dog = Dog()
+dog.breathe()</code></pre>
+                <p>Klassen <code>Dog</code> har en egen metod, <code>wag_tail()</code>, men ingen egen
+                    <code>breathe()</code>. Objektet kan ändå använda <code>breathe()</code> eftersom <code>Dog</code>
+                    ärver från <code>Animal</code>.</p>
+                <p>UML-diagrammet visar arvet med en pil från subklassen till basklassen.</p>
                 <pre><code class="language-mermaid">classDiagram
-    class Dog {
-        -string name
-        -int age
-        +bark() void
-        +haveBirthday() void
-    }</code></pre>
-
-                <p>Symbolerna betyder:</p>
-                <ul>
-                    <li><code>+</code> betyder publik.</li>
-                    <li><code>-</code> betyder privat.</li>
-                    <li><code>#</code> betyder skyddad, alltså protected.</li>
-                    <li>Typen, till exempel <code>string</code> eller <code>int</code>, visar vilken datatyp attributet har.</li>
-                </ul>
-
-                <h2>Relationer mellan klasser: arv</h2>
-                <p>Arv visas med en pil från subklassen till basklassen. Här ärver <code>Dog</code> från
-                    <code>Animal</code>.</p>
-                <pre><code class="language-mermaid">classDiagram
-    Animal &lt;|-- Dog
+    Dog --&gt; Animal : inherits
 
     class Animal {
-        +speak() void
+        +breathe()
     }
 
     class Dog {
-        +bark() void
-        +speak() void
+        +wag_tail()
     }</code></pre>
 
-                <h2>Association mellan klasser</h2>
-                <p>Association betyder att två klasser har en koppling. En student kan till exempel gå på en skola.</p>
+                <h3>Superklass eller basklass</h3>
+                <p>Superklassen, även kallad basklassen, är klassen som andra klasser ärver från. I exemplet ovan är
+                    <code>Animal</code> superklassen. Den beskriver sådant som kan gälla för flera sorters djur.</p>
+                <pre><code>class Animal:
+    def speak(self):
+        print("Djuret låter.")</code></pre>
+                <p>Man kan tänka att <code>Animal</code> är den allmänna modellen. Den behöver inte beskriva exakt hur
+                    varje djur låter, men den ger en gemensam struktur.</p>
+
+                <h3>Subklass</h3>
+                <p>En subklass är en klass som bygger vidare på en superklass. I Python skriver du superklassens namn
+                    inom parentes efter subklassens namn.</p>
+                <pre><code>class Dog(Animal):
+    def wag_tail(self):
+        print("Hunden viftar på svansen.")</code></pre>
+                <p>Här betyder <code>Dog(Animal)</code> att <code>Dog</code> är en subklass till <code>Animal</code>.
+                    <code>Dog</code> kan använda metoder från <code>Animal</code>, men kan också få egna metoder eller
+                    skriva om ärvda metoder.</p>
                 <pre><code class="language-mermaid">classDiagram
-    Student --&gt; School : attends
+    Dog --&gt; Animal : inherits
+
+    class Animal {
+        +speak()
+    }
+
+    class Dog {
+        +wag_tail()
+    }</code></pre>
+
+                <h3>Override</h3>
+                <p>Override betyder att en subklass skriver en egen version av en metod som redan finns i basklassen.
+                    Metoden har samma namn, men beteendet blir annorlunda.</p>
+                <pre><code>class Animal:
+    def speak(self):
+        print("Djuret låter.")
+
+class Dog(Animal):
+    def speak(self):
+        print("Hunden säger voff.")</code></pre>
+                <p>När <code>speak()</code> körs på ett <code>Dog</code>-objekt används hundens version. Basklassens
+                    metod finns fortfarande, men subklassens metod tar över för just <code>Dog</code>.</p>
+
+                <h3>Polymorfism</h3>
+                <p>Polymorfism betyder att samma metodanrop kan användas på flera olika objekt. Programmet behöver inte
+                    veta exakt vilken klass objektet har, så länge objektet har metoden som anropas.</p>
+                <pre><code>animals = [Dog(), Cat(), Bird()]
+
+for animal in animals:
+    animal.speak()</code></pre>
+                <p>Loopen kör alltid <code>animal.speak()</code>. Ändå blir utskriften olika, eftersom <code>Dog</code>,
+                    <code>Cat</code> och <code>Bird</code> har egna versioner av metoden.</p>
+                <pre><code class="language-mermaid">classDiagram
+    Dog --&gt; Animal : inherits
+    Cat --&gt; Animal : inherits
+    Bird --&gt; Animal : inherits
+
+    class Animal {
+        +speak()
+    }
+
+    class Dog {
+        +speak()
+    }
+
+    class Cat {
+        +speak()
+    }
+
+    class Bird {
+        +speak()
+    }</code></pre>
+
+                <h3>Skillnaden mellan override och polymorfism</h3>
+                <p><strong>Override</strong> handlar om hur en subklass ändrar en metod. <strong>Polymorfism</strong>
+                    handlar om hur samma metodanrop kan fungera på flera olika objekt.</p>
+                <pre><code>class Animal:
+    def speak(self):
+        print("Djuret låter.")
+
+class Dog(Animal):
+    def speak(self):
+        print("Hunden säger voff.")</code></pre>
+                <p>I koden ovan sker <strong>override</strong>, eftersom <code>Dog</code> skriver en egen version av
+                    <code>speak()</code>. Metoden i <code>Animal</code> finns kvar, men för <code>Dog</code>-objekt
+                    används hundens version.</p>
+                <pre><code>animals = [Dog(), Animal()]
+
+for animal in animals:
+    animal.speak()</code></pre>
+                <p>I loopen ovan ser du <strong>polymorfism</strong>. Samma rad, <code>animal.speak()</code>, körs för
+                    båda objekten. Resultatet blir ändå olika eftersom objekten tillhör olika klasser.</p>
+                <p>En enkel minnesregel är: <strong>override</strong> betyder att subklassen skriver om metoden.
+                    <strong>Polymorfism</strong> betyder att samma metodanrop kan ge olika beteende. Override gör ofta
+                    polymorfism möjlig.</p>
+
+                <h2>När passar arv?</h2>
+                <p>Arv passar bäst när du kan säga "är en". En hund <strong>är ett</strong> djur. En rektangel
+                    <strong>är en</strong> form. En elev <strong>är en</strong> person. Då kan en subklass bygga vidare
+                    på en basklass.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Situation</th>
+                            <th>Passar arv?</th>
+                            <th>Varför?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>Dog</code> och <code>Animal</code></td>
+                            <td>Ja</td>
+                            <td>En hund är ett djur.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Rectangle</code> och <code>Shape</code></td>
+                            <td>Ja</td>
+                            <td>En rektangel är en form.</td>
+                        </tr>
+                        <tr>
+                            <td><code>Car</code> och <code>Engine</code></td>
+                            <td>Nej, oftast inte</td>
+                            <td>En bil är inte en motor. En bil har en motor.</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p>Om relationen är "har en" i stället för "är en" är arv ofta fel modell. Då är det bättre att låta ett
+                    objekt innehålla ett annat objekt.</p>
+
+                <h2>Arv i Python</h2>
+                <p>Python använder parenteser för att visa att en klass ärver från en annan:</p>
+
+                <pre><code>class Animal:
+    def speak(self):
+        print("Djuret låter.")
+
+class Dog(Animal):
+    def speak(self):
+        print("Hunden säger voff.")</code></pre>
+
+                <p>Användning:</p>
+                <pre><code>animal = Animal()
+dog = Dog()
+
+animal.speak()  # Djuret låter.
+dog.speak()     # Hunden säger voff.</code></pre>
+
+                <p>Här ärver <code>Dog</code> från <code>Animal</code>. Parentesen i <code>class Dog(Animal):</code>
+                    visar arvet. Eftersom <code>Dog</code> har en egen metod som också heter <code>speak()</code>
+                    används hundens version när <code>dog.speak()</code> körs. Det är override.</p>
+
+                <h2>Polymorfism i praktiken</h2>
+                <pre><code>animals = [Dog(), Animal()]
+
+for animal in animals:
+    animal.speak()</code></pre>
+
+                <p>Alla objekt kan hanteras med samma metodanrop, men svarar på olika sätt beroende på vilken klass de
+                    tillhör. Variabeln <code>animal</code> får först hålla ett <code>Dog</code>-objekt och sedan ett
+                    <code>Animal</code>-objekt. Samma rad, <code>animal.speak()</code>, fungerar för båda.</p>
+
+                <h2>Flera subklasser med polymorfism</h2>
+                <pre><code>class Cat(Animal):
+    def speak(self):
+        print("Katten säger mjau.")
+
+class Bird(Animal):
+    def speak(self):
+        print("Fågeln kvittrar.")
+
+animals = [Dog(), Cat(), Bird()]
+
+for animal in animals:
+    animal.speak()</code></pre>
+
+                <p>I detta exempel är <code>Dog</code>, <code>Cat</code> och <code>Bird</code> olika subklasser till
+                    <code>Animal</code>. De har samma metodnamn, <code>speak()</code>, men varje klass har sin egen
+                    version. Det gör att listan kan innehålla olika typer av objekt utan att loopen behöver specialfall
+                    för hund, katt eller fågel.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-3-inheritance-polymorphism">
+                    <h2>Interaktiv övning: arv och polymorfism</h2>
+                    <p>Välj vilka objekt som ska finnas i listan och kör loopen. Alla objekt anropas med samma metod,
+                        <code>speak()</code>, men utskriften beror på vilken klass objektet tillhör.</p>
+
+                    <label for="chapter-3-6-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-3-6-code" class="exercise-code" rows="22" spellcheck="false">class Animal:
+    def speak(self):
+        print("Djuret låter.")
+
+class Dog(Animal):
+    def speak(self):
+        print("Hunden säger voff.")
+
+class Cat(Animal):
+    def speak(self):
+        print("Katten säger mjau.")
+
+class Bird(Animal):
+    def speak(self):
+        print("Fågeln kvittrar.")
+
+animals = [Dog(), Cat(), Bird()]
+
+for animal in animals:
+    animal.speak()</textarea>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-3-6-mode" class="exercise-select" aria-label="Exempel">
+                            <option value="single">Arv: Animal och Dog</option>
+                            <option value="mixed">Polymorfism: Dog och Animal</option>
+                            <option value="subclasses">Flera subklasser: Dog, Cat och Bird</option>
+                        </select>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör exempel</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-3-6-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-3-6-result" class="exercise-result">Välj ett exempel och tryck på Kör exempel.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> <code>Dog</code>,
+                        <code>Cat</code> och <code>Bird</code> ärver från <code>Animal</code>, men skriver om
+                        <code>speak()</code>. Det är override. När loopen kör <code>animal.speak()</code> används rätt
+                        version automatiskt.</p>
+                </section>
+
+                <h2>Beräkningsexempel med olika former</h2>
+                <p>Det här exemplet visar polymorfism med ett mer programmeringsnära problem. Alla former har metoden
+                    <code>area()</code>, men varje form räknar ut arean på sitt eget sätt.</p>
+                <pre><code>class Shape:
+    def area(self):
+        return 0
+
+class Rectangle(Shape):
+    def __init__(self, width, height):
+        self._width = width
+        self._height = height
+
+    def area(self):
+        return self._width * self._height
+
+class Circle(Shape):
+    def __init__(self, radius):
+        self._radius = radius
+
+    def area(self):
+        return 3.14 * self._radius ** 2
+
+shapes = [Rectangle(4, 5), Circle(3)]
+
+for shape in shapes:
+    print("Area:", shape.area())</code></pre>
+                <p>Loopen behöver inte veta om objektet är en <code>Rectangle</code> eller en <code>Circle</code>. Den
+                    anropar bara <code>shape.area()</code>. Det är polymorfism i praktiken.</p>
+                <pre><code class="language-mermaid">classDiagram
+    Rectangle --&gt; Shape : inherits
+    Circle --&gt; Shape : inherits
+
+    class Shape {
+        +area()
+    }
+
+    class Rectangle {
+        -width
+        -height
+        +area()
+    }
+
+    class Circle {
+        -radius
+        +area()
+    }</code></pre>
+
+                <h2>super(): utöka basklassens metod</h2>
+                <pre><code>class Person:
+    def __init__(self, name):
+        self.name = name
+
+    def introduce(self):
+        print(f"Jag heter {self.name}.")
+
+class Student(Person):
+    def __init__(self, name, school):
+        super().__init__(name)
+        self.school = school
+
+    def introduce(self):
+        super().introduce()
+        print(f"Jag går på {self.school}.")</code></pre>
+
+                <p><code>super()</code> gör det möjligt att återanvända basklassens kod och sedan lägga till mer beteende i
+                    subklassen.</p>
+                <p>Utan <code>super().__init__(name)</code> hade <code>Student</code> behövt upprepa koden som sparar
+                    <code>self.name</code>. Med <code>super()</code> kan subklassen använda basklassens initiering och
+                    bara lägga till det som är nytt: <code>self.school</code>.</p>
+                <pre><code class="language-mermaid">classDiagram
+    Student --&gt; Person : inherits
+
+    class Person {
+        +name
+        +introduce()
+    }
 
     class Student {
-        -string name
-        -int age
-        +printInfo() void
-    }
-
-    class School {
-        -string name
-        -string city
-        +addStudent(student) void
+        +school
+        +introduce()
     }</code></pre>
 
-                <h2>Exempel: bankapplikation</h2>
-                <p>En enkel bankmodell kan innehålla kunder, konton och en bank. Diagrammet visar att en bank har kunder
-                    och att en kund kan ha konton.</p>
-                <pre><code class="language-mermaid">classDiagram
-    Bank -- Customer : has
-    Customer -- Account : owns
-
-    class Bank {
-        -string name
-        +addCustomer(customer) void
-        +findCustomer(name) Customer
-    }
-
-    class Customer {
-        -string name
-        -string customerId
-        +addAccount(account) void
-        +getAccounts() list
-    }
-
-    class Account {
-        -string accountNumber
-        -float balance
-        +deposit(amount) void
-        +withdraw(amount) bool
-        +getBalance() float
-    }</code></pre>
-
-                <h2>Öva: analysera och skapa UML</h2>
+                <h2>Öva: använd arv</h2>
+                <p>Skapa filen <code>kap3-6-vehicles.py</code>. Målet är att träna på arv, override och polymorfism i
+                    samma program.</p>
                 <ol>
-                    <li>Skapa ett klassdiagram för en enkel bankapplikation med klasserna <code>Customer</code>, <code>Account</code> och <code>Bank</code>.</li>
-                    <li>Visa vilka attribut och metoder som varje klass har.</li>
-                    <li>Rita ut associationer, till exempel att en kund kan ha flera konton.</li>
-                    <li>Omvandla ett tidigare program du skrivit till ett UML-diagram.</li>
+                    <li>Skapa en basklass <code>Vehicle</code> med metoden <code>drive()</code>.</li>
+                    <li>Skapa två subklasser: <code>Car</code> och <code>Bike</code>, som överskuggar <code>drive()</code>.</li>
+                    <li>Skapa en lista med både bilar och cyklar och låt dem köra i en loop.</li>
+                    <li>Lägg till attributet <code>brand</code> i basklassen och använd <code>super().__init__(brand)</code>
+                        i subklasserna.</li>
+                    <li>Testa att loopen kan köra <code>vehicle.drive()</code> utan att kontrollera om objektet är
+                        <code>Car</code> eller <code>Bike</code>.</li>
                 </ol>
-
-                <h2>Verktyg att använda</h2>
-                <p>Du kan rita UML för hand eller med digitala verktyg som draw.io, Lucidchart, yEd eller StarUML. Det
-                    viktiga är inte programmet utan att du kan strukturera och förklara din idé.</p>
+                <p class="exercise-note">När programmet fungerar ska du kunna lägga till ett nytt objekt i listan utan
+                    att ändra själva loopen.</p>
+                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
+                    <a href="../p2-python-kod/kap3-6-vehicles-losningsforslag.py" download>kap3-6-vehicles-losningsforslag.py</a>
+                </p>
 
                 <h2>Sammanfattning</h2>
                 <ul>
-                    <li>UML-klassdiagram visar klasser, attribut, metoder och relationer visuellt.</li>
-                    <li>De hjälper dig att planera, förklara och strukturera din kod.</li>
-                    <li>Arv, association och inkapsling kan visas grafiskt.</li>
-                    <li>UML är ett kraftfullt analysverktyg för objektorienterad programmering.</li>
+                    <li>Arv låter en klass återanvända kod från en annan.</li>
+                    <li>Subklasser kan ändra hur en metod fungerar.</li>
+                    <li>Polymorfism låter samma metodanrop bete sig olika beroende på objekt.</li>
+                    <li><code>super()</code> kan användas för att återanvända logik från basklassen.</li>
                 </ul>
             </section>
 
@@ -199,67 +463,67 @@
         document.addEventListener('DOMContentLoaded', function () {
             if (window.renderQuiz) {
                 window.renderQuiz(document.getElementById('quiz-3-6'), {
-                    title: 'Quiz: Kap 3.6 - UML för objektmodeller',
+                    title: 'Quiz: Kap 3.6 - Arv och polymorfism',
                     questions: [
                         {
-                            question: 'Vad visar ett UML-klassdiagram?',
+                            question: 'Vad innebär arv i objektorienterad programmering?',
                             options: [
-                                'Endast färdiga Python-filer',
-                                'Klasser, attribut, metoder och relationer',
-                                'Bara felmeddelanden i programmet',
-                                'En lista över installerade bibliotek'
+                                'Att en klass kan bygga vidare på en annan klass',
+                                'Att alla metoder tas bort från en klass',
+                                'Att objekt inte längre behöver skapas',
+                                'Att alla attribut måste vara privata'
                             ],
-                            correct: 1,
-                            feedback: 'Ett klassdiagram visar programstruktur visuellt.',
-                            explanation: 'Det hjälper dig se vilka klasser som finns och hur de hänger ihop.'
+                            correct: 0,
+                            feedback: 'Arv gör att en klass kan återanvända och utöka en annan klass.',
+                            explanation: 'En subklass kan ärva metoder och attribut från en superklass.'
                         },
                         {
-                            question: 'Vad betyder ett attribut i ett klassdiagram?',
+                            question: 'Vad är en subklass?',
                             options: [
-                                'En metod som kör hela programmet',
-                                'En variabel eller ett fält i en klass',
-                                'En relation som alltid betyder arv',
-                                'En kommentar som inte hör till klassen'
+                                'En klass som aldrig kan skapa objekt',
+                                'En klass som bygger vidare på en annan klass',
+                                'En metod som returnerar en lista',
+                                'Ett attribut som saknar värde'
                             ],
                             correct: 1,
-                            feedback: 'Attribut motsvarar data i en klass.',
-                            explanation: 'Exempel är name, age eller balance.'
+                            feedback: 'En subklass ärver från en annan klass.',
+                            explanation: 'Exempel: Dog kan vara en subklass till Animal.'
                         },
                         {
-                            question: 'Vad betyder association i UML?',
+                            question: 'Vad betyder override?',
                             options: [
-                                'Att en klass saknar metoder',
-                                'Att alla attribut är privata',
-                                'Att två klasser har en koppling eller relation',
-                                'Att en metod måste returnera true'
+                                'Att en metod bara får användas en gång',
+                                'Att en metod i subklassen ersätter eller ändrar basklassens metod',
+                                'Att en klass inte får ha attribut',
+                                'Att en loop stoppas med break'
+                            ],
+                            correct: 1,
+                            feedback: 'Override innebär att subklassen skriver om en ärvd metod.',
+                            explanation: 'Dog kan till exempel ha en egen speak()-metod som ersätter Animal.speak().'
+                        },
+                        {
+                            question: 'Vad innebär polymorfism?',
+                            options: [
+                                'Att alla objekt alltid gör exakt samma sak',
+                                'Att programmet bara använder en klass',
+                                'Att samma metodnamn kan ge olika beteende beroende på objektets klass',
+                                'Att metoder inte kan ta parametrar'
                             ],
                             correct: 2,
-                            feedback: 'Association visar att klasser är kopplade till varandra.',
-                            explanation: 'Exempel: en Customer kan ha ett eller flera Account-objekt.'
+                            feedback: 'Polymorfism betyder att samma metodanrop kan ge olika resultat.',
+                            explanation: 'Olika objekt kan ha metoden speak(), men svara på olika sätt.'
                         },
                         {
-                            question: 'Vad visar en arv-relation i ett klassdiagram?',
+                            question: 'Vad används super() ofta till?',
                             options: [
-                                'Att två klasser aldrig får samarbeta',
-                                'Att alla objekt ska sorteras alfabetiskt',
-                                'Att en metod är privat',
-                                'Att en klass ärver från en annan klass'
+                                'Att återanvända kod från basklassen i en subklass',
+                                'Att skapa en global variabel',
+                                'Att sortera objekt automatiskt',
+                                'Att stoppa arv mellan klasser'
                             ],
-                            correct: 3,
-                            feedback: 'Arv visar att en subklass bygger vidare på en basklass.',
-                            explanation: 'Exempel: Dog kan ärva från Animal.'
-                        },
-                        {
-                            question: 'Varför används UML innan man skriver kod?',
-                            options: [
-                                'För att slippa testa programmet',
-                                'För att planera och förklara strukturen innan implementation',
-                                'För att UML automatiskt skapar alla Python-filer',
-                                'För att ta bort behovet av klasser'
-                            ],
-                            correct: 1,
-                            feedback: 'UML hjälper dig planera innan implementation.',
-                            explanation: 'Diagrammet ger överblick över ansvar, relationer och struktur.'
+                            correct: 0,
+                            feedback: 'super() används för att anropa basklassens metoder.',
+                            explanation: 'Det är användbart när subklassen vill bygga vidare på basklassens logik.'
                         }
                     ]
                 })
