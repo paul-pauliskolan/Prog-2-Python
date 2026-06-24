@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 1.2 - Kom igång med Python</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 1.2</p>
+                    <h1>Kom igång med Python</h1>
+                    <p class="fragment">Vi repeterar hur du installerar, startar och kör Python lokalt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">kontrollera att Python 3 finns installerat</li>
+                        <li class="fragment">starta IDLE och testa en kort instruktion</li>
+                        <li class="fragment">skriva och spara en Python-fil</li>
+                        <li class="fragment">öppna mappen i VS Code och köra programmet där</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Installation</p>
+                    <h2>Installera Python 3</h2>
+                    <p class="fragment">Gå till <code>python.org</code>.</p>
+                    <p class="fragment">Välj Downloads och ladda ner Python 3.</p>
+                    <p class="fragment">Öppna installationsfilen och följ stegen.</p>
+                    <p class="fragment">Python uppdateras ofta, så versionsnumret kan vara nyare än i exemplet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Hitta Python</p>
+                    <h2>På en Mac</h2>
+                    <p class="fragment">Öppna Finder.</p>
+                    <p class="fragment">Gå till Program eller Applications.</p>
+                    <p class="fragment">Leta efter en mapp som heter Python 3.x.</p>
+                    <p class="fragment">Du kan också använda Spotlight och söka efter Python eller IDLE.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kontroll</p>
+                    <h2>Är Python installerat?</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>python3 --version</code></pre>
+                        <p>Visar vilken Python-version som datorn använder.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>Python 3.13.7</code></pre>
+                        <p>Om du ser en Python 3-version är du på rätt väg.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">IDLE</p>
+                    <h2>Starta Python enkelt</h2>
+                    <p class="fragment">IDLE följer med när du installerar Python från python.org.</p>
+                    <p class="fragment">Starta IDLE med Spotlight: Cmd + mellanslag, skriv IDLE.</p>
+                    <p class="fragment">När IDLE öppnas ser du Python Shell.</p>
+                    <p class="fragment">Shell fungerar som en direkt testyta för Python.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Python Shell</p>
+                    <h2>Testa en instruktion direkt</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>print("Hej")</code></pre>
+                        <p>Du skriver en instruktion.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>Hej</code></pre>
+                        <p>Python kör instruktionen och visar resultatet direkt.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Python-fil</p>
+                    <h2>Skriv ett program i en fil</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>print("Hej världen")</code></pre>
+                        <p><code>print()</code> skriver text till skärmen eller terminalen.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>"Hej världen"</code></pre>
+                        <p>Text inom citattecken är en sträng.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Spara</p>
+                    <h2>Python-filer slutar på .py</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>hej.py</code></pre>
+                        <p>Filändelsen <code>.py</code> visar att filen innehåller Python-kod.</p>
+                    </div>
+                    <p class="fragment">Spara filen i din kursmapp.</p>
+                    <p class="fragment">Skapa gärna en mapp för kapitlet.</p>
+                    <p class="fragment">Använd tydliga filnamn, till exempel <code>kap1-2-hej.py</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kör i IDLE</p>
+                    <h2>Kör programmet från filen</h2>
+                    <ul>
+                        <li class="fragment">Välj File och New File.</li>
+                        <li class="fragment">Skriv programmet i det nya fönstret.</li>
+                        <li class="fragment">Spara filen med <code>.py</code>.</li>
+                        <li class="fragment">Kör med F5 eller Run → Run Module.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">VS Code</p>
+                    <h2>Installera och öppna kursmappen</h2>
+                    <p class="fragment">Installera Visual Studio Code från <code>code.visualstudio.com</code>.</p>
+                    <p class="fragment">Starta VS Code.</p>
+                    <p class="fragment">Dra din kursmapp från Finder in i VS Code.</p>
+                    <p class="fragment">Då ser du dina Python-filer i sidomenyn.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">VS Code</p>
+                    <h2>Installera Python-tillägget</h2>
+                    <p class="fragment">Öppna Extensions i vänstermenyn.</p>
+                    <p class="fragment">Sök efter Python.</p>
+                    <p class="fragment">Installera Python-tillägget från Microsoft.</p>
+                    <p class="fragment">Tillägget hjälper VS Code att förstå Python-kod.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Interpreter</p>
+                    <h2>Välj rätt Python-version</h2>
+                    <p class="fragment">Tryck Cmd + Shift + P.</p>
+                    <p class="fragment">Skriv <code>Python: Select Interpreter</code>.</p>
+                    <p class="fragment">Välj en version som börjar med Python 3.</p>
+                    <p class="fragment">Om fel version är vald kan programmet köras på fel sätt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kör i VS Code</p>
+                    <h2>Kör programmet</h2>
+                    <p class="fragment">Öppna din <code>.py</code>-fil.</p>
+                    <p class="fragment">Klicka på Run-knappen uppe till höger.</p>
+                    <p class="fragment">Resultatet visas i terminalen längst ner.</p>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>python3 kap1-2-hej.py</code></pre>
+                        <p>I terminalen kan du även köra filen med <code>python3</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Använd Python 3.</li>
+                        <li class="fragment">IDLE är bra för enkla första tester.</li>
+                        <li class="fragment">VS Code används när du arbetar med kursfiler.</li>
+                        <li class="fragment">Python-filer slutar på <code>.py</code>.</li>
+                        <li class="fragment">Spara allt i en tydlig kursmapp.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>
