@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 3.2 - Skapa klasser och objekt</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 3.2</p>
+                    <h1>Skapa klasser och objekt</h1>
+                    <p class="fragment">Nu skriver vi egna klasser och skapar objekt från dem.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">definiera egna klasser i Python</li>
+                        <li class="fragment">skapa objekt från en klass</li>
+                        <li class="fragment">använda <code>__init__</code>, <code>self</code>, attribut och metoder</li>
+                        <li class="fragment">ändra ett attribut på ett objekt</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Repetition</p>
+                    <h2>Begreppen från 3.1</h2>
+                    <ul>
+                        <li class="fragment">klass: mall för objekt</li>
+                        <li class="fragment">objekt: instans av en klass</li>
+                        <li class="fragment">attribut: data i objektet</li>
+                        <li class="fragment">metod: funktion som ligger i en klass</li>
+                        <li class="fragment"><code>self</code>: objektet som används just nu</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Arbetsgång</p>
+                    <h2>Från idé till klass</h2>
+                    <ol>
+                        <li class="fragment">Bestäm vad klassen representerar.</li>
+                        <li class="fragment">Bestäm vilka attribut objektet behöver.</li>
+                        <li class="fragment">Skriv <code>__init__()</code>.</li>
+                        <li class="fragment">Lägg till metoder.</li>
+                        <li class="fragment">Skapa objekt och testa.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Klassen <code>Book</code></h2>
+                    <pre class="code-block compact-code fragment"><code>class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+
+    def print_info(self):
+        print(f"{self.title} av {self.author}")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Class</p>
+                    <h2>Första raden</h2>
+                    <pre class="code-block compact-code fragment"><code>class Book:</code></pre>
+                    <p class="fragment"><code>class</code> säger att vi skapar en klass.</p>
+                    <p class="fragment"><code>Book</code> är klassens namn.</p>
+                    <p class="fragment">Kolon betyder att klassens innehåll börjar under raden.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Konstruktor</p>
+                    <h2><code>__init__</code> körs direkt</h2>
+                    <pre class="code-block compact-code fragment"><code>def __init__(self, title, author):
+    self.title = title
+    self.author = author</code></pre>
+                    <p class="fragment">Den körs när ett nytt <code>Book</code>-objekt skapas.</p>
+                    <p class="fragment">Den sparar startvärden i objektet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Attribut</p>
+                    <h2>Värden sparas med <code>self</code></h2>
+                    <pre class="code-block compact-code fragment"><code>self.title = title
+self.author = author</code></pre>
+                    <ul>
+                        <li class="fragment"><code>title</code> är parametern som kommer in.</li>
+                        <li class="fragment"><code>self.title</code> är attributet som sparas i objektet.</li>
+                        <li class="fragment">Varje objekt får egna attributvärden.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Metod</p>
+                    <h2>Objektet kan göra något</h2>
+                    <pre class="code-block compact-code fragment"><code>def print_info(self):
+    print(f"{self.title} av {self.author}")</code></pre>
+                    <p class="fragment">Metoden använder objektets egna attribut.</p>
+                    <p class="fragment">Därför måste den ha <code>self</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Skapa objekt</p>
+                    <h2>Anropa klassen</h2>
+                    <pre class="code-block compact-code fragment"><code>book1 = Book("1984", "George Orwell")</code></pre>
+                    <ul>
+                        <li class="fragment"><code>Book(...)</code> skapar ett nytt objekt.</li>
+                        <li class="fragment"><code>"1984"</code> skickas till <code>title</code>.</li>
+                        <li class="fragment"><code>"George Orwell"</code> skickas till <code>author</code>.</li>
+                        <li class="fragment">Objektet sparas i variabeln <code>book1</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Använd objekt</p>
+                    <h2>Kör metoden</h2>
+                    <pre class="code-block compact-code fragment"><code>book1.print_info()</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>1984 av George Orwell</code></pre>
+                        <p>Metoden använder <code>book1.title</code> och <code>book1.author</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Flera objekt</p>
+                    <h2>Samma klass, olika värden</h2>
+                    <pre class="code-block compact-code fragment"><code>book1 = Book("1984", "George Orwell")
+book2 = Book("The Martian", "Andy Weir")
+
+book1.print_info()
+book2.print_info()</code></pre>
+                    <p class="fragment"><code>book1</code> och <code>book2</code> är två olika instanser.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Utskrift</p>
+                    <h2>Varje objekt har egna attribut</h2>
+                    <pre class="code-block compact-code fragment"><code>1984 av George Orwell
+The Martian av Andy Weir</code></pre>
+                    <p class="fragment">Samma metod ger olika resultat eftersom objekten har olika data.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ändra attribut</p>
+                    <h2>Punktnotation</h2>
+                    <pre class="code-block compact-code fragment"><code>book1.title = "Animal Farm"
+book1.print_info()</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Animal Farm av George Orwell</code></pre>
+                        <p>Det är bara <code>book1</code> som ändras.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktigt</p>
+                    <h2>Klassen ändras inte</h2>
+                    <p class="fragment">När du ändrar <code>book1.title</code> ändrar du ett objekt.</p>
+                    <p class="fragment">Du ändrar inte klassen <code>Book</code>.</p>
+                    <p class="fragment">Andra objekt från samma klass påverkas inte.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva</p>
+                    <h2>Skapa klassen <code>Person</code></h2>
+                    <pre class="code-block compact-code fragment"><code>class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def say_hello(self):
+        print(f"Hej, jag heter {self.name} och är {self.age} år.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva</p>
+                    <h2>Skapa två objekt</h2>
+                    <pre class="code-block compact-code fragment"><code>person1 = Person("Anna", 17)
+person2 = Person("Erik", 18)
+
+person1.say_hello()
+person2.say_hello()</code></pre>
+                    <p class="fragment">Båda objekten använder samma klass och samma metod.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2><code>kap3-2-person.py</code></h2>
+                    <ol>
+                        <li class="fragment">Skriv klassen <code>Person</code>.</li>
+                        <li class="fragment">Lägg till <code>__init__(self, name, age)</code>.</li>
+                        <li class="fragment">Spara attributen med <code>self</code>.</li>
+                        <li class="fragment">Skapa metoden <code>say_hello()</code>.</li>
+                        <li class="fragment">Skapa två objekt och kör metoden på båda.</li>
+                        <li class="fragment">Ändra åldern på ett objekt och testa igen.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment"><code>class</code> skapar en klass.</li>
+                        <li class="fragment"><code>__init__</code> sätter startvärden.</li>
+                        <li class="fragment"><code>self</code> pekar på aktuellt objekt.</li>
+                        <li class="fragment">Objekt skapas genom att anropa klassen.</li>
+                        <li class="fragment">Samma klass kan skapa flera objekt med olika värden.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

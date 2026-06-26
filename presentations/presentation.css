@@ -186,6 +186,25 @@ body.presentation-body {
   color: #969696;
 }
 
+.mermaid {
+  width: min(980px, 100%);
+  margin-top: 2rem;
+  padding: 1.4rem;
+  border: 1px solid var(--slide-border);
+  border-radius: 10px;
+  background: #171717;
+  color: #f4f7fb;
+  overflow-x: auto;
+  box-shadow: 0 14px 34px var(--slide-shadow);
+}
+
+.mermaid svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+}
+
 .two-column {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);

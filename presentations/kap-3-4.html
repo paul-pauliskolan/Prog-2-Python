@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 3.4 - Inkapsling och attribut</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 3.4</p>
+                    <h1>Inkapsling och attribut</h1>
+                    <p class="fragment">Objekt ska själva få styra hur deras data får ändras.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad inkapsling innebär</li>
+                        <li class="fragment">känna igen publika och interna attribut</li>
+                        <li class="fragment">använda metoder för att läsa och ändra data</li>
+                        <li class="fragment">förklara getter och setter</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Problem</p>
+                    <h2>Attribut kan ändras direkt</h2>
+                    <pre class="code-block compact-code fragment"><code>class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance</code></pre>
+                    <p class="fragment">Här är både <code>owner</code> och <code>balance</code> publika attribut.</p>
+                    <p class="fragment">Det betyder att annan kod kan läsa och ändra dem direkt.</p>
+                    <p class="fragment">Problemet är störst för <code>balance</code>, eftersom saldot behöver regler.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Problem</p>
+                    <h2>Orimliga värden kan sparas</h2>
+                    <pre class="code-block compact-code fragment"><code>account = BankAccount("Emma", 1000)
+
+account.balance = -999
+
+print(account.balance)</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>-999</code></pre>
+                        <p>Objektet fick ingen chans att stoppa ändringen.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Inkapsling</p>
+                    <h2>Skydda objektets data</h2>
+                    <p class="fragment">Inkapsling betyder att objektets inre data inte ändras hur som helst.</p>
+                    <p class="fragment">Annan kod ska gå via metoder.</p>
+                    <p class="fragment">Metoderna kan kontrollera om ändringen är tillåten.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Attribut</p>
+                    <h2>Publikt och internt</h2>
+                    <pre class="code-block compact-code fragment"><code>self.owner = owner
+self._balance = balance</code></pre>
+                    <ul>
+                        <li class="fragment"><code>owner</code> är publikt.</li>
+                        <li class="fragment"><code>_balance</code> är markerat som internt.</li>
+                        <li class="fragment">Understrecket betyder: använd inte detta direkt utifrån.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktigt</p>
+                    <h2>Python stoppar inte allt</h2>
+                    <p class="fragment"><code>_balance</code> är inte låst.</p>
+                    <p class="fragment">Det går fortfarande att skriva <code>account._balance = -999</code>.</p>
+                    <p class="fragment">Understrecket är en konvention, alltså en överenskommelse mellan programmerare.</p>
+                    <p class="fragment">Det betyder: använd helst metoderna i stället för att ändra detta direkt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Klass</p>
+                    <h2>Bankkonto med internt saldo</h2>
+                    <pre class="code-block compact-code fragment"><code>class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self._balance = balance</code></pre>
+                    <p class="fragment">Saldot ska hanteras via metoder.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Getter</p>
+                    <h2>Läs värdet via metod</h2>
+                    <pre class="code-block compact-code fragment"><code>def get_balance(self):
+    return self._balance</code></pre>
+                    <p class="fragment">En getter hämtar eller returnerar ett värde.</p>
+                    <p class="fragment">Här kan annan kod läsa saldot utan att ändra det.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ändra</p>
+                    <h2>Sätt in pengar kontrollerat</h2>
+                    <pre class="code-block compact-code fragment"><code>def deposit(self, amount):
+    if amount &gt; 0:
+        self._balance += amount</code></pre>
+                    <p class="fragment">Metoden tillåter bara positiva belopp.</p>
+                    <p class="fragment">Objektets saldo ändras bara om villkoret stämmer.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ändra</p>
+                    <h2>Ta ut pengar kontrollerat</h2>
+                    <pre class="code-block compact-code fragment"><code>def withdraw(self, amount):
+    if 0 &lt; amount &lt;= self._balance:
+        self._balance -= amount
+    else:
+        print("Uttaget nekas.")</code></pre>
+                    <p class="fragment">Kontot får inte övertrasseras.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Stegvis</p>
+                    <h2>Saldot ändras med metoder</h2>
+                    <pre class="code-block compact-code fragment"><code>account = BankAccount("Emma", 1000)
+
+print(account.get_balance())
+
+account.deposit(500)
+print(account.get_balance())
+
+account.withdraw(200)
+print(account.get_balance())</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>1000
+1500
+1300</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Setter</p>
+                    <h2>Setter ändrar efter kontroll</h2>
+                    <pre class="code-block compact-code fragment"><code>def set_grade(self, grade):
+    if 0 &lt;= grade &lt;= 100:
+        self._grade = grade
+    else:
+        print("Betyget måste vara mellan 0 och 100.")</code></pre>
+                    <p class="fragment">En setter används när ett nytt värde ska kontrolleras innan det sparas.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Jämförelse</p>
+                    <h2>Direkt ändring eller metod?</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>account.balance = -999</code></pre>
+                        <p>Direkt ändring: ingen kontroll.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>account.withdraw(200)</code></pre>
+                        <p>Metod: objektet kan kontrollera ändringen.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Hela klassen</p>
+                    <h2><code>BankAccount</code></h2>
+                    <pre class="code-block tiny-code fragment"><code>class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self._balance = balance
+
+    def deposit(self, amount):
+        if amount &gt; 0:
+            self._balance += amount
+
+    def withdraw(self, amount):
+        if 0 &lt; amount &lt;= self._balance:
+            self._balance -= amount
+        else:
+            print("Uttaget nekas.")
+
+    def get_balance(self):
+        return self._balance</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva</p>
+                    <h2>Skapa <code>Student</code></h2>
+                    <ol>
+                        <li class="fragment">Skapa klassen <code>Student</code>.</li>
+                        <li class="fragment">Låt <code>name</code> vara publikt.</li>
+                        <li class="fragment">Låt <code>_grade</code> vara internt.</li>
+                        <li class="fragment">Skriv <code>set_grade()</code> med kontroll 0-100.</li>
+                        <li class="fragment">Skriv <code>get_grade()</code>.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Inkapsling skyddar objektets data.</li>
+                        <li class="fragment"><code>_attribut</code> markerar intern data i Python.</li>
+                        <li class="fragment">Getters läser värden.</li>
+                        <li class="fragment">Setters ändrar värden efter kontroll.</li>
+                        <li class="fragment">Objekt bör styra hur deras attribut får ändras.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

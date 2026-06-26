@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 3.3 - Metoder som ändrar objekt</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 3.3</p>
+                    <h1>Metoder som ändrar objekt</h1>
+                    <p class="fragment">Metoder kan läsa objektets data, men också ändra den.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">skriva metoder som läser attribut</li>
+                        <li class="fragment">skriva metoder som ändrar attribut</li>
+                        <li class="fragment">förklara varför metoder kan vara bättre än direkt ändring</li>
+                        <li class="fragment">använda enkel validering innan objektet ändras</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Repetition</p>
+                    <h2>Objekt har tillstånd</h2>
+                    <pre class="code-block compact-code fragment"><code>car1 = Car("Volvo", 2020)</code></pre>
+                    <p class="fragment">Objektets tillstånd är värdena i attributen.</p>
+                    <p class="fragment">Här är <code>brand</code> <code>"Volvo"</code> och <code>year</code> <code>2020</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Begrepp</p>
+                    <h2>Två typer av metoder</h2>
+                    <ul>
+                        <li class="fragment">Läsande metod: använder data utan att ändra objektet.</li>
+                        <li class="fragment">Ändrande metod: uppdaterar ett eller flera attribut.</li>
+                        <li class="fragment">Validering: kontrollerar värdet innan ändringen görs.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Klass</p>
+                    <h2>Start: <code>Car</code></h2>
+                    <pre class="code-block compact-code fragment"><code>class Car:
+    def __init__(self, brand, year):
+        self.brand = brand
+        self.year = year</code></pre>
+                    <p class="fragment"><code>brand</code> och <code>year</code> sparas som instansvariabler.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Läsande metod</p>
+                    <h2><code>honk()</code> ändrar inget</h2>
+                    <pre class="code-block compact-code fragment"><code>def honk(self):
+    print(f"{self.brand} från {self.year} tutar!")</code></pre>
+                    <p class="fragment">Metoden läser <code>self.brand</code> och <code>self.year</code>.</p>
+                    <p class="fragment">Den skriver ut text, men ändrar inte objektet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Använd</p>
+                    <h2>Skapa bil och tuta</h2>
+                    <pre class="code-block compact-code fragment"><code>car1 = Car("Volvo", 2020)
+car1.honk()</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Volvo från 2020 tutar!</code></pre>
+                        <p>Efter metoden är bilen fortfarande en Volvo från 2020.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Flera objekt</p>
+                    <h2>Samma metod, olika data</h2>
+                    <pre class="code-block compact-code fragment"><code>car1 = Car("Volvo", 2020)
+car2 = Car("Toyota", 2018)
+
+car1.honk()
+car2.honk()</code></pre>
+                    <p class="fragment"><code>self</code> betyder olika objekt beroende på vilket objekt metoden körs på.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ändrande metod</p>
+                    <h2>Ändra objektets år</h2>
+                    <pre class="code-block compact-code fragment"><code>def change_year(self, new_year):
+    self.year = new_year</code></pre>
+                    <p class="fragment"><code>new_year</code> är ett nytt värde som skickas in.</p>
+                    <p class="fragment"><code>self.year</code> ändras i objektet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Före och efter</p>
+                    <h2>Objektet får nytt tillstånd</h2>
+                    <pre class="code-block compact-code fragment"><code>car1 = Car("Volvo", 2020)
+car1.honk()
+
+car1.change_year(2023)
+car1.honk()</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Volvo från 2020 tutar!
+Volvo från 2023 tutar!</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Parameter</p>
+                    <h2>Vad är <code>new_year</code>?</h2>
+                    <pre class="code-block compact-code fragment"><code>def change_year(self, new_year):
+    self.year = new_year
+
+car1.change_year(2023)</code></pre>
+                    <ul>
+                        <li class="fragment"><code>new_year</code> är parametern.</li>
+                        <li class="fragment"><code>2023</code> är argumentet.</li>
+                        <li class="fragment">Argumentet sparas i <code>self.year</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Direkt ändring</p>
+                    <h2>Det går att skriva så här</h2>
+                    <pre class="code-block compact-code fragment"><code>car1.year = 2023</code></pre>
+                    <p class="fragment">Det ändrar attributet direkt.</p>
+                    <p class="fragment">Men ingen kontroll görs.</p>
+                    <p class="fragment">Därför är metoder som kontrollerar innan ändringen bättre.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Validering</p>
+                    <h2>Kontrollera innan ändring</h2>
+                    <pre class="code-block compact-code fragment"><code>def change_year(self, new_year):
+    if new_year &gt; 0:
+        self.year = new_year
+    else:
+        print("Årtalet måste vara större än 0.")</code></pre>
+                    <p class="fragment">Nu skyddar metoden objektet från orimliga värden.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Fel värde stoppas</h2>
+                    <pre class="code-block compact-code fragment"><code>car1 = Car("Volvo", 2020)
+car1.change_year(-5)
+car1.honk()</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Årtalet måste vara större än 0.
+Volvo från 2020 tutar!</code></pre>
+                        <p>Årtalet ändras inte.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Returnera</p>
+                    <h2>Metod som svarar sant eller falskt</h2>
+                    <pre class="code-block compact-code fragment"><code>def is_old(self):
+    return self.year &lt; 2004</code></pre>
+                    <p class="fragment">Metoden kan returnera <code>True</code> eller <code>False</code>.</p>
+                    <p class="fragment">Den ändrar inte objektet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Hela klassen</p>
+                    <h2><code>Car</code> med tre metoder</h2>
+                    <pre class="code-block tiny-code fragment"><code>class Car:
+    def __init__(self, brand, year):
+        self.brand = brand
+        self.year = year
+
+    def honk(self):
+        print(f"{self.brand} från {self.year} tutar!")
+
+    def change_year(self, new_year):
+        if new_year &gt; 0:
+            self.year = new_year
+        else:
+            print("Årtalet måste vara större än 0.")
+
+    def is_old(self):
+        return self.year &lt; 2004</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva</p>
+                    <h2><code>kap3-3-car.py</code></h2>
+                    <ol>
+                        <li class="fragment">Skapa klassen <code>Car</code>.</li>
+                        <li class="fragment">Lägg till <code>brand</code> och <code>year</code>.</li>
+                        <li class="fragment">Skriv <code>honk()</code>.</li>
+                        <li class="fragment">Skriv <code>change_year(new_year)</code> med kontroll.</li>
+                        <li class="fragment">Skriv <code>is_old()</code>.</li>
+                        <li class="fragment">Testa giltigt år, negativt år och två objekt.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Läsande metoder använder data utan att ändra objektet.</li>
+                        <li class="fragment">Ändrande metoder uppdaterar attribut.</li>
+                        <li class="fragment">Metoder kan kontrollera värden innan ändring.</li>
+                        <li class="fragment">Parametrar gör att metoder kan ta emot nya värden.</li>
+                        <li class="fragment">Objektets tillstånd är värdena det har just nu.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

@@ -85,6 +85,7 @@
 bok2 = Bok()</code></pre>
                     <p class="fragment"><code>Bok</code> är klassen.</p>
                     <p class="fragment"><code>bok1</code> och <code>bok2</code> är två objekt.</p>
+                    <p class="fragment">En <strong>instans</strong> är ett konkret objekt som har skapats från en klass.</p>
                 </div>
             </section>
 
@@ -150,10 +151,16 @@ self.forfattare = forfattare</code></pre>
                 <div class="slide-content">
                     <p class="slide-kicker">self</p>
                     <h2><code>self</code> betyder detta objekt</h2>
-                    <pre class="code-block compact-code fragment"><code>bok1.skriv_ut_info()
+                    <pre class="code-block compact-code fragment"><code>class Bok:
+    def skriv_ut_info(self):
+        print(self.titel)</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>bok1.skriv_ut_info()
 bok2.skriv_ut_info()</code></pre>
-                    <p class="fragment">Samma metod kan köras på olika objekt.</p>
-                    <p class="fragment"><code>self</code> pekar på objektet som metoden körs på.</p>
+                        <p>Samma metod kan köras på olika objekt.</p>
+                    </div>
+                    <p class="fragment">När metoden körs på <code>bok1</code> betyder <code>self</code> <code>bok1</code>.</p>
+                    <p class="fragment">När metoden körs på <code>bok2</code> betyder <code>self</code> <code>bok2</code>.</p>
                 </div>
             </section>
 
@@ -194,14 +201,16 @@ Surely You're Joking, Mr. Feynman! av Richard P. Feynman</code></pre>
                     <div class="code-step fragment">
                         <pre class="code-block compact-code"><code>def skriv_hej():
     print("Hej")</code></pre>
-                        <p>En vanlig funktion står fritt.</p>
+                        <p>En vanlig funktion står fritt, alltså utanför en klass.</p>
                     </div>
                     <div class="code-step fragment">
                         <pre class="code-block compact-code"><code>class Bok:
     def skriv_ut_info(self):
         print("Information")</code></pre>
-                        <p>En metod ligger i en klass.</p>
+                        <p>En metod är en funktion som ligger i en klass.</p>
                     </div>
+                    <p class="fragment">Alla metoder är funktioner, men alla funktioner är inte metoder.</p>
+                    <p class="fragment">Bara funktioner som hör till en klass eller ett objekt kallas metoder.</p>
                 </div>
             </section>
 
@@ -211,7 +220,8 @@ Surely You're Joking, Mr. Feynman! av Richard P. Feynman</code></pre>
                     <h2>Orden du måste kunna</h2>
                     <ul>
                         <li class="fragment">klass: mall för objekt</li>
-                        <li class="fragment">objekt: instans av en klass</li>
+                        <li class="fragment">objekt: konkret sak som skapats från en klass</li>
+                        <li class="fragment">instans: ett annat ord för ett objekt som skapats från en klass</li>
                         <li class="fragment">attribut: data i objektet</li>
                         <li class="fragment">metod: funktion som hör till objektet</li>
                         <li class="fragment">konstruktor: <code>__init__()</code></li>

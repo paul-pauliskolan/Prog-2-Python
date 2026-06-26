@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 3.5 - UML för objektmodeller</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 3.5</p>
+                    <h1>UML för objektmodeller</h1>
+                    <p class="fragment">UML hjälper oss planera klasser, attribut, metoder och relationer innan vi kodar.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad ett UML-klassdiagram visar</li>
+                        <li class="fragment">tolka enkla klassdiagram</li>
+                        <li class="fragment">koppla klassdiagram till Pythonkod</li>
+                        <li class="fragment">rita relationer mellan klasser</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">UML</p>
+                    <h2>UML är inte kod</h2>
+                    <p class="fragment">Det är ett visuellt språk för programstruktur.</p>
+                    <p class="fragment">Du använder det för att planera objektorienterade program.</p>
+                    <p class="fragment">Diagrammet visar vad som ska finnas i koden.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Klassdiagram</p>
+                    <h2>En klassruta har tre delar</h2>
+                    <ol>
+                        <li class="fragment">klassens namn</li>
+                        <li class="fragment">attribut, alltså fält eller variabler</li>
+                        <li class="fragment">metoder, alltså funktioner i klassen</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Symboler</p>
+                    <h2>Synlighet i UML</h2>
+                    <ul>
+                        <li class="fragment"><code>+</code> betyder publik</li>
+                        <li class="fragment"><code>-</code> betyder privat</li>
+                        <li class="fragment"><code>#</code> betyder skyddad, alltså protected</li>
+                        <li class="fragment">Typen visar datatyp, till exempel <code>string</code> eller <code>int</code></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Klassdiagram för <code>Dog</code></h2>
+                    <pre><code class="language-mermaid">classDiagram
+    class Dog {
+        -string name
+        -int age
+        +bark() void
+        +haveBirthday() void
+    }</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Tolka</p>
+                    <h2>Vad visar <code>Dog</code>?</h2>
+                    <ul>
+                        <li class="fragment"><code>name</code> är ett privat attribut av typen <code>string</code>.</li>
+                        <li class="fragment"><code>age</code> är ett privat attribut av typen <code>int</code>.</li>
+                        <li class="fragment"><code>bark()</code> är en publik metod.</li>
+                        <li class="fragment"><code>haveBirthday()</code> är en publik metod.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Python</p>
+                    <h2>Samma klass i kod</h2>
+                    <pre class="code-block tiny-code fragment"><code>class Dog:
+    def __init__(self, name, age):
+        self._name = name
+        self._age = age
+
+    def bark(self):
+        print("Voff!")
+
+    def have_birthday(self):
+        self._age += 1</code></pre>
+                    <p class="fragment">I Python används ofta snake_case: <code>have_birthday()</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Relation</p>
+                    <h2>Arv</h2>
+                    <p class="fragment">Arv betyder att en klass bygger vidare på en annan klass.</p>
+                    <p class="fragment">I Python syns det till exempel som <code>class Dog(Animal):</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Klassdiagram</p>
+                    <h2>Arv: <code>Dog</code> och <code>Animal</code></h2>
+                    <pre><code class="language-mermaid">classDiagram
+    Dog --&gt; Animal : inherits
+
+    class Animal {
+        +speak() void
+    }
+
+    class Dog {
+        +bark() void
+        +speak() void
+    }</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Python</p>
+                    <h2>Samma arv i kod</h2>
+                    <pre class="code-block tiny-code fragment"><code>class Animal:
+    def speak(self):
+        print("Djuret gör ett ljud.")
+
+
+class Dog(Animal):
+    def bark(self):
+        print("Voff!")
+
+    def speak(self):
+        print("Hunden skäller.")</code></pre>
+                    <p class="fragment"><code>Dog</code> ärver från <code>Animal</code> och kan skriva över <code>speak()</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Relation</p>
+                    <h2>Association</h2>
+                    <p class="fragment">Association betyder att två klasser har en koppling.</p>
+                    <p class="fragment">En skola kan till exempel ha flera studenter.</p>
+                    <p class="fragment">I kod kan kopplingen visas med en lista av objekt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Klassdiagram</p>
+                    <h2>Association: <code>School</code> och <code>Student</code></h2>
+                    <pre><code class="language-mermaid">classDiagram
+    School --&gt; Student : has
+
+    class Student {
+        -string name
+        -int age
+        +printInfo() void
+    }
+
+    class School {
+        -string name
+        -string city
+        -list students
+        +addStudent(student) void
+    }</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Python</p>
+                    <h2>Association i kod</h2>
+                    <pre class="code-block tiny-code fragment"><code>class School:
+    def __init__(self, name, city):
+        self._name = name
+        self._city = city
+        self._students = []
+
+    def add_student(self, student):
+        self._students.append(student)</code></pre>
+                    <p class="fragment"><code>School</code> sparar <code>Student</code>-objekt i listan <code>_students</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Bankapplikation</h2>
+                    <p class="fragment">En bank har kunder.</p>
+                    <p class="fragment">En kund kan ha konton.</p>
+                    <p class="fragment">Diagrammet visar klasserna och relationerna mellan dem.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Klassdiagram</p>
+                    <h2>Bank, kund och konto</h2>
+                    <pre><code class="language-mermaid">classDiagram
+    Bank --&gt; Customer : has
+    Customer --&gt; Account : owns
+
+    class Bank {
+        -string name
+        -list customers
+        +addCustomer(customer) void
+        +findCustomer(name) Customer
+    }
+
+    class Customer {
+        -string name
+        -string customerId
+        -list accounts
+        +addAccount(account) void
+        +getAccounts() list
+        +getName() string
+    }
+
+    class Account {
+        -string accountNumber
+        -float balance
+        +deposit(amount) void
+        +withdraw(amount) bool
+        +getBalance() float
+    }</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Relationer</p>
+                    <h2>Vad betyder pilarna?</h2>
+                    <ul>
+                        <li class="fragment"><code>Bank --&gt; Customer : has</code> betyder att banken har kunder.</li>
+                        <li class="fragment"><code>Customer --&gt; Account : owns</code> betyder att kunden äger konton.</li>
+                        <li class="fragment">Listorna i koden visar samma relationer.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kodkoppling</p>
+                    <h2>Relationer som listor</h2>
+                    <pre class="code-block compact-code fragment"><code>self._customers = []
+self._accounts = []</code></pre>
+                    <p class="fragment">Banken sparar kunder i <code>_customers</code>.</p>
+                    <p class="fragment">Kunden sparar konton i <code>_accounts</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva</p>
+                    <h2>Analysera och skapa UML</h2>
+                    <ol>
+                        <li class="fragment">Skapa klassdiagram för <code>Customer</code>, <code>Account</code> och <code>Bank</code>.</li>
+                        <li class="fragment">Visa attribut och metoder i varje klass.</li>
+                        <li class="fragment">Rita associationerna mellan klasserna.</li>
+                        <li class="fragment">Skriv Python-koden som hör ihop med diagrammet.</li>
+                        <li class="fragment">Gör UML av ett tidigare program.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Verktyg</p>
+                    <h2>Rita UML</h2>
+                    <p class="fragment">Du kan rita för hand.</p>
+                    <p class="fragment">Du kan också använda yEd Live.</p>
+                    <p class="fragment">Välj <strong>Palette -&gt; UML</strong> för att hitta UML-symbolerna.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Klassdiagram visar klasser, attribut och metoder.</li>
+                        <li class="fragment">Pilar visar relationer mellan klasser.</li>
+                        <li class="fragment">UML hjälper dig planera innan du kodar.</li>
+                        <li class="fragment">Diagram och kod ska beskriva samma modell.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                lineColor: '#f4f7fb',
+                textColor: '#f4f7fb',
+                primaryBorderColor: '#f4f7fb',
+                relationLabelColor: '#f4f7fb',
+                tertiaryTextColor: '#f4f7fb'
+            }
+        })
+
+        function prepareMermaidForRoot(root = document) {
+            const blocks = root.querySelectorAll
+                ? root.querySelectorAll('code.language-mermaid')
+                : []
+
+            blocks.forEach(code => {
+                if (code.dataset.mermaidProcessed) return
+
+                const container = document.createElement('div')
+                container.className = 'mermaid'
+                container.textContent = code.textContent
+                code.parentNode.replaceWith(container)
+                code.dataset.mermaidProcessed = '1'
+            })
+        }
+
+        async function renderActiveMermaid() {
+            prepareMermaidForRoot(document)
+
+            const activeSlide = document.querySelector('.slide.is-active')
+            if (!activeSlide) return
+
+            const diagrams = Array.from(activeSlide.querySelectorAll('.mermaid:not([data-rendered="true"])'))
+            if (!diagrams.length) return
+
+            await mermaid.run({ nodes: diagrams })
+            diagrams.forEach(diagram => {
+                diagram.dataset.rendered = 'true'
+            })
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderActiveMermaid()
+
+            const deck = document.querySelector('.deck')
+            if (!deck) return
+
+            const observer = new MutationObserver(() => {
+                renderActiveMermaid()
+            })
+
+            observer.observe(deck, {
+                attributes: true,
+                subtree: true,
+                attributeFilter: ['class']
+            })
+        })
+    </script>
+</body>
+
+</html>
