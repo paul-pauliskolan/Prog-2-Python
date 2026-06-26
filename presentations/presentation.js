@@ -39,6 +39,9 @@
     } else if (slideIndex < slides.length - 1) {
       slideIndex += 1;
       fragmentIndex = 0;
+    } else {
+      slideIndex = 0;
+      fragmentIndex = 0;
     }
 
     render();
@@ -49,6 +52,9 @@
       fragmentIndex -= 1;
     } else if (slideIndex > 0) {
       slideIndex -= 1;
+      fragmentIndex = fragmentsFor(slides[slideIndex]).length;
+    } else {
+      slideIndex = slides.length - 1;
       fragmentIndex = fragmentsFor(slides[slideIndex]).length;
     }
 

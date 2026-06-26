@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 1.6 - Undantagshantering</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 1.6</p>
+                    <h1>Undantagshantering</h1>
+                    <p class="fragment">Vi lär program att hantera vanliga fel utan att krascha direkt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad ett undantag är</li>
+                        <li class="fragment">använda <code>try</code> och <code>except</code></li>
+                        <li class="fragment">förstå när <code>ValueError</code> uppstår</li>
+                        <li class="fragment">låta användaren försöka igen efter fel inmatning</li>
+                        <li class="fragment">bygga mer robusta program</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Begrepp</p>
+                    <h2>Vad är ett undantag?</h2>
+                    <p class="fragment">Ett undantag är ett fel som uppstår medan programmet körs.</p>
+                    <p class="fragment">Programmet kan ha korrekt syntax men ändå krascha vid körning.</p>
+                    <p class="fragment">Exempel: användaren skriver text där programmet väntar sig ett tal.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Utan hantering</p>
+                    <h2>Det här kan krascha</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>age = int(input("Hur gammal är du? "))
+print(age + 5)</code></pre>
+                        <p>Det fungerar om användaren skriver ett heltal.</p>
+                    </div>
+                    <p class="fragment">Men <code>int("hej")</code> fungerar inte.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Feltyp</p>
+                    <h2><code>ValueError</code></h2>
+                    <p class="fragment"><code>ValueError</code> kan uppstå när värdet har fel form.</p>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>int("17")   # fungerar
+int("hej")  # ValueError</code></pre>
+                        <p>Texten <code>"hej"</code> kan inte göras om till ett heltal.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Med hantering</p>
+                    <h2><code>try</code> och <code>except</code></h2>
+                    <pre class="code-block fragment"><code>try:
+    age = int(input("Hur gammal är du? "))
+    print(age + 5)
+except ValueError:
+    print("Du måste skriva ett heltal.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 1</p>
+                    <h2><code>try</code>: försök köra koden</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>try:
+    age = int(input("Hur gammal är du? "))
+    print(age + 5)</code></pre>
+                        <p>Python försöker köra raderna i <code>try</code>-blocket.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 2</p>
+                    <h2>När allt fungerar</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>input: 17
+age = int("17")
+print(age + 5)</code></pre>
+                        <p><code>"17"</code> kan bli talet <code>17</code>, så programmet skriver ut <code>22</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 3</p>
+                    <h2>När ett fel uppstår</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>input: hej
+age = int("hej")</code></pre>
+                        <p>Här uppstår <code>ValueError</code>.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>except ValueError:
+    print("Du måste skriva ett heltal.")</code></pre>
+                        <p><code>except</code> fångar felet och visar ett eget meddelande.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Precision</p>
+                    <h2>Fånga rätt fel</h2>
+                    <p class="fragment">Skriv hellre <code>except ValueError</code> än bara <code>except</code>.</p>
+                    <p class="fragment">Då fångar du felet du faktiskt förväntar dig.</p>
+                    <p class="fragment">Annars kan du råka dölja andra buggar.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Problem</p>
+                    <h2>En felinmatning räcker inte</h2>
+                    <p class="fragment">Om användaren skriver fel vill vi ofta fråga igen.</p>
+                    <p class="fragment">Då kombinerar vi undantagshantering med en loop.</p>
+                    <p class="fragment">Loopen fortsätter tills inmatningen är giltig.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Loop</p>
+                    <h2>Fråga tills det fungerar</h2>
+                    <pre class="code-block compact-code fragment"><code>while True:
+    try:
+        age = int(input("Hur gammal är du? "))
+        print(age + 5)
+        break
+    except ValueError:
+        print("Fel inmatning, försök igen.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Stegvis</p>
+                    <h2>Loop med felhantering</h2>
+                    <ul>
+                        <li class="fragment"><code>while True</code> gör att programmet kan fråga igen</li>
+                        <li class="fragment"><code>try</code> testar om svaret kan bli ett heltal</li>
+                        <li class="fragment">om det fungerar körs <code>print(age + 5)</code></li>
+                        <li class="fragment"><code>break</code> avslutar loopen</li>
+                        <li class="fragment">vid fel körs <code>except</code> och loopen börjar om</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Två försök</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Försök 1: hej → ValueError → "Fel inmatning"
+Försök 2: 17  → fungerar   → skriver ut 22</code></pre>
+                        <p>Programmet kraschar inte, utan ger användaren en ny chans.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Robusthet</p>
+                    <h2>Alla fel är inte undantag</h2>
+                    <p class="fragment">Vissa värden är tekniskt giltiga men ändå problematiska.</p>
+                    <p class="fragment">Exempel: <code>0</code> är ett heltal.</p>
+                    <p class="fragment">Men du kan inte dela med <code>0</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Villkor + except</p>
+                    <h2>Hantera flera problem</h2>
+                    <pre class="code-block compact-code fragment"><code>while True:
+    try:
+        number = int(input("Skriv ett tal: "))
+
+        if number == 0:
+            print("Du kan inte dela med 0.")
+        else:
+            print(100 / number)
+            break
+    except ValueError:
+        print("Fel inmatning, försök igen.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Flöde</p>
+                    <h2>Vad händer i robusta exemplet?</h2>
+                    <ul>
+                        <li class="fragment"><code>"hej"</code> → <code>ValueError</code> → fråga igen</li>
+                        <li class="fragment"><code>0</code> → inget undantag, men stoppas av <code>if</code></li>
+                        <li class="fragment"><code>4</code> → skriver ut <code>25.0</code> och avslutar</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Egen övning</p>
+                    <h2>Bygg trygg inmatning</h2>
+                    <ol>
+                        <li class="fragment">Fråga efter ett heltal.</li>
+                        <li class="fragment">Skriv ut talet gånger två.</li>
+                        <li class="fragment">Lägg till <code>try</code> och <code>except ValueError</code>.</li>
+                        <li class="fragment">Fråga igen tills ett giltigt heltal skrivs.</li>
+                        <li class="fragment">Stoppa ett orimligt värde, till exempel negativ ålder.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Reflektion</p>
+                    <h2>Fundera</h2>
+                    <ul>
+                        <li class="fragment">Vad är skillnaden mellan syntaxfel och körningsfel?</li>
+                        <li class="fragment">Varför är ett tydligt felmeddelande bättre än en krasch?</li>
+                        <li class="fragment">När gör <code>try/except</code> programmet lättare att använda?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Undantag är fel som uppstår när programmet körs.</li>
+                        <li class="fragment"><code>try</code> innehåller kod som kan orsaka fel.</li>
+                        <li class="fragment"><code>except ValueError</code> fångar misslyckad typomvandling.</li>
+                        <li class="fragment">En loop kan låta användaren försöka igen.</li>
+                        <li class="fragment">Robusta program hanterar vanliga fel tydligt.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

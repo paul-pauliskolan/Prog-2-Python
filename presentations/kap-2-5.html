@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 2.5 - Planera program med algoritmtänk</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 2.5</p>
+                    <h1>Planera program med algoritmtänk</h1>
+                    <p class="fragment">Vi gör problemet tydligt innan vi börjar skriva kod.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad algoritmtänkande innebär</li>
+                        <li class="fragment">bryta ner ett problem i mindre delar</li>
+                        <li class="fragment">planera med pseudokod, flödesschema och testfall</li>
+                        <li class="fragment">välja datastruktur och funktioner utifrån problemet</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Algoritmtänk</p>
+                    <h2>Se problemet som steg</h2>
+                    <p class="fragment">Vilken information behövs?</p>
+                    <p class="fragment">Vilka beslut måste programmet fatta?</p>
+                    <p class="fragment">Vad ska upprepas?</p>
+                    <p class="fragment">Vad ska visas eller sparas?</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktigt</p>
+                    <h2>Planen är inte extraarbete</h2>
+                    <p class="fragment">En tydlig plan gör koden lättare att skriva.</p>
+                    <p class="fragment">Den gör också fel lättare att hitta.</p>
+                    <p class="fragment">Om planen är rörig blir koden ofta rörig.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mall</p>
+                    <h2>Fem frågor</h2>
+                    <ol>
+                        <li class="fragment">Input: vad kommer in?</li>
+                        <li class="fragment">Bearbetning: vad ska hända?</li>
+                        <li class="fragment">Output: vad ska ut?</li>
+                        <li class="fragment">Datastruktur: hur lagras datan?</li>
+                        <li class="fragment">Funktioner: vad kan delas upp?</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Menyprogram</h2>
+                    <pre class="code-block compact-code fragment"><code>Problem:
+Användaren ska kunna lägga till namn,
+visa alla namn och avsluta.
+
+Input:
+Menyval och namn.
+
+Output:
+Meny, bekräftelser och lista med namn.</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Bearbetning</p>
+                    <h2>Vad gör programmet?</h2>
+                    <pre class="code-block compact-code fragment"><code>Upprepa menyn tills användaren väljer avsluta.
+
+Om valet är 1:
+    lägg till namn i listan
+Om valet är 2:
+    skriv ut alla namn
+Om valet är 3:
+    avsluta programmet</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Struktur</p>
+                    <h2>Data och funktioner</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Datastruktur:
+names = []</code></pre>
+                        <p>En lista passar eftersom vi samlar flera namn.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Funktioner:
+print_menu()
+add_name(names)
+show_names(names)</code></pre>
+                        <p>Funktionerna gör varje del lättare att förstå och testa.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Flödesschema</p>
+                    <h2>Meny med tre alternativ</h2>
+                    <svg class="diagram-svg fragment" viewBox="0 0 980 640" role="img" aria-label="Flödesschema för meny med tre alternativ">
+                        <defs>
+                            <marker id="arrow-2-5" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                                <path d="M 0 0 L 12 6 L 0 12 z" fill="#2457a6"></path>
+                            </marker>
+                        </defs>
+                        <rect class="shape" x="390" y="28" width="200" height="62" rx="31"></rect>
+                        <text x="490" y="66" text-anchor="middle">Start</text>
+
+                        <rect class="shape" x="360" y="130" width="260" height="70"></rect>
+                        <text x="490" y="172" text-anchor="middle">Visa meny</text>
+
+                        <polygon class="shape" points="490,240 630,340 490,440 350,340"></polygon>
+                        <text x="490" y="327" text-anchor="middle">Vilket</text>
+                        <text x="490" y="358" text-anchor="middle">val?</text>
+
+                        <rect class="shape" x="80" y="500" width="210" height="70"></rect>
+                        <text x="185" y="542" text-anchor="middle">Lägg till namn</text>
+
+                        <rect class="shape" x="385" y="500" width="210" height="70"></rect>
+                        <text x="490" y="542" text-anchor="middle">Visa namn</text>
+
+                        <rect class="shape" x="700" y="500" width="180" height="70" rx="35"></rect>
+                        <text x="790" y="542" text-anchor="middle">Avsluta</text>
+
+                        <line class="relation" x1="490" y1="90" x2="490" y2="130" marker-end="url(#arrow-2-5)"></line>
+                        <line class="relation" x1="490" y1="200" x2="490" y2="240" marker-end="url(#arrow-2-5)"></line>
+
+                        <path class="relation" d="M 350 340 C 250 350 190 420 185 500" marker-end="url(#arrow-2-5)"></path>
+                        <text class="label-text" x="260" y="382" text-anchor="middle">1</text>
+
+                        <line class="relation" x1="490" y1="440" x2="490" y2="500" marker-end="url(#arrow-2-5)"></line>
+                        <text class="label-text" x="525" y="474" text-anchor="middle">2</text>
+
+                        <path class="relation" d="M 630 340 C 735 350 788 420 790 500" marker-end="url(#arrow-2-5)"></path>
+                        <text class="label-text" x="720" y="382" text-anchor="middle">3</text>
+
+                        <path class="relation" d="M 185 570 C 185 610 320 610 390 600 C 462 590 490 550 490 440" marker-end="url(#arrow-2-5)"></path>
+                        <path class="relation" d="M 595 535 C 660 535 660 210 620 165" marker-end="url(#arrow-2-5)"></path>
+                    </svg>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Pseudokod</p>
+                    <h2>Skriv logiken innan koden</h2>
+                    <pre class="code-block compact-code fragment"><code>names = tom lista
+
+UPPREPA
+    visa meny
+    läs in val
+
+    OM val är 1
+        läs in namn
+        lägg till namn i listan
+    ANNARS OM val är 2
+        skriv ut alla namn
+    ANNARS OM val är 3
+        avsluta loopen</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Testfall</p>
+                    <h2>Testa innan du kodar</h2>
+                    <pre class="code-block compact-code fragment"><code>Test 1:
+Val: 1, namn: Sara
+Förväntat: Sara finns i listan
+
+Test 2:
+Val: 2 när listan är tom
+Förväntat: Programmet säger att listan är tom
+
+Test 3:
+Val: 3
+Förväntat: Programmet avslutas</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Från plan till kod</p>
+                    <h2>Koden följer planen</h2>
+                    <pre class="code-block tiny-code fragment"><code>def add_name(names):
+    name = input("Namn: ")
+    names.append(name)
+
+def show_names(names):
+    if len(names) == 0:
+        print("Listan är tom.")
+    else:
+        for name in names:
+            print(name)</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Analys</p>
+                    <h2>Bryt ner ett tidigare program</h2>
+                    <ul>
+                        <li class="fragment">Input: vad skriver användaren in?</li>
+                        <li class="fragment">Bearbetning: vilka villkor, loopar och beräkningar finns?</li>
+                        <li class="fragment">Output: vad visas?</li>
+                        <li class="fragment">Datastruktur: används variabel, lista, dictionary eller tuple?</li>
+                        <li class="fragment">Funktioner: vilka delar är egna funktioner?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Vanliga misstag</p>
+                    <h2>När planen saknas</h2>
+                    <ul>
+                        <li class="fragment">All kod hamnar i en lång sekvens.</li>
+                        <li class="fragment">Samma kod upprepas på flera ställen.</li>
+                        <li class="fragment">Datastrukturen passar inte problemet.</li>
+                        <li class="fragment">Testningen börjar först när allt är färdigt.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Fyra uppgifter</h2>
+                    <ol>
+                        <li class="fragment">Skriv en plan för ett vardagsproblem.</li>
+                        <li class="fragment">Skapa ett flödesschema för en meny med tre alternativ.</li>
+                        <li class="fragment">Skriv minst tre testfall innan du kodar.</li>
+                        <li class="fragment">Analysera ett tidigare program med planeringsmallen.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Algoritmtänk gör problemet stegvis.</li>
+                        <li class="fragment">Planera input, bearbetning och output.</li>
+                        <li class="fragment">Välj datastruktur innan du bygger vidare.</li>
+                        <li class="fragment">Testfall avslöjar luckor i planen.</li>
+                        <li class="fragment">Funktioner gör programmet lättare att förstå.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

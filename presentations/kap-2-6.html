@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 2.6 - Problemlösning med listor</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 2.6</p>
+                    <h1>Problemlösning med listor</h1>
+                    <p class="fragment">Vi bygger större program genom att kombinera listor, funktioner, loopar och villkor.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">använda listor i sammansatta uppgifter</li>
+                        <li class="fragment">kombinera listor med funktioner och loopar</li>
+                        <li class="fragment">välja hur varje element i listan ska lagras</li>
+                        <li class="fragment">testa vanliga fall och kantfall</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Scenario</p>
+                    <h2>Poänghantering i ett spel</h2>
+                    <ul>
+                        <li class="fragment">ta emot namn och poäng</li>
+                        <li class="fragment">spara flera resultat i en lista</li>
+                        <li class="fragment">sortera resultaten efter poäng</li>
+                        <li class="fragment">skriva ut en topplista</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Plan</p>
+                    <h2>Pseudokod först</h2>
+                    <pre class="code-block compact-code fragment"><code>Skapa en tom lista
+
+WHILE användaren vill fortsätta:
+    Läs in namn och poäng
+    Lägg till resultatet i listan
+    Fråga om användaren vill fortsätta
+
+Sortera listan efter poäng
+Skriv ut topplistan</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Datastruktur</p>
+                    <h2>Vad är ett element?</h2>
+                    <pre class="code-block compact-code fragment"><code>scores = [
+    ("Anna", 120),
+    ("Erik", 95),
+    ("Sara", 150)
+]</code></pre>
+                    <p class="fragment">Listan innehåller flera resultat.</p>
+                    <p class="fragment">Varje tuple kopplar ihop namn och poäng.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Alternativ</p>
+                    <h2>Tuple eller dictionary?</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>("Anna", 120)</code></pre>
+                        <p>Tuple passar när varje resultat bara har två fasta värden.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>{"name": "Anna", "points": 120}</code></pre>
+                        <p>Dictionary blir tydligare om resultatet ska byggas ut senare.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Funktion</p>
+                    <h2>Lägg till resultat</h2>
+                    <pre class="code-block compact-code fragment"><code>def add_score(scores):
+    name = input("Ange namn: ")
+
+    try:
+        points = int(input("Ange poäng: "))
+        scores.append((name, points))
+    except ValueError:
+        print("Du måste ange ett heltal.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Stegvis</p>
+                    <h2>Vad händer i funktionen?</h2>
+                    <ol>
+                        <li class="fragment"><code>name</code> får spelarens namn.</li>
+                        <li class="fragment"><code>int(input(...))</code> försöker läsa poäng som heltal.</li>
+                        <li class="fragment"><code>append()</code> lägger till en tuple i listan.</li>
+                        <li class="fragment"><code>except ValueError</code> fångar fel poänginmatning.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sortering</p>
+                    <h2>Först: enkel sortering</h2>
+                    <pre class="code-block compact-code fragment"><code>numbers = [5, 2, 9, 1]
+
+numbers.sort()
+
+print(numbers)</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>[1, 2, 5, 9]</code></pre>
+                        <p>Här vet Python direkt hur talen ska sorteras.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sortering</p>
+                    <h2>Men vad ska Python sortera på?</h2>
+                    <pre class="code-block compact-code fragment"><code>scores = [
+    ("Anna", 120),
+    ("Erik", 95),
+    ("Sara", 150)
+]</code></pre>
+                    <p class="fragment">Varje element innehåller två delar.</p>
+                    <p class="fragment">Ska listan sorteras efter namn eller poäng?</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Tuple</p>
+                    <h2>Index visar vilken del</h2>
+                    <pre class="code-block compact-code fragment"><code>result = ("Anna", 120)
+
+result[0]  # "Anna"
+result[1]  # 120</code></pre>
+                    <p class="fragment"><code>0</code> är namnet.</p>
+                    <p class="fragment"><code>1</code> är poängen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Key</p>
+                    <h2><code>key</code> väljer sorteringsvärde</h2>
+                    <pre class="code-block compact-code fragment"><code>def get_points(result):
+    return result[1]
+
+scores.sort(key=get_points)</code></pre>
+                    <p class="fragment">För varje tuple hämtar funktionen poängen.</p>
+                    <p class="fragment">Python använder poängen när listan sorteras.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lambda</p>
+                    <h2>En kort funktion direkt i raden</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>def get_points(result):
+    return result[1]</code></pre>
+                        <p>Detta är en vanlig funktion.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>lambda result: result[1]</code></pre>
+                        <p>Detta är samma idé, men kortare.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lambda</p>
+                    <h2>Läs raden i delar</h2>
+                    <pre class="code-block compact-code fragment"><code>scores.sort(key=lambda result: result[1], reverse=True)</code></pre>
+                    <ul>
+                        <li class="fragment"><code>scores.sort(...)</code> sorterar listan.</li>
+                        <li class="fragment"><code>key=...</code> säger vad Python ska sortera på.</li>
+                        <li class="fragment"><code>lambda result: result[1]</code> hämtar poängen.</li>
+                        <li class="fragment"><code>reverse=True</code> ger högsta poängen först.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sortering</p>
+                    <h2>I programmet</h2>
+                    <pre class="code-block compact-code fragment"><code>def print_high_scores(scores):
+    scores.sort(key=lambda result: result[1], reverse=True)
+
+    print("\nTopplista:")
+
+    for name, points in scores:
+        print(f"{name}: {points}")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Före och efter sortering</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>[("Anna", 120), ("Erik", 95), ("Sara", 150)]</code></pre>
+                        <p>Detta är ordningen som resultaten matades in i.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>[("Sara", 150), ("Anna", 120), ("Erik", 95)]</code></pre>
+                        <p>Efter sortering kommer högsta poängen först.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Huvudprogram</p>
+                    <h2>Loopen styr flödet</h2>
+                    <pre class="code-block compact-code fragment"><code>def main():
+    scores = []
+
+    while True:
+        add_score(scores)
+        cont = input("Fler resultat? (j/n): ")
+
+        if cont.lower() != "j":
+            break
+
+    print_high_scores(scores)</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Koppling</p>
+                    <h2>Delarna samarbetar</h2>
+                    <ul>
+                        <li class="fragment">Listan sparar alla resultat.</li>
+                        <li class="fragment">Tuplen håller ihop namn och poäng.</li>
+                        <li class="fragment">Funktioner delar upp ansvaret.</li>
+                        <li class="fragment">Loopen låter användaren lägga till flera resultat.</li>
+                        <li class="fragment">Villkor avgör när programmet ska avslutas.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Testning</p>
+                    <h2>Testa även kantfall</h2>
+                    <pre class="code-block compact-code fragment"><code>Vanligt fall:
+Anna 120, Erik 95, Sara 150
+Förväntat: Sara visas först
+
+Fel poäng:
+Anna abc
+Förväntat: felmeddelande
+
+Tom lista:
+Användaren avslutar direkt
+Förväntat: programmet hanterar det tydligt</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Utveckling</p>
+                    <h2>Bygg vidare</h2>
+                    <ul>
+                        <li class="fragment">visa bara de tre bästa resultaten</li>
+                        <li class="fragment">kontrollera dubbletter</li>
+                        <li class="fragment">ta bort en spelare</li>
+                        <li class="fragment">spara topplistan till fil senare</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Topplista</h2>
+                    <ol>
+                        <li class="fragment">Skriv först en plan.</li>
+                        <li class="fragment">Bygg ett menyprogram.</li>
+                        <li class="fragment">Låt användaren lägga till resultat.</li>
+                        <li class="fragment">Visa hela topplistan.</li>
+                        <li class="fragment">Visa bara de tre bästa resultaten.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Fråga alltid vad ett element i listan är.</li>
+                        <li class="fragment">Välj tuple eller dictionary efter behov.</li>
+                        <li class="fragment"><code>append()</code> lägger till nya resultat.</li>
+                        <li class="fragment"><code>sort(key=...)</code> kan sortera efter en del av varje element.</li>
+                        <li class="fragment">Kantfall visar om programmet är robust.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

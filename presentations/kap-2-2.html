@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 2.2 - Listor och iteration</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 2.2</p>
+                    <h1>Listor och iteration</h1>
+                    <p class="fragment">Vi använder listor och loopar för att hantera flera värden strukturerat.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad en lista är</li>
+                        <li class="fragment">skapa, läsa och ändra listor</li>
+                        <li class="fragment">iterera över listor med <code>for</code></li>
+                        <li class="fragment">använda listor tillsammans med funktioner</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Problem</p>
+                    <h2>Flera värden hör ihop</h2>
+                    <p class="fragment">Ett program kan behöva spara flera namn.</p>
+                    <p class="fragment">Eller flera poäng.</p>
+                    <p class="fragment">Eller flera produkter.</p>
+                    <p class="fragment">Då är en lista bättre än många separata variabler.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lista</p>
+                    <h2>En samling värden</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>fruits = ["apple", "banana", "cherry"]</code></pre>
+                        <p>Tre strängar ligger i samma variabel.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>print(fruits)</code></pre>
+                        <p>Hela listan kan skrivas ut.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Datatyper</p>
+                    <h2>Listor kan innehålla olika värden</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>numbers = [10, 20, 30]</code></pre>
+                        <p>En lista med tal.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>mixed = [1, "two", 3.0]</code></pre>
+                        <p>Python tillåter blandade datatyper i samma lista.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Index</p>
+                    <h2>Första elementet har index 0</h2>
+                    <pre class="code-block fragment"><code>fruits = ["apple", "banana", "cherry"]
+
+print(fruits[0])  # apple
+print(fruits[1])  # banana
+print(fruits[2])  # cherry</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Index</p>
+                    <h2>Tänk positioner</h2>
+                    <pre class="code-block compact-code fragment"><code>index:    0         1          2
+värde:  apple    banana     cherry</code></pre>
+                    <p class="fragment"><code>fruits[0]</code> betyder: hämta värdet på plats 0.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ändra</p>
+                    <h2>Byt ut ett element</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>fruits[1] = "orange"</code></pre>
+                        <p>Värdet på index <code>1</code> ändras.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>["apple", "orange", "cherry"]</code></pre>
+                        <p><code>"banana"</code> har ersatts av <code>"orange"</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Metoder</p>
+                    <h2>Lägg till och ta bort</h2>
+                    <ul>
+                        <li class="fragment"><code>append()</code> lägger till sist</li>
+                        <li class="fragment"><code>insert()</code> lägger till på vald plats</li>
+                        <li class="fragment"><code>remove()</code> tar bort ett värde</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">append</p>
+                    <h2>Lägg till sist</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>fruits.append("pear")</code></pre>
+                        <p><code>"pear"</code> hamnar längst bak.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>["apple", "banana", "cherry", "pear"]</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">insert</p>
+                    <h2>Lägg till på plats</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>fruits.insert(1, "kiwi")</code></pre>
+                        <p><code>"kiwi"</code> stoppas in på index <code>1</code>.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>["apple", "kiwi", "banana", "cherry"]</code></pre>
+                        <p>Värdena efter index <code>1</code> flyttas ett steg.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">remove</p>
+                    <h2>Ta bort ett värde</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>fruits.remove("banana")</code></pre>
+                        <p>Python letar efter värdet och tar bort det.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>["apple", "cherry"]</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Iteration</p>
+                    <h2>Gå igenom listan</h2>
+                    <p class="fragment">Att iterera betyder att gå igenom elementen ett i taget.</p>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>for fruit in fruits:
+    print(f"I like {fruit}")</code></pre>
+                        <p>Samma kod körs en gång för varje frukt.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Stegvis</p>
+                    <h2>Vad gör loopen?</h2>
+                    <pre class="code-block compact-code fragment"><code>varv 1: fruit = "apple"  → I like apple
+varv 2: fruit = "banana" → I like banana
+varv 3: fruit = "cherry" → I like cherry</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Index-loop</p>
+                    <h2><code>range()</code> och <code>len()</code></h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>fruits = ["apple", "banana", "cherry"]</code></pre>
+                        <p>Listan har tre element.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>len(fruits)  # 3</code></pre>
+                        <p><code>len()</code> räknar hur många element som finns i listan.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>range(len(fruits))  # range(3)</code></pre>
+                        <p>Det ger indexen <code>0</code>, <code>1</code> och <code>2</code>.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>for i in range(len(fruits)):
+    print(fruits[i])</code></pre>
+                        <p>Loopen använder varje index för att hämta rätt element.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Funktioner</p>
+                    <h2>Färdiga verktyg för tal</h2>
+                    <pre class="code-block fragment"><code>numbers = [10, 20, 30]
+
+print(sum(numbers))  # 60
+print(len(numbers))  # 3
+print(max(numbers))  # 30</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Argument</p>
+                    <h2>Skicka listor till funktioner</h2>
+                    <pre class="code-block fragment"><code>def print_list(lst):
+    for item in lst:
+        print(item)
+
+print_list(["car", "bike", "bus"])</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Returvärde</p>
+                    <h2>Returnera en lista</h2>
+                    <pre class="code-block compact-code fragment"><code>def even_numbers(n):
+    result = []
+
+    for i in range(n):
+        if i % 2 == 0:
+            result.append(i)
+
+    return result</code></pre>
+                    <p class="fragment"><code>even_numbers(10)</code> ger <code>[0, 2, 4, 6, 8]</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Tre uppgifter</h2>
+                    <ol>
+                        <li class="fragment">Skapa en lista med fem namn och hälsa på varje namn.</li>
+                        <li class="fragment">Skapa en funktion som returnerar medelvärdet av en lista med tal.</li>
+                        <li class="fragment">Gör en meny där användaren kan lägga till ord, skriva ut listan eller avsluta.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Reflektion</p>
+                    <h2>Fundera</h2>
+                    <ul>
+                        <li class="fragment">När passar en lista bättre än flera variabler?</li>
+                        <li class="fragment">Hur förändras programmet när listan kan vara olika lång?</li>
+                        <li class="fragment">Varför passar listor och loopar bra tillsammans?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Listor samlar flera värden i en variabel.</li>
+                        <li class="fragment">Index börjar på <code>0</code>.</li>
+                        <li class="fragment"><code>append()</code>, <code>insert()</code> och <code>remove()</code> ändrar listan.</li>
+                        <li class="fragment">Iteration går igenom elementen ett i taget.</li>
+                        <li class="fragment">Listor kan skickas till och returneras från funktioner.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

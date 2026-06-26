@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 2.4 - Dictionaries och tuples</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 2.4</p>
+                    <h1>Dictionaries och tuples</h1>
+                    <p class="fragment">Vi väljer datastruktur efter hur värdena ska användas.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad en dictionary är</li>
+                        <li class="fragment">använda nyckel-värde-par</li>
+                        <li class="fragment">förklara vad en tuple är</li>
+                        <li class="fragment">välja mellan lista, dictionary och tuple</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Frågan</p>
+                    <h2>Hur hör värdena ihop?</h2>
+                    <p class="fragment">Listor passar när ordningen är viktig.</p>
+                    <p class="fragment">Dictionaries passar när värden behöver namn.</p>
+                    <p class="fragment">Tuples passar när en grupp värden ska vara fast.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Dictionary</p>
+                    <h2>Nyckel och värde</h2>
+                    <pre class="code-block fragment"><code>person = {
+    "name": "Anna",
+    "age": 25,
+    "city": "Stockholm"
+}</code></pre>
+                    <p class="fragment"><code>"name"</code>, <code>"age"</code> och <code>"city"</code> är nycklar.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Åtkomst</p>
+                    <h2>Hämta värde med nyckel</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>print(person["name"])</code></pre>
+                        <p>Python hämtar värdet som hör till nyckeln <code>"name"</code>.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>Anna</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Säkrare åtkomst</p>
+                    <h2><code>get()</code> undviker <code>KeyError</code></h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>print(person.get("email", "Ingen e-post finns"))</code></pre>
+                        <p>Om nyckeln saknas används standardvärdet.</p>
+                    </div>
+                    <p class="fragment">Det är användbart när du inte vet om nyckeln finns.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ändra</p>
+                    <h2>Ändra eller lägg till</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>person["age"] = 26</code></pre>
+                        <p>Nyckeln finns redan, så värdet ändras.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>person["email"] = "alice@example.com"</code></pre>
+                        <p>Nyckeln saknas, så den läggs till.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ta bort</p>
+                    <h2><code>del</code> tar bort en nyckel</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>del person["city"]</code></pre>
+                        <p>Nyckeln <code>"city"</code> och dess värde tas bort.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Iteration</p>
+                    <h2>Loopa genom dictionaryn</h2>
+                    <pre class="code-block fragment"><code>for key, value in person.items():
+    print(f"{key}: {value}")</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>name: Anna
+age: 26
+email: alice@example.com</code></pre>
+                        <p>Varje varv skriver ut en nyckel och dess värde.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Realistiskt</p>
+                    <h2>Flera dictionaries i en lista</h2>
+                    <pre class="code-block compact-code fragment"><code>books = [
+    {"title": "Python", "year": 2024},
+    {"title": "Webbutveckling", "year": 2023}
+]
+
+for book in books:
+    print(book["title"])</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Python
+Webbutveckling</code></pre>
+                        <p>Loopen hämtar nyckeln <code>"title"</code> från varje dictionary.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Tuple</p>
+                    <h2>Fast, ordnad samling</h2>
+                    <pre class="code-block fragment"><code>coordinates = (10, 20)
+print(coordinates[0])  # 10</code></pre>
+                    <p class="fragment">En tuple har ordning, men kan inte ändras efter att den skapats.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Immutable</p>
+                    <h2>Oföränderlig struktur</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>coordinates[0] = 99</code></pre>
+                        <p>Det fungerar inte.</p>
+                    </div>
+                    <p class="fragment">Du kan läsa från en tuple, men inte byta ut positioner.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Uppackning</p>
+                    <h2>Dela upp värden i variabler</h2>
+                    <pre class="code-block fragment"><code>coordinates = (10, 20)
+
+x, y = coordinates
+
+print(x)  # 10
+print(y)  # 20</code></pre>
+                    <p class="fragment">Antalet variabler måste matcha antalet värden.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Funktioner</p>
+                    <h2>Returnera flera värden</h2>
+                    <pre class="code-block fragment"><code>def get_user():
+    return ("Anna", 25)
+
+name, age = get_user()</code></pre>
+                    <p class="fragment">Funktionen returnerar en tuple som packas upp direkt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Jämförelse</p>
+                    <h2>Lista, dictionary, tuple</h2>
+                    <ul>
+                        <li class="fragment">lista: ordnad och ändringsbar</li>
+                        <li class="fragment">dictionary: nyckel-värde-par</li>
+                        <li class="fragment">tuple: ordnad och oföränderlig</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Välj rätt</p>
+                    <h2>När passar vad?</h2>
+                    <ul>
+                        <li class="fragment">lista: flera värden i en ordning</li>
+                        <li class="fragment">dictionary: persondata, inställningar, poängtabeller</li>
+                        <li class="fragment">tuple: koordinater eller fasta returvärden</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Fyra uppgifter</h2>
+                    <ol>
+                        <li class="fragment">Skapa en dictionary för en bok.</li>
+                        <li class="fragment">Skriv en funktion som returnerar en tuple med namn och ålder.</li>
+                        <li class="fragment">Skapa en meny för användarnamn och poäng.</li>
+                        <li class="fragment">Skriv ut alla nycklar och värden med en for-loop.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Reflektion</p>
+                    <h2>Fundera</h2>
+                    <ul>
+                        <li class="fragment">När passar dictionary bättre än lista?</li>
+                        <li class="fragment">Hur påverkar det att en tuple inte kan ändras?</li>
+                        <li class="fragment">Vilken struktur passar bäst i ett menybaserat program?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Dictionaries kopplar nycklar till värden.</li>
+                        <li class="fragment"><code>get()</code> kan ge standardvärde om nyckeln saknas.</li>
+                        <li class="fragment"><code>items()</code> ger nyckel och värde i en loop.</li>
+                        <li class="fragment">Tuples är ordnade men oföränderliga.</li>
+                        <li class="fragment">Tuple-uppackning delar värden i variabler.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 1.5 - Loopar och upprepning</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 1.5</p>
+                    <h1>Loopar och upprepning</h1>
+                    <p class="fragment">Vi använder loopar när kod ska köras flera gånger på ett kontrollerat sätt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara skillnaden mellan <code>for</code> och <code>while</code></li>
+                        <li class="fragment">välja rätt loop för rätt situation</li>
+                        <li class="fragment">kombinera loopar med funktioner och villkor</li>
+                        <li class="fragment">använda <code>break</code> och <code>continue</code> medvetet</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kärnidé</p>
+                    <h2>Vad är en loop?</h2>
+                    <p class="fragment">En loop upprepar kod.</p>
+                    <p class="fragment">Den kan köra ett bestämt antal varv.</p>
+                    <p class="fragment">Den kan fortsätta tills ett villkor ändras.</p>
+                    <p class="fragment">Den kan gå igenom data steg för steg.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">for-loop</p>
+                    <h2>När du vet hur många varv</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>for i in range(5):
+    print(f"This is line {i}")</code></pre>
+                        <p>Loopen kör fem gånger: <code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">range</p>
+                    <h2><code>range()</code> skapar en talföljd</h2>
+                    <ul>
+                        <li class="fragment"><code>range(5)</code> ger 0 till 4</li>
+                        <li class="fragment"><code>range(1, 6)</code> ger 1 till 5</li>
+                        <li class="fragment">sista talet ingår inte</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Summera tal</h2>
+                    <pre class="code-block fragment"><code>total = 0
+for i in range(1, 6):
+    total += i
+print(f"Sum: {total}")</code></pre>
+                    <p class="fragment">Resultatet blir <code>15</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Stegvis</p>
+                    <h2>Vad händer med <code>total</code>?</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>total = 0</code></pre>
+                        <p>Vi startar med en tom summa.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>for i in range(1, 6):</code></pre>
+                        <p>Loopen kör med <code>i</code> som <code>1</code>, <code>2</code>, <code>3</code>, <code>4</code>, <code>5</code>.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>    total += i</code></pre>
+                        <p>Varje varv läggs <code>i</code> till i <code>total</code>: 0 → 1 → 3 → 6 → 10 → 15.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>print(f"Sum: {total}")</code></pre>
+                        <p>När loopen är klar skrivs slutvärdet ut.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">while-loop</p>
+                    <h2>När du inte vet antal varv</h2>
+                    <p class="fragment">En <code>while</code>-loop kör så länge ett villkor är sant.</p>
+                    <p class="fragment">Den passar när programmet väntar på att något ska ändras.</p>
+                    <p class="fragment">Till exempel rätt lösenord eller rätt gissning.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Fråga tills lösenordet är rätt</h2>
+                    <pre class="code-block fragment"><code>password = ""
+while password != "secret":
+    password = input("Enter password: ")
+print("Access granted.")</code></pre>
+                    <p class="fragment">Loopen slutar först när villkoret blir falskt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Jämförelse</p>
+                    <h2><code>for</code> eller <code>while</code>?</h2>
+                    <ul>
+                        <li class="fragment"><code>for</code>: gå igenom en känd serie värden</li>
+                        <li class="fragment"><code>while</code>: fortsätt tills ett villkor ändras</li>
+                        <li class="fragment">båda kan kombineras med <code>if</code></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Risk</p>
+                    <h2>while kan bli evig</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>while True:
+    print("Detta slutar aldrig")</code></pre>
+                        <p>Om villkoret aldrig blir falskt fortsätter loopen.</p>
+                    </div>
+                    <p class="fragment">Därför behöver du en tydlig väg ut.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">break</p>
+                    <h2>Avsluta loopen direkt</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>if choice == "4":
+    break</code></pre>
+                        <p><code>break</code> hoppar ut ur loopen.</p>
+                    </div>
+                    <p class="fragment">Det används ofta i menyer.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">continue</p>
+                    <h2>Hoppa till nästa varv</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>if i % 2 == 0:
+    continue</code></pre>
+                        <p><code>continue</code> hoppar över resten av det aktuella varvet.</p>
+                    </div>
+                    <p class="fragment">Loopen fortsätter sedan med nästa värde.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2><code>break</code> och <code>continue</code></h2>
+                    <pre class="code-block fragment"><code>for i in range(10):
+    if i == 7:
+        break
+    if i % 2 == 0:
+        continue
+    print(i)</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>i = 0  → continue → skriver inte ut
+i = 1  → print(i) → skriver ut 1
+i = 2  → continue → skriver inte ut
+i = 3  → print(i) → skriver ut 3
+i = 4  → continue → skriver inte ut
+i = 5  → print(i) → skriver ut 5
+i = 6  → continue → skriver inte ut
+i = 7  → break    → loopen avslutas</code></pre>
+                        <p>Koden skriver alltså ut <code>1</code>, <code>3</code> och <code>5</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Funktioner</p>
+                    <h2>Loopar blir tydligare med funktioner</h2>
+                    <p class="fragment">En funktion kan skriva ut menyn.</p>
+                    <p class="fragment">En annan funktion kan köra programflödet.</p>
+                    <p class="fragment">Då blir koden lättare att läsa och ändra.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Meny</p>
+                    <h2>En funktion för menyn</h2>
+                    <pre class="code-block fragment"><code>def print_menu():
+    print("1. Visa saldo")
+    print("2. Sätt in pengar")
+    print("3. Ta ut pengar")
+    print("4. Avsluta")</code></pre>
+                    <p class="fragment">Samma meny kan skrivas ut varje varv.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">while True</p>
+                    <h2>Kör tills användaren avslutar</h2>
+                    <pre class="code-block compact-code fragment"><code>while True:
+    print_menu()
+    choice = input("Välj alternativ: ")
+
+    if choice == "1":
+        print(f"Saldo: {balance} kr")
+    elif choice == "4":
+        break
+    else:
+        print("Ogiltigt val.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Helheten</p>
+                    <h2>Bankomatmeny</h2>
+                    <pre class="code-block compact-code fragment"><code>def print_menu():
+    print("1. Visa saldo")
+    print("2. Sätt in pengar")
+    print("3. Ta ut pengar")
+    print("4. Avsluta")
+
+def run():
+    balance = 500
+    while True:
+        print_menu()
+        choice = input("Välj alternativ: ")
+        if choice == "1":
+            print(f"Saldo: {balance} kr")
+        elif choice == "4":
+            break
+        else:
+            print("Ogiltigt val.")
+
+run()</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Egen övning</p>
+                    <h2>Träna tre mönster</h2>
+                    <ol>
+                        <li class="fragment">Skriv ut tal 1-20 som är delbara med 3.</li>
+                        <li class="fragment">Fråga efter en gissning tills användaren gissar rätt.</li>
+                        <li class="fragment">Bygg en meny med tre alternativ.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Reflektion</p>
+                    <h2>Fundera</h2>
+                    <ul>
+                        <li class="fragment">När passar <code>for</code> bäst?</li>
+                        <li class="fragment">När passar <code>while</code> bäst?</li>
+                        <li class="fragment">Hur gör funktioner loopar mer läsbara?</li>
+                        <li class="fragment">När är <code>break</code> rätt verktyg?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment"><code>for</code> passar för kända talföljder och samlingar.</li>
+                        <li class="fragment"><code>while</code> passar när ett villkor styr slutet.</li>
+                        <li class="fragment"><code>break</code> avslutar loopen.</li>
+                        <li class="fragment"><code>continue</code> hoppar till nästa varv.</li>
+                        <li class="fragment">Loopar, villkor och funktioner bygger riktiga program tillsammans.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

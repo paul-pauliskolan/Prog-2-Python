@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 2.1 - Vad är en algoritm?</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 2.1</p>
+                    <h1>Vad är en algoritm?</h1>
+                    <p class="fragment">En algoritm är en tydlig plan för hur ett problem ska lösas steg för steg.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad en algoritm är</li>
+                        <li class="fragment">beskriva en algoritm i text och pseudokod</li>
+                        <li class="fragment">känna igen olika typer av algoritmer</li>
+                        <li class="fragment">testa en algoritm med flera testfall</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kärnidé</p>
+                    <h2>Inte avancerat från början</h2>
+                    <p class="fragment">En algoritm är instruktioner.</p>
+                    <p class="fragment">Instruktionerna ska ha en tydlig ordning.</p>
+                    <p class="fragment">De ska leda till ett resultat.</p>
+                    <p class="fragment">De ska gå att testa.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Definition</p>
+                    <h2>En sekvens av steg</h2>
+                    <p class="fragment">En algoritm löser ett problem eller utför en uppgift.</p>
+                    <p class="fragment">Den kan beskrivas med text, pseudokod, flödesschema eller kod.</p>
+                    <p class="fragment">Den ska vara tydlig nog för någon annan att följa.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">En bra algoritm</p>
+                    <h2>Fem delar</h2>
+                    <ul>
+                        <li class="fragment">indata: vad behövs från början?</li>
+                        <li class="fragment">steg: vad händer och i vilken ordning?</li>
+                        <li class="fragment">villkor: vilka beslut måste fattas?</li>
+                        <li class="fragment">resultat: vad ska algoritmen ge?</li>
+                        <li class="fragment">testfall: hur vet vi att den fungerar?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Vardag</p>
+                    <h2>Algoritm för kaffe</h2>
+                    <ol>
+                        <li class="fragment">Fyll vatten i kaffebryggaren.</li>
+                        <li class="fragment">Lägg i ett kaffefilter.</li>
+                        <li class="fragment">Tillsätt kaffe i filtret.</li>
+                        <li class="fragment">Starta bryggaren.</li>
+                        <li class="fragment">Vänta tills det är klart.</li>
+                        <li class="fragment">Servera.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Programmering</p>
+                    <h2>Jämnt eller udda</h2>
+                    <ol>
+                        <li class="fragment">Läs in ett tal.</li>
+                        <li class="fragment">Dela talet med 2.</li>
+                        <li class="fragment">Om resten är 0: skriv <code>Jämnt</code>.</li>
+                        <li class="fragment">Annars: skriv <code>Udda</code>.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Pseudokod</p>
+                    <h2>Samma algoritm utan Python-detaljer</h2>
+                    <pre class="code-block fragment"><code>INPUT number
+
+IF number MOD 2 == 0 THEN
+    PRINT "Even"
+ELSE
+    PRINT "Odd"</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Python</p>
+                    <h2>Samma idé som kod</h2>
+                    <pre class="code-block fragment"><code>number = int(input("Skriv ett tal: "))
+
+if number % 2 == 0:
+    print("Jämnt")
+else:
+    print("Udda")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Operator</p>
+                    <h2>Vad betyder <code>%</code>?</h2>
+                    <p class="fragment"><code>%</code> ger resten vid division.</p>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>8 % 2  # 0
+9 % 2  # 1</code></pre>
+                        <p>Om resten är <code>0</code> när vi delar med <code>2</code>, är talet jämnt.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Typer</p>
+                    <h2>Algoritmer används överallt</h2>
+                    <ul>
+                        <li class="fragment">beslut: kontrollera lösenord eller rabatt</li>
+                        <li class="fragment">beräkning: räkna ut medelvärde</li>
+                        <li class="fragment">sökning: hitta ett namn i en lista</li>
+                        <li class="fragment">sortering: ordna värden</li>
+                        <li class="fragment">repetition: upprepa tills ett villkor uppfylls</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Problem</p>
+                    <h2>Ungdomsrabatt</h2>
+                    <p class="fragment">Vi vill kontrollera om en person får ungdomsrabatt.</p>
+                    <p class="fragment">Indata: personens ålder.</p>
+                    <p class="fragment">Villkor: är åldern under 18?</p>
+                    <p class="fragment">Resultat: rabatt eller ingen rabatt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Textform</p>
+                    <h2>Algoritm för rabatt</h2>
+                    <ol>
+                        <li class="fragment">Läs in personens ålder.</li>
+                        <li class="fragment">Om åldern är under 18: skriv <code>Du får rabatt</code>.</li>
+                        <li class="fragment">Annars: skriv <code>Du får ingen rabatt</code>.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Pseudokod</p>
+                    <h2>Rabatt med villkor</h2>
+                    <pre class="code-block fragment"><code>INPUT age
+
+IF age &lt; 18 THEN
+    PRINT "You get a discount"
+ELSE
+    PRINT "No discount"</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Test</p>
+                    <h2>Algoritmen måste testas</h2>
+                    <ul>
+                        <li class="fragment"><code>12</code> → ska ge rabatt</li>
+                        <li class="fragment"><code>17</code> → ska ge rabatt</li>
+                        <li class="fragment"><code>18</code> → ska inte ge rabatt</li>
+                        <li class="fragment"><code>30</code> → ska inte ge rabatt</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Gränsfall</p>
+                    <h2>Varför testa 18?</h2>
+                    <p class="fragment">18 är precis på gränsen.</p>
+                    <p class="fragment">Om villkoret är <code>age &lt; 18</code> får 18-åringar inte rabatt.</p>
+                    <p class="fragment">Om du råkar skriva <code>age &lt;= 18</code> ändras regeln.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Misstag</p>
+                    <h2>Vanliga fel</h2>
+                    <ul>
+                        <li class="fragment">steg som är för otydliga</li>
+                        <li class="fragment">fel gräns i villkor</li>
+                        <li class="fragment">inget <code>else</code>-fall</li>
+                        <li class="fragment">bara ett enda testvärde</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Fyra uppgifter</h2>
+                    <ol>
+                        <li class="fragment">Skriv algoritm för ungdomsrabatt i textform.</li>
+                        <li class="fragment">Skriv pseudokod för medelvärde av tre tal.</li>
+                        <li class="fragment">Skriv Pythonkod för jämnt eller udda.</li>
+                        <li class="fragment">Skapa minst fyra testfall till en egen algoritm.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Reflektion</p>
+                    <h2>Fundera</h2>
+                    <ul>
+                        <li class="fragment">Hur skiljer sig en algoritm från färdig kod?</li>
+                        <li class="fragment">Hur hjälper planeringen innan du kodar?</li>
+                        <li class="fragment">Vilken typ av algoritm verkar mest användbar?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">En algoritm är en tydlig sekvens av steg.</li>
+                        <li class="fragment">Den har indata, steg, villkor, resultat och testfall.</li>
+                        <li class="fragment">Pseudokod hjälper dig planera innan syntaxen.</li>
+                        <li class="fragment">Testfall visar om algoritmen följer regeln.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

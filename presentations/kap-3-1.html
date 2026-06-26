@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 3.1 - Vad är OOP?</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 3.1</p>
+                    <h1>Vad är OOP?</h1>
+                    <p class="fragment">Objektorienterad programmering organiserar kod runt objekt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad objektorienterad programmering är</li>
+                        <li class="fragment">skilja mellan klass och objekt</li>
+                        <li class="fragment">förklara attribut, metod och konstruktor</li>
+                        <li class="fragment">läsa ett enkelt klass-exempel i Python</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Idén</p>
+                    <h2>Data och beteende tillsammans</h2>
+                    <p class="fragment">Ett objekt kan ha data.</p>
+                    <p class="fragment">Ett objekt kan också ha metoder.</p>
+                    <p class="fragment">Då ligger information och funktionalitet på samma ställe.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>En bok som objekt</h2>
+                    <ul>
+                        <li class="fragment">Titel: <code>Project Hail Mary</code></li>
+                        <li class="fragment">Författare: <code>Andy Weir</code></li>
+                        <li class="fragment">Metod: skriv ut bokens information</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Klass</p>
+                    <h2>Klassen är mallen</h2>
+                    <p class="fragment"><code>pass</code> måste bara vara med om klassen är tom.</p>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>class Bok:</code></pre>
+                        <p>Det här fungerar inte. Python väntar på kod efter kolon.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>class Bok:
+    pass</code></pre>
+                        <p><code>pass</code> betyder: här kommer inget mer än.</p>
+                    </div>
+                    <p class="fragment">Så fort klassen får en metod behövs inte <code>pass</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Objekt</p>
+                    <h2>Objekt skapas från klassen</h2>
+                    <pre class="code-block compact-code fragment"><code>bok1 = Bok()
+bok2 = Bok()</code></pre>
+                    <p class="fragment"><code>Bok</code> är klassen.</p>
+                    <p class="fragment"><code>bok1</code> och <code>bok2</code> är två objekt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Konstruktor</p>
+                    <h2><code>__init__()</code> ger startvärden</h2>
+                    <pre class="code-block compact-code fragment"><code>class Bok:
+    def __init__(self, titel, forfattare):
+        self.titel = titel
+        self.forfattare = forfattare</code></pre>
+                    <p class="fragment">Konstruktorn körs när ett nytt objekt skapas.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Attribut</p>
+                    <h2>Data som hör till objektet</h2>
+                    <pre class="code-block compact-code fragment"><code>self.titel = titel
+self.forfattare = forfattare</code></pre>
+                    <p class="fragment"><code>self.titel</code> sparas i objektet.</p>
+                    <p class="fragment">Varje bokobjekt får egna attributvärden.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Skapa objekt</p>
+                    <h2>Argument skickas in</h2>
+                    <pre class="code-block compact-code fragment"><code>bok1 = Bok("Project Hail Mary", "Andy Weir")</code></pre>
+                    <ul>
+                        <li class="fragment"><code>"Project Hail Mary"</code> blir <code>titel</code>.</li>
+                        <li class="fragment"><code>"Andy Weir"</code> blir <code>forfattare</code>.</li>
+                        <li class="fragment">Värdena sparas i <code>bok1</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Metod</p>
+                    <h2>En funktion i en klass</h2>
+                    <pre class="code-block compact-code fragment"><code>def skriv_ut_info(self):
+    print(f"{self.titel} av {self.forfattare}")</code></pre>
+                    <p class="fragment">Metoden använder objektets egna attribut.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Anrop</p>
+                    <h2>Kör metoden på ett objekt</h2>
+                    <pre class="code-block compact-code fragment"><code>bok1.skriv_ut_info()</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Project Hail Mary av Andy Weir</code></pre>
+                        <p>Python använder attributen som finns i just <code>bok1</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">self</p>
+                    <h2><code>self</code> betyder detta objekt</h2>
+                    <pre class="code-block compact-code fragment"><code>bok1.skriv_ut_info()
+bok2.skriv_ut_info()</code></pre>
+                    <p class="fragment">Samma metod kan köras på olika objekt.</p>
+                    <p class="fragment"><code>self</code> pekar på objektet som metoden körs på.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Hela exemplet</p>
+                    <h2>Klassen <code>Bok</code></h2>
+                    <pre class="code-block tiny-code fragment"><code>class Bok:
+    def __init__(self, titel, forfattare):
+        self.titel = titel
+        self.forfattare = forfattare
+
+    def skriv_ut_info(self):
+        print(f"{self.titel} av {self.forfattare}")
+
+bok1 = Bok("Project Hail Mary", "Andy Weir")
+bok2 = Bok("Surely You're Joking, Mr. Feynman!", "Richard P. Feynman")
+
+bok1.skriv_ut_info()
+bok2.skriv_ut_info()</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Utskrift</p>
+                    <h2>Vad skriver programmet?</h2>
+                    <pre class="code-block compact-code fragment"><code>Project Hail Mary av Andy Weir
+Surely You're Joking, Mr. Feynman! av Richard P. Feynman</code></pre>
+                    <p class="fragment">Samma klass används för två olika objekt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Jämförelse</p>
+                    <h2>Funktion eller metod?</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>def skriv_hej():
+    print("Hej")</code></pre>
+                        <p>En vanlig funktion står fritt.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>class Bok:
+    def skriv_ut_info(self):
+        print("Information")</code></pre>
+                        <p>En metod ligger i en klass.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Begrepp</p>
+                    <h2>Orden du måste kunna</h2>
+                    <ul>
+                        <li class="fragment">klass: mall för objekt</li>
+                        <li class="fragment">objekt: instans av en klass</li>
+                        <li class="fragment">attribut: data i objektet</li>
+                        <li class="fragment">metod: funktion som hör till objektet</li>
+                        <li class="fragment">konstruktor: <code>__init__()</code></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Varför OOP?</p>
+                    <h2>När program växer</h2>
+                    <ul>
+                        <li class="fragment">Data och funktioner hålls ihop.</li>
+                        <li class="fragment">Koden blir lättare att dela upp.</li>
+                        <li class="fragment">Samma klass kan skapa många objekt.</li>
+                        <li class="fragment">Det blir enklare att bygga vidare.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva</p>
+                    <h2>Tänk objekt</h2>
+                    <pre class="code-block compact-code fragment"><code>Klass: Elev
+
+Attribut:
+namn, klass, ålder
+
+Metoder:
+skriv_ut_info()
+byt_klass(ny_klass)</code></pre>
+                    <p class="fragment">Börja med att beskriva objektet innan du skriver Pythonkod.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">En klass är en mall.</li>
+                        <li class="fragment">Ett objekt skapas från klassen.</li>
+                        <li class="fragment">Attribut är objektets data.</li>
+                        <li class="fragment">Metoder är objektets funktioner.</li>
+                        <li class="fragment"><code>self</code> betyder objektet som används just nu.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

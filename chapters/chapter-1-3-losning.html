@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Lösningsförslag - Kap 1.3 strukturerad problemlösning</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Lösningsförslag till kap 1.3: strukturerad problemlösning med funktioner.">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero">
+                <p class="eyebrow">Lösningsförslag</p>
+                <h1>Kap 1.3 – Fyller 100 år</h1>
+                <p class="subtitle">Ett exempel på hur övningen kan lösas med tydliga funktioner och ett samlat
+                    huvudflöde.</p>
+            </header>
+
+            <section class="content-section">
+                <h2>Uppgiften</h2>
+                <ol>
+                    <li>Fråga efter användarens namn och ålder.</li>
+                    <li>Beräkna vilket år personen fyller 100 år.</li>
+                    <li>Skriv ut ett personligt meddelande.</li>
+                </ol>
+
+                <h2>Lösningsförslag</h2>
+                <pre><code>from datetime import date
+
+
+def get_name():
+    return input("Vad heter du? ")
+
+
+def get_age():
+    return int(input("Hur gammal är du? "))
+
+
+def calculate_year_turns_100(age):
+    current_year = date.today().year
+    years_left = 100 - age
+    return current_year + years_left
+
+
+def print_message(name, year):
+    print(f"Hej {name}!")
+    print(f"Du fyller 100 år under år {year}.")
+
+
+def main():
+    name = get_name()
+    age = get_age()
+    year = calculate_year_turns_100(age)
+    print_message(name, year)
+
+
+main()</code></pre>
+
+                <h2>Vad lösningen visar</h2>
+                <ul>
+                    <li><code>get_name()</code> ansvarar bara för att hämta namnet.</li>
+                    <li><code>get_age()</code> ansvarar bara för att hämta åldern och göra den till ett heltal.</li>
+                    <li><code>calculate_year_turns_100()</code> ansvarar bara för beräkningen.</li>
+                    <li><code>print_message()</code> ansvarar bara för utskriften.</li>
+                    <li><code>main()</code> samlar programmets huvudflöde.</li>
+                </ul>
+
+                <h2>Exempel på körning</h2>
+                <pre><code>Vad heter du? Anna
+Hur gammal är du? 17
+Hej Anna!
+Du fyller 100 år under år 2109.</code></pre>
+
+                <p class="exercise-note"><strong>Obs:</strong> Årtalet i exemplet beror på vilket år programmet körs.
+                    Programmet hämtar aktuellt år med <code>date.today().year</code>.</p>
+
+                <p>Ladda ner lösningsförslaget:
+                    <a href="../p2-python-kod/kap1-3-100-ar-losningsforslag.py" download>kap1-3-100-ar-losningsforslag.py</a>
+                </p>
+            </section>
+
+            <p><a href="chapter-1-3.html">Tillbaka till kap 1.3</a></p>
+        </article>
+    </main>
+    <script src="../js/main.js"></script>
+</body>
+
+</html>

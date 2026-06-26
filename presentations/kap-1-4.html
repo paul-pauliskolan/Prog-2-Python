@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 1.4 - Villkor och logik i funktioner</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 1.4</p>
+                    <h1>Villkor och logik i funktioner</h1>
+                    <p class="fragment">Vi låter funktioner fatta beslut med <code>if</code>, <code>elif</code>,
+                        <code>else</code> och logiska uttryck.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">använda <code>if</code>, <code>elif</code> och <code>else</code> i funktioner</li>
+                        <li class="fragment">skriva funktioner som returnerar beslut</li>
+                        <li class="fragment">använda <code>and</code>, <code>or</code> och <code>not</code></li>
+                        <li class="fragment">förklara hur villkor påverkar kodens flöde</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Repetition</p>
+                    <h2>Villkor väljer väg</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>if age >= 18:
+    print("Myndig")
+else:
+    print("Inte myndig")</code></pre>
+                        <p>Programmet väljer gren beroende på om villkoret är sant eller falskt.</p>
+                    </div>
+                    <p class="fragment">I kap 1.4 lägger vi den logiken inuti funktioner.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Helheten först</p>
+                    <h2>Kontrollera myndighet</h2>
+                    <pre class="code-block compact-code fragment"><code>def is_adult(age):
+    if age >= 18:
+        return True
+    else:
+        return False
+
+user_age = int(input("Enter your age: "))
+if is_adult(user_age):
+    print("You are an adult.")
+else:
+    print("You are not an adult.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Funktionen</p>
+                    <h2>Beslutet ligger i funktionen</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>def is_adult(age):
+    if age >= 18:
+        return True
+    else:
+        return False</code></pre>
+                        <p>Funktionen tar emot en ålder och returnerar ett sanningsvärde.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Returvärde</p>
+                    <h2><code>return</code> skickar tillbaka ett värde</h2>
+                    <p class="fragment"><code>return True</code> betyder: ja, personen är myndig.</p>
+                    <p class="fragment"><code>return False</code> betyder: nej, personen är inte myndig.</p>
+                    <p class="fragment">Huvudprogrammet kan sedan använda svaret.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Huvudprogram</p>
+                    <h2>Använd funktionens svar</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>if is_adult(user_age):
+    print("You are an adult.")
+else:
+    print("You are not an adult.")</code></pre>
+                        <p>Här används returvärdet som villkor.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktig skillnad</p>
+                    <h2><code>return</code> och <code>print()</code></h2>
+                    <ul>
+                        <li class="fragment"><code>return</code> skickar ett värde tillbaka från funktionen</li>
+                        <li class="fragment"><code>print()</code> visar text för användaren</li>
+                        <li class="fragment">en funktion som returnerar värden är lättare att testa</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Flera alternativ</p>
+                    <h2><code>elif</code> testar nästa möjlighet</h2>
+                    <pre class="code-block compact-code fragment"><code>def grade_feedback(grade):
+    if grade >= 90:
+        return "Excellent"
+    elif grade >= 75:
+        return "Good"
+    elif grade >= 60:
+        return "Pass"
+    else:
+        return "Fail"</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ordning</p>
+                    <h2>Python läser uppifrån och ned</h2>
+                    <p class="fragment">Först testas <code>grade >= 90</code>.</p>
+                    <p class="fragment">Om det är falskt testas <code>grade >= 75</code>.</p>
+                    <p class="fragment">Första grenen som stämmer körs.</p>
+                    <p class="fragment">Resten hoppas över.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Snabbtest</p>
+                    <h2>Vad returneras?</h2>
+                    <ul>
+                        <li class="fragment"><code>grade_feedback(95)</code> → <code>"Excellent"</code></li>
+                        <li class="fragment"><code>grade_feedback(80)</code> → <code>"Good"</code></li>
+                        <li class="fragment"><code>grade_feedback(65)</code> → <code>"Pass"</code></li>
+                        <li class="fragment"><code>grade_feedback(40)</code> → <code>"Fail"</code></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Logik</p>
+                    <h2>Ibland behövs flera villkor</h2>
+                    <p class="fragment">Är personen minst 18 år?</p>
+                    <p class="fragment">Har personen biljett?</p>
+                    <p class="fragment">Är personen inloggad?</p>
+                    <p class="fragment">Då använder vi logiska operatorer.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Operator</p>
+                    <h2><code>and</code>: båda måste stämma</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>if age >= 18 and has_ticket == "ja":
+    print("Du får gå in.")
+else:
+    print("Du får inte gå in.")</code></pre>
+                        <p>Villkoret blir sant bara om båda delarna är sanna.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Operator</p>
+                    <h2><code>or</code>: minst en måste stämma</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>if day == "lördag" or day == "söndag":
+    print("Det är helg.")
+else:
+    print("Det är vardag.")</code></pre>
+                        <p>Villkoret blir sant om någon av delarna är sann.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Operator</p>
+                    <h2><code>not</code>: vänder villkoret</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>logged_in = False
+
+if not logged_in:
+    print("Du måste logga in.")</code></pre>
+                        <p><code>not logged_in</code> blir sant när <code>logged_in</code> är falskt.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Funktioner</p>
+                    <h2>Logik passar bra i funktioner</h2>
+                    <p class="fragment">Funktionen får indata.</p>
+                    <p class="fragment">Funktionen testar villkor.</p>
+                    <p class="fragment">Funktionen returnerar ett resultat.</p>
+                    <p class="fragment">Huvudprogrammet använder resultatet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Egen övning</p>
+                    <h2>Inträde till evenemang</h2>
+                    <p class="fragment">Skapa funktionen <code>check_entry()</code>.</p>
+                    <p class="fragment">Den ska ta emot ålder, biljett, vårdnadshavare och avstängning.</p>
+                    <p class="fragment">Den ska returnera rätt meddelande.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Startkod</p>
+                    <h2>Fyll i villkoren</h2>
+                    <pre class="code-block compact-code fragment"><code>def check_entry(age, has_ticket, has_parent, is_blocked):
+    # Skriv villkoren här.
+    # Funktionen ska returnera rätt meddelande.
+    pass
+
+def main():
+    age = int(input("Ålder: "))
+    has_ticket = input("Har biljett? (ja/nej): ") == "ja"
+    has_parent = input("Har vårdnadshavare med? (ja/nej): ") == "ja"
+    is_blocked = input("Är personen avstängd? (ja/nej): ") == "ja"</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Testfall</p>
+                    <h2>Kontrollera flera vägar</h2>
+                    <ul>
+                        <li class="fragment">20 år, biljett, inte avstängd → får gå in</li>
+                        <li class="fragment">16 år, biljett, vårdnadshavare → får gå in</li>
+                        <li class="fragment">16 år, biljett, ingen vårdnadshavare → får inte gå in</li>
+                        <li class="fragment">20 år, ingen biljett → får inte gå in</li>
+                        <li class="fragment">avstängd person → får inte gå in</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Reflektion</p>
+                    <h2>Fundera</h2>
+                    <ul>
+                        <li class="fragment">När ska en funktion använda <code>return</code>?</li>
+                        <li class="fragment">Varför spelar ordningen på villkoren roll?</li>
+                        <li class="fragment">När passar <code>and</code> bättre än <code>or</code>?</li>
+                        <li class="fragment">Vad händer om ingen gren matchar?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment"><code>if/elif/else</code> styr kodens väg.</li>
+                        <li class="fragment"><code>return</code> skickar tillbaka ett värde från funktionen.</li>
+                        <li class="fragment"><code>and</code> kräver att båda villkoren är sanna.</li>
+                        <li class="fragment"><code>or</code> kräver att minst ett villkor är sant.</li>
+                        <li class="fragment"><code>not</code> vänder på ett villkor.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

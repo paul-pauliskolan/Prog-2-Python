@@ -26,6 +26,7 @@
 # - print_menu()
 # - add_book(catalog)
 # - search_books(catalog)
+# - print_book(book)
 # - print_catalog(catalog)
 
 
@@ -79,7 +80,11 @@ def search_books(catalog):
     print("\nSokresultat")
 
     for book in found:
-        print(f"{book['title']} av {book['author']} ({book['year']})")
+        print_book(book)
+
+
+def print_book(book):
+    print(f"{book['title']} av {book['author']} ({book['year']})")
 
 
 def print_catalog(catalog):
@@ -92,7 +97,7 @@ def print_catalog(catalog):
     print("\nAlla bocker")
 
     for book in sorted_books:
-        print(f"{book['title']} av {book['author']} ({book['year']})")
+        print_book(book)
 
 
 def main():
@@ -120,7 +125,8 @@ main()
 
 # Testfall att prova:
 # 1. Lagg till "1984" av "George Orwell" fran "1949".
-#    Visa alla bocker och kontrollera att boken syns.
+#    Lagg till "Broderna Lejonhjarta" av "Astrid Lindgren" fran "1973".
+#    Visa alla bocker och kontrollera att de visas i alfabetisk ordning.
 #
 # 2. Lagg till "Broderna Lejonhjarta" av "Astrid Lindgren" fran "1973".
 #    Sok efter "astrid" och kontrollera att boken hittas.

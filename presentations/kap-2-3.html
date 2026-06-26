@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 2.3 - Sökning och sortering</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 2.3</p>
+                    <h1>Sökning och sortering</h1>
+                    <p class="fragment">Vi lär program hitta värden i listor och ordna data i rätt ordning.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">känna till hur sökning i listor fungerar</li>
+                        <li class="fragment">förklara principen bakom linjär och binär sökning</li>
+                        <li class="fragment">sortera listor med <code>sort()</code> och <code>sorted()</code></li>
+                        <li class="fragment">förstå grundidén i bubble sort utan att behöva skriva den själv</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktigt</p>
+                    <h2>Du ska känna till principerna</h2>
+                    <p class="fragment">Du behöver inte kunna skriva egna sökalgoritmer från grunden.</p>
+                    <p class="fragment">Du behöver inte kunna skriva egna sorteringsalgoritmer från grunden.</p>
+                    <p class="fragment">Du ska känna till några typer och förstå hur de fungerar.</p>
+                    <p class="fragment">I egna Pythonprogram använder du oftast inbyggda verktyg.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sökning</p>
+                    <h2>Vad letar vi efter?</h2>
+                    <p class="fragment">Programmet har en lista.</p>
+                    <p class="fragment">Programmet har ett mål, till exempel <code>"Bo"</code>.</p>
+                    <p class="fragment">Resultatet kan vara indexet där målet finns.</p>
+                    <p class="fragment">Om värdet saknas kan funktionen returnera <code>-1</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Linjär sökning</p>
+                    <h2>Gå igenom ett i taget</h2>
+                    <pre class="code-block compact-code fragment"><code>def linear_search(lst, target):
+    for i in range(len(lst)):
+        if lst[i] == target:
+            return i
+
+    return -1</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Sök efter <code>"Bo"</code></h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>names = ["Anna", "Bo", "Sara"]</code></pre>
+                        <p>Listan har index <code>0</code>, <code>1</code> och <code>2</code>.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>linear_search(names, "Bo")</code></pre>
+                        <p>Målet är <code>"Bo"</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Stegvis</p>
+                    <h2>Jämförelserna</h2>
+                    <pre class="code-block compact-code fragment"><code>i = 0 → names[0] == "Bo"? → "Anna" == "Bo" → nej
+i = 1 → names[1] == "Bo"? → "Bo" == "Bo"   → ja
+return 1</code></pre>
+                    <p class="fragment">Sökningen stannar direkt när värdet hittas.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Linjär sökning</p>
+                    <h2>Fördel och nackdel</h2>
+                    <ul>
+                        <li class="fragment">fördel: fungerar på osorterade listor</li>
+                        <li class="fragment">fördel: enkel att förstå</li>
+                        <li class="fragment">nackdel: kan behöva kontrollera hela listan</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Binär sökning</p>
+                    <h2>Snabbare men kräver sortering</h2>
+                    <p class="fragment">Listan måste vara sorterad.</p>
+                    <p class="fragment">Algoritmen tittar på mitten.</p>
+                    <p class="fragment">Sedan kastas halva sökområdet bort.</p>
+                    <p class="fragment">Det upprepas tills värdet hittas eller området tar slut.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kod</p>
+                    <h2>Binär sökning</h2>
+                    <pre class="code-block compact-code fragment"><code>def binary_search(lst, target):
+    low = 0
+    high = len(lst) - 1
+
+    while low &lt;= high:
+        mid = (low + high) // 2
+
+        if lst[mid] == target:
+            return mid
+        elif lst[mid] &lt; target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Sök efter <code>12</code></h2>
+                    <pre class="code-block compact-code fragment"><code>numbers = [3, 6, 9, 12, 15]
+
+low = 0
+high = 4
+mid = (0 + 4) // 2  # 2
+numbers[2]          # 9</code></pre>
+                    <p class="fragment"><code>12</code> är större än <code>9</code>, så vänstra delen kan ignoreras.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Stegvis</p>
+                    <h2>Binär sökning halverar</h2>
+                    <pre class="code-block compact-code fragment"><code>[3, 6, 9, 12, 15]
+       ↑
+      9 är för lågt
+
+[12, 15]
+ ↑
+12 hittas på index 3</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Val</p>
+                    <h2>Vilken sökning passar?</h2>
+                    <ul>
+                        <li class="fragment">linjär sökning: liten eller osorterad lista</li>
+                        <li class="fragment">binär sökning: sorterad lista och många sökningar</li>
+                        <li class="fragment">inbyggda Pythonverktyg används ofta i riktiga program</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sortering</p>
+                    <h2>Ordna listans värden</h2>
+                    <p class="fragment">Sortering gör data lättare att läsa.</p>
+                    <p class="fragment">Sortering kan göra sökning mer effektiv.</p>
+                    <p class="fragment">Python har färdiga metoder för detta.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">sort</p>
+                    <h2><code>sort()</code> ändrar originalet</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>numbers = [5, 3, 9, 1]
+numbers.sort()</code></pre>
+                        <p>Listan sorteras på plats.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>[1, 3, 5, 9]</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">sorted</p>
+                    <h2><code>sorted()</code> skapar en ny lista</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>names = ["Zara", "Adam", "Lilly"]
+sorted_names = sorted(names)</code></pre>
+                        <p>Originalet lämnas oförändrat.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>names        # ["Zara", "Adam", "Lilly"]
+sorted_names # ["Adam", "Lilly", "Zara"]</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Jämförelse</p>
+                    <h2><code>sort()</code> eller <code>sorted()</code>?</h2>
+                    <ul>
+                        <li class="fragment"><code>sort()</code>: ändrar listan direkt</li>
+                        <li class="fragment"><code>sorted()</code>: returnerar en ny sorterad lista</li>
+                        <li class="fragment">använd <code>sorted()</code> när originalordningen ska vara kvar</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Bubble sort</p>
+                    <h2>Förstå principen</h2>
+                    <p class="fragment">Bubble sort används mest i undervisning.</p>
+                    <p class="fragment">Den jämför två grannar.</p>
+                    <p class="fragment">Om de ligger i fel ordning byter de plats.</p>
+                    <p class="fragment">I riktiga program använder du oftast <code>sort()</code> eller <code>sorted()</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kod</p>
+                    <h2>Bubble sort</h2>
+                    <pre class="code-block compact-code fragment"><code>def bubble_sort(lst):
+    for i in range(len(lst)):
+        for j in range(0, len(lst) - i - 1):
+            if lst[j] &gt; lst[j + 1]:
+                lst[j], lst[j + 1] = lst[j + 1], lst[j]
+
+    return lst</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Stegvis</p>
+                    <h2>Första varvet</h2>
+                    <pre class="code-block compact-code fragment"><code>[9, 3, 7, 1]
+ 9 &gt; 3 → byt  → [3, 9, 7, 1]
+ 9 &gt; 7 → byt  → [3, 7, 9, 1]
+ 9 &gt; 1 → byt  → [3, 7, 1, 9]</code></pre>
+                    <p class="fragment">Det största värdet har bubblat längst bak.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Tre uppgifter</h2>
+                    <ol>
+                        <li class="fragment">Sortera användarnamn med <code>.sort()</code>.</li>
+                        <li class="fragment">Skapa en sorterad kopia med <code>sorted()</code>.</li>
+                        <li class="fragment">Fråga efter fem tal, sortera dem och sök efter ett tal.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Testfall</p>
+                    <h2>Testa flera situationer</h2>
+                    <ul>
+                        <li class="fragment">värdet finns först</li>
+                        <li class="fragment">värdet finns sist</li>
+                        <li class="fragment">värdet finns inte alls</li>
+                        <li class="fragment">listan är redan sorterad</li>
+                        <li class="fragment">listan är i omvänd ordning</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Du ska förstå principen bakom linjär och binär sökning.</li>
+                        <li class="fragment">Binär sökning kräver sorterad lista.</li>
+                        <li class="fragment"><code>sort()</code> ändrar originalet.</li>
+                        <li class="fragment"><code>sorted()</code> skapar en ny lista.</li>
+                        <li class="fragment">Bubble sort visar jämförelse och byte, men används mest för förståelse.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>
