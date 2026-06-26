@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 1.3 - Strukturerad problemlösning med kod</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 1.3</p>
+                    <h1>Strukturerad problemlösning med kod</h1>
+                    <p class="fragment">Vi delar upp program i tydliga delar som går att förstå, återanvända och testa.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">strukturera kod i funktioner</li>
+                        <li class="fragment">förklara varför vi delar upp program</li>
+                        <li class="fragment">skilja på parameter och argument</li>
+                        <li class="fragment">skriva ett enkelt program med tydligt huvudflöde</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Från Prog 1</p>
+                    <h2>I Programmering 1 fick du lära dig byggstenarna</h2>
+                    <ul>
+                        <li class="fragment">variabler sparar värden</li>
+                        <li class="fragment">villkor väljer väg</li>
+                        <li class="fragment">loopar upprepar kod</li>
+                        <li class="fragment">funktioner samlar kod som hör ihop</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Repetition</p>
+                    <h2>Variabler sparar värden</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>name = "Anna"
+age = 17</code></pre>
+                        <p>En variabel har ett namn och ett värde.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>print(name)
+print(age)</code></pre>
+                        <p>Vi kan använda värdet senare i programmet.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Repetition</p>
+                    <h2>Villkor väljer väg</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>if age >= 18:
+    print("Myndig")
+else:
+    print("Inte myndig")</code></pre>
+                        <p>Programmet kör olika kod beroende på om villkoret är sant eller falskt.</p>
+                    </div>
+                    <p class="fragment">Kolon och indrag visar vilken kod som hör till villkoret.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Repetition</p>
+                    <h2>Loopar upprepar kod</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>for i in range(3):
+    print("Hej")</code></pre>
+                        <p>En <code>for</code>-loop används när vi vet ungefär hur många varv vi vill köra.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>while age < 18:
+    age = age + 1</code></pre>
+                        <p>En <code>while</code>-loop kör så länge villkoret är sant.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Problemet</p>
+                    <h2>Kod växer snabbt</h2>
+                    <p class="fragment">Ett kort program är ofta lätt att läsa.</p>
+                    <p class="fragment">Ett längre program blir snabbt rörigt.</p>
+                    <p class="fragment">Därför behöver vi struktur.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Princip</p>
+                    <h2>En del gör en sak</h2>
+                    <p class="fragment">En funktion ska ha ett tydligt ansvar.</p>
+                    <p class="fragment">Namnet ska visa vad funktionen gör.</p>
+                    <p class="fragment">Då blir programmet lättare att läsa och felsöka.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Beräkna medelvärde</h2>
+                    <p class="fragment">Programmet ska fråga efter tre tal.</p>
+                    <p class="fragment">Sedan ska det räkna ut medelvärdet.</p>
+                    <p class="fragment">Till sist ska det skriva ut resultatet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Helheten först</p>
+                    <h2>Hela programmet</h2>
+                    <pre class="code-block compact-code fragment"><code>def get_number(prompt):
+    return float(input(prompt))
+
+def calculate_average(n1, n2, n3):
+    return (n1 + n2 + n3) / 3
+
+def main():
+    number1 = get_number("Enter first number: ")
+    number2 = get_number("Enter second number: ")
+    number3 = get_number("Enter third number: ")
+    average = calculate_average(number1, number2, number3)
+    print(f"The average is {average:.2f}")
+
+main()</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Funktion 1</p>
+                    <h2>Hämta ett tal</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>def get_number(prompt):
+    return float(input(prompt))</code></pre>
+                        <p>Funktionen frågar användaren och gör svaret till ett decimaltal.</p>
+                    </div>
+                    <p class="fragment"><code>prompt</code> gör att samma funktion kan visa olika frågor.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Funktion 2</p>
+                    <h2>Räkna ut medelvärdet</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>def calculate_average(n1, n2, n3):
+    return (n1 + n2 + n3) / 3</code></pre>
+                        <p>Funktionen tar emot tre tal och returnerar resultatet.</p>
+                    </div>
+                    <p class="fragment">Den frågar inte användaren och skriver inte ut något.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Huvudflöde</p>
+                    <h2><code>main()</code> håller ihop programmet</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>def main():
+    number1 = get_number("Enter first number: ")
+    number2 = get_number("Enter second number: ")
+    number3 = get_number("Enter third number: ")</code></pre>
+                        <p>Här styr vi i vilken ordning saker händer.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Huvudflöde</p>
+                    <h2>Beräkna och skriv ut</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>    average = calculate_average(number1, number2, number3)
+    print(f"The average is {average:.2f}")</code></pre>
+                        <p><code>:.2f</code> visar talet med två decimaler.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>main()</code></pre>
+                        <p>Anropet startar programmet.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Helheten</p>
+                    <h2>Hela programmet</h2>
+                    <pre class="code-block compact-code fragment"><code>def get_number(prompt):
+    return float(input(prompt))
+
+def calculate_average(n1, n2, n3):
+    return (n1 + n2 + n3) / 3
+
+def main():
+    number1 = get_number("Enter first number: ")
+    number2 = get_number("Enter second number: ")
+    number3 = get_number("Enter third number: ")
+    average = calculate_average(number1, number2, number3)
+    print(f"The average is {average:.2f}")
+
+main()</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Begrepp</p>
+                    <h2>Parameter och argument</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>def greet(name):
+    print("Hej " + name)</code></pre>
+                        <p><code>name</code> är en parameter.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block"><code>greet("Anna")</code></pre>
+                        <p><code>"Anna"</code> är ett argument.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kom ihåg</p>
+                    <h2>Plats och värde</h2>
+                    <p class="fragment">Parametern är platsen i funktionen.</p>
+                    <p class="fragment">Argumentet är värdet som skickas in.</p>
+                    <p class="fragment">Samma funktion kan därför användas med olika värden.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Testa fel</p>
+                    <h2>Felmeddelanden är information</h2>
+                    <ul>
+                        <li class="fragment">ta bort kolon efter <code>def main()</code></li>
+                        <li class="fragment">ta bort ett indrag inne i en funktion</li>
+                        <li class="fragment">skriv <code>calculate_averge</code> i stället för rätt namn</li>
+                        <li class="fragment">skriv text när programmet frågar efter ett tal</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Egen övning</p>
+                    <h2>Program: fyller 100 år</h2>
+                    <ol>
+                        <li class="fragment">Fråga efter användarens namn.</li>
+                        <li class="fragment">Fråga efter användarens ålder.</li>
+                        <li class="fragment">Beräkna vilket år personen fyller 100.</li>
+                        <li class="fragment">Skriv ut ett personligt meddelande.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Reflektion</p>
+                    <h2>Fundera</h2>
+                    <ul>
+                        <li class="fragment">Vilken funktion var lättast att förstå?</li>
+                        <li class="fragment">Vad vinner vi på att ha en <code>main()</code>-funktion?</li>
+                        <li class="fragment">Hur hjälper strukturen när program blir större?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Dela upp kod i funktioner med tydligt ansvar.</li>
+                        <li class="fragment"><code>main()</code> samlar programmets huvudflöde.</li>
+                        <li class="fragment">Parametrar finns i definitionen.</li>
+                        <li class="fragment">Argument skickas in när funktionen anropas.</li>
+                        <li class="fragment">Strukturerad kod är lättare att läsa, testa och ändra.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>
