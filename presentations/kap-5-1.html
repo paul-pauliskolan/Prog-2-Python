@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 5.1 - Planera ett projekt</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 5.1</p>
+                    <h1>Planera ett projekt</h1>
+                    <p class="fragment">Gå från en vag idé till en plan som går att programmera och testa.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara varför planering behövs</li>
+                        <li class="fragment">skriva tydliga krav</li>
+                        <li class="fragment">använda användningsfall, flödesschema och pseudokod</li>
+                        <li class="fragment">dela upp ett projekt i delar</li>
+                        <li class="fragment">bestämma projektets MVP</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Vanlig fälla</p>
+                    <h2>Börja inte med kod direkt</h2>
+                    <pre class="code-block compact-code fragment"><code>Skapa filer
+Skriv en meny
+Lägg till funktioner
+Ändra idén under tiden</code></pre>
+                    <p class="fragment">Om målet är otydligt är det svårt att veta vad som ska byggas först.</p>
+                    <p class="fragment">Oklarheter i idén blir lätt större kodproblem.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Planering</p>
+                    <h2>Planen behöver inte vara perfekt</h2>
+                    <p class="fragment">Planering betyder inte att varje detalj måste vara bestämd.</p>
+                    <p class="fragment">Planen ska göra problemet tillräckligt tydligt för att du ska kunna börja i
+                        rätt ordning.</p>
+                    <p class="fragment">Planen får ändras när du lär dig mer under projektet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Från idé till krav</p>
+                    <h2>En vag idé räcker inte</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Vag idé:
+"Gör ett bibliotekssystem"</code></pre>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Tydligt krav:
+"Användaren ska kunna söka efter en bok med titel."</code></pre>
+                    </div>
+                    <p class="fragment">Ett krav beskriver något programmet ska kunna göra.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Krav</p>
+                    <h2>Lånebibliotekets viktigaste funktioner</h2>
+                    <ul>
+                        <li class="fragment">Lägg till en bok med titel och författare.</li>
+                        <li class="fragment">Sök efter en bok med titel.</li>
+                        <li class="fragment">Visa om boken är tillgänglig eller utlånad.</li>
+                        <li class="fragment">Spara data mellan programmets körningar.</li>
+                    </ul>
+                    <p class="fragment">Kraven visar att programmet behöver inmatning, lagring, sökning och utskrift.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Process</p>
+                    <h2>Sex steg från idé till start</h2>
+                    <ol>
+                        <li class="fragment">Beskriv idén.</li>
+                        <li class="fragment">Skapa användningsfall.</li>
+                        <li class="fragment">Rita viktiga flöden.</li>
+                        <li class="fragment">Skriv pseudokod.</li>
+                        <li class="fragment">Identifiera programmets delar.</li>
+                        <li class="fragment">Bestäm en MVP.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 1</p>
+                    <h2>Beskriv idén</h2>
+                    <p class="fragment"><strong>Vad?</strong> Ett lånebibliotek för böcker.</p>
+                    <p class="fragment"><strong>Vem?</strong> En bibliotekarie.</p>
+                    <p class="fragment"><strong>Varför?</strong> För att registrera, söka och låna ut böcker.</p>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Programmet ska vara ett lånebibliotek där
+användaren kan lägga till, söka och låna ut böcker.</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 2</p>
+                    <h2>Användningsfall visar användarens mål</h2>
+                    <pre><code class="language-mermaid">flowchart LR
+    A[Bibliotekarie] --&gt; B((Registrera bok))
+    A --&gt; C((Söka bok))
+    A --&gt; D((Låna ut bok))
+    A --&gt; E((Visa alla böcker))</code></pre>
+                    <p class="fragment">Användningsfallen hjälper dig hitta vilka funktioner programmet behöver.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Användningsfall</p>
+                    <h2>Beskriv ett fall med text</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Användare: Bibliotekarie
+Mål: Låna ut en bok
+
+1. Sök efter boken
+2. Kontrollera att den finns
+3. Kontrollera att den är tillgänglig
+4. Ändra status till utlånad
+5. Visa en bekräftelse</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 3</p>
+                    <h2>Rita flödet för utlåning</h2>
+                    <pre><code class="language-mermaid">flowchart TD
+    A([Start]) --&gt; B[Skriv boktitel]
+    B --&gt; C[Sök efter boken]
+    C --&gt; D{Finns boken?}
+    D -- Nej --&gt; E[Visa: Boken finns inte]
+    D -- Ja --&gt; F{Är boken tillgänglig?}
+    F -- Nej --&gt; G[Visa: Redan utlånad]
+    F -- Ja --&gt; H[Ändra status till utlånad]
+    H --&gt; I[Visa bekräftelse]
+    E --&gt; J([Slut])
+    G --&gt; J
+    I --&gt; J</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Varför flödesschema?</p>
+                    <h2>Upptäck besluten före koden</h2>
+                    <ul>
+                        <li class="fragment">Vad händer om boken inte finns?</li>
+                        <li class="fragment">Vad händer om den redan är utlånad?</li>
+                        <li class="fragment">När får statusen ändras?</li>
+                        <li class="fragment">Vilket meddelande ska användaren få?</li>
+                    </ul>
+                    <p class="fragment">Diagrammet gör alternativa vägar synliga innan du skriver villkoren.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 4</p>
+                    <h2>Skriv pseudokod</h2>
+                    <pre class="code-block compact-code fragment"><code>Fråga efter boktitel
+Sök efter boken
+
+Om boken inte finns:
+    Visa "Boken finns inte"
+Annars om boken redan är utlånad:
+    Visa "Boken är redan utlånad"
+Annars:
+    Ändra status till utlånad
+    Visa en bekräftelse</code></pre>
+                    <p class="fragment">Pseudokoden beskriver logiken utan krav på korrekt Pythonsyntax.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Från pseudokod</p>
+                    <h2>Nu blir funktionerna tydligare</h2>
+                    <pre class="code-block compact-code fragment"><code>def sök_bok(titel):
+    ...
+
+def är_tillgänglig(bok):
+    ...
+
+def låna_ut_bok(bok):
+    ...</code></pre>
+                    <p class="fragment">Varje del av pseudokoden kan bli en funktion eller ett villkor.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 5</p>
+                    <h2>Identifiera programmets delar</h2>
+                    <ul>
+                        <li class="fragment"><strong>Gränssnitt:</strong> meny och användarinmatning.</li>
+                        <li class="fragment"><strong>Logik:</strong> sökning och utlåning.</li>
+                        <li class="fragment"><strong>Data:</strong> böcker och deras status.</li>
+                        <li class="fragment"><strong>Lagring:</strong> fil eller databas.</li>
+                        <li class="fragment"><strong>Felhantering:</strong> tom inmatning och saknade böcker.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kodstruktur</p>
+                    <h2>Planera filer efter ansvar</h2>
+                    <pre class="code-block compact-code fragment"><code>lanebibliotek/
+├── main.py       # meny och programflöde
+├── databas.py    # spara och söka böcker
+└── modeller.py   # klassen Book</code></pre>
+                    <p class="fragment">Filstrukturen visar var olika delar ska byggas.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 6</p>
+                    <h2>MVP: minsta fungerande version</h2>
+                    <p class="fragment"><strong>MVP</strong> betyder Minimum Viable Product.</p>
+                    <p class="fragment">Det är den enklaste versionen som löser projektets viktigaste problem.</p>
+                    <p class="fragment">Målet är att snabbt få ett litet program som går att köra och testa.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Avgränsa</p>
+                    <h2>Nu och senare</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>MVP:
+- Lägg till böcker
+- Visa alla böcker
+- Sök efter titel</code></pre>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Senare:
+- Inloggning
+- Grafiskt gränssnitt
+- Statistik
+- Export till PDF eller CSV</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Varför MVP?</p>
+                    <h2>Bygg kärnan innan extrafunktionerna</h2>
+                    <ul>
+                        <li class="fragment">Du får något körbart tidigt.</li>
+                        <li class="fragment">Grundfunktionerna kan testas innan projektet växer.</li>
+                        <li class="fragment">Du minskar risken att fastna i detaljer.</li>
+                        <li class="fragment">Extra funktioner kan prioriteras efter att kärnan fungerar.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Planera ett elevregister</h2>
+                    <p class="fragment"><strong>Syfte:</strong> En lärare ska kunna registrera elever och poäng.</p>
+                    <p class="fragment"><strong>Användare:</strong> Lärare.</p>
+                    <p class="fragment"><strong>Viktigaste funktioner:</strong> Lägg till elev, visa elever och sök
+                        efter elev.</p>
+                    <p class="fragment"><strong>Lagring:</strong> Databas eller textfil.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Elevregister</p>
+                    <h2>Pseudokod för ett centralt flöde</h2>
+                    <pre class="code-block compact-code fragment"><code>Visa meny
+Om användaren väljer "lägg till elev":
+    Fråga efter namn
+    Fråga efter poäng
+    Kontrollera att poängen är ett tal
+    Spara eleven
+    Skriv "Elev sparad"</code></pre>
+                    <p class="fragment">Planen visar både normalflöde och behovet av validering.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Elevregister</p>
+                    <h2>Möjlig kodstruktur</h2>
+                    <pre class="code-block compact-code fragment"><code>elevregister/
+├── main.py       # meny och användarens val
+├── databas.py    # spara, hämta och söka elever
+└── modeller.py   # klassen Elev</code></pre>
+                    <p class="fragment">Nu är det tydligt vilken del som kan byggas och testas först.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Arbetsordning</p>
+                    <h2>Bygg projektet stegvis</h2>
+                    <ol>
+                        <li class="fragment">Skapa datamodellen.</li>
+                        <li class="fragment">Bygg lagringen.</li>
+                        <li class="fragment">Testa att lägga till och hämta data.</li>
+                        <li class="fragment">Lägg till menyn.</li>
+                        <li class="fragment">Hantera felaktig inmatning.</li>
+                        <li class="fragment">Bygg extrafunktioner sist.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Risker</p>
+                    <h2>Planera även för fel</h2>
+                    <ul>
+                        <li class="fragment">Vad händer vid tom inmatning?</li>
+                        <li class="fragment">Vad händer om användaren skriver text där ett tal krävs?</li>
+                        <li class="fragment">Vad händer om en sökning inte ger någon träff?</li>
+                        <li class="fragment">Vad händer om filen eller databasen inte kan öppnas?</li>
+                    </ul>
+                    <p class="fragment">Förväntade fel bör finnas med i krav och testfall.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Checklista</p>
+                    <h2>Innan du börjar koda</h2>
+                    <ul>
+                        <li class="fragment">Vad är programmets syfte?</li>
+                        <li class="fragment">Vem ska använda det?</li>
+                        <li class="fragment">Vilka tre funktioner är viktigast?</li>
+                        <li class="fragment">Vad ingår i MVP?</li>
+                        <li class="fragment">Vilken data ska sparas?</li>
+                        <li class="fragment">Vilka fel kan uppstå?</li>
+                        <li class="fragment">Vilken del ska byggas först?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva</p>
+                    <h2>Planera ditt projekt</h2>
+                    <ol>
+                        <li class="fragment">Beskriv programmets syfte.</li>
+                        <li class="fragment">Lista funktionerna.</li>
+                        <li class="fragment">Skapa minst ett användningsfall.</li>
+                        <li class="fragment">Rita ett centralt flöde.</li>
+                        <li class="fragment">Skriv pseudokod för en funktion.</li>
+                        <li class="fragment">Bestäm MVP och vad som får vänta.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Krav gör en vag idé programmerbar.</li>
+                        <li class="fragment">Användningsfall visar vad användaren behöver.</li>
+                        <li class="fragment">Flödesscheman visar beslut och alternativa vägar.</li>
+                        <li class="fragment">Pseudokod beskriver logiken före syntaxen.</li>
+                        <li class="fragment">MVP avgränsar den första fungerande versionen.</li>
+                        <li class="fragment">En bra plan visar vad som ska byggas först.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                lineColor: '#f4f7fb',
+                textColor: '#f4f7fb',
+                primaryBorderColor: '#f4f7fb',
+                relationLabelColor: '#f4f7fb',
+                tertiaryTextColor: '#f4f7fb'
+            }
+        })
+
+        function prepareMermaidForRoot(root = document) {
+            const blocks = root.querySelectorAll
+                ? root.querySelectorAll('code.language-mermaid')
+                : []
+
+            blocks.forEach(code => {
+                if (code.dataset.mermaidProcessed) return
+
+                const container = document.createElement('div')
+                container.className = 'mermaid'
+                container.textContent = code.textContent
+                code.parentNode.replaceWith(container)
+                code.dataset.mermaidProcessed = '1'
+            })
+        }
+
+        async function renderActiveMermaid() {
+            prepareMermaidForRoot(document)
+
+            const activeSlide = document.querySelector('.slide.is-active')
+            if (!activeSlide) return
+
+            const diagrams = Array.from(activeSlide.querySelectorAll('.mermaid:not([data-rendered="true"])'))
+            if (!diagrams.length) return
+
+            await mermaid.run({ nodes: diagrams })
+            diagrams.forEach(diagram => {
+                diagram.dataset.rendered = 'true'
+            })
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderActiveMermaid()
+
+            const deck = document.querySelector('.deck')
+            if (!deck) return
+
+            const observer = new MutationObserver(() => {
+                renderActiveMermaid()
+            })
+
+            observer.observe(deck, {
+                attributes: true,
+                subtree: true,
+                attributeFilter: ['class']
+            })
+        })
+    </script>
+</body>
+
+</html>

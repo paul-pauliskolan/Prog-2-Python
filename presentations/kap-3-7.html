@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Presentation Kap 3.7 - Objektorienterat projekt</title>
+    <title>Presentation Kap 3.7 - Egna moduler och import</title>
     <link rel="stylesheet" href="presentation.css">
 </head>
 
@@ -19,8 +19,8 @@
             <section class="slide is-active">
                 <div class="slide-content">
                     <p class="slide-kicker">Kap 3.7</p>
-                    <h1>Objektorienterat projekt</h1>
-                    <p class="fragment">Nu sätter vi ihop flera klasser till ett mindre projekt.</p>
+                    <h1>Egna moduler och import</h1>
+                    <p class="fragment">Dela upp programmet i flera Pythonfiler med tydliga ansvarsområden.</p>
                 </div>
             </section>
 
@@ -29,342 +29,319 @@
                     <p class="slide-kicker">Mål</p>
                     <h2>Efter lektionen ska du kunna...</h2>
                     <ul>
-                        <li class="fragment">planera ett objektorienterat program</li>
-                        <li class="fragment">använda flera samverkande klasser</li>
-                        <li class="fragment">rita ett klassdiagram</li>
-                        <li class="fragment">strukturera kod i flera delar</li>
-                        <li class="fragment">testa klasser innan helheten byggs ihop</li>
+                        <li class="fragment">förklara vad en modul är</li>
+                        <li class="fragment">skapa en modul med funktioner eller klasser</li>
+                        <li class="fragment">importera hela moduler eller enskilda delar</li>
+                        <li class="fragment">dela upp ett program i logiska filer</li>
                     </ul>
                 </div>
             </section>
 
             <section class="slide">
                 <div class="slide-content">
-                    <p class="slide-kicker">Projekt</p>
-                    <h2>Vad ska byggas?</h2>
-                    <p class="fragment">Ett mindre Pythonprojekt.</p>
-                    <p class="fragment">Minst tre klasser som samarbetar.</p>
-                    <p class="fragment">Tydlig struktur, UML-diagram och fungerande kod.</p>
+                    <p class="slide-kicker">Problemet</p>
+                    <h2>En enda fil kan bli svår att överblicka</h2>
+                    <pre class="code-block compact-code fragment"><code>main.py
+├── klasser
+├── beräkningar
+├── filhantering
+├── meny
+└── programstart</code></pre>
+                    <p class="fragment">Olika delar av programmet blandas i samma fil.</p>
+                    <p class="fragment">Det blir svårare att hitta, testa och återanvända kod.</p>
                 </div>
             </section>
 
             <section class="slide">
                 <div class="slide-content">
-                    <p class="slide-kicker">Projektidéer</p>
-                    <h2>Välj ett område</h2>
-                    <ol>
-                        <li class="fragment">Bibliotekssystem: böcker, låntagare och bibliotek.</li>
-                        <li class="fragment">RPG-strid: spelare, fiender och föremål.</li>
-                        <li class="fragment">Receptplanerare: recept, ingredienser och inköpslistor.</li>
-                    </ol>
+                    <p class="slide-kicker">Modul</p>
+                    <h2>En modul är en Pythonfil</h2>
+                    <p class="fragment">En fil som slutar på <code>.py</code> kan användas som en modul.</p>
+                    <pre class="code-block compact-code fragment"><code>verktyg.py</code></pre>
+                    <p class="fragment">Modulens namn är filnamnet utan <code>.py</code>:</p>
+                    <pre class="code-block compact-code fragment"><code>verktyg</code></pre>
                 </div>
             </section>
 
             <section class="slide">
                 <div class="slide-content">
-                    <p class="slide-kicker">Arbetsgång</p>
-                    <h2>Bygg i fem steg</h2>
-                    <ol>
-                        <li class="fragment">Designa klassdiagrammet.</li>
-                        <li class="fragment">Skapa grundstrukturen.</li>
-                        <li class="fragment">Lägg till logik och relationer.</li>
-                        <li class="fragment">Testa objekt och metodanrop.</li>
-                        <li class="fragment">Dokumentera hur programmet fungerar.</li>
-                    </ol>
+                    <p class="slide-kicker">Filstruktur</p>
+                    <h2>Filerna ligger i samma projektmapp</h2>
+                    <pre class="code-block compact-code fragment"><code>projekt/
+├── main.py
+└── verktyg.py</code></pre>
+                    <p class="fragment"><code>main.py</code> startar programmet.</p>
+                    <p class="fragment"><code>verktyg.py</code> innehåller återanvändbara funktioner.</p>
+                    <p class="fragment">I detta exempel ligger filerna i samma mapp så att Python hittar modulen.</p>
                 </div>
             </section>
 
             <section class="slide">
                 <div class="slide-content">
-                    <p class="slide-kicker">Planering</p>
-                    <h2>Frågor innan kod</h2>
-                    <ul>
-                        <li class="fragment">Vilka objekt finns i problemet?</li>
-                        <li class="fragment">Vilka attribut behöver varje objekt?</li>
-                        <li class="fragment">Vilka metoder ska varje klass ha?</li>
-                        <li class="fragment">Vilka klasser känner till varandra?</li>
-                        <li class="fragment">Finns det arv, eller bara association?</li>
-                    </ul>
-                </div>
-            </section>
+                    <p class="slide-kicker">verktyg.py</p>
+                    <h2>Skapa modulen</h2>
+                    <pre class="code-block compact-code fragment"><code>def hälsa(namn):
+    print(f"Hej, {namn}!")
 
-            <section class="slide">
-                <div class="slide-content">
-                    <p class="slide-kicker">Exempel</p>
-                    <h2>Bibliotekssystem</h2>
-                    <p class="fragment">En bok kan lånas och lämnas tillbaka.</p>
-                    <p class="fragment">En medlem kan låna böcker.</p>
-                    <p class="fragment">Biblioteket håller reda på böcker och medlemmar.</p>
-                </div>
-            </section>
-
-            <section class="slide">
-                <div class="slide-content">
-                    <p class="slide-kicker">UML</p>
-                    <h2>Bibliotekssystem</h2>
-                    <pre><code class="language-mermaid">classDiagram
-    Library --> Book : contains
-    Library --> Member : registers
-    Member --> Book : borrows
-
-    class Book {
-        -string title
-        -string author
-        -bool available
-        +borrow() bool
-        +return_book() void
-        +get_title() string
-        +__str__() string
-    }
-
-    class Member {
-        -string name
-        -list borrowed_books
-        +borrow_book(book) void
-        +return_book(book) void
-        +list_books() void
-        +get_name() string
-    }
-
-    class Library {
-        -list books
-        -list members
-        +add_book(title, author) void
-        +register_member(name) void
-        +find_book(title) Book
-        +find_member(name) Member
-        +list_books() void
-    }</code></pre>
-                </div>
-            </section>
-
-            <section class="slide">
-                <div class="slide-content">
-                    <p class="slide-kicker">Relationer</p>
-                    <h2>Vad visar diagrammet?</h2>
-                    <ul>
-                        <li class="fragment"><code>Library</code> innehåller böcker.</li>
-                        <li class="fragment"><code>Library</code> registrerar medlemmar.</li>
-                        <li class="fragment"><code>Member</code> kan låna böcker.</li>
-                        <li class="fragment">Relationerna är associationer, inte arv.</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="slide">
-                <div class="slide-content">
-                    <p class="slide-kicker">Filer</p>
-                    <h2>Projektstruktur</h2>
-                    <pre class="code-block compact-code fragment"><code>library-project/
-    book.py
-    member.py
-    library.py
-    main.py
-    README.md</code></pre>
-                    <p class="fragment">Varje viktig klass kan ligga i en egen fil.</p>
-                </div>
-            </section>
-
-            <section class="slide">
-                <div class="slide-content">
-                    <p class="slide-kicker">Book</p>
-                    <h2>Ansvar</h2>
-                    <ul>
-                        <li class="fragment">Spara titel och författare.</li>
-                        <li class="fragment">Hålla reda på om boken är tillgänglig.</li>
-                        <li class="fragment">Lånas ut med <code>borrow()</code>.</li>
-                        <li class="fragment">Lämnas tillbaka med <code>return_book()</code>.</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="slide">
-                <div class="slide-content">
-                    <p class="slide-kicker">Book</p>
-                    <h2>Kod</h2>
-                    <pre class="code-block tiny-code fragment"><code>class Book:
-    def __init__(self, title, author):
-        self._title = title
-        self._author = author
-        self._available = True
-
-    def borrow(self):
-        if self._available:
-            self._available = False
-            return True
-        return False
-
-    def return_book(self):
-        self._available = True</code></pre>
-                </div>
-            </section>
-
-            <section class="slide">
-                <div class="slide-content">
-                    <p class="slide-kicker">Member</p>
-                    <h2>Ansvar</h2>
-                    <ul>
-                        <li class="fragment">Spara medlemmens namn.</li>
-                        <li class="fragment">Spara lånade böcker i en lista.</li>
-                        <li class="fragment">Låna bok genom att anropa <code>book.borrow()</code>.</li>
-                        <li class="fragment">Lämna tillbaka bok genom att anropa <code>book.return_book()</code>.</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="slide">
-                <div class="slide-content">
-                    <p class="slide-kicker">Member</p>
-                    <h2>Kod</h2>
-                    <pre class="code-block tiny-code fragment"><code>class Member:
-    def __init__(self, name):
-        self._name = name
-        self._borrowed_books = []
-
-    def borrow_book(self, book):
-        if book.borrow():
-            self._borrowed_books.append(book)
-            print(f"{self._name} lånade {book.get_title()}.")
-        else:
-            print(f"{book.get_title()} är redan utlånad.")</code></pre>
-                </div>
-            </section>
-
-            <section class="slide">
-                <div class="slide-content">
-                    <p class="slide-kicker">Library</p>
-                    <h2>Ansvar</h2>
-                    <ul>
-                        <li class="fragment">Spara alla böcker.</li>
-                        <li class="fragment">Spara alla medlemmar.</li>
-                        <li class="fragment">Lägga till böcker och medlemmar.</li>
-                        <li class="fragment">Hitta bok eller medlem med sökning.</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section class="slide">
-                <div class="slide-content">
-                    <p class="slide-kicker">Library</p>
-                    <h2>Kod</h2>
-                    <pre class="code-block tiny-code fragment"><code>class Library:
-    def __init__(self):
-        self._books = []
-        self._members = []
-
-    def add_book(self, title, author):
-        book = Book(title, author)
-        self._books.append(book)
-
-    def register_member(self, name):
-        member = Member(name)
-        self._members.append(member)</code></pre>
+def kvadrat(tal):
+    return tal * tal</code></pre>
+                    <p class="fragment">Filen definierar två funktioner.</p>
+                    <p class="fragment">Den behöver inte innehålla programmets meny eller startkod.</p>
                 </div>
             </section>
 
             <section class="slide">
                 <div class="slide-content">
                     <p class="slide-kicker">main.py</p>
-                    <h2>Sätt ihop projektet</h2>
-                    <pre class="code-block compact-code fragment"><code>lib = Library()
+                    <h2>Importera hela modulen</h2>
+                    <pre class="code-block compact-code fragment"><code>import verktyg
 
-lib.add_book("1984", "George Orwell")
-lib.register_member("Oskar")
-
-book1 = lib.find_book("1984")
-member = lib.find_member("Oskar")
-
-if book1 and member:
-    member.borrow_book(book1)</code></pre>
+verktyg.hälsa("Ella")
+print(verktyg.kvadrat(5))</code></pre>
+                    <p class="fragment">Skriv inte <code>.py</code> i importen.</p>
+                    <p class="fragment">Funktionerna används genom <code>verktyg.</code>.</p>
                 </div>
             </section>
 
             <section class="slide">
                 <div class="slide-content">
-                    <p class="slide-kicker">Testa</p>
-                    <h2>Testa i små delar</h2>
+                    <p class="slide-kicker">Steg för steg</p>
+                    <h2>Vad händer vid importen?</h2>
+                    <ol>
+                        <li class="fragment">Python hittar filen <code>verktyg.py</code>.</li>
+                        <li class="fragment">Modulen görs tillgänglig under namnet <code>verktyg</code>.</li>
+                        <li class="fragment"><code>verktyg.hälsa</code> hämtar funktionen från modulen.</li>
+                        <li class="fragment"><code>verktyg.kvadrat</code> hämtar den andra funktionen.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Resultat</p>
+                    <h2>Kör <code>main.py</code></h2>
+                    <pre class="code-block compact-code fragment"><code>verktyg.hälsa("Ella")
+print(verktyg.kvadrat(5))</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Hej, Ella!
+25</code></pre>
+                    </div>
+                    <p class="fragment">Koden kör funktioner som är definierade i en annan fil.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Tydlighet</p>
+                    <h2>Modulnamnet visar ursprunget</h2>
+                    <pre class="code-block compact-code fragment"><code>verktyg.hälsa("Ella")
+verktyg.kvadrat(5)</code></pre>
+                    <p class="fragment"><code>verktyg.</code> visar direkt vilken modul funktionerna kommer från.</p>
+                    <p class="fragment">Det är användbart när ett program importerar flera moduler.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Specifik import</p>
+                    <h2>Importera bara en funktion</h2>
+                    <pre class="code-block compact-code fragment"><code>from verktyg import hälsa
+
+hälsa("Leo")</code></pre>
                     <ul>
-                        <li class="fragment">Testa först <code>Book</code> ensam.</li>
-                        <li class="fragment">Testa sedan <code>Member</code> med en bok.</li>
-                        <li class="fragment">Testa sedan <code>Library</code>.</li>
-                        <li class="fragment">Bygg ihop allt i <code>main.py</code> sist.</li>
+                        <li class="fragment"><code>verktyg</code> är modulens namn.</li>
+                        <li class="fragment"><code>hälsa</code> är funktionen som importeras.</li>
+                        <li class="fragment">Funktionen anropas direkt utan <code>verktyg.</code>.</li>
                     </ul>
                 </div>
             </section>
 
             <section class="slide">
                 <div class="slide-content">
-                    <p class="slide-kicker">Alternativ</p>
-                    <h2>RPG-strid</h2>
-                    <pre><code class="language-mermaid">classDiagram
-    Player --&gt; Character : inherits
-    Enemy --&gt; Character : inherits
-    Player --> Item : uses
+                    <p class="slide-kicker">Jämför</p>
+                    <h2>Hela modulen eller en funktion</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>import verktyg
 
-    class Character
-    Character : name
-    Character : hp
-    Character : attack
-    Character : is_alive()
-    Character : take_damage(amount)
-    Character : deal_damage(target)
+verktyg.hälsa("Ella")</code></pre>
+                        <p>Ursprunget syns i anropet.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>from verktyg import hälsa
 
-    class Player
-    Player : inventory
-    Player : use_item(item)
-
-    class Enemy
-    Enemy : name
-    Enemy : hp
-
-    class Item
-    Item : name
-    Item : effect
-    Item : use(target)</code></pre>
+hälsa("Ella")</code></pre>
+                        <p>Kortare anrop, men modulnamnet syns inte.</p>
+                    </div>
                 </div>
             </section>
 
             <section class="slide">
                 <div class="slide-content">
-                    <p class="slide-kicker">Alternativ</p>
-                    <h2>Receptplanerare</h2>
-                    <pre><code class="language-mermaid">classDiagram
-    MealPlanner --> Recipe : stores
-    Recipe --> Ingredient : contains
+                    <p class="slide-kicker">Alias</p>
+                    <h2>Ge modulen ett kortare namn</h2>
+                    <pre class="code-block compact-code fragment"><code>import verktyg as v
 
-    class Ingredient {
-        -string name
-        -float amount
-        -string unit
-        +__str__() string
-    }
-
-    class Recipe {
-        -string name
-        -list ingredients
-        +add_ingredient(name, amount, unit) void
-        +list_ingredients() void
-    }
-
-    class MealPlanner {
-        -list recipes
-        +add_recipe(recipe) void
-        +list_all_recipes() void
-        +generate_shopping_list() void
-    }</code></pre>
+v.hälsa("Tove")
+print(v.kvadrat(4))</code></pre>
+                    <p class="fragment"><code>v</code> blir modulens namn i den aktuella filen.</p>
+                    <p class="fragment">Filen på datorn heter fortfarande <code>verktyg.py</code>.</p>
                 </div>
             </section>
 
             <section class="slide">
                 <div class="slide-content">
-                    <p class="slide-kicker">Öva</p>
-                    <h2>Planera ditt projekt</h2>
+                    <p class="slide-kicker">Tre importsätt</p>
+                    <h2>Anropet beror på importen</h2>
+                    <pre class="code-block compact-code fragment"><code>import verktyg
+verktyg.hälsa("Anna")
+
+from verktyg import hälsa
+hälsa("Anna")
+
+import verktyg as v
+v.hälsa("Anna")</code></pre>
+                    <p class="fragment">Alla tre använder samma funktion från <code>verktyg.py</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Återanvändning</p>
+                    <h2>En modul kan användas av flera program</h2>
+                    <pre class="code-block compact-code fragment"><code>projekt/
+├── verktyg.py
+├── main.py
+└── test_verktyg.py</code></pre>
+                    <p class="fragment">Både huvudprogrammet och tester kan importera <code>verktyg</code>.</p>
+                    <p class="fragment">Funktionerna behöver inte kopieras till flera filer.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Projekt</p>
+                    <h2>Dela upp ett spel i tre filer</h2>
+                    <pre class="code-block compact-code fragment"><code>kap3-7-moduler/
+├── main.py
+├── spelare.py
+└── strid.py</code></pre>
+                    <ul>
+                        <li class="fragment"><code>spelare.py</code>: klassen <code>Player</code>.</li>
+                        <li class="fragment"><code>strid.py</code>: funktioner för striden.</li>
+                        <li class="fragment"><code>main.py</code>: skapar objekt och styr programflödet.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">spelare.py</p>
+                    <h2>Spelarklassen</h2>
+                    <pre class="code-block tiny-code fragment"><code>class Player:
+    def __init__(self, name, health):
+        self.name = name
+        self.health = health
+
+    def take_damage(self, amount):
+        self.health -= amount
+        if self.health < 0:
+            self.health = 0
+
+    def is_alive(self):
+        return self.health > 0
+
+    def print_status(self):
+        print(f"{self.name}: {self.health} hp")</code></pre>
+                    <p class="fragment">Filen ansvarar för spelarens data och beteende.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">strid.py</p>
+                    <h2>Funktioner för striden</h2>
+                    <pre class="code-block tiny-code fragment"><code>def attack(attacker, defender, damage):
+    print(f"{attacker.name} attackerar {defender.name}.")
+    defender.take_damage(damage)
+    print(f"{defender.name} tar {damage} skada.")
+
+def print_result(player1, player2):
+    if player1.is_alive() and player2.is_alive():
+        print("Båda spelarna är kvar i striden.")
+    elif player1.is_alive():
+        print(f"{player1.name} vann.")
+    elif player2.is_alive():
+        print(f"{player2.name} vann.")
+    else:
+        print("Ingen spelare är kvar.")</code></pre>
+                    <p class="fragment">Filen använder spelarobjekt men styr själva striden.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">main.py</p>
+                    <h2>Importera klassen och modulen</h2>
+                    <pre class="code-block tiny-code fragment"><code>from spelare import Player
+import strid
+
+player = Player("Oskar", 20)
+opponent = Player("Erik", 15)
+
+strid.attack(player, opponent, 6)
+strid.attack(opponent, player, 4)
+
+player.print_status()
+opponent.print_status()
+strid.print_result(player, opponent)</code></pre>
+                    <p class="fragment"><code>Player</code> importeras direkt. Modulen <code>strid</code> importeras
+                        som helhet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ansvar</p>
+                    <h2>Varje fil har en tydlig uppgift</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>spelare.py</code></pre>
+                        <p>Vad en spelare är och kan göra.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>strid.py</code></pre>
+                        <p>Hur spelare attackerar och hur resultat visas.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>main.py</code></pre>
+                        <p>Vilka objekt som skapas och i vilken ordning saker sker.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Varför?</p>
+                    <h2>Fördelar med moduler</h2>
+                    <ul>
+                        <li class="fragment">Koden blir lättare att hitta och förstå.</li>
+                        <li class="fragment">Varje del kan testas separat.</li>
+                        <li class="fragment">Funktioner och klasser kan återanvändas.</li>
+                        <li class="fragment">Du slipper kopiera samma kod till flera filer.</li>
+                        <li class="fragment">Flera utvecklare kan arbeta med olika delar.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Skapa modulprojektet</h2>
                     <ol>
-                        <li class="fragment">Välj projektidé.</li>
-                        <li class="fragment">Rita klassdiagram.</li>
-                        <li class="fragment">Lista attribut och metoder.</li>
-                        <li class="fragment">Skapa minst tre samverkande klasser.</li>
-                        <li class="fragment">Presentera kodstruktur och ansvar.</li>
+                        <li class="fragment">Skapa <code>spelare.py</code> med klassen <code>Player</code>.</li>
+                        <li class="fragment">Skapa <code>strid.py</code> med stridsfunktionerna.</li>
+                        <li class="fragment">Skapa <code>main.py</code> och importera båda delarna.</li>
+                        <li class="fragment">Skapa två spelare och låt dem attackera.</li>
+                        <li class="fragment">Skriv ut resultatet.</li>
                     </ol>
                 </div>
             </section>
@@ -374,11 +351,11 @@ if book1 and member:
                     <p class="slide-kicker">Sammanfattning</p>
                     <h2>Kom ihåg</h2>
                     <ul>
-                        <li class="fragment">Ett OOP-projekt består av flera samverkande klasser.</li>
-                        <li class="fragment">UML hjälper dig planera innan du kodar.</li>
-                        <li class="fragment">Varje klass ska ha ett tydligt ansvar.</li>
-                        <li class="fragment">Testa varje klass innan helheten byggs ihop.</li>
-                        <li class="fragment">Dokumentera hur projektet körs.</li>
+                        <li class="fragment">En modul är en Pythonfil som kan importeras.</li>
+                        <li class="fragment"><code>import modul</code> importerar hela modulen.</li>
+                        <li class="fragment"><code>from modul import namn</code> importerar en bestämd del.</li>
+                        <li class="fragment"><code>as</code> skapar ett alias i den aktuella filen.</li>
+                        <li class="fragment">Moduler ger tydligare ansvar och återanvändbar kod.</li>
                     </ul>
                 </div>
             </section>
@@ -388,69 +365,6 @@ if book1 and member:
     </main>
 
     <script src="presentation.js"></script>
-    <script type="module">
-        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
-
-        mermaid.initialize({
-            startOnLoad: false,
-            theme: 'dark',
-            themeVariables: {
-                lineColor: '#f4f7fb',
-                textColor: '#f4f7fb',
-                primaryBorderColor: '#f4f7fb',
-                relationLabelColor: '#f4f7fb',
-                tertiaryTextColor: '#f4f7fb'
-            }
-        })
-
-        function prepareMermaidForRoot(root = document) {
-            const blocks = root.querySelectorAll
-                ? root.querySelectorAll('code.language-mermaid')
-                : []
-
-            blocks.forEach(code => {
-                if (code.dataset.mermaidProcessed) return
-
-                const container = document.createElement('div')
-                container.className = 'mermaid'
-                container.textContent = code.textContent
-                code.parentNode.replaceWith(container)
-                code.dataset.mermaidProcessed = '1'
-            })
-        }
-
-        async function renderActiveMermaid() {
-            prepareMermaidForRoot(document)
-
-            const activeSlide = document.querySelector('.slide.is-active')
-            if (!activeSlide) return
-
-            const diagrams = Array.from(activeSlide.querySelectorAll('.mermaid:not([data-rendered="true"])'))
-            if (!diagrams.length) return
-
-            await mermaid.run({ nodes: diagrams })
-            diagrams.forEach(diagram => {
-                diagram.dataset.rendered = 'true'
-            })
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderActiveMermaid()
-
-            const deck = document.querySelector('.deck')
-            if (!deck) return
-
-            const observer = new MutationObserver(() => {
-                renderActiveMermaid()
-            })
-
-            observer.observe(deck, {
-                attributes: true,
-                subtree: true,
-                attributeFilter: ['class']
-            })
-        })
-    </script>
 </body>
 
 </html>

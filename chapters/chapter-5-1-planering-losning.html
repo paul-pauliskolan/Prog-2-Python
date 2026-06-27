@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Lösningsförslag - Kap 5.1 planeringsuppgift</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Lösningsförslag till planeringsuppgiften i kapitel 5.1.">
+</head>
+
+<body class="chapter-page">
+    <nav class="navbar"><a href="../index.html" class="logo">Programmering 2 i Python</a></nav>
+    <main class="container chapter-shell">
+        <article class="chapter-main">
+            <header class="chapter-hero">
+                <p class="eyebrow">Lösningsförslag</p>
+                <h1>Kap 5.1 – Planera ett elevregister</h1>
+                <p class="subtitle">Ett komplett exempel på en projektplan innan programmeringen börjar.</p>
+            </header>
+
+            <section class="content-section">
+                <h2>1. Syfte</h2>
+                <p>Programmet ska hjälpa en lärare att registrera elever och deras poäng på en uppgift. Läraren ska
+                    kunna lägga till elever, visa alla elever och söka efter en elev. Informationen ska sparas så att
+                    den finns kvar nästa gång programmet startas.</p>
+
+                <h2>2. Funktioner som ska finnas</h2>
+                <ul>
+                    <li><code>lägg_till_elev(namn, poäng)</code> – kontrollerar inmatningen och sparar en elev.</li>
+                    <li><code>visa_alla_elever()</code> – hämtar och visar alla registrerade elever.</li>
+                    <li><code>sök_elev(namn)</code> – söker efter en elev med namn.</li>
+                    <li><code>visa_meny()</code> – skriver ut programmets alternativ.</li>
+                    <li><code>main()</code> – läser menyval och anropar rätt funktion.</li>
+                </ul>
+
+                <h2>3. Användningsfall</h2>
+                <h3>Registrera en elevs resultat</h3>
+                <ul>
+                    <li><strong>Användare:</strong> Lärare</li>
+                    <li><strong>Mål:</strong> Spara en elevs namn och poäng.</li>
+                    <li><strong>Förutsättning:</strong> Programmet är startat och menyn visas.</li>
+                </ul>
+                <ol>
+                    <li>Läraren väljer <em>Lägg till elev</em>.</li>
+                    <li>Programmet frågar efter elevens namn.</li>
+                    <li>Programmet frågar efter elevens poäng.</li>
+                    <li>Programmet kontrollerar att namnet inte är tomt och att poängen är ett giltigt tal.</li>
+                    <li>Programmet sparar eleven.</li>
+                    <li>Programmet visar <em>Elev sparad</em>.</li>
+                </ol>
+                <p><strong>Alternativt flöde:</strong> Om namnet är tomt eller poängen är ogiltig sparas inte eleven.
+                    Programmet visar i stället ett tydligt felmeddelande.</p>
+
+                <h2>4. Flödesschema</h2>
+                <p>Flödesschemat visar det centrala flödet för att lägga till en elev.</p>
+                <pre><code class="language-mermaid">flowchart TD
+    A([Start]) --&gt; B[Fråga efter namn]
+    B --&gt; C{Är namnet tomt?}
+    C -- Ja --&gt; D[Visa felmeddelande]
+    C -- Nej --&gt; E[Fråga efter poäng]
+    E --&gt; F{Är poängen ett giltigt tal?}
+    F -- Nej --&gt; G[Visa felmeddelande]
+    F -- Ja --&gt; H[Spara eleven]
+    H --&gt; I[Visa: Elev sparad]
+    D --&gt; J([Slut])
+    G --&gt; J
+    I --&gt; J</code></pre>
+
+                <h2>5. Pseudokod</h2>
+                <h3>Funktionen <code>lägg_till_elev()</code></h3>
+                <pre><code>Fråga efter elevens namn
+
+Om namnet är tomt:
+    Skriv "Namnet får inte vara tomt"
+    Avsluta funktionen
+
+Fråga efter elevens poäng
+
+Försök göra om poängen till ett heltal
+Om omvandlingen misslyckas:
+    Skriv "Poängen måste vara ett heltal"
+    Avsluta funktionen
+
+Om poängen är mindre än 0 eller större än 100:
+    Skriv "Poängen måste vara mellan 0 och 100"
+    Avsluta funktionen
+
+Spara namn och poäng
+Skriv "Elev sparad"</code></pre>
+
+                <h2>6. MVP</h2>
+                <p>Den första fungerande versionen ska innehålla:</p>
+                <ul>
+                    <li>en textbaserad meny</li>
+                    <li>möjlighet att lägga till en elev med namn och poäng</li>
+                    <li>kontroll av tomt namn och ogiltig poäng</li>
+                    <li>möjlighet att visa alla elever</li>
+                    <li>lagring i en textfil eller SQLite-databas</li>
+                </ul>
+
+                <h3>Funktioner som får vänta</h3>
+                <ul>
+                    <li>grafiskt gränssnitt</li>
+                    <li>inloggning för flera lärare</li>
+                    <li>diagram över klassens resultat</li>
+                    <li>export till PDF eller kalkylblad</li>
+                    <li>automatisk beräkning av betyg</li>
+                </ul>
+
+                <h2>Möjlig kodstruktur</h2>
+                <pre><code>elevregister/
+├── main.py       # meny och programflöde
+├── databas.py    # spara, hämta och söka elever
+└── modeller.py   # klassen Elev</code></pre>
+
+                <h2>Första arbetsordning</h2>
+                <ol>
+                    <li>Skapa lagringen och kontrollera att en elev kan sparas.</li>
+                    <li>Skapa funktionen som visar alla elever.</li>
+                    <li>Lägg till kontroller för namn och poäng.</li>
+                    <li>Bygg menyn och koppla den till funktionerna.</li>
+                    <li>Testa normalfall och felaktig inmatning.</li>
+                </ol>
+            </section>
+
+            <p><a href="chapter-5-1.html">Tillbaka till kap 5.1</a></p>
+        </article>
+    </main>
+    <script src="../js/main.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                lineColor: '#f4f7fb',
+                textColor: '#f4f7fb',
+                primaryBorderColor: '#f4f7fb',
+                relationLabelColor: '#f4f7fb',
+                tertiaryTextColor: '#f4f7fb'
+            }
+        })
+
+        function renderMermaidForRoot(root = document) {
+            const blocks = root.querySelectorAll
+                ? root.querySelectorAll('code.language-mermaid')
+                : []
+            const diagrams = []
+
+            blocks.forEach(code => {
+                const container = document.createElement('div')
+                container.className = 'mermaid'
+                container.textContent = code.textContent
+                code.parentNode.replaceWith(container)
+                diagrams.push(container)
+            })
+
+            if (diagrams.length) mermaid.run({ nodes: diagrams })
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderMermaidForRoot(document)
+        })
+    </script>
+</body>
+
+</html>

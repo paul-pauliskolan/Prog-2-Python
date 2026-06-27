@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 4.4 - Miniuppgift: filbaserat program</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 4.4</p>
+                    <h1>Miniuppgift: filbaserat program</h1>
+                    <p class="fragment">Bygg en receptsamling som sparar data mellan programmets körningar.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Du kombinerar tidigare kunskaper</h2>
+                    <ul>
+                        <li class="fragment">funktioner och tydlig programstruktur</li>
+                        <li class="fragment">menyer, villkor och loopar</li>
+                        <li class="fragment">skrivning och läsning av textfiler</li>
+                        <li class="fragment"><code>try/except</code> vid filfel</li>
+                        <li class="fragment">testning av flera programflöden</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Uppgiften</p>
+                    <h2>Receptsamling</h2>
+                    <p class="fragment">Användaren ska kunna:</p>
+                    <ol>
+                        <li class="fragment">lägga till ett recept med namn och ingredienser</li>
+                        <li class="fragment">visa alla sparade recept</li>
+                        <li class="fragment">avsluta programmet</li>
+                    </ol>
+                    <p class="fragment">Recepten ska finnas kvar nästa gång programmet startas.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Planera först</p>
+                    <h2>Vilka delar behöver programmet?</h2>
+                    <pre class="code-block compact-code fragment"><code>visa_meny()
+lägga_till_recept()
+visa_recept()
+main()</code></pre>
+                    <ul>
+                        <li class="fragment">En funktion för varje tydlig uppgift.</li>
+                        <li class="fragment"><code>main()</code> kopplar samman funktionerna.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lagring</p>
+                    <h2>Bestäm ett enkelt filformat</h2>
+                    <pre class="code-block compact-code fragment"><code>Pannkakor|mjölk,ägg,mjöl
+Tomatsoppa|tomater,lök,vatten</code></pre>
+                    <ul>
+                        <li class="fragment"><code>|</code> skiljer receptnamnet från ingredienserna.</li>
+                        <li class="fragment">Komma skiljer ingredienserna från varandra.</li>
+                        <li class="fragment">Ett recept sparas per rad.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Konstant</p>
+                    <h2>Filnamnet används på flera platser</h2>
+                    <pre class="code-block compact-code fragment"><code>RECEPTFIL = "recept.txt"</code></pre>
+                    <p class="fragment">Namnet skrivs med stora bokstäver eftersom värdet är tänkt att vara konstant.</p>
+                    <p class="fragment">Både skrivfunktionen och läsfunktionen använder samma filnamn.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Meny</p>
+                    <h2>Visa användarens alternativ</h2>
+                    <pre class="code-block compact-code fragment"><code>def visa_meny():
+    print("\nMeny:")
+    print("1. Lägg till recept")
+    print("2. Visa recept")
+    print("3. Avsluta")</code></pre>
+                    <p class="fragment">Funktionen ansvarar bara för att skriva ut menyn.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mallkod</p>
+                    <h2>Bygg programflödet först</h2>
+                    <pre class="code-block tiny-code fragment"><code>def main():
+    while True:
+        visa_meny()
+        val = input("Välj ett alternativ: ")
+
+        if val == "1":
+            pass
+        elif val == "2":
+            pass
+        elif val == "3":
+            break
+        else:
+            print("Ogiltigt val!")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">pass</p>
+                    <h2>Tillfälliga platshållare</h2>
+                    <pre class="code-block compact-code fragment"><code>if val == "1":
+    pass  # Funktionen skrivs senare.</code></pre>
+                    <p class="fragment"><code>pass</code> gör ingenting.</p>
+                    <p class="fragment">Det används här för att kodblocket inte ska vara tomt medan programmet byggs.</p>
+                    <p class="fragment">När funktionen är färdig ersätts <code>pass</code> med funktionsanropet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Spara recept</p>
+                    <h2>Läs in användarens data</h2>
+                    <pre class="code-block compact-code fragment"><code>def lägga_till_recept():
+    namn = input("Vad heter receptet? ")
+    ingredienser = input(
+        "Ange ingredienser (komma-separerade): "
+    )
+    meddelande = f"{namn}|{ingredienser}\n"</code></pre>
+                    <p class="fragment"><code>meddelande</code> får samma format som en rad i filen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Append</p>
+                    <h2>Lägg receptet sist i filen</h2>
+                    <pre class="code-block compact-code fragment"><code>try:
+    with open(RECEPTFIL, "a") as fil:
+        fil.write(meddelande)
+    print("Recept sparat.")
+except Exception as e:
+    print(f"Något gick fel: {e}")</code></pre>
+                    <p class="fragment"><code>"a"</code> behåller tidigare recept och lägger till en ny rad.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Efter skrivning</p>
+                    <h2>Så förändras filen</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Före:
+Pannkakor|mjölk,ägg,mjöl</code></pre>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Efter:
+Pannkakor|mjölk,ägg,mjöl
+Tomatsoppa|tomater,lök,vatten</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Läsa recept</p>
+                    <h2>Läs alla rader</h2>
+                    <pre class="code-block compact-code fragment"><code>def visa_recept():
+    try:
+        with open(RECEPTFIL, "r") as fil:
+            rader = fil.readlines()
+    except FileNotFoundError:
+        print("Filen med recept finns inte ännu.")
+        return</code></pre>
+                    <p class="fragment"><code>readlines()</code> returnerar en lista med filens rader.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Tom fil</p>
+                    <h2>Kontrollera innan loopen</h2>
+                    <pre class="code-block compact-code fragment"><code>if not rader:
+    print("Inga recept hittades.")
+    return</code></pre>
+                    <p class="fragment">En tom lista är falsk i ett villkor.</p>
+                    <p class="fragment"><code>return</code> avslutar funktionen när det inte finns något att visa.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Tolka raden</p>
+                    <h2>Dela upp receptets delar</h2>
+                    <pre class="code-block compact-code fragment"><code>for rad in rader:
+    namn, ingredienser = rad.strip().split("|")</code></pre>
+                    <ol>
+                        <li class="fragment"><code>strip()</code> tar bort radbrytningen.</li>
+                        <li class="fragment"><code>split("|")</code> delar texten i två delar.</li>
+                        <li class="fragment">Delarna sparas i <code>namn</code> och <code>ingredienser</code>.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ingredienser</p>
+                    <h2>Dela en gång till</h2>
+                    <pre class="code-block compact-code fragment"><code>print(f"\nRecept: {namn}")
+print("Ingredienser:")
+
+for ingrediens in ingredienser.split(","):
+    print(f"- {ingrediens.strip()}")</code></pre>
+                    <p class="fragment"><code>split(",")</code> skapar en lista med ingredienser.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2>Från filrad till utskrift</h2>
+                    <pre class="code-block compact-code fragment"><code>Pannkakor|mjölk,ägg,mjöl</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Recept: Pannkakor
+Ingredienser:
+- mjölk
+- ägg
+- mjöl</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Färdig meny</p>
+                    <h2>Ersätt <code>pass</code> med funktionsanrop</h2>
+                    <pre class="code-block compact-code fragment"><code>if val == "1":
+    lägga_till_recept()
+elif val == "2":
+    visa_recept()
+elif val == "3":
+    print("Programmet avslutas.")
+    break
+else:
+    print("Ogiltigt val, försök igen.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Programstart</p>
+                    <h2>Starta <code>main()</code></h2>
+                    <pre class="code-block compact-code fragment"><code>if __name__ == "__main__":
+    main()</code></pre>
+                    <p class="fragment">Villkoret är sant när filen körs direkt.</p>
+                    <p class="fragment">Då startas huvudprogrammet.</p>
+                    <p class="fragment">Om filen importeras som en modul startar inte menyn automatiskt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Programflöde</p>
+                    <h2>Så hänger delarna ihop</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>main()</code></pre>
+                        <p>Visar menyn och läser användarens val.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>lägga_till_recept()</code></pre>
+                        <p>Skriver en ny rad med <code>"a"</code>.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>visa_recept()</code></pre>
+                        <p>Läser, delar upp och visar alla rader.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Testa</p>
+                    <h2>Viktiga testfall</h2>
+                    <ol>
+                        <li class="fragment">Lägg till ett recept i en tom fil.</li>
+                        <li class="fragment">Lägg till flera recept.</li>
+                        <li class="fragment">Visa recepten och kontrollera formateringen.</li>
+                        <li class="fragment">Visa recept när filen saknas.</li>
+                        <li class="fragment">Starta programmet igen och kontrollera att recepten finns kvar.</li>
+                        <li class="fragment">Skriv ett ogiltigt menyval.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Miniuppgiften kombinerar...</h2>
+                    <ul>
+                        <li class="fragment">en meny med loop och villkor</li>
+                        <li class="fragment">funktioner med tydliga ansvar</li>
+                        <li class="fragment"><code>"a"</code> för att spara utan att radera</li>
+                        <li class="fragment"><code>readlines()</code> för att läsa filens rader</li>
+                        <li class="fragment"><code>split()</code> för att tolka sparad text</li>
+                        <li class="fragment"><code>try/except</code> för förväntade filfel</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

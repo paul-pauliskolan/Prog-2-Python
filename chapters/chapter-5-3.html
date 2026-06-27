@@ -149,13 +149,36 @@ if __name__ == "__main__":
                     <li>Skriv ut den information som du tycker är mest intressant.</li>
                     <li>Lägg till enkel felhantering med statuskoder och <code>try/except</code>.</li>
                 </ol>
+                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag som hämtar
+                    aktuellt väder från Open-Meteo:
+                    <a href="../p2-python-kod/kap5-3-open-meteo-losningsforslag.py" download>kap5-3-open-meteo-losningsforslag.py</a>.
+                </p>
+                <p class="exercise-note">Se även ett
+                    <a href="https://vadret.netlify.app/" target="_blank" rel="noopener noreferrer">mer avancerat exempel på en vädertjänst</a>
+                    som din lärare har byggt med HTML, CSS och JavaScript. Tjänsten hämtar väderdata från ett API och
+                    visar resultatet på en webbsida.
+                </p>
 
-                <h3>Exempel på öppna API:er</h3>
+                <h3>Bra gratis API:er utan registrering</h3>
                 <ul>
-                    <li>Skämt: <code>https://official-joke-api.appspot.com/random_joke</code></li>
-                    <li>Kattfakta: <code>https://catfact.ninja/fact</code></li>
-                    <li>Namn: <code>https://randomuser.me/api/</code></li>
+                    <li><strong>Open-Meteo:</strong> väderprognoser och aktuellt väder. Ingen API-nyckel krävs för
+                        kostnadsfri icke-kommersiell användning inom tjänstens gränser.
+                        <a href="https://open-meteo.com/en/docs" target="_blank" rel="noopener noreferrer">Dokumentation</a>.</li>
+                    <li><strong>PokéAPI:</strong> data om Pokémon, förmågor och spel. Dokumentationen anger att ingen
+                        autentisering krävs.
+                        <a href="https://pokeapi.co/docs/v2" target="_blank" rel="noopener noreferrer">Dokumentation</a>.</li>
+                    <li><strong>Dog API:</strong> hundraser och länkar till hundbilder.
+                        <a href="https://dog.ceo/dog-api/documentation/" target="_blank" rel="noopener noreferrer">Dokumentation</a>.</li>
+                    <li><strong>Random User Generator:</strong> påhittade användaruppgifter för testprogram.
+                        <a href="https://randomuser.me/documentation" target="_blank" rel="noopener noreferrer">Dokumentation</a>.</li>
+                    <li><strong>Open Library:</strong> sökning efter böcker och författare. Passar små
+                        utbildningsprojekt, men följ tjänstens anropsgränser och användningsregler.
+                        <a href="https://openlibrary.org/developers/api" target="_blank" rel="noopener noreferrer">Dokumentation</a>.</li>
                 </ul>
+
+                <p>Kontrollera alltid dokumentationen innan du börjar. Kostnadsgränser, adresser och villkor kan
+                    ändras. Undvik att skicka många anrop i en loop och lägg alltid till <code>timeout</code> och
+                    felhantering.</p>
 
                 <h2>Sammanfattning</h2>
                 <ul>

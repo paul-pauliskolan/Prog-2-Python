@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 4.6 - Miniuppgift: Använda SQLite-databaser</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 4.6</p>
+                    <h1>Miniuppgift: Använda SQLite-databaser</h1>
+                    <p class="fragment">Bygg ett bibliotekssystem med databas, moduler, sökning och felhantering.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter miniuppgiften ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">skapa en SQLite-databas och tabell</li>
+                        <li class="fragment">lägga till, söka och visa poster</li>
+                        <li class="fragment">dela upp programmet i moduler</li>
+                        <li class="fragment">validera användarens inmatning</li>
+                        <li class="fragment">hantera SQLite-fel med <code>try/except/finally</code></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Du kombinerar</p>
+                    <h2>Tidigare kapitel används tillsammans</h2>
+                    <ul>
+                        <li class="fragment"><strong>Kap 3.7:</strong> egna moduler och import.</li>
+                        <li class="fragment"><strong>Kap 4.2:</strong> undantagshantering.</li>
+                        <li class="fragment"><strong>Kap 4.3:</strong> tydlig kodstruktur.</li>
+                        <li class="fragment"><strong>Kap 4.5:</strong> SQLite och SQL.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Filstruktur</p>
+                    <h2>Två Pythonfiler och en databasfil</h2>
+                    <pre class="code-block compact-code fragment"><code>bibliotekssystem/
+├── main.py
+├── databas.py
+└── bibliotek.db</code></pre>
+                    <p class="fragment"><code>bibliotek.db</code> skapas när programmet körs.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ansvar</p>
+                    <h2>Varje fil har en uppgift</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>main.py</code></pre>
+                        <p>Visar menyn, läser indata och anropar funktioner.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>databas.py</code></pre>
+                        <p>Öppnar databasen och kör SQL.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>bibliotek.db</code></pre>
+                        <p>Sparar böckerna permanent.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Programflöde</p>
+                    <h2>Från menyval till databas</h2>
+                    <ol>
+                        <li class="fragment"><code>main.py</code> läser användarens val.</li>
+                        <li class="fragment">En funktion i <code>databas.py</code> anropas.</li>
+                        <li class="fragment">Funktionen ansluter till <code>bibliotek.db</code>.</li>
+                        <li class="fragment">SQL körs mot tabellen <code>bocker</code>.</li>
+                        <li class="fragment">Resultatet skrivs ut och anslutningen stängs.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Tabellen</p>
+                    <h2><code>bocker</code></h2>
+                    <pre class="code-block compact-code fragment"><code>id | titel                 | forfattare
+1  | Bröderna Lejonhjärta | Astrid Lindgren
+2  | Utvandrarna           | Vilhelm Moberg</code></pre>
+                    <ul>
+                        <li class="fragment"><code>id</code> är unikt och skapas automatiskt.</li>
+                        <li class="fragment"><code>titel</code> måste ha ett värde.</li>
+                        <li class="fragment"><code>forfattare</code> måste ha ett värde.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">databas.py</p>
+                    <h2>Import och databasnamn</h2>
+                    <pre class="code-block compact-code fragment"><code>import sqlite3
+
+DB_FIL = "bibliotek.db"</code></pre>
+                    <p class="fragment"><code>sqlite3</code> ger tillgång till SQLite.</p>
+                    <p class="fragment"><code>DB_FIL</code> används av alla databasfunktioner.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Skapa databas</p>
+                    <h2>SQL-kommandot</h2>
+                    <pre class="code-block compact-code fragment"><code>CREATE TABLE IF NOT EXISTS bocker (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    titel TEXT NOT NULL,
+    forfattare TEXT NOT NULL
+)</code></pre>
+                    <p class="fragment">Tabellen skapas bara om den inte redan finns.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Skapa databas</p>
+                    <h2>Hela funktionen</h2>
+                    <pre class="code-block tiny-code fragment"><code>def skapa_databas():
+    conn = None
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS bocker (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                titel TEXT NOT NULL,
+                forfattare TEXT NOT NULL
+            )
+        """)
+        conn.commit()
+    except sqlite3.Error as e:
+        print("Fel vid skapande av databas:", e)
+    finally:
+        if conn:
+            conn.close()</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">conn = None</p>
+                    <h2>Varför skapas variabeln först?</h2>
+                    <pre class="code-block compact-code fragment"><code>conn = None
+
+try:
+    conn = sqlite3.connect(DB_FIL)
+finally:
+    if conn:
+        conn.close()</code></pre>
+                    <p class="fragment">Om anslutningen misslyckas finns variabeln ändå.</p>
+                    <p class="fragment"><code>if conn</code> stänger bara en anslutning som faktiskt öppnades.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Validering</p>
+                    <h2>Stoppa tom titel och författare</h2>
+                    <pre class="code-block compact-code fragment"><code>if not titel.strip() or not forfattare.strip():
+    print("Titel och författare måste fyllas i.")
+    return</code></pre>
+                    <p class="fragment"><code>strip()</code> tar bort mellanslag i början och slutet.</p>
+                    <p class="fragment">Även text som bara består av blanksteg stoppas.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lägg till bok</p>
+                    <h2><code>INSERT INTO</code></h2>
+                    <pre class="code-block compact-code fragment"><code>cursor.execute(
+    "INSERT INTO bocker (titel, forfattare) VALUES (?, ?)",
+    (titel.strip(), forfattare.strip())
+)
+conn.commit()</code></pre>
+                    <p class="fragment">Värdena skickas separat från SQL-frågan.</p>
+                    <p class="fragment"><code>commit()</code> sparar boken i databasfilen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lägg till bok</p>
+                    <h2>Hela strukturen</h2>
+                    <pre class="code-block tiny-code fragment"><code>def lagg_till_bok(titel, forfattare):
+    if not titel.strip() or not forfattare.strip():
+        print("Titel och författare måste fyllas i.")
+        return
+
+    conn = None
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO bocker (titel, forfattare) VALUES (?, ?)",
+            (titel.strip(), forfattare.strip())
+        )
+        conn.commit()
+        print("Bok tillagd!")
+    except sqlite3.Error as e:
+        print("Kunde inte lägga till bok:", e)
+    finally:
+        if conn:
+            conn.close()</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sökning</p>
+                    <h2>Stoppa ett tomt sökord</h2>
+                    <pre class="code-block compact-code fragment"><code>nyckelord = nyckelord.strip()
+
+if not nyckelord:
+    print("Skriv ett sökord.")
+    return</code></pre>
+                    <p class="fragment">Ett tomt sökord skulle annars skapa mönstret <code>%%</code>.</p>
+                    <p class="fragment"><code>%%</code> matchar alla rader.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">LIKE</p>
+                    <h2>Sök i titel eller författare</h2>
+                    <pre class="code-block compact-code fragment"><code>cursor.execute(
+    "SELECT * FROM bocker "
+    "WHERE titel LIKE ? OR forfattare LIKE ?",
+    ("%" + nyckelord + "%", "%" + nyckelord + "%")
+)</code></pre>
+                    <p class="fragment"><code>%</code> betyder valfri text före eller efter sökordet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sökexempel</p>
+                    <h2>Vad matchar mönstret?</h2>
+                    <pre class="code-block compact-code fragment"><code>nyckelord = "Lindgren"
+mönster = "%Lindgren%"</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>1. Bröderna Lejonhjärta - Astrid Lindgren</code></pre>
+                    </div>
+                    <p class="fragment">Samma fråga söker i både <code>titel</code> och <code>forfattare</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sökresultat</p>
+                    <h2>Visa träffar eller ett meddelande</h2>
+                    <pre class="code-block compact-code fragment"><code>resultat = cursor.fetchall()
+
+for bok in resultat:
+    print(f"{bok[0]}. {bok[1]} - {bok[2]}")
+
+if not resultat:
+    print("Inga träffar.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Visa alla</p>
+                    <h2>Hämta hela tabellen</h2>
+                    <pre class="code-block compact-code fragment"><code>cursor.execute("SELECT * FROM bocker")
+resultat = cursor.fetchall()
+
+for bok in resultat:
+    print(f"{bok[0]}. {bok[1]} - {bok[2]}")
+
+if not resultat:
+    print("Inga böcker finns än.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Specifikt fel</p>
+                    <h2>Varför <code>sqlite3.Error</code>?</h2>
+                    <pre class="code-block compact-code fragment"><code>except sqlite3.Error as e:
+    print("Sökning misslyckades:", e)</code></pre>
+                    <p class="fragment"><code>sqlite3.Error</code> fångar fel från SQLite-biblioteket.</p>
+                    <p class="fragment"><code>Exception</code> skulle även fånga många fel som inte hör till databasen.</p>
+                    <p class="fragment">Det specifika undantaget gör avsikten tydligare.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">finally</p>
+                    <h2>Anslutningen ska alltid stängas</h2>
+                    <pre class="code-block compact-code fragment"><code>finally:
+    if conn:
+        conn.close()</code></pre>
+                    <p class="fragment"><code>finally</code> körs både när koden lyckas och när ett fel uppstår.</p>
+                    <p class="fragment">Databasanslutningen lämnas därför inte öppen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">main.py</p>
+                    <h2>Importera databasmodulen</h2>
+                    <pre class="code-block compact-code fragment"><code>import databas
+
+def main():
+    databas.skapa_databas()</code></pre>
+                    <p class="fragment">Databasen och tabellen skapas innan menyn börjar användas.</p>
+                    <p class="fragment">Modulnamnet visar att funktionen kommer från <code>databas.py</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Meny</p>
+                    <h2>Fyra alternativ</h2>
+                    <pre class="code-block compact-code fragment"><code>def visa_meny():
+    print("\nMeny:")
+    print("1. Lägg till bok")
+    print("2. Sök bok")
+    print("3. Visa alla böcker")
+    print("4. Avsluta")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Menyval</p>
+                    <h2>Anropa rätt databasfunktion</h2>
+                    <pre class="code-block tiny-code fragment"><code>if val == "1":
+    titel = input("Titel: ")
+    forfattare = input("Författare: ")
+    databas.lagg_till_bok(titel, forfattare)
+elif val == "2":
+    nyckelord = input("Sökord: ")
+    databas.sok_bok(nyckelord)
+elif val == "3":
+    databas.visa_alla_bocker()
+elif val == "4":
+    break
+else:
+    print("Ogiltigt val.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Hela samarbetet</p>
+                    <h2>Vem gör vad?</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>main.py</code></pre>
+                        <p>Tar emot titel och författare.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>databas.lagg_till_bok(...)</code></pre>
+                        <p>Validerar och kör <code>INSERT INTO</code>.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>bibliotek.db</code></pre>
+                        <p>Sparar boken i tabellen <code>bocker</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Återanvändning</p>
+                    <h2>Varför två filer?</h2>
+                    <ul>
+                        <li class="fragment"><code>main.py</code> kan ändras utan att SQL-koden flyttas.</li>
+                        <li class="fragment"><code>databas.py</code> kan testas separat.</li>
+                        <li class="fragment">Ett framtida grafiskt gränssnitt kan återanvända databasmodulen.</li>
+                        <li class="fragment">Varje fil blir kortare och har ett tydligare ansvar.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Testfall</p>
+                    <h2>Testa mer än normalfallet</h2>
+                    <ol>
+                        <li class="fragment">Starta programmet och kontrollera att databasen skapas.</li>
+                        <li class="fragment">Lägg till flera böcker.</li>
+                        <li class="fragment">Försök lägga till en tom titel.</li>
+                        <li class="fragment">Sök på en del av en titel.</li>
+                        <li class="fragment">Sök på en författare.</li>
+                        <li class="fragment">Testa ett sökord utan träffar och ett tomt sökord.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Permanent data</p>
+                    <h2>Testa flera körningar</h2>
+                    <ol>
+                        <li class="fragment">Lägg till böcker.</li>
+                        <li class="fragment">Avsluta programmet.</li>
+                        <li class="fragment">Starta programmet igen.</li>
+                        <li class="fragment">Välj Visa alla böcker.</li>
+                    </ol>
+                    <p class="fragment">Böckerna ska finnas kvar i <code>bibliotek.db</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">VS Code</p>
+                    <h2>Inspektera databasen visuellt</h2>
+                    <p class="fragment">Installera <strong>SQLite Viewer</strong> av
+                        <strong>Florian Klampfer</strong>.</p>
+                    <p class="fragment">Öppna sedan <code>bibliotek.db</code> i VS Code.</p>
+                    <p class="fragment">Du kan se tabellen <code>bocker</code>, kolumnerna och de sparade raderna.</p>
+                    <p class="fragment">Tillägget är valfritt; Pythonprogrammet fungerar utan det.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Miniuppgiften kombinerar...</h2>
+                    <ul>
+                        <li class="fragment">SQLite-tabell och SQL-frågor</li>
+                        <li class="fragment">platshållare och <code>LIKE</code>-sökning</li>
+                        <li class="fragment">validering med <code>strip()</code></li>
+                        <li class="fragment"><code>sqlite3.Error</code> och <code>finally</code></li>
+                        <li class="fragment">moduler med separata ansvarsområden</li>
+                        <li class="fragment">meny, testfall och permanent lagring</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

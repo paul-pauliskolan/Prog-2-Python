@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 5.3 - Hämta data från API med requests</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 5.3</p>
+                    <h1>Hämta data från API med requests</h1>
+                    <p class="fragment">Låt ditt Pythonprogram kommunicera med externa tjänster och använda JSON-data.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad ett API är</li>
+                        <li class="fragment">skicka en GET-förfrågan med <code>requests</code></li>
+                        <li class="fragment">kontrollera HTTP-svarets status</li>
+                        <li class="fragment">tolka JSON som Pythondata</li>
+                        <li class="fragment">hantera vanliga fel vid API-anrop</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">API</p>
+                    <h2>Ett gränssnitt mellan program</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Ditt Pythonprogram</code></pre>
+                        <p>Skickar en förfrågan.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>API</code></pre>
+                        <p>Tar emot förfrågan och skickar tillbaka data.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>JSON-svar</code></pre>
+                        <p>Tolkas och används i programmet.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">HTTP</p>
+                    <h2>GET begär information</h2>
+                    <pre class="code-block compact-code fragment"><code>GET https://.../random_joke</code></pre>
+                    <p class="fragment">En GET-förfrågan ber servern att skicka data.</p>
+                    <p class="fragment">Svaret innehåller bland annat statuskod och innehåll.</p>
+                    <p class="fragment">GET används normalt för att läsa, inte för att ändra data.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">JSON</p>
+                    <h2>Strukturerad text</h2>
+                    <pre class="code-block compact-code fragment"><code>{
+    "id": 74,
+    "setup": "Why was the stadium so cool?",
+    "punchline": "Because it was filled with fans!"
+}</code></pre>
+                    <p class="fragment">JSON innehåller nycklar och värden.</p>
+                    <p class="fragment">Efter tolkning kan detta användas som en Python-dictionary.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Installation</p>
+                    <h2>Installera <code>requests</code></h2>
+                    <pre class="code-block compact-code fragment"><code>pip3 install requests</code></pre>
+                    <p class="fragment">Om flera Pythonversioner finns:</p>
+                    <pre class="code-block compact-code fragment"><code>python3 -m pip install requests</code></pre>
+                    <p class="fragment"><code>requests</code> ingår normalt inte i Pythons standardbibliotek.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Import</p>
+                    <h2>Gör biblioteket tillgängligt</h2>
+                    <pre class="code-block compact-code fragment"><code>import requests</code></pre>
+                    <p class="fragment">Efter importen kan programmet använda exempelvis
+                        <code>requests.get()</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">URL</p>
+                    <h2>Adressen till resursen</h2>
+                    <pre class="code-block compact-code fragment"><code>url = "https://official-joke-api.appspot.com/random_joke"</code></pre>
+                    <p class="fragment">URL:en talar om vilken API-resurs programmet vill använda.</p>
+                    <p class="fragment">Denna endpoint skickar tillbaka ett slumpmässigt skämt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Förfrågan</p>
+                    <h2>Skicka GET-anropet</h2>
+                    <pre class="code-block compact-code fragment"><code>response = requests.get(url)</code></pre>
+                    <ul>
+                        <li class="fragment"><code>requests.get()</code> kontaktar URL:en.</li>
+                        <li class="fragment">Programmet väntar på serverns svar.</li>
+                        <li class="fragment">Svaret sparas i <code>response</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Response</p>
+                    <h2>Svarsobjektet innehåller flera delar</h2>
+                    <pre class="code-block compact-code fragment"><code>response.status_code
+response.text
+response.json()</code></pre>
+                    <ul>
+                        <li class="fragment"><code>status_code</code> visar hur anropet gick.</li>
+                        <li class="fragment"><code>text</code> innehåller svaret som text.</li>
+                        <li class="fragment"><code>json()</code> försöker tolka svaret som JSON.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Statuskod</p>
+                    <h2><code>200</code> betyder lyckat svar</h2>
+                    <pre class="code-block compact-code fragment"><code>if response.status_code == 200:
+    data = response.json()
+else:
+    print("Kunde inte hämta data.")</code></pre>
+                    <p class="fragment">Tolka bara det förväntade svaret när anropet lyckades.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Första programmet</p>
+                    <h2>Hela grundexemplet</h2>
+                    <pre class="code-block tiny-code fragment"><code>import requests
+
+url = "https://official-joke-api.appspot.com/random_joke"
+response = requests.get(url)
+
+if response.status_code == 200:
+    data = response.json()
+    print("Skämt:")
+    print(data["setup"])
+    print(data["punchline"])
+else:
+    print(
+        "Kunde inte hämta skämt. Statuskod:",
+        response.status_code
+    )</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lyckat flöde</p>
+                    <h2>Vad händer steg för steg?</h2>
+                    <ol>
+                        <li class="fragment">GET-förfrågan skickas.</li>
+                        <li class="fragment">Servern svarar med statuskod <code>200</code>.</li>
+                        <li class="fragment"><code>response.json()</code> tolkar JSON-svaret.</li>
+                        <li class="fragment">Resultatet sparas i <code>data</code>.</li>
+                        <li class="fragment">Programmet hämtar och skriver ut två värden.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Pythondata</p>
+                    <h2>JSON-objekt blir en dictionary</h2>
+                    <pre class="code-block compact-code fragment"><code>data = response.json()
+
+print(type(data))
+print(data["setup"])
+print(data["punchline"])</code></pre>
+                    <p class="fragment">Nycklarna måste stavas som de gör i API-svaret.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktigt</p>
+                    <h2>Undersök svaret innan du väljer nycklar</h2>
+                    <pre class="code-block compact-code fragment"><code>print(data)</code></pre>
+                    <p class="fragment">Börja med att skriva ut hela datastrukturen.</p>
+                    <p class="fragment">Kontrollera om svaret är en dictionary, lista eller en kombination.</p>
+                    <p class="fragment">Välj därefter de nycklar och index som programmet behöver.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Externa fel</p>
+                    <h2>API-anrop kan misslyckas</h2>
+                    <ul>
+                        <li class="fragment">Datorn saknar nätverksanslutning.</li>
+                        <li class="fragment">API-servern svarar inte.</li>
+                        <li class="fragment">URL:en är felaktig.</li>
+                        <li class="fragment">Servern svarar med en HTTP-felkod.</li>
+                        <li class="fragment">Svaret innehåller inte giltig JSON.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">HTTP-fel</p>
+                    <h2><code>raise_for_status()</code></h2>
+                    <pre class="code-block compact-code fragment"><code>response = requests.get(url)
+response.raise_for_status()</code></pre>
+                    <p class="fragment">Metoden gör HTTP-felkoder till undantag.</p>
+                    <p class="fragment">Undantaget kan sedan fångas med <code>try/except</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Timeout</p>
+                    <h2>Vänta inte obegränsat</h2>
+                    <pre class="code-block compact-code fragment"><code>response = requests.get(url, timeout=10)</code></pre>
+                    <p class="fragment">Programmet väntar högst ungefär tio sekunder på svaret.</p>
+                    <p class="fragment">Om tiden överskrids skapas ett undantag som kan fångas.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Robust funktion</p>
+                    <h2>Hämta, kontrollera och tolka</h2>
+                    <pre class="code-block tiny-code fragment"><code>def hamta_skamt():
+    url = "https://official-joke-api.appspot.com/random_joke"
+
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        data = response.json()
+
+        print("\nSkämt:")
+        print(data["setup"])
+        print(data["punchline"])
+    except requests.exceptions.RequestException as e:
+        print("Kunde inte hämta skämt:", e)</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Specifikt undantag</p>
+                    <h2><code>RequestException</code></h2>
+                    <pre class="code-block compact-code fragment"><code>except requests.exceptions.RequestException as e:
+    print("Kunde inte hämta skämt:", e)</code></pre>
+                    <p class="fragment">Detta fångar vanliga fel från <code>requests</code>.</p>
+                    <p class="fragment"><code>e</code> innehåller information om vad som gick fel.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Programstart</p>
+                    <h2>Kör funktionen när filen startas</h2>
+                    <pre class="code-block compact-code fragment"><code>if __name__ == "__main__":
+    hamta_skamt()</code></pre>
+                    <p class="fragment">Funktionen körs när Pythonfilen startas direkt.</p>
+                    <p class="fragment">Den körs inte automatiskt om filen importeras som modul.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Testfall</p>
+                    <h2>Testa fler än det lyckade svaret</h2>
+                    <ol>
+                        <li class="fragment">Statuskod <code>200</code> med giltig JSON.</li>
+                        <li class="fragment">HTTP-fel, exempelvis <code>404</code>.</li>
+                        <li class="fragment">Nätverket är frånkopplat.</li>
+                        <li class="fragment">Servern svarar för långsamt.</li>
+                        <li class="fragment">JSON saknar en nyckel som programmet använder.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Eget program</p>
+                    <h2>Arbetsordning</h2>
+                    <ol>
+                        <li class="fragment">Välj ett öppet API.</li>
+                        <li class="fragment">Läs dokumentationen och hitta rätt endpoint.</li>
+                        <li class="fragment">Hämta och skriv ut hela svaret.</li>
+                        <li class="fragment">Välj den data programmet behöver.</li>
+                        <li class="fragment">Lägg till statuskontroll och felhantering.</li>
+                        <li class="fragment">Testa både lyckade och misslyckade anrop.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Ett API låter program kommunicera.</li>
+                        <li class="fragment"><code>requests.get()</code> skickar en GET-förfrågan.</li>
+                        <li class="fragment">Statuskoden visar hur anropet gick.</li>
+                        <li class="fragment"><code>response.json()</code> tolkar JSON som Pythondata.</li>
+                        <li class="fragment"><code>raise_for_status()</code> gör HTTP-fel fångbara.</li>
+                        <li class="fragment">Nätverk och externa tjänster kräver felhantering.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

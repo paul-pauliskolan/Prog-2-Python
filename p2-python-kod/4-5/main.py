@@ -1,59 +1,68 @@
-RECEPTFIL = "recept.txt"
+import sqlite3
 
-def lägga_till_recept():
-    namn = input("Vad heter receptet? ")
-    ingredienser = input("Ange ingredienser (komma-separerade): ")
-    meddelande = f"{namn}|{ingredienser}\n"
+DB_NAMN = "recept.db"
 
-    try:
-        with open(RECEPTFIL, "a") as fil:
-            fil.write(meddelande)
-        print("Recept sparat.")
-    except Exception as e:
-        print(f"Något gick fel: {e}")
+def skapa_databas_och_tabell():
+    conn = sqlite3.connect(DB_NAMN)
+    cursor = conn.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS recept (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        namn TEXT NOT NULL,
+        ingredienser TEXT
+    )
+    """)
+    conn.commit()
+    conn.close()
 
-def visa_recept():
-    try:
-        with open(RECEPTFIL, "r") as fil:
-            rader = fil.readlines()
+def lägg_till_recept(namn, ingredienser):
+    conn = sqlite3.connect(DB_NAMN)
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
+        (namn, ingredienser)
+    )
+    conn.commit()
+    conn.close()
+    print(f"Receptet '{namn}' har lagts till.")
 
-        if not rader:
-            print("Inga recept hittades.")
-            return
+def visa_alla_recept():
+    conn = sqlite3.connect(DB_NAMN)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM recept")
+    rader = cursor.fetchall()
 
+    if not rader:
+        print("Inga recept hittades.")
+    else:
         for rad in rader:
-            namn, ingredienser = rad.strip().split("|")
-            print(f"\nRecept: {namn}")
-            print("Ingredienser:")
+            print(f"\nRecept: {rad[1]}")
+            print(f"Ingredienser: {rad[2]}")
 
-            for ing in ingredienser.split(","):
-                print(f"- {ing.strip()}")
-
-    except FileNotFoundError:
-        print("Filen med recept finns inte ännu.")
-    except Exception as e:
-        print(f"Fel vid läsning: {e}")
-
-def visa_meny():
-    print("\nMeny:")
-    print("1. Lägg till recept")
-    print("2. Visa recept")
-    print("3. Avsluta")
+    conn.close()
 
 def main():
+    skapa_databas_och_tabell()
+
     while True:
-        visa_meny()
-        val = input("Välj ett alternativ: ")
+        print("\nMeny:")
+        print("1. Lägg till recept")
+        print("2. Visa alla recept")
+        print("3. Avsluta")
+
+        val = input("Välj: ")
 
         if val == "1":
-            lägga_till_recept()
+            namn = input("Receptets namn: ")
+            ingredienser = input("Ange ingredienser (kommaseparerade): ")
+            lägg_till_recept(namn, ingredienser)
         elif val == "2":
-            visa_recept()
+            visa_alla_recept()
         elif val == "3":
-            print("Programmet avslutas.")
+            print("Avslutar programmet.")
             break
         else:
-            print("Ogiltigt val, försök igen.")
+            print("Ogiltigt val. Försök igen.")
 
 if __name__ == "__main__":
     main()

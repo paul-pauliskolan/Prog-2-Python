@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 5.2 - Projektarbete med databas</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 5.2</p>
+                    <h1>Projektarbete med databas</h1>
+                    <p class="fragment">Bygg grunden till ett eget projekt som lagrar och söker information i SQLite.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">strukturera ett eget databasprojekt</li>
+                        <li class="fragment">dela upp projektet i moduler</li>
+                        <li class="fragment">skapa tabell, lägga till, visa och söka data</li>
+                        <li class="fragment">koppla databasen till en meny</li>
+                        <li class="fragment">testa projektet stegvis</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Från plan till kod</p>
+                    <h2>Nu börjar projektarbetet</h2>
+                    <p class="fragment">I kapitel 5.1 planerade du syfte, krav och MVP.</p>
+                    <p class="fragment">Nu bygger du projektets första fungerande version.</p>
+                    <p class="fragment">Börja med databasen och de viktigaste funktionerna, inte extrafunktionerna.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Projektkrav</p>
+                    <h2>Detta måste finnas</h2>
+                    <ul>
+                        <li class="fragment">en meny i konsolen</li>
+                        <li class="fragment">en SQLite-databas med minst en tabell</li>
+                        <li class="fragment">funktioner som lägger till och visar data</li>
+                        <li class="fragment">en sökfunktion med SQL</li>
+                        <li class="fragment">minst två Pythonmoduler</li>
+                        <li class="fragment">felhantering med <code>try/except</code></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Välj idé</p>
+                    <h2>Data som passar i en tabell</h2>
+                    <ul>
+                        <li class="fragment"><strong>Bokregister:</strong> titel och författare.</li>
+                        <li class="fragment"><strong>Receptplanerare:</strong> namn och ingredienser.</li>
+                        <li class="fragment"><strong>Elevregister:</strong> namn och poäng.</li>
+                        <li class="fragment"><strong>Filmregister:</strong> titel och kategori.</li>
+                    </ul>
+                    <p class="fragment">Välj en idé där du kan lägga till, visa och söka poster.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Planera tabellen</p>
+                    <h2>Generiskt exempel: poster</h2>
+                    <pre class="code-block compact-code fragment"><code>id | namn                  | info
+1  | Bröderna Lejonhjärta | Bok i registret
+2  | Utvandrarna           | Bok i registret</code></pre>
+                    <p class="fragment"><code>id</code> identifierar raden.</p>
+                    <p class="fragment"><code>namn</code> och <code>info</code> kan anpassas till projektidén.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Projektstruktur</p>
+                    <h2>Dela upp ansvaret</h2>
+                    <pre class="code-block compact-code fragment"><code>databasprojekt/
+├── main.py
+├── databas.py
+└── poster.db</code></pre>
+                    <p class="fragment"><code>main.py</code> hanterar meny och användarinmatning.</p>
+                    <p class="fragment"><code>databas.py</code> hanterar anslutning och SQL.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">CRUD</p>
+                    <h2>Bygg grunden först</h2>
+                    <ul>
+                        <li class="fragment"><strong>Create:</strong> lägg till en post.</li>
+                        <li class="fragment"><strong>Read:</strong> visa och sök poster.</li>
+                        <li class="fragment"><strong>Update:</strong> ändra en post.</li>
+                        <li class="fragment"><strong>Delete:</strong> ta bort en post.</li>
+                    </ul>
+                    <p class="fragment">Projektets första version börjar med Create och Read.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Arbetsordning</p>
+                    <h2>Bygg i små steg</h2>
+                    <ol>
+                        <li class="fragment">Skapa databas och tabell.</li>
+                        <li class="fragment">Lägg till en hårdkodad post.</li>
+                        <li class="fragment">Visa alla poster.</li>
+                        <li class="fragment">Lägg till sökning.</li>
+                        <li class="fragment">Koppla funktionerna till menyn.</li>
+                        <li class="fragment">Lägg till felhantering och fler testfall.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">databas.py</p>
+                    <h2>Import och databasfil</h2>
+                    <pre class="code-block compact-code fragment"><code>import sqlite3
+
+DB_FIL = "poster.db"</code></pre>
+                    <p class="fragment">Alla databasfunktioner använder samma fil.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Skapa tabell</p>
+                    <h2>Projektets första funktion</h2>
+                    <pre class="code-block tiny-code fragment"><code>def skapa_tabell():
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS poster (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                namn TEXT NOT NULL,
+                info TEXT
+            )
+        """)
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print("Fel vid tabellskapande:", e)</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Testa direkt</p>
+                    <h2>Kontrollpunkt 1</h2>
+                    <pre class="code-block compact-code fragment"><code>skapa_tabell()</code></pre>
+                    <ul>
+                        <li class="fragment">Skapas filen <code>poster.db</code>?</li>
+                        <li class="fragment">Finns tabellen <code>poster</code>?</li>
+                        <li class="fragment">Har tabellen rätt kolumner?</li>
+                    </ul>
+                    <p class="fragment">Fortsätt inte förrän grunden fungerar.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Create</p>
+                    <h2>Lägg till en post</h2>
+                    <pre class="code-block compact-code fragment"><code>cursor.execute(
+    "INSERT INTO poster (namn, info) VALUES (?, ?)",
+    (namn, info)
+)
+conn.commit()</code></pre>
+                    <p class="fragment">Platshållarna <code>?</code> får värden från tuplen.</p>
+                    <p class="fragment"><code>commit()</code> sparar ändringen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Create</p>
+                    <h2>Hela funktionen</h2>
+                    <pre class="code-block tiny-code fragment"><code>def lagg_till():
+    namn = input("Ange namn: ")
+    info = input("Ange info: ")
+
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO poster (namn, info) VALUES (?, ?)",
+            (namn, info)
+        )
+        conn.commit()
+        conn.close()
+        print("Post tillagd.")
+    except Exception as e:
+        print("Kunde inte lägga till post:", e)</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Read</p>
+                    <h2>Visa alla poster</h2>
+                    <pre class="code-block compact-code fragment"><code>cursor.execute("SELECT * FROM poster")
+resultat = cursor.fetchall()
+
+if resultat:
+    for rad in resultat:
+        print(f"{rad[0]}. {rad[1]} - {rad[2]}")
+else:
+    print("Inga poster hittades.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sökning</p>
+                    <h2>Sök i två kolumner</h2>
+                    <pre class="code-block compact-code fragment"><code>cursor.execute(
+    "SELECT * FROM poster "
+    "WHERE namn LIKE ? OR info LIKE ?",
+    ("%" + sokord + "%", "%" + sokord + "%")
+)</code></pre>
+                    <p class="fragment"><code>%</code> gör att sökordet får finnas mitt i texten.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sökresultat</p>
+                    <h2>Visa träffar eller inget resultat</h2>
+                    <pre class="code-block compact-code fragment"><code>resultat = cursor.fetchall()
+
+if resultat:
+    for rad in resultat:
+        print(f"{rad[0]}. {rad[1]} - {rad[2]}")
+else:
+    print("Inga träffar.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">main.py</p>
+                    <h2>Importera databasmodulen</h2>
+                    <pre class="code-block compact-code fragment"><code>import databas
+
+def main():
+    databas.skapa_tabell()</code></pre>
+                    <p class="fragment">Tabellen skapas innan användaren kan göra menyval.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Meny</p>
+                    <h2>Projektets kommandon</h2>
+                    <pre class="code-block compact-code fragment"><code>def visa_meny():
+    print("1. Lägg till post")
+    print("2. Visa alla")
+    print("3. Sök")
+    print("4. Avsluta")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Menyval</p>
+                    <h2>Koppla val till funktioner</h2>
+                    <pre class="code-block compact-code fragment"><code>if val == "1":
+    databas.lagg_till()
+elif val == "2":
+    databas.visa_alla()
+elif val == "3":
+    databas.sok()
+elif val == "4":
+    break
+else:
+    print("Ogiltigt val.")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Ansvar</p>
+                    <h2>Menyn känner inte till SQL</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>main.py:
+databas.sok()</code></pre>
+                        <p>Huvudfilen begär en sökning.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>databas.py:
+SELECT * FROM poster ...</code></pre>
+                        <p>Databasmodulen utför sökningen.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Felhantering</p>
+                    <h2>Databasoperationer kan misslyckas</h2>
+                    <ul>
+                        <li class="fragment">Databasfilen kan inte öppnas.</li>
+                        <li class="fragment">SQL-kommandot kan vara felaktigt.</li>
+                        <li class="fragment">Tabellen eller en kolumn kan saknas.</li>
+                        <li class="fragment">Inmatningen kan vara tom eller ogiltig.</li>
+                    </ul>
+                    <p class="fragment">Visa tydliga felmeddelanden och testa felvägarna.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Testplan</p>
+                    <h2>Testa varje del separat</h2>
+                    <ol>
+                        <li class="fragment">Skapa databasen och tabellen.</li>
+                        <li class="fragment">Lägg till en post.</li>
+                        <li class="fragment">Visa alla poster.</li>
+                        <li class="fragment">Sök med en träff.</li>
+                        <li class="fragment">Sök utan träff.</li>
+                        <li class="fragment">Starta om programmet och kontrollera att data finns kvar.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Dokumentera</p>
+                    <h2>Skriv ner projektets struktur</h2>
+                    <ul>
+                        <li class="fragment">Vad är programmets syfte?</li>
+                        <li class="fragment">Vilka filer ingår?</li>
+                        <li class="fragment">Vilka tabeller och kolumner används?</li>
+                        <li class="fragment">Hur startas programmet?</li>
+                        <li class="fragment">Vilka funktioner är färdiga och vad återstår?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Bygg vidare</p>
+                    <h2>När grunden fungerar</h2>
+                    <ul>
+                        <li class="fragment">lägg till Update och Delete</li>
+                        <li class="fragment">förbättra valideringen</li>
+                        <li class="fragment">sortera eller filtrera resultat</li>
+                        <li class="fragment">skapa fler tabeller och relationer</li>
+                        <li class="fragment">bygg ett grafiskt gränssnitt senare</li>
+                    </ul>
+                    <p class="fragment">Utöka först när MVP:n är stabil och testad.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva</p>
+                    <h2>Starta ditt projekt</h2>
+                    <ol>
+                        <li class="fragment">Välj projektidé.</li>
+                        <li class="fragment">Bestäm tabell och kolumner.</li>
+                        <li class="fragment">Skapa <code>main.py</code> och <code>databas.py</code>.</li>
+                        <li class="fragment">Bygg Create och Read.</li>
+                        <li class="fragment">Lägg till sökning.</li>
+                        <li class="fragment">Testa och dokumentera varje steg.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Utgå från planen och bygg MVP:n först.</li>
+                        <li class="fragment">Separera meny och databas i olika moduler.</li>
+                        <li class="fragment">Testa databasfunktionerna innan menyn kopplas in.</li>
+                        <li class="fragment">Använd platshållare i SQL-frågor.</li>
+                        <li class="fragment">Hantera fel och dokumentera projektet.</li>
+                        <li class="fragment">Bygg Update, Delete och andra tillägg senare.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

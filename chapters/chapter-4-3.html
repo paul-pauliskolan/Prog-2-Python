@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 4.3 - Egna moduler och import</title>
+    <title>Kap 4.3 - Kodstandard och struktur</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
@@ -14,148 +14,171 @@
         <article class="chapter-main">
             <header class="chapter-hero">
                 <p class="eyebrow">Programmering nivå 2</p>
-                <h1>Kap 4.3 – Egna moduler och import</h1>
-                <p class="subtitle">Dela upp kod i flera filer och använd moduler.</p>
+                <h1>Kap 4.3 – Kodstandard och struktur</h1>
+                <p class="subtitle">Skriv kod som är lätt att läsa, förstå och underhålla.</p>
             </header>
             <section class="content-section">
                 <h2>Mål med lektionen</h2>
                 <p>När du har arbetat klart med denna lektion ska du:</p>
                 <ul>
-                    <li>Förstå vad en modul är i Python.</li>
-                    <li>Kunna skapa egna Python-filer med funktioner och klasser.</li>
-                    <li>Kunna importera och använda moduler i olika program.</li>
-                    <li>Dela upp kod i flera filer för bättre struktur.</li>
+                    <li>Förstå varför kodstandard är viktigt i programmering.</li>
+                    <li>Känna till vanliga konventioner för kodstruktur i Python.</li>
+                    <li>Kunna skriva kod som är lätt att läsa, förstå och underhålla.</li>
+                    <li>Använda kommentarer och namngivning för att förklara syfte och funktion.</li>
                 </ul>
 
                 <h2>Så här lär du dig bäst</h2>
-                <p>Börja med ett litet program du redan skrivit. Flytta några funktioner till en egen .py-fil och testa
-                    att importera dem i huvudfilen. Lägg gärna till nya funktioner för att experimentera. Undvik att
-                    kopiera hela program - tänk på modulens syfte: återanvändbara delar.</p>
+                <p>För att lära dig kodstandard behöver du jämföra bra och dåliga exempel. Läs kod från tidigare
+                    uppgifter och förbättra den enligt standard. Testa att samarbeta med en klasskamrat och se om ni kan
+                    förstå varandras kod utan att förklara muntligt. Följ riktlinjerna för ditt språk konsekvent.</p>
 
                 <h2>Centrala begrepp</h2>
                 <ul>
-                    <li><strong>modul</strong> – En fil i Python (slutar på .py) som innehåller funktioner, klasser
-                        eller variabler.</li>
-                    <li><strong>import</strong> – Används för att hämta funktionalitet från andra filer.</li>
-                    <li><strong>modulstruktur</strong> – Att dela upp ett program i flera logiska delar.</li>
+                    <li><strong>läsbarhet</strong> – Hur lätt det är för andra att förstå din kod.</li>
+                    <li><strong>indentering</strong> – Att koden har rätt avstånd och är tydligt strukturerad.</li>
+                    <li><strong>namngivning</strong> – Att använda beskrivande namn på variabler, metoder och klasser.
+                    </li>
+                    <li><strong>kommentarer</strong> – Att skriva förklaringar i koden utan att det påverkar körningen.
+                    </li>
+                    <li><strong>DRY-principen</strong> – "Don't Repeat Yourself" – undvik upprepningar i kod.</li>
                 </ul>
 
-                <h2>Innehåll och exempel</h2>
+                <h3>Exempel: Python-standard</h3>
+                <p><strong>Dåligt:</strong></p>
+                <pre><code class="language-python">def x(a):
+    return a*a</code></pre>
 
-                <h3>Hur hänger filerna ihop?</h3>
-                <p>En modul är en vanlig Python-fil som innehåller kod du vill kunna återanvända. Om filen heter
-                    <code>verktyg.py</code> blir modulens namn <code>verktyg</code>. En annan fil, till exempel
-                    <code>main.py</code>, kan importera modulen och använda funktionerna därifrån.</p>
+                <p><strong>Bättre:</strong></p>
+                <pre><code class="language-python">def square(number):
+    """Returnerar kvadraten av ett tal."""
+    return number * number</code></pre>
 
-                <pre><code class="language-python">projekt/
-├── main.py
-└── verktyg.py</code></pre>
+                <p>Texten mellan <code>"""</code> är en <strong>docstring</strong> som dokumenterar funktionen. Den kan
+                    läsas av exempelvis <code>help()</code> och olika utvecklingsverktyg. En vanlig kommentar börjar
+                    i stället med <code>#</code> och används för korta förklaringar inne i koden.</p>
 
-                <p>Det viktiga är att filerna ligger så att Python kan hitta modulen. I de första exemplen ligger
-                    <code>main.py</code> och <code>verktyg.py</code> i samma mapp.</p>
+                <ul>
+                    <li>Funktioner och variabler skrivs i snake_case.</li>
+                    <li>Kommentarer ska förklara <em>varför</em>, inte <em>vad</em> koden gör.</li>
+                    <li>Kod bryts i lagom långa delar med tydlig logik.</li>
+                </ul>
 
-                <h3>Skapa en modul: verktyg.py</h3>
-                <pre><code class="language-python">def hälsa(namn):
-    print(f"Hej, {namn}!")
+                <h2>Riktlinjer</h2>
+                <ul>
+                    <li>Skriv korta metoder – helst inte längre än 20 rader.</li>
+                    <li>Använd tomma rader för att dela upp logiska delar.</li>
+                    <li>Namnge allt så tydligt att man förstår koden utan kommentar.</li>
+                    <li>Kommentera komplex logik, inte självklarheter.</li>
+                </ul>
 
-def kvadrat(tal):
-    return tal * tal</code></pre>
+                <h2>Struktur i praktiken</h2>
+                <p>Kodstandard handlar inte bara om hur koden ser ut. Det handlar också om att dela upp programmet så
+                    att varje del har ett tydligt ansvar. En vanlig förbättring är att flytta upprepade eller
+                    svårlästa kodblock till egna funktioner.</p>
 
-                <h3>Använda modulen: main.py</h3>
-                <pre><code class="language-python">import verktyg
+                <p><strong>Dåligt strukturerat:</strong></p>
+                <pre><code class="language-python">x = 0
 
-verktyg.hälsa("Ella")
-print(verktyg.kvadrat(5))</code></pre>
-                <p>När du skriver <code>import verktyg</code> importeras hela modulen. Då behöver du skriva modulnamnet
-                    före funktionen, till exempel <code>verktyg.hälsa("Ella")</code>. Det gör det tydligt var funktionen
-                    kommer ifrån.</p>
+while True:
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
+    v = input("Val: ")
 
-                <h3>Importera bara det du behöver</h3>
-                <pre><code class="language-python">from verktyg import hälsa
+    if v == "1":
+        print(x)
+    elif v == "2":
+        x = x + 100
+    elif v == "3":
+        break</code></pre>
 
-hälsa("Leo")</code></pre>
-                <p>Med <code>from verktyg import hälsa</code> importeras bara funktionen <code>hälsa</code>. Då kan du
-                    anropa den direkt, utan <code>verktyg.</code> framför.</p>
+                <p>Koden fungerar, men namnen <code>x</code> och <code>v</code> berättar inte vad de betyder. Menyn,
+                    inmatningen och logiken ligger också blandade i samma block.</p>
 
-                <h3>Byta namn med alias</h3>
-                <pre><code class="language-python">import verktyg as v
+                <p><strong>Bättre strukturerat:</strong></p>
+                <pre><code class="language-python">def skriv_ut_meny():
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
 
-v.hälsa("Tove")</code></pre>
-                <p>Alias används när du vill ge modulen ett kortare namn i den aktuella filen. Här betyder
-                    <code>v</code> samma sak som <code>verktyg</code>.</p>
+saldo = 0
 
-                <section class="interactive-exercise" data-exercise="chapter-4-modules-import">
-                    <h2>Interaktiv övning: importera en egen modul</h2>
-                    <p>Välj importsätt och kör exemplet. Jämför hur anropet ändras beroende på om hela modulen,
-                        en funktion eller ett alias importeras.</p>
+while True:
+    skriv_ut_meny()
+    val = input("Val: ")
 
-                    <label for="chapter-4-3-module-code" class="exercise-label">verktyg.py</label>
-                    <textarea id="chapter-4-3-module-code" class="exercise-code" rows="5" spellcheck="false">def hälsa(namn):
-    print(f"Hej, {namn}!")
+    if val == "1":
+        print(saldo)
+    elif val == "2":
+        saldo += 100
+    elif val == "3":
+        break</code></pre>
 
-def kvadrat(tal):
-    return tal * tal</textarea>
+                <p>Nu säger namnen mer om syftet. Funktionen <code>skriv_ut_meny()</code> gör bara en sak: skriver ut
+                    menyn. Variabeln <code>saldo</code> är tydligare än <code>x</code>, och <code>val</code> är
+                    tydligare än <code>v</code>.</p>
 
-                    <label for="chapter-4-3-main-code" class="exercise-label">main.py</label>
-                    <textarea id="chapter-4-3-main-code" class="exercise-code" rows="5" spellcheck="false">import verktyg
+                <section class="interactive-exercise" data-exercise="chapter-4-code-style">
+                    <h2>Interaktiv övning: förbättra kodstruktur</h2>
+                    <p>Välj en förbättring och se hur den gör koden lättare att läsa. Övningen handlar om kodkvalitet,
+                        inte om att ändra vad programmet gör.</p>
 
-verktyg.hälsa("Ella")
-print(verktyg.kvadrat(5))</textarea>
+                    <label for="chapter-4-3-before" class="exercise-label">Före</label>
+                    <textarea id="chapter-4-3-before" class="exercise-code" rows="14" spellcheck="false">x = 0
+
+while True:
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
+    v = input("Val: ")
+
+    if v == "1":
+        print(x)
+    elif v == "2":
+        x = x + 100
+    elif v == "3":
+        break</textarea>
 
                     <div class="exercise-controls">
-                        <select id="chapter-4-3-mode" class="exercise-select" aria-label="Importsätt">
-                            <option value="module">import verktyg</option>
-                            <option value="function">from verktyg import hälsa</option>
-                            <option value="alias">import verktyg as v</option>
+                        <select id="chapter-4-3-improvement" class="exercise-select" aria-label="Förbättring">
+                            <option value="names">Byt till tydliga namn</option>
+                            <option value="function">Flytta menyn till en funktion</option>
+                            <option value="both">Gör båda förbättringarna</option>
                         </select>
                     </div>
 
                     <div class="exercise-controls">
-                        <button type="button" class="exercise-run">Kör import</button>
+                        <button type="button" class="exercise-run">Visa förbättring</button>
                         <button type="button" class="exercise-reset">Återställ</button>
                     </div>
 
-                    <label for="chapter-4-3-result" class="exercise-label">Resultat</label>
-                    <output id="chapter-4-3-result" class="exercise-result">Välj ett importsätt och tryck på Kör import.</output>
+                    <label for="chapter-4-3-result" class="exercise-label">Efter</label>
+                    <output id="chapter-4-3-result" class="exercise-result">Välj en förbättring och tryck på Visa förbättring.</output>
 
-                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> moduler gör att funktioner kan
-                        ligga i en egen fil och återanvändas från flera huvudprogram.</p>
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> bra struktur gör det lättare att
+                        felsöka, testa och bygga vidare på programmet i senare kapitel.</p>
                 </section>
 
                 <h2>Öva själv</h2>
-                <p>Skapa en projektmapp som heter <code>kap4-3-moduler</code>. Dela upp programmet i tre filer så att
-                    varje fil får ett tydligt ansvar.</p>
+                <p>Skapa filen <code>kap4-3-kodstruktur.py</code> i din kursmapp. Utgå från ett enkelt bankprogram och
+                    skriv om det så att koden får tydliga namn och tydliga funktioner.</p>
                 <ol>
-                    <li>Skapa <code>spelare.py</code> med klassen <code>Player</code>.</li>
-                    <li>Låt <code>Player</code> ha attributen <code>name</code> och <code>health</code>.</li>
-                    <li>Skriv metoderna <code>take_damage(amount)</code>, <code>is_alive()</code> och <code>print_status()</code>.</li>
-                    <li>Skapa <code>strid.py</code> med funktionerna <code>attack(attacker, defender, damage)</code> och <code>print_result(player1, player2)</code>.</li>
-                    <li>Skapa <code>main.py</code> som importerar <code>Player</code> från <code>spelare.py</code> och importerar hela modulen <code>strid</code>.</li>
-                    <li>Testa programmet genom att skapa två spelare, låta dem attackera varandra och skriva ut resultatet.</li>
+                    <li>Skapa funktionen <code>print_menu()</code> som skriver ut menyn.</li>
+                    <li>Skapa funktionen <code>deposit(balance, amount)</code> som returnerar ett nytt saldo.</li>
+                    <li>Skapa funktionen <code>withdraw(balance, amount)</code> som returnerar ett nytt saldo.</li>
+                    <li>Skapa funktionen <code>main()</code> som styr programmet.</li>
+                    <li>Använd tydliga variabelnamn, till exempel <code>balance</code>, <code>choice</code> och <code>amount</code>.</li>
+                    <li>Testa programmet med insättning, uttag, för stort uttag och fel menyval.</li>
                 </ol>
-                <p>Importerna i <code>main.py</code> kan se ut så här:</p>
-                <pre><code class="language-python">from spelare import Player
-import strid</code></pre>
                 <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap4-3-moduler-losningsforslag.zip" download>kap4-3-moduler-losningsforslag.zip</a>.
-                    Du kan också öppna filerna direkt:
-                    <a href="../p2-python-kod/kap4-3-moduler-losningsforslag/main.py" download>main.py</a>,
-                    <a href="../p2-python-kod/kap4-3-moduler-losningsforslag/spelare.py" download>spelare.py</a> och
-                    <a href="../p2-python-kod/kap4-3-moduler-losningsforslag/strid.py" download>strid.py</a>.
+                    <a href="../p2-python-kod/kap4-3-kodstruktur-losningsforslag.py" download>kap4-3-kodstruktur-losningsforslag.py</a>
                 </p>
-
-                <h2>Varför moduler?</h2>
-                <ul>
-                    <li>Koden blir lättare att förstå och testa.</li>
-                    <li>Du slipper duplicera kod i flera filer.</li>
-                    <li>Du kan återanvända funktioner i flera projekt.</li>
-                </ul>
 
                 <h2>Sammanfattning</h2>
                 <ul>
-                    <li>En modul är en egen .py-fil som kan importeras till andra program.</li>
-                    <li>Du kan importera hela moduler eller specifika delar.</li>
-                    <li>Moduler hjälper dig att hålla din kod organiserad och återanvändbar.</li>
+                    <li>Kodstandard gör att fler kan läsa, förstå och vidareutveckla din kod.</li>
+                    <li>Struktur och tydlighet gör dina program mer professionella.</li>
+                    <li>God kodstil är lika viktig som att programmet fungerar.</li>
                 </ul>
             </section>
 
@@ -170,68 +193,68 @@ import strid</code></pre>
         document.addEventListener('DOMContentLoaded', function () {
             if (window.renderQuiz) {
                 window.renderQuiz(document.getElementById('quiz-4-3'), {
-                    title: 'Quiz: Kap 4.3 - Egna moduler och import',
+                    title: 'Quiz: Kap 4.3 - Kodstandard och struktur',
                     questions: [
                         {
-	                            question: 'Vad är en modul i Python?',
-	                            options: [
-	                                'En särskild typ av loop',
-	                                'En fil i Python som innehåller funktioner, klasser eller variabler',
-	                                'En vanlig sträng',
-	                                'Ett felmeddelande'
-	                            ],
-	                            correct: 1,
-	                            feedback: 'Rätt, en modul är en .py-fil med kod som kan återanvändas.',
-	                            explanation: 'Moduler används för att samla funktioner, klasser och variabler i egna filer.'
-	                        },
-	                        {
-	                            question: 'Hur importerar du hela modulen `verktyg`?',
-	                            options: [
-	                                'from verktyg import import',
-	                                'import verktyg',
-	                                'use verktyg',
-	                                'load verktyg'
-	                            ],
-	                            correct: 1,
-	                            feedback: 'Rätt, då kan du använda `verktyg.hälsa()` och `verktyg.kvadrat()`.',
-	                            explanation: 'Med `import verktyg` får du tillgång till hela modulen.'
-	                        },
-	                        {
-	                            question: 'Hur importerar du bara funktionen `hälsa` från `verktyg`?',
-	                            options: [
-	                                'import hälsa from verktyg',
-	                                'from hälsa import verktyg',
-	                                'from verktyg import hälsa',
-	                                'use hälsa from verktyg'
-	                            ],
-	                            correct: 2,
-	                            feedback: 'Rätt, då kan du skriva `hälsa("Leo")` direkt.',
-	                            explanation: 'Denna syntax importerar bara den funktion du behöver.'
-	                        },
-	                        {
-	                            question: 'Vad gör aliaset `as v` i `import verktyg as v`?',
-	                            options: [
-	                                'Tar bort modulens funktioner',
-	                                'Gör modulen tom',
-	                                'Ger modulen ett kortare namn',
-	                                'Skapar en ny fil'
-	                            ],
-	                            correct: 2,
-	                            feedback: 'Ja, alias gör namnet kortare och enklare att skriva.',
-	                            explanation: 'Alias är användbart om modulnamnet är långt eller om du vill skriva mindre.'
-	                        },
-	                        {
-	                            question: 'Varför är det bra att dela upp kod i moduler?',
-	                            options: [
-	                                'Programmet blir alltid långsammare',
-	                                'Man kan inte importera längre',
-	                                'All kod måste ligga i en fil',
-	                                'Koden blir lättare att förstå och testa'
-	                            ],
-	                            correct: 3,
-	                            feedback: 'Precis, moduler gör koden mer organiserad och återanvändbar.',
-	                            explanation: 'Att dela upp kod i moduler minskar duplicering och gör projekt enklare att arbeta med.'
-	                        }
+                            question: 'Varför är kodstandard viktig?',
+                            options: [
+                                'Gör koden snabbare automatiskt',
+                                'Gör koden lättare att läsa och underhålla',
+                                'Minskar filstorleken',
+                                'Gör att koden inte kan köras'
+                            ],
+                            correct: 1,
+                            feedback: 'Rätt — kodstandard förbättrar läsbarhet och samarbete.',
+                            explanation: 'Standarder gör det enklare för andra att förstå och vidareutveckla koden.'
+                        },
+                        {
+                            question: 'Vilken namngivningskonvention används normalt för Python-funktioner?',
+                            options: [
+                                'PascalCase',
+                                'camelCase',
+                                'snake_case',
+                                'kebab-case'
+                            ],
+                            correct: 2,
+                            feedback: 'Rätt — Python-funktioner brukar skrivas i snake_case.',
+                            explanation: 'Exempel: `def calculate_total()`.'
+                        },
+                        {
+                            question: 'Vad betyder DRY-principen?',
+                            options: [
+                                'Debug, Run, Yield',
+                                'Do Repeat Yourself',
+                                'Data Readable Yet',
+                                'Don\'t Repeat Yourself — undvik upprepning'
+                            ],
+                            correct: 3,
+                            feedback: 'Rätt — DRY handlar om att undvika duplicerad kod.',
+                            explanation: 'Duplicerad kod gör underhåll svårare och ökar felrisk.'
+                        },
+                        {
+                            question: 'Vad bör kommentarer förklara i koden?',
+                            options: [
+                                'Varje rad kod ordagrant',
+                                'Varför komplex logik finns där',
+                                'Endast variabelnamn',
+                                'Hur filen kompileras'
+                            ],
+                            correct: 1,
+                            feedback: 'Rätt — kommentarer ska förklara syftet eller varför.',
+                            explanation: 'Kommentarer ska komplettera koden, inte upprepa den.'
+                        },
+                        {
+                            question: 'Vilken stil används normalt för Python-klassnamn?',
+                            options: [
+                                'snake_case',
+                                'PascalCase (CapWords)',
+                                'kebab-case',
+                                'lowercase'
+                            ],
+                            correct: 1,
+                            feedback: 'Rätt — Python-klassnamn använder CapWords/PascalCase.',
+                            explanation: 'Exempel: `class Player:` i Python följer CapWords (PascalCase).'
+                        }
                     ]
                 })
             }

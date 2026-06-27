@@ -4,8 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 4.4 - Kodstandard och struktur</title>
+    <title>Kap 4.4 - Miniuppgift: filbaserat program</title>
     <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Kap 4.4: Miniuppgift där du bygger ett filbaserat Pythonprogram med recept, menyer och felhantering.">
 </head>
 
 <body class="chapter-page">
@@ -14,248 +15,189 @@
         <article class="chapter-main">
             <header class="chapter-hero">
                 <p class="eyebrow">Programmering nivå 2</p>
-                <h1>Kap 4.4 – Kodstandard och struktur</h1>
-                <p class="subtitle">Skriv kod som är lätt att läsa, förstå och underhålla.</p>
+                <h1>Kap 4.4 – Miniuppgift: filbaserat program</h1>
+                <p class="subtitle">Bygg ett program som sparar och läser data från en textfil.</p>
             </header>
+
             <section class="content-section">
                 <h2>Mål med lektionen</h2>
-                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <p>När du har arbetat klart med denna uppgift ska du:</p>
                 <ul>
-                    <li>Förstå varför kodstandard är viktigt i programmering.</li>
-                    <li>Känna till vanliga konventioner för kodstruktur i Python.</li>
-                    <li>Kunna skriva kod som är lätt att läsa, förstå och underhålla.</li>
-                    <li>Använda kommentarer och namngivning för att förklara syfte och funktion.</li>
+                    <li>Använda filhantering för att spara och läsa data i ett Pythonprogram.</li>
+                    <li>Strukturera ett mindre program med funktioner och undantagshantering.</li>
+                    <li>Skapa användarinteraktion genom menyer och val.</li>
                 </ul>
 
                 <h2>Så här lär du dig bäst</h2>
-                <p>För att lära dig kodstandard behöver du jämföra bra och dåliga exempel. Läs kod från tidigare
-                    uppgifter och förbättra den enligt standard. Testa att samarbeta med en klasskamrat och se om ni kan
-                    förstå varandras kod utan att förklara muntligt. Följ riktlinjerna för ditt språk konsekvent.</p>
+                <p>Börja med att skapa ett enkelt menysystem. Använd funktioner för varje delmoment och inkludera
+                    <code>try/except</code>-block där användaren matar in data. Planera innan du kodar: vilken
+                    information ska sparas, var lagras den och hur läser du tillbaka den?</p>
 
-                <h2>Centrala begrepp</h2>
+                <h2>Uppgift: Receptsamling</h2>
+                <p>Skapa ett program som låter användaren:</p>
+                <ol>
+                    <li>Lägga till ett nytt recept med namn och ingredienser.</li>
+                    <li>Visa alla sparade recept.</li>
+                    <li>Spara recept i en textfil, till exempel <code>recept.txt</code>.</li>
+                    <li>Läsa in recept från filen vid programstart eller när användaren vill visa recepten.</li>
+                </ol>
+
+                <h2>Krav</h2>
                 <ul>
-                    <li><strong>läsbarhet</strong> – Hur lätt det är för andra att förstå din kod.</li>
-                    <li><strong>indentering</strong> – Att koden har rätt avstånd och är tydligt strukturerad.</li>
-                    <li><strong>namngivning</strong> – Att använda beskrivande namn på variabler, metoder och klasser.
-                    </li>
-                    <li><strong>kommentarer</strong> – Att skriva förklaringar i koden utan att det påverkar körningen.
-                    </li>
-                    <li><strong>DRY-principen</strong> – "Don't Repeat Yourself" – undvik upprepningar i kod.</li>
+                    <li>Använd en fil för lagring i textformat.</li>
+                    <li>Skapa minst tre funktioner, till exempel <code>lägga_till_recept</code>,
+                        <code>visa_recept</code> och <code>spara_recept</code>.</li>
+                    <li>Använd <code>try/except</code> vid inläsning från fil.</li>
+                    <li>Programmet ska kunna köras flera gånger utan att tidigare data försvinner.</li>
                 </ul>
 
-                <h3>Exempel: Python-standard</h3>
-                <p><strong>Dåligt:</strong></p>
-                <pre><code class="language-python">def x(a):
-    return a*a</code></pre>
+                <h2>Mallkod att utgå från</h2>
+                <pre><code class="language-python">def visa_meny():
+    print("1. Lägg till recept")
+    print("2. Visa recept")
+    print("3. Avsluta")
 
-                <p><strong>Bättre:</strong></p>
-                <pre><code class="language-python">def square(number):
-    """Returnerar kvadraten av ett tal."""
-    return number * number</code></pre>
+def main():
+    while True:
+        visa_meny()
+        val = input("Välj ett alternativ: ")
 
+        if val == "1":
+            pass  # lägga till recept
+        elif val == "2":
+            pass  # visa recept
+        elif val == "3":
+            break
+        else:
+            print("Ogiltigt val!")
+
+if __name__ == "__main__":
+    main()</code></pre>
+
+                <h2>Tips</h2>
                 <ul>
-                    <li>Funktioner och variabler skrivs i snake_case.</li>
-                    <li>Kommentarer ska förklara <em>varför</em>, inte <em>vad</em> koden gör.</li>
-                    <li>Kod bryts i lagom långa delar med tydlig logik.</li>
+                    <li>Börja smått, exempelvis med att spara endast namnet på ett recept.</li>
+                    <li>Lägg till ingredienser som en lista eller som en rad per recept.</li>
+                    <li>Testa programmet genom att stänga och öppna det igen. Finns recepten kvar?</li>
                 </ul>
 
-                <h2>Riktlinjer</h2>
+                <h2>Sammanfattning</h2>
                 <ul>
-                    <li>Skriv korta metoder – helst inte längre än 20 rader.</li>
-                    <li>Använd tomma rader för att dela upp logiska delar.</li>
-                    <li>Namnge allt så tydligt att man förstår koden utan kommentar.</li>
-                    <li>Kommentera komplex logik, inte självklarheter.</li>
+                    <li>Du har tränat på filhantering, programstruktur och användarinteraktion.</li>
+                    <li>Du har använt funktioner och undantag för att skapa ett mer robust program.</li>
+                    <li>Du har tillämpat dina kunskaper i en konkret och verklighetsnära uppgift.</li>
                 </ul>
 
-                <h2>Struktur i praktiken</h2>
-                <p>Kodstandard handlar inte bara om hur koden ser ut. Det handlar också om att dela upp programmet så
-                    att varje del har ett tydligt ansvar. En vanlig förbättring är att flytta upprepade eller
-                    svårlästa kodblock till egna funktioner.</p>
+                <h2>Lösningsförslag: Receptsamling</h2>
+                <pre><code class="language-python">RECEPTFIL = "recept.txt"
 
-                <p><strong>Dåligt strukturerat:</strong></p>
-                <pre><code class="language-python">x = 0
+def lägga_till_recept():
+    namn = input("Vad heter receptet? ")
+    ingredienser = input("Ange ingredienser (komma-separerade): ")
+    meddelande = f"{namn}|{ingredienser}\n"
 
-while True:
-    print("1. Visa saldo")
-    print("2. Sätt in 100")
+    try:
+        with open(RECEPTFIL, "a") as fil:
+            fil.write(meddelande)
+        print("Recept sparat.")
+    except Exception as e:
+        print(f"Något gick fel: {e}")
+
+def visa_recept():
+    try:
+        with open(RECEPTFIL, "r") as fil:
+            rader = fil.readlines()
+
+        if not rader:
+            print("Inga recept hittades.")
+            return
+
+        for rad in rader:
+            namn, ingredienser = rad.strip().split("|")
+            print(f"\nRecept: {namn}")
+            print("Ingredienser:")
+
+            for ing in ingredienser.split(","):
+                print(f"- {ing.strip()}")
+
+    except FileNotFoundError:
+        print("Filen med recept finns inte ännu.")
+    except Exception as e:
+        print(f"Fel vid läsning: {e}")
+
+def visa_meny():
+    print("\nMeny:")
+    print("1. Lägg till recept")
+    print("2. Visa recept")
     print("3. Avsluta")
-    v = input("Val: ")
 
-    if v == "1":
-        print(x)
-    elif v == "2":
-        x = x + 100
-    elif v == "3":
-        break</code></pre>
+def main():
+    while True:
+        visa_meny()
+        val = input("Välj ett alternativ: ")
 
-                <p>Koden fungerar, men namnen <code>x</code> och <code>v</code> berättar inte vad de betyder. Menyn,
-                    inmatningen och logiken ligger också blandade i samma block.</p>
+        if val == "1":
+            lägga_till_recept()
+        elif val == "2":
+            visa_recept()
+        elif val == "3":
+            print("Programmet avslutas.")
+            break
+        else:
+            print("Ogiltigt val, försök igen.")
 
-                <p><strong>Bättre strukturerat:</strong></p>
-                <pre><code class="language-python">def skriv_ut_meny():
-    print("1. Visa saldo")
-    print("2. Sätt in 100")
-    print("3. Avsluta")
+if __name__ == "__main__":
+    main()</code></pre>
 
-saldo = 0
+                <section class="interactive-exercise" data-exercise="chapter-4-recipe-collection">
+                    <h2>Interaktiv övning: Receptsamling</h2>
+                    <p>Testa lösningsförslaget utan att skriva till en riktig fil. Övningen simulerar
+                        <code>recept.txt</code> och visar hur <code>lägga_till_recept()</code> sparar rader och hur
+                        <code>visa_recept()</code> läser upp dem.</p>
 
-while True:
-    skriv_ut_meny()
-    val = input("Val: ")
-
-    if val == "1":
-        print(saldo)
-    elif val == "2":
-        saldo += 100
-    elif val == "3":
-        break</code></pre>
-
-                <p>Nu säger namnen mer om syftet. Funktionen <code>skriv_ut_meny()</code> gör bara en sak: skriver ut
-                    menyn. Variabeln <code>saldo</code> är tydligare än <code>x</code>, och <code>val</code> är
-                    tydligare än <code>v</code>.</p>
-
-                <section class="interactive-exercise" data-exercise="chapter-4-code-style">
-                    <h2>Interaktiv övning: förbättra kodstruktur</h2>
-                    <p>Välj en förbättring och se hur den gör koden lättare att läsa. Övningen handlar om kodkvalitet,
-                        inte om att ändra vad programmet gör.</p>
-
-                    <label for="chapter-4-4-before" class="exercise-label">Före</label>
-                    <textarea id="chapter-4-4-before" class="exercise-code" rows="14" spellcheck="false">x = 0
-
-while True:
-    print("1. Visa saldo")
-    print("2. Sätt in 100")
-    print("3. Avsluta")
-    v = input("Val: ")
-
-    if v == "1":
-        print(x)
-    elif v == "2":
-        x = x + 100
-    elif v == "3":
-        break</textarea>
+                    <label class="exercise-label">Receptdata</label>
+                    <div class="exercise-controls">
+                        <input id="chapter-4-4-name" class="exercise-text-input" type="text" value="Pannkakor" aria-label="Receptnamn">
+                        <input id="chapter-4-4-ingredients" class="exercise-text-input" type="text" value="mjölk, ägg, mjöl" aria-label="Ingredienser">
+                    </div>
 
                     <div class="exercise-controls">
-                        <select id="chapter-4-4-improvement" class="exercise-select" aria-label="Förbättring">
-                            <option value="names">Byt till tydliga namn</option>
-                            <option value="function">Flytta menyn till en funktion</option>
-                            <option value="both">Gör båda förbättringarna</option>
+                        <select id="chapter-4-4-action" class="exercise-select" aria-label="Åtgärd">
+                            <option value="add">Lägg till recept</option>
+                            <option value="show">Visa recept</option>
+                            <option value="clear">Töm recept.txt</option>
                         </select>
                     </div>
 
                     <div class="exercise-controls">
-                        <button type="button" class="exercise-run">Visa förbättring</button>
+                        <button type="button" class="exercise-run">Kör val</button>
                         <button type="button" class="exercise-reset">Återställ</button>
                     </div>
 
-                    <label for="chapter-4-4-result" class="exercise-label">Efter</label>
-                    <output id="chapter-4-4-result" class="exercise-result">Välj en förbättring och tryck på Visa förbättring.</output>
+                    <label for="chapter-4-4-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-4-4-result" class="exercise-result">Den simulerade filen recept.txt är tom.</output>
 
-                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> bra struktur gör det lättare att
-                        felsöka, testa och bygga vidare på programmet i senare kapitel.</p>
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> lösningen sparar varje recept
+                        som en rad i formatet <code>namn|ingredienser</code>. När recepten visas delas raden först vid
+                        <code>|</code> och ingredienserna delas sedan vid kommatecken.</p>
                 </section>
 
-                <h2>Öva själv</h2>
-                <p>Skapa filen <code>kap4-4-kodstruktur.py</code> i din kursmapp. Utgå från ett enkelt bankprogram och
-                    skriv om det så att koden får tydliga namn och tydliga funktioner.</p>
-                <ol>
-                    <li>Skapa funktionen <code>print_menu()</code> som skriver ut menyn.</li>
-                    <li>Skapa funktionen <code>deposit(balance, amount)</code> som returnerar ett nytt saldo.</li>
-                    <li>Skapa funktionen <code>withdraw(balance, amount)</code> som returnerar ett nytt saldo.</li>
-                    <li>Skapa funktionen <code>main()</code> som styr programmet.</li>
-                    <li>Använd tydliga variabelnamn, till exempel <code>balance</code>, <code>choice</code> och <code>amount</code>.</li>
-                    <li>Testa programmet med insättning, uttag, för stort uttag och fel menyval.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap4-4-kodstruktur-losningsforslag.py" download>kap4-4-kodstruktur-losningsforslag.py</a>
-                </p>
-
-                <h2>Sammanfattning</h2>
+                <h2>Funktioner i lösningen</h2>
                 <ul>
-                    <li>Kodstandard gör att fler kan läsa, förstå och vidareutveckla din kod.</li>
-                    <li>Struktur och tydlighet gör dina program mer professionella.</li>
-                    <li>God kodstil är lika viktig som att programmet fungerar.</li>
+                    <li><strong>lägga_till_recept()</strong> - Sparar recept i formatet
+                        <code>Receptnamn|ing1,ing2,...</code>.</li>
+                    <li><strong>visa_recept()</strong> - Läser filen, delar upp varje rad och skriver ut innehållet.</li>
+                    <li><strong>main()</strong> - Styr menyval och programflöde.</li>
                 </ul>
-            </section>
 
-            <div id="quiz-4-4" aria-label="Quiz Kap 4.4"></div>
+                <p>Lösningen är enkel men visar strukturerad kod, användning av <code>try/except</code> för felhantering
+                    och filhantering med append och <code>readlines()</code>.</p>
+            </section>
 
             <p><a href="chapter-4.html">Tillbaka till Kapitel 4</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
-    <script src="../js/quiz.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            if (window.renderQuiz) {
-                window.renderQuiz(document.getElementById('quiz-4-4'), {
-                    title: 'Quiz: Kap 4.4 - Kodstandard och struktur',
-                    questions: [
-                        {
-                            question: 'Varför är kodstandard viktig?',
-                            options: [
-                                'Gör koden snabbare automatiskt',
-                                'Gör koden lättare att läsa och underhålla',
-                                'Minskar filstorleken',
-                                'Gör att koden inte kan köras'
-                            ],
-                            correct: 1,
-                            feedback: 'Rätt — kodstandard förbättrar läsbarhet och samarbete.',
-                            explanation: 'Standarder gör det enklare för andra att förstå och vidareutveckla koden.'
-                        },
-                        {
-                            question: 'Vilken namngivningskonvention används normalt för Python-funktioner?',
-                            options: [
-                                'PascalCase',
-                                'camelCase',
-                                'snake_case',
-                                'kebab-case'
-                            ],
-                            correct: 2,
-                            feedback: 'Rätt — Python-funktioner brukar skrivas i snake_case.',
-                            explanation: 'Exempel: `def calculate_total()`.'
-                        },
-                        {
-                            question: 'Vad betyder DRY-principen?',
-                            options: [
-                                'Debug, Run, Yield',
-                                'Do Repeat Yourself',
-                                'Data Readable Yet',
-                                'Don\'t Repeat Yourself — undvik upprepning'
-                            ],
-                            correct: 3,
-                            feedback: 'Rätt — DRY handlar om att undvika duplicerad kod.',
-                            explanation: 'Duplicerad kod gör underhåll svårare och ökar felrisk.'
-                        },
-                        {
-                            question: 'Vad bör kommentarer förklara i koden?',
-                            options: [
-                                'Varje rad kod ordagrant',
-                                'Varför komplex logik finns där',
-                                'Endast variabelnamn',
-                                'Hur filen kompileras'
-                            ],
-                            correct: 1,
-                            feedback: 'Rätt — kommentarer ska förklara syftet eller varför.',
-                            explanation: 'Kommentarer ska komplettera koden, inte upprepa den.'
-                        },
-                        {
-                            question: 'Vilken stil används normalt för Python-klassnamn?',
-                            options: [
-                                'snake_case',
-                                'PascalCase (CapWords)',
-                                'kebab-case',
-                                'lowercase'
-                            ],
-                            correct: 1,
-                            feedback: 'Rätt — Python-klassnamn använder CapWords/PascalCase.',
-                            explanation: 'Exempel: `class Player:` i Python följer CapWords (PascalCase).'
-                        }
-                    ]
-                })
-            }
-        })
-    </script>
 </body>
 
 </html>

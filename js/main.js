@@ -196,13 +196,13 @@ const LESSON_ORDER = [
   "chapter-3-6.html",
   "chapter-3-7.html",
   "chapter-3-8.html",
+  "chapter-3-9.html",
   "chapter-4-1.html",
   "chapter-4-2.html",
   "chapter-4-3.html",
   "chapter-4-4.html",
   "chapter-4-5.html",
   "chapter-4-6.html",
-  "chapter-4-7.html",
   "chapter-5-1.html",
   "chapter-5-2.html",
   "chapter-5-3.html",
@@ -2274,9 +2274,9 @@ function runChapterFourExceptionCasesExercise(exercise) {
   resetExercise();
 }
 
-function runChapterFourModulesImportExercise(exercise) {
+function runChapterThreeModulesImportExercise(exercise) {
   const modeInput = exercise.querySelector(".exercise-select");
-  const mainCode = exercise.querySelector("#chapter-4-3-main-code");
+  const mainCode = exercise.querySelector("#chapter-3-7-main-code");
   const button = exercise.querySelector(".exercise-run");
   const resetButton = exercise.querySelector(".exercise-reset");
   const result = exercise.querySelector(".exercise-result");
@@ -2421,8 +2421,8 @@ while True:
 }
 
 function runChapterFourRecipeCollectionExercise(exercise) {
-  const nameInput = exercise.querySelector("#chapter-4-5-name");
-  const ingredientsInput = exercise.querySelector("#chapter-4-5-ingredients");
+  const nameInput = exercise.querySelector("#chapter-4-4-name");
+  const ingredientsInput = exercise.querySelector("#chapter-4-4-ingredients");
   const actionInput = exercise.querySelector(".exercise-select");
   const button = exercise.querySelector(".exercise-run");
   const resetButton = exercise.querySelector(".exercise-reset");
@@ -2527,8 +2527,8 @@ function runChapterFourRecipeCollectionExercise(exercise) {
 }
 
 function runChapterFourSqliteRecipesExercise(exercise) {
-  const nameInput = exercise.querySelector("#chapter-4-6-name");
-  const ingredientsInput = exercise.querySelector("#chapter-4-6-ingredients");
+  const nameInput = exercise.querySelector("#chapter-4-5-name");
+  const ingredientsInput = exercise.querySelector("#chapter-4-5-ingredients");
   const actionInput = exercise.querySelector(".exercise-select");
   const button = exercise.querySelector(".exercise-run");
   const resetButton = exercise.querySelector(".exercise-reset");
@@ -2645,9 +2645,9 @@ function runChapterFourSqliteRecipesExercise(exercise) {
 }
 
 function runChapterFourLibrarySqliteExercise(exercise) {
-  const titleInput = exercise.querySelector("#chapter-4-7-title");
-  const authorInput = exercise.querySelector("#chapter-4-7-author");
-  const searchInput = exercise.querySelector("#chapter-4-7-search");
+  const titleInput = exercise.querySelector("#chapter-4-6-title");
+  const authorInput = exercise.querySelector("#chapter-4-6-author");
+  const searchInput = exercise.querySelector("#chapter-4-6-search");
   const actionInput = exercise.querySelector(".exercise-select");
   const button = exercise.querySelector(".exercise-run");
   const resetButton = exercise.querySelector(".exercise-reset");
@@ -3498,8 +3498,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelectorAll('[data-exercise="chapter-4-exception-cases"]')
     .forEach(runChapterFourExceptionCasesExercise);
   document
-    .querySelectorAll('[data-exercise="chapter-4-modules-import"]')
-    .forEach(runChapterFourModulesImportExercise);
+    .querySelectorAll('[data-exercise="chapter-3-modules-import"]')
+    .forEach(runChapterThreeModulesImportExercise);
   document
     .querySelectorAll('[data-exercise="chapter-4-code-style"]')
     .forEach(runChapterFourCodeStyleExercise);

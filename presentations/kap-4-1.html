@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 4.1 - Läsa och skriva till filer</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 4.1</p>
+                    <h1>Läsa och skriva till filer</h1>
+                    <p class="fragment">Spara data så att den finns kvar efter att programmet har avslutats.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">skriva text till en fil</li>
+                        <li class="fragment">lägga till text utan att radera det gamla innehållet</li>
+                        <li class="fragment">läsa innehållet från en textfil</li>
+                        <li class="fragment">använda <code>with</code> för att stänga filer automatiskt</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Problemet</p>
+                    <h2>Variabler är tillfälliga</h2>
+                    <pre class="code-block compact-code fragment"><code>name = "Anna"
+score = 120</code></pre>
+                    <p class="fragment">Värdena finns medan programmet körs.</p>
+                    <p class="fragment">När programmet avslutas försvinner de ur minnet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lösningen</p>
+                    <h2>En fil finns kvar</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Programmet körs
+name = "Anna"</code></pre>
+                        <p>Programmet skriver värdet till en fil.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>namn.txt
+Anna</code></pre>
+                        <p>Filen finns kvar efter att programmet har avslutats.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">open()</p>
+                    <h2>Öppna filen i rätt läge</h2>
+                    <pre class="code-block compact-code fragment"><code>open("exempel.txt", "w")</code></pre>
+                    <ul>
+                        <li class="fragment"><code>"exempel.txt"</code> är filens namn.</li>
+                        <li class="fragment"><code>"w"</code> är filläget.</li>
+                        <li class="fragment">Filläget bestämmer vad programmet får göra med filen.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Fillägen</p>
+                    <h2><code>w</code>, <code>a</code> och <code>r</code></h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>"w"</code></pre>
+                        <p><strong>write:</strong> skriv från början och ta bort gammalt innehåll.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>"a"</code></pre>
+                        <p><strong>append:</strong> lägg till sist i filen.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>"r"</code></pre>
+                        <p><strong>read:</strong> läs filen utan att skriva.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Skriva</p>
+                    <h2>Skriv med läget <code>"w"</code></h2>
+                    <pre class="code-block compact-code fragment"><code>with open("exempel.txt", "w") as fil:
+    fil.write("Hej filvärlden!\n")
+    fil.write("Denna text skrivs till filen.")</code></pre>
+                    <p class="fragment"><code>write()</code> skriver exakt texten som skickas in.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Läs koden</p>
+                    <h2>Vad betyder första raden?</h2>
+                    <pre class="code-block compact-code fragment"><code>with open("exempel.txt", "w") as fil:</code></pre>
+                    <ul>
+                        <li class="fragment"><code>open()</code> öppnar eller skapar filen.</li>
+                        <li class="fragment"><code>"w"</code> öppnar den för skrivning.</li>
+                        <li class="fragment"><code>as fil</code> ger det öppnade filobjektet namnet
+                            <code>fil</code>.</li>
+                        <li class="fragment">Den indragna koden arbetar med filen.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Resultat</p>
+                    <h2>Vad innehåller filen?</h2>
+                    <pre class="code-block compact-code fragment"><code>Hej filvärlden!
+Denna text skrivs till filen.</code></pre>
+                    <p class="fragment"><code>\n</code> skapar radbrytningen efter den första texten.</p>
+                    <p class="fragment"><code>write()</code> lägger inte till radbrytningar automatiskt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Varning</p>
+                    <h2><code>"w"</code> skriver över filen</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Före:
+Gammal text</code></pre>
+                    </div>
+                    <pre class="code-block compact-code fragment"><code>with open("exempel.txt", "w") as fil:
+    fil.write("Ny text")</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Efter:
+Ny text</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lägga till</p>
+                    <h2>Använd <code>"a"</code> för append</h2>
+                    <pre class="code-block compact-code fragment"><code>with open("exempel.txt", "a") as fil:
+    fil.write("\nEn ny rad läggs till.")</code></pre>
+                    <p class="fragment">Det gamla innehållet ligger kvar.</p>
+                    <p class="fragment">Den nya texten läggs sist i filen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Före och efter</p>
+                    <h2>Effekten av <code>"a"</code></h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Före:
+Hej filvärlden!
+Denna text skrivs till filen.</code></pre>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Efter:
+Hej filvärlden!
+Denna text skrivs till filen.
+En ny rad läggs till.</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Läsa</p>
+                    <h2>Läs med läget <code>"r"</code></h2>
+                    <pre class="code-block compact-code fragment"><code>with open("exempel.txt", "r") as fil:
+    innehåll = fil.read()
+
+print(innehåll)</code></pre>
+                    <p class="fragment"><code>read()</code> läser hela filen som en sträng.</p>
+                    <p class="fragment">Strängen sparas i variabeln <code>innehåll</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktigt</p>
+                    <h2>Filen måste finnas vid <code>"r"</code></h2>
+                    <pre class="code-block compact-code fragment"><code>with open("saknas.txt", "r") as fil:
+    innehåll = fil.read()</code></pre>
+                    <p class="fragment">Om filen inte finns uppstår <code>FileNotFoundError</code>.</p>
+                    <p class="fragment"><code>"w"</code> och <code>"a"</code> kan däremot skapa filen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">with</p>
+                    <h2>Filen stängs automatiskt</h2>
+                    <pre class="code-block compact-code fragment"><code>with open("exempel.txt", "r") as fil:
+    innehåll = fil.read()
+
+# Här är filen stängd.</code></pre>
+                    <p class="fragment"><code>with</code> stänger filen när blocket är färdigt.</p>
+                    <p class="fragment">Det sker även om ett fel uppstår inne i blocket.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Hela flödet</p>
+                    <h2>Skriv, lägg till och läs</h2>
+                    <pre class="code-block tiny-code fragment"><code>with open("exempel.txt", "w") as fil:
+    fil.write("Första raden\n")
+
+with open("exempel.txt", "a") as fil:
+    fil.write("Andra raden\n")
+
+with open("exempel.txt", "r") as fil:
+    innehåll = fil.read()
+
+print(innehåll)</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Första raden
+Andra raden</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Tillämpning</p>
+                    <h2>Spara ett recept</h2>
+                    <pre class="code-block compact-code fragment"><code>def spara_recept(namn, ingredienser):
+    with open("recept.txt", "a") as fil:
+        fil.write(f"Recept: {namn}\n")
+        for ingrediens in ingredienser:
+            fil.write(f"- {ingrediens}\n")</code></pre>
+                    <p class="fragment">Varje nytt recept läggs sist i filen.</p>
+                    <p class="fragment">Informationen finns kvar nästa gång programmet körs.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Anteckningsprogram</h2>
+                    <ol>
+                        <li class="fragment">Använd filen <code>anteckningar.txt</code>.</li>
+                        <li class="fragment">Skriv <code>add_note(note)</code> med läget <code>"a"</code>.</li>
+                        <li class="fragment">Skriv <code>show_notes()</code> med läget <code>"r"</code>.</li>
+                        <li class="fragment">Lägg till minst två anteckningar.</li>
+                        <li class="fragment">Kör programmet igen och kontrollera att de finns kvar.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment"><code>"w"</code> skriver från början och raderar gammalt innehåll.</li>
+                        <li class="fragment"><code>"a"</code> lägger till sist i filen.</li>
+                        <li class="fragment"><code>"r"</code> läser från en befintlig fil.</li>
+                        <li class="fragment"><code>write()</code> skriver text och <code>read()</code> läser text.</li>
+                        <li class="fragment"><code>with</code> stänger filen automatiskt.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

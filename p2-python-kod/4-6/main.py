@@ -1,68 +1,33 @@
-import sqlite3
+import databas
 
-DB_NAMN = "recept.db"
-
-def skapa_databas_och_tabell():
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS recept (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        namn TEXT NOT NULL,
-        ingredienser TEXT
-    )
-    """)
-    conn.commit()
-    conn.close()
-
-def lägg_till_recept(namn, ingredienser):
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
-        (namn, ingredienser)
-    )
-    conn.commit()
-    conn.close()
-    print(f"Receptet '{namn}' har lagts till.")
-
-def visa_alla_recept():
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM recept")
-    rader = cursor.fetchall()
-
-    if not rader:
-        print("Inga recept hittades.")
-    else:
-        for rad in rader:
-            print(f"\nRecept: {rad[1]}")
-            print(f"Ingredienser: {rad[2]}")
-
-    conn.close()
+def visa_meny():
+    print("\nMeny:")
+    print("1. Lägg till bok")
+    print("2. Sök bok")
+    print("3. Visa alla böcker")
+    print("4. Avsluta")
 
 def main():
-    skapa_databas_och_tabell()
+    databas.skapa_databas()
 
     while True:
-        print("\nMeny:")
-        print("1. Lägg till recept")
-        print("2. Visa alla recept")
-        print("3. Avsluta")
-
-        val = input("Välj: ")
+        visa_meny()
+        val = input("Välj alternativ: ")
 
         if val == "1":
-            namn = input("Receptets namn: ")
-            ingredienser = input("Ange ingredienser (kommaseparerade): ")
-            lägg_till_recept(namn, ingredienser)
+            titel = input("Titel: ")
+            forfattare = input("Författare: ")
+            databas.lagg_till_bok(titel, forfattare)
         elif val == "2":
-            visa_alla_recept()
+            nyckelord = input("Sökord (titel/författare): ")
+            databas.sok_bok(nyckelord)
         elif val == "3":
-            print("Avslutar programmet.")
+            databas.visa_alla_bocker()
+        elif val == "4":
+            print("Avslutar...")
             break
         else:
-            print("Ogiltigt val. Försök igen.")
+            print("Ogiltigt val.")
 
 if __name__ == "__main__":
     main()

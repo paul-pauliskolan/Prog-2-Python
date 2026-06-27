@@ -4,10 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 3.7 - Objektorienterat projekt</title>
+    <title>Kap 3.7 - Egna moduler och import</title>
     <link rel="stylesheet" href="../css/style.css">
-    <meta name="description"
-        content="Kap 3.7: Planera och bygg ett objektorienterat Pythonprojekt med flera samverkande klasser.">
 </head>
 
 <body class="chapter-page">
@@ -16,349 +14,227 @@
         <article class="chapter-main">
             <header class="chapter-hero">
                 <p class="eyebrow">Programmering nivå 2</p>
-                <h1>Kap 3.7 – Objektorienterat projekt</h1>
-                <p class="subtitle">Planera, strukturera och bygg ett projekt med flera samverkande klasser.</p>
+                <h1>Kap 3.7 – Egna moduler och import</h1>
+                <p class="subtitle">Dela upp kod i flera filer och använd moduler.</p>
             </header>
-
             <section class="content-section">
                 <h2>Mål med lektionen</h2>
                 <p>När du har arbetat klart med denna lektion ska du:</p>
                 <ul>
-                    <li>Självständigt kunna planera och strukturera ett objektorienterat program.</li>
-                    <li>Använda flera samverkande klasser med inkapsling, relationer och metodanrop.</li>
-                    <li>Skapa kod som är organiserad, dokumenterad och återanvändbar.</li>
+                    <li>Förstå vad en modul är i Python.</li>
+                    <li>Kunna skapa egna Python-filer med funktioner och klasser.</li>
+                    <li>Kunna importera och använda moduler i olika program.</li>
+                    <li>Dela upp kod i flera filer för bättre struktur.</li>
                 </ul>
 
                 <h2>Så här lär du dig bäst</h2>
-                <p>Börja med att rita ett klassdiagram över ditt projekt. Fundera över vilka objekt som behövs, hur de
-                    ska kommunicera och vilka metoder varje klass ska ha. Bygg först en enkel version och testa varje
-                    del
-                    för sig innan du sätter ihop helheten. Kommentera din kod tydligt.</p>
+                <p>Börja med ett litet program du redan skrivit. Flytta några funktioner till en egen .py-fil och testa
+                    att importera dem i huvudfilen. Lägg gärna till nya funktioner för att experimentera. Undvik att
+                    kopiera hela program - tänk på modulens syfte: återanvändbara delar.</p>
 
                 <h2>Centrala begrepp</h2>
                 <ul>
-                    <li><strong>Klassstruktur:</strong> hur du planerar upp programmet i olika klasser.</li>
-                    <li><strong>Objektsamverkan:</strong> hur objekten kommunicerar och använder varandra.</li>
-                    <li><strong>Modularisering:</strong> att dela upp programmet i separata, återanvändbara delar.</li>
-                    <li><strong>Projektmappstruktur:</strong> hur du organiserar filer och moduler i Python.</li>
+                    <li><strong>modul</strong> – En fil i Python (slutar på .py) som innehåller funktioner, klasser
+                        eller variabler.</li>
+                    <li><strong>import</strong> – Används för att hämta funktionalitet från andra filer.</li>
+                    <li><strong>modulstruktur</strong> – Att dela upp ett program i flera logiska delar.</li>
                 </ul>
 
-                <h2>Uppgift: planera och skapa ett OOP-baserat projekt</h2>
-                <p>Du ska skapa ett mindre Pythonprojekt där flera klasser samarbetar. Projektet ska ha en tydlig
-                    struktur, ett klassdiagram och kod som visar att du förstår objektorienterad programmering.</p>
+                <h2>Innehåll och exempel</h2>
 
-                <h2>Förslag på projektidéer</h2>
+                <h3>Hur hänger filerna ihop?</h3>
+                <p>En modul är en vanlig Python-fil som innehåller kod du vill kunna återanvända. Om filen heter
+                    <code>verktyg.py</code> blir modulens namn <code>verktyg</code>. En annan fil, till exempel
+                    <code>main.py</code>, kan importera modulen och använda funktionerna därifrån.</p>
+
+                <pre><code class="language-python">projekt/
+├── main.py
+└── verktyg.py</code></pre>
+
+                <p>Det viktiga är att filerna ligger så att Python kan hitta modulen. I de första exemplen ligger
+                    <code>main.py</code> och <code>verktyg.py</code> i samma mapp.</p>
+
+                <h3>Skapa en modul: verktyg.py</h3>
+                <pre><code class="language-python">def hälsa(namn):
+    print(f"Hej, {namn}!")
+
+def kvadrat(tal):
+    return tal * tal</code></pre>
+
+                <h3>Använda modulen: main.py</h3>
+                <pre><code class="language-python">import verktyg
+
+verktyg.hälsa("Ella")
+print(verktyg.kvadrat(5))</code></pre>
+                <p>När du skriver <code>import verktyg</code> importeras hela modulen. Då behöver du skriva modulnamnet
+                    före funktionen, till exempel <code>verktyg.hälsa("Ella")</code>. Det gör det tydligt var funktionen
+                    kommer ifrån.</p>
+
+                <h3>Importera bara det du behöver</h3>
+                <pre><code class="language-python">from verktyg import hälsa
+
+hälsa("Leo")</code></pre>
+                <p>Med <code>from verktyg import hälsa</code> importeras bara funktionen <code>hälsa</code>. Då kan du
+                    anropa den direkt, utan <code>verktyg.</code> framför.</p>
+
+                <h3>Byta namn med alias</h3>
+                <pre><code class="language-python">import verktyg as v
+
+v.hälsa("Tove")</code></pre>
+                <p>Alias används när du vill ge modulen ett kortare namn i den aktuella filen. Här betyder
+                    <code>v</code> samma sak som <code>verktyg</code>.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-3-modules-import">
+                    <h2>Interaktiv övning: importera en egen modul</h2>
+                    <p>Välj importsätt och kör exemplet. Jämför hur anropet ändras beroende på om hela modulen,
+                        en funktion eller ett alias importeras.</p>
+
+                    <label for="chapter-3-7-module-code" class="exercise-label">verktyg.py</label>
+                    <textarea id="chapter-3-7-module-code" class="exercise-code" rows="5" spellcheck="false">def hälsa(namn):
+    print(f"Hej, {namn}!")
+
+def kvadrat(tal):
+    return tal * tal</textarea>
+
+                    <label for="chapter-3-7-main-code" class="exercise-label">main.py</label>
+                    <textarea id="chapter-3-7-main-code" class="exercise-code" rows="5" spellcheck="false">import verktyg
+
+verktyg.hälsa("Ella")
+print(verktyg.kvadrat(5))</textarea>
+
+                    <div class="exercise-controls">
+                        <select id="chapter-3-7-mode" class="exercise-select" aria-label="Importsätt">
+                            <option value="module">import verktyg</option>
+                            <option value="function">from verktyg import hälsa</option>
+                            <option value="alias">import verktyg as v</option>
+                        </select>
+                    </div>
+
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör import</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-3-7-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-3-7-result" class="exercise-result">Välj ett importsätt och tryck på Kör import.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> moduler gör att funktioner kan
+                        ligga i en egen fil och återanvändas från flera huvudprogram.</p>
+                </section>
+
+                <h2>Öva själv</h2>
+                <p>Skapa en projektmapp som heter <code>kap3-7-moduler</code>. Dela upp programmet i tre filer så att
+                    varje fil får ett tydligt ansvar.</p>
                 <ol>
-                    <li>
-                        <strong>Bibliotekssystem:</strong> hantera böcker, låntagare och utlåningar.
-                        Klasser kan vara <code>Book</code>, <code>Member</code> och <code>Library</code>.
-                    </li>
-                    <li>
-                        <strong>RPG-strid:</strong> låt en spelare slåss mot fiender i turordning.
-                        Klasser kan vara <code>Character</code>, <code>Player</code>, <code>Enemy</code> och
-                        <code>Item</code>.
-                    </li>
-                    <li>
-                        <strong>Receptplanerare:</strong> låt användaren lägga till recept, söka och skapa inköpslistor.
-                        Klasser kan vara <code>Recipe</code>, <code>Ingredient</code> och <code>MealPlanner</code>.
-                    </li>
+                    <li>Skapa <code>spelare.py</code> med klassen <code>Player</code>.</li>
+                    <li>Låt <code>Player</code> ha attributen <code>name</code> och <code>health</code>.</li>
+                    <li>Skriv metoderna <code>take_damage(amount)</code>, <code>is_alive()</code> och <code>print_status()</code>.</li>
+                    <li>Skapa <code>strid.py</code> med funktionerna <code>attack(attacker, defender, damage)</code> och <code>print_result(player1, player2)</code>.</li>
+                    <li>Skapa <code>main.py</code> som importerar <code>Player</code> från <code>spelare.py</code> och importerar hela modulen <code>strid</code>.</li>
+                    <li>Testa programmet genom att skapa två spelare, låta dem attackera varandra och skriva ut resultatet.</li>
                 </ol>
-
-                <h2>Steg-för-steg-struktur</h2>
-                <ol>
-                    <li>
-                        <strong>Designa:</strong> skapa ett UML-diagram med minst tre klasser. Beskriv attribut,
-                        metoder,
-                        relationer, inkapsling och arv där det passar.
-                    </li>
-                    <li>
-                        <strong>Bygg grundstruktur:</strong> skapa en huvudfil, till exempel <code>main.py</code>, och
-                        separata filer per klass.
-                    </li>
-                    <li>
-                        <strong>Utöka med arv och logik:</strong> lägg till subklasser där det passar och använd
-                        <code>super()</code> när du bygger vidare på en basklass.
-                    </li>
-                    <li>
-                        <strong>Testa objekt och metodanrop:</strong> skapa instanser och prova att anropa metoder i ett
-                        konkret scenario.
-                    </li>
-                    <li>
-                        <strong>Dokumentera:</strong> kommentera varje klass och metod. Lägg till en README-fil där du
-                        förklarar programmets syfte och hur det körs.
-                    </li>
-                </ol>
-
-                <h2>Lösningsförslag: bibliotekssystem</h2>
-                <p>Det här är ett exempel på hur ett projekt kan struktureras. Använd det som stöd, men skapa gärna en
-                    egen variant.</p>
-
-                <pre><code class="language-mermaid">classDiagram
-    Library --> Book : contains
-    Library --> Member : registers
-    Member --> Book : borrows
-
-    class Book {
-        -string title
-        -string author
-        -bool available
-        +borrow() bool
-        +return_book() void
-        +get_title() string
-        +__str__() string
-    }
-
-    class Member {
-        -string name
-        -list borrowed_books
-        +borrow_book(book) void
-        +return_book(book) void
-        +list_books() void
-        +get_name() string
-    }
-
-    class Library {
-        -list books
-        -list members
-        +add_book(title, author) void
-        +register_member(name) void
-        +find_book(title) Book
-        +find_member(name) Member
-        +list_books() void
-    }</code></pre>
-
-                <h3>book.py</h3>
-                <pre><code>class Book:
-    def __init__(self, title, author):
-        self._title = title
-        self._author = author
-        self._available = True
-
-    def borrow(self):
-        if self._available:
-            self._available = False
-            return True
-        return False
-
-    def return_book(self):
-        self._available = True
-
-    def get_title(self):
-        return self._title
-
-    def __str__(self):
-        status = "Tillgänglig" if self._available else "Utlånad"
-        return f"{self._title} av {self._author} - {status}"</code></pre>
-
-                <h3>member.py</h3>
-                <pre><code>class Member:
-    def __init__(self, name):
-        self._name = name
-        self._borrowed_books = []
-
-    def borrow_book(self, book):
-        if book.borrow():
-            self._borrowed_books.append(book)
-            print(f"{self._name} lånade {book.get_title()}.")
-        else:
-            print(f"{book.get_title()} är redan utlånad.")
-
-    def return_book(self, book):
-        if book in self._borrowed_books:
-            book.return_book()
-            self._borrowed_books.remove(book)
-            print(f"{self._name} lämnade tillbaka {book.get_title()}.")
-        else:
-            print(f"{self._name} har inte {book.get_title()}.")
-
-    def list_books(self):
-        if not self._borrowed_books:
-            print(f"{self._name} har inga böcker.")
-        else:
-            print(f"{self._name} har lånat:")
-            for book in self._borrowed_books:
-                print(f"- {book}")
-
-    def get_name(self):
-        return self._name</code></pre>
-
-                <h3>library.py</h3>
-                <pre><code>from book import Book
-from member import Member
-
-class Library:
-    def __init__(self):
-        self._books = []
-        self._members = []
-
-    def add_book(self, title, author):
-        book = Book(title, author)
-        self._books.append(book)
-
-    def register_member(self, name):
-        member = Member(name)
-        self._members.append(member)
-
-    def find_book(self, title):
-        for book in self._books:
-            if book.get_title() == title:
-                return book
-        return None
-
-    def find_member(self, name):
-        for member in self._members:
-            if member.get_name() == name:
-                return member
-        return None
-
-    def list_books(self):
-        print("Böcker i biblioteket:")
-        for book in self._books:
-            print(f"- {book}")</code></pre>
-                <p><code>from book import Book</code> hämtar klassen <code>Book</code> från filen
-                    <code>book.py</code>. <code>from member import Member</code> hämtar klassen <code>Member</code>
-                    från <code>member.py</code>. Därför kan <code>library.py</code> skapa objekt av båda klasserna
-                    utan att klassernas kod behöver skrivas igen i samma fil.</p>
-
-                <h3>main.py</h3>
-                <pre><code>from library import Library
-
-lib = Library()
-
-lib.add_book("1984", "George Orwell")
-lib.add_book("Sagan om ringen", "J.R.R. Tolkien")
-lib.register_member("Oskar")
-
-book1 = lib.find_book("1984")
-member = lib.find_member("Oskar")
-
-if book1 and member:
-    member.borrow_book(book1)
-
-member.list_books()
-lib.list_books()</code></pre>
-                <p><code>from library import Library</code> hämtar klassen <code>Library</code> från filen
-                    <code>library.py</code>. Därefter kan <code>main.py</code> skapa biblioteksobjektet med
-                    <code>lib = Library()</code>. Ordet före <code>import</code> är filnamnet utan
-                    <code>.py</code>, och ordet efter <code>import</code> är det som hämtas från filen.</p>
-
-                <h2>Alternativa projektstrukturer</h2>
-                <h3>RPG-strid</h3>
-                <pre><code class="language-mermaid">classDiagram
-    Player --&gt; Character : inherits
-    Enemy --&gt; Character : inherits
-    Player --> Item : uses
-
-    class Character
-    Character : name
-    Character : hp
-    Character : attack
-    Character : is_alive()
-    Character : take_damage(amount)
-    Character : deal_damage(target)
-
-    class Player
-    Player : inventory
-    Player : use_item(item)
-
-    class Enemy
-    Enemy : name
-    Enemy : hp
-
-    class Item
-    Item : name
-    Item : effect
-    Item : use(target)</code></pre>
-
-                <h3>Receptplanerare</h3>
-                <pre><code class="language-mermaid">classDiagram
-    MealPlanner --> Recipe : stores
-    Recipe --> Ingredient : contains
-
-    class Ingredient {
-        -string name
-        -float amount
-        -string unit
-        +__str__() string
-    }
-
-    class Recipe {
-        -string name
-        -list ingredients
-        +add_ingredient(name, amount, unit) void
-        +list_ingredients() void
-    }
-
-    class MealPlanner {
-        -list recipes
-        +add_recipe(recipe) void
-        +list_all_recipes() void
-        +generate_shopping_list() void
-    }</code></pre>
-
-                <h2>Öva: planera ditt eget projekt</h2>
-                <ol>
-                    <li>Välj ett av förslagen ovan eller kom på ett eget projekt.</li>
-                    <li>Rita upp ett klassdiagram.</li>
-                    <li>Lista attribut och metoder för varje klass.</li>
-                    <li>Skapa kod för minst tre samverkande klasser.</li>
-                    <li>Presentera din kodstruktur och vad varje del gör.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du jämföra med ett lösningsförslag:
-                    <a href="chapter-3-7-bibliotek-losning.html">bibliotekssystem med UML</a> och
-                    <a href="../p2-python-kod/kap3-7-bibliotek-projekt-losningsforslag.py" download>nedladdningsbar Python-kod</a>.
+                <p>Importerna i <code>main.py</code> kan se ut så här:</p>
+                <pre><code class="language-python">from spelare import Player
+import strid</code></pre>
+                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
+                    <a href="../p2-python-kod/kap3-7-moduler-losningsforslag.zip" download>kap3-7-moduler-losningsforslag.zip</a>.
+                    Du kan också öppna filerna direkt:
+                    <a href="../p2-python-kod/kap3-7-moduler-losningsforslag/main.py" download>main.py</a>,
+                    <a href="../p2-python-kod/kap3-7-moduler-losningsforslag/spelare.py" download>spelare.py</a> och
+                    <a href="../p2-python-kod/kap3-7-moduler-losningsforslag/strid.py" download>strid.py</a>.
                 </p>
+
+                <h2>Varför moduler?</h2>
+                <ul>
+                    <li>Koden blir lättare att förstå och testa.</li>
+                    <li>Du slipper duplicera kod i flera filer.</li>
+                    <li>Du kan återanvända funktioner i flera projekt.</li>
+                </ul>
 
                 <h2>Sammanfattning</h2>
                 <ul>
-                    <li>Ett objektorienterat projekt bygger på samspel mellan flera klasser.</li>
-                    <li>Bra planering, till exempel via UML, gör det lättare att bygga upp strukturen.</li>
-                    <li>Du använder inkapsling, arv och modularisering för att skapa en hållbar kodbas.</li>
-                    <li>Testa varje klass för sig innan du sätter ihop hela programmet.</li>
+                    <li>En modul är en egen .py-fil som kan importeras till andra program.</li>
+                    <li>Du kan importera hela moduler eller specifika delar.</li>
+                    <li>Moduler hjälper dig att hålla din kod organiserad och återanvändbar.</li>
                 </ul>
             </section>
 
-            <p><a href="chapter-3.html">Tillbaka till Kapitel 3</a></p>
+            <div id="quiz-3-7" aria-label="Quiz Kap 3.7"></div>
+
+            <p><a href="chapter-4.html">Tillbaka till Kapitel 4</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
-    <script type="module">
-        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
-
-        mermaid.initialize({
-            startOnLoad: false,
-            theme: 'dark',
-            themeVariables: {
-                lineColor: '#f4f7fb',
-                textColor: '#f4f7fb',
-                primaryBorderColor: '#f4f7fb',
-                relationLabelColor: '#f4f7fb',
-                tertiaryTextColor: '#f4f7fb'
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-3-7'), {
+                    title: 'Quiz: Kap 3.7 - Egna moduler och import',
+                    questions: [
+                        {
+	                            question: 'Vad är en modul i Python?',
+	                            options: [
+	                                'En särskild typ av loop',
+	                                'En fil i Python som innehåller funktioner, klasser eller variabler',
+	                                'En vanlig sträng',
+	                                'Ett felmeddelande'
+	                            ],
+	                            correct: 1,
+	                            feedback: 'Rätt, en modul är en .py-fil med kod som kan återanvändas.',
+	                            explanation: 'Moduler används för att samla funktioner, klasser och variabler i egna filer.'
+	                        },
+	                        {
+	                            question: 'Hur importerar du hela modulen `verktyg`?',
+	                            options: [
+	                                'from verktyg import import',
+	                                'import verktyg',
+	                                'use verktyg',
+	                                'load verktyg'
+	                            ],
+	                            correct: 1,
+	                            feedback: 'Rätt, då kan du använda `verktyg.hälsa()` och `verktyg.kvadrat()`.',
+	                            explanation: 'Med `import verktyg` får du tillgång till hela modulen.'
+	                        },
+	                        {
+	                            question: 'Hur importerar du bara funktionen `hälsa` från `verktyg`?',
+	                            options: [
+	                                'import hälsa from verktyg',
+	                                'from hälsa import verktyg',
+	                                'from verktyg import hälsa',
+	                                'use hälsa from verktyg'
+	                            ],
+	                            correct: 2,
+	                            feedback: 'Rätt, då kan du skriva `hälsa("Leo")` direkt.',
+	                            explanation: 'Denna syntax importerar bara den funktion du behöver.'
+	                        },
+	                        {
+	                            question: 'Vad gör aliaset `as v` i `import verktyg as v`?',
+	                            options: [
+	                                'Tar bort modulens funktioner',
+	                                'Gör modulen tom',
+	                                'Ger modulen ett kortare namn',
+	                                'Skapar en ny fil'
+	                            ],
+	                            correct: 2,
+	                            feedback: 'Ja, alias gör namnet kortare och enklare att skriva.',
+	                            explanation: 'Alias är användbart om modulnamnet är långt eller om du vill skriva mindre.'
+	                        },
+	                        {
+	                            question: 'Varför är det bra att dela upp kod i moduler?',
+	                            options: [
+	                                'Programmet blir alltid långsammare',
+	                                'Man kan inte importera längre',
+	                                'All kod måste ligga i en fil',
+	                                'Koden blir lättare att förstå och testa'
+	                            ],
+	                            correct: 3,
+	                            feedback: 'Precis, moduler gör koden mer organiserad och återanvändbar.',
+	                            explanation: 'Att dela upp kod i moduler minskar duplicering och gör projekt enklare att arbeta med.'
+	                        }
+                    ]
+                })
             }
-        })
-
-        function renderMermaidForRoot(root = document) {
-            const blocks = root.querySelectorAll
-                ? root.querySelectorAll('code.language-mermaid')
-                : []
-            const toRender = []
-
-            blocks.forEach(code => {
-                if (code.dataset.mermaidProcessed) return
-
-                const container = document.createElement('div')
-                container.className = 'mermaid'
-                container.textContent = code.textContent
-                code.parentNode.replaceWith(container)
-                code.dataset.mermaidProcessed = '1'
-                toRender.push(container)
-            })
-
-            if (toRender.length) mermaid.init(undefined, toRender)
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderMermaidForRoot(document)
         })
     </script>
 </body>

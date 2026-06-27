@@ -4,9 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 4.6 - Använda SQLite-databaser</title>
+    <title>Kap 4.6 - Miniuppgift: Använda SQLite-databaser</title>
     <link rel="stylesheet" href="../css/style.css">
-    <meta name="description" content="Kap 4.6: Lär dig skapa och använda SQLite-databaser i Python med sqlite3 och SQL-frågor.">
+    <meta name="description" content="Kap 4.6: Miniuppgift där du bygger ett bibliotekssystem med SQLite, moduler och felhantering.">
 </head>
 
 <body class="chapter-page">
@@ -15,323 +15,279 @@
         <article class="chapter-main">
             <header class="chapter-hero">
                 <p class="eyebrow">Programmering nivå 2</p>
-                <h1>Kap 4.6 – Använda SQLite-databaser</h1>
-                <p class="subtitle">Skapa en databasfil, tabeller och SQL-frågor direkt från Python.</p>
+                <h1>Kap 4.6 – Miniuppgift: Använda SQLite-databaser</h1>
+                <p class="subtitle">Bygg ett litet bibliotekssystem med databas, moduler och sökning.</p>
             </header>
 
             <section class="content-section">
                 <h2>Mål med lektionen</h2>
-                <p>När du har arbetat klart med denna lektion ska du:</p>
+                <p>När du har arbetat klart med denna lektion ska du kunna:</p>
                 <ul>
-                    <li>Förstå vad en relationsdatabas är och hur SQLite fungerar.</li>
-                    <li>Kunna skapa en databas och en tabell i Python med <code>sqlite3</code>.</li>
-                    <li>Kunna lägga till, hämta och visa data från en databas.</li>
-                    <li>Kunna använda SQL-frågor direkt i Pythonkod.</li>
+                    <li>Skapa och använda en SQLite-databas i Python med biblioteket <code>sqlite3</code>.</li>
+                    <li>Skapa tabeller, lägga till poster, söka efter data och läsa ut all data från databasen.</li>
+                    <li>Strukturera din kod i moduler med funktioner för bättre överblick.</li>
+                    <li>Använda <code>try/except</code>-block för att hantera vanliga fel vid databasanslutning.</li>
                 </ul>
 
                 <h2>Så här lär du dig bäst</h2>
-                <p>Du lär dig bäst genom att bygga ett enkelt system där du först skapar en databasfil, definierar en
-                    tabell och sedan utför några grundläggande operationer: lägg till, hämta och visa data. Börja med
-                    hårdkodad data och utveckla det till att ta in data från användaren. Jämför gärna med hur du tidigare
-                    lagrade information i textfiler.</p>
+                <p>Arbeta med konkreta exempel: börja med att skapa databasen och tabellen. Skriv sedan funktioner för
+                    att lägga till data, visa alla poster och söka i databasen. Dela upp din kod i minst två moduler -
+                    en för gränssnittet och en för databasanropen. Testa dina funktioner separat och se till att varje
+                    steg fungerar innan du går vidare.</p>
 
                 <h2>Centrala begrepp</h2>
                 <ul>
-                    <li><strong>SQLite</strong> - En lätt, filbaserad databas utan server, perfekt för små projekt.</li>
-                    <li><strong>SQL</strong> - Ett språk för att prata med databaser, <em>Structured Query Language</em>.</li>
-                    <li><strong>sqlite3</strong> - Inbyggt bibliotek i Python för att arbeta med SQLite-databaser.</li>
-                    <li><strong>CRUD</strong> - Create, Read, Update, Delete: vanliga operationer i databashantering.</li>
+                    <li><strong>SQLite</strong> - En lätt, filbaserad databas som inte kräver någon server.</li>
+                    <li><strong>SQL</strong> - Structured Query Language, språket som används för att kommunicera med
+                        databasen.</li>
+                    <li><strong>Moduler</strong> - Att dela upp din kod i olika <code>.py</code>-filer med specifika
+                        funktioner.</li>
+                    <li><strong>Felhantering</strong> - Att förutse och hantera fel vid till exempel anslutning eller
+                        SQL-kommandon.</li>
                 </ul>
 
-                <h2>Innehåll och exempel</h2>
-
-                <h3>Från textfil till databas</h3>
-                <p>I kapitel 4.1 och 4.5 sparades data i textfiler. Det fungerar bra för enkla program, men det blir
-                    snabbt svårt att söka, sortera och uppdatera enskilda poster. En SQLite-databas är fortfarande en
-                    fil på datorn, men informationen ligger i tabeller med kolumner och rader.</p>
-
-                <p>I detta kapitel används recept som exempel. Tabellen <code>recept</code> kan jämföras med ett
-                    kalkylblad:</p>
+                <h2>Struktur för ditt program</h2>
+                <p>Skapa två filer i samma mapp:</p>
                 <ul>
-                    <li><code>id</code> är ett unikt nummer för varje rad.</li>
-                    <li><code>namn</code> är receptets namn.</li>
-                    <li><code>ingredienser</code> är texten med ingredienser.</li>
+                    <li><code>databas.py</code> - innehåller all kod som pratar med databasen.</li>
+                    <li><code>main.py</code> - innehåller menyn och användarens val.</li>
                 </ul>
 
-                <h3>Arbetsflödet i sqlite3</h3>
-                <p>När Python arbetar med SQLite återkommer samma grundsteg:</p>
+                <h2>Så fungerar programmet steg för steg</h2>
                 <ol>
-                    <li><code>sqlite3.connect(...)</code> öppnar eller skapar databasfilen.</li>
-                    <li><code>conn.cursor()</code> skapar ett cursor-objekt som kan köra SQL-kommandon.</li>
-                    <li><code>cursor.execute(...)</code> kör SQL, till exempel <code>CREATE TABLE</code>,
-                        <code>INSERT INTO</code> eller <code>SELECT</code>.</li>
-                    <li><code>conn.commit()</code> sparar ändringar, till exempel efter <code>INSERT INTO</code>.</li>
-                    <li><code>conn.close()</code> stänger anslutningen till databasen.</li>
+                    <li><code>main.py</code> startar programmet och anropar <code>databas.skapa_databas()</code>.</li>
+                    <li><code>databas.py</code> öppnar eller skapar filen <code>bibliotek.db</code>.</li>
+                    <li>Tabellen <code>bocker</code> skapas om den inte redan finns.</li>
+                    <li>Användaren väljer ett alternativ i menyn.</li>
+                    <li>Vid val <code>1</code> skickas titel och författare till <code>lagg_till_bok()</code>.</li>
+                    <li>Vid val <code>2</code> skickas sökordet till <code>sok_bok()</code>.</li>
+                    <li>Vid val <code>3</code> hämtas alla rader med <code>visa_alla_bocker()</code>.</li>
+                    <li>Databasfunktionerna använder <code>try/except</code> för att fånga SQLite-fel och
+                        <code>finally</code> för att stänga anslutningen.</li>
                 </ol>
 
-                <h3>Skapa databas och tabell</h3>
+                <p>Det är viktigt att <code>databas.py</code> inte bara innehåller SQL-frågorna, utan också kontrollerar
+                    vanliga fel. I den förbättrade versionen stoppas tom titel, tom författare och tom sökning innan
+                    SQL-frågan körs. Då blir programmet tydligare för användaren och lättare att felsöka.</p>
+
+                <h2>Databasmodul: databas.py</h2>
                 <pre><code class="language-python">import sqlite3
 
-conn = sqlite3.connect("recept.db")
-cursor = conn.cursor()
+DB_FIL = "bibliotek.db"
 
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS recept (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    namn TEXT NOT NULL,
-    ingredienser TEXT
-)
-""")
+def skapa_databas():
+    conn = None
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS bocker (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                titel TEXT NOT NULL,
+                forfattare TEXT NOT NULL
+            )
+        """)
+        conn.commit()
+    except sqlite3.Error as e:
+        print("Fel vid skapande av databas:", e)
+    finally:
+        if conn:
+            conn.close()
 
-conn.commit()
-conn.close()</code></pre>
+def lagg_till_bok(titel, forfattare):
+    if not titel.strip() or not forfattare.strip():
+        print("Titel och författare måste fyllas i.")
+        return
 
-                <p><code>sqlite3.connect("recept.db")</code> skapar databasfilen om den inte redan finns.
-                    <code>CREATE TABLE IF NOT EXISTS</code> gör att tabellen skapas första gången programmet körs, men
-                    inte skapas om ifall den redan finns.</p>
-                <p><code>INTEGER PRIMARY KEY AUTOINCREMENT</code> gör att varje recept får ett automatiskt id.
-                    <code>TEXT NOT NULL</code> betyder att kolumnen <code>namn</code> måste ha ett värde.</p>
+    conn = None
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute(
+            "INSERT INTO bocker (titel, forfattare) VALUES (?, ?)",
+            (titel.strip(), forfattare.strip())
+        )
+        conn.commit()
+        print("Bok tillagd!")
+    except sqlite3.Error as e:
+        print("Kunde inte lägga till bok:", e)
+    finally:
+        if conn:
+            conn.close()
 
-                <p>För att kunna titta på databasen direkt i VS Code kan du installera tillägget
-                    <strong>SQLite Viewer</strong> av publisher <strong>Florian Klampfer</strong>. När programmet har
-                    skapat filen <code>recept.db</code> kan du öppna den i VS Code och se tabellerna och raderna visuellt.</p>
+def sok_bok(nyckelord):
+    nyckelord = nyckelord.strip()
 
-                <h3>Lägga till data</h3>
-                <pre><code class="language-python">conn = sqlite3.connect("recept.db")
-cursor = conn.cursor()
+    if not nyckelord:
+        print("Skriv ett sökord.")
+        return
 
-namn = "Pannkakor"
-ingredienser = "mjölk, mjöl, ägg"
+    conn = None
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT * FROM bocker WHERE titel LIKE ? OR forfattare LIKE ?",
+            ("%" + nyckelord + "%", "%" + nyckelord + "%")
+        )
+        resultat = cursor.fetchall()
 
-cursor.execute(
-    "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
-    (namn, ingredienser)
-)
+        for bok in resultat:
+            print(f"{bok[0]}. {bok[1]} - {bok[2]}")
 
-conn.commit()
-conn.close()</code></pre>
+        if not resultat:
+            print("Inga träffar.")
+    except sqlite3.Error as e:
+        print("Sökning misslyckades:", e)
+    finally:
+        if conn:
+            conn.close()
 
-                <p>Frågetecknen i SQL-frågan är platshållare. Värdena skickas in separat i en tuple. Det gör koden
-                    tydligare och säkrare än att bygga SQL-frågan genom att klistra ihop textsträngar.</p>
-                <p><code>conn.commit()</code> är viktigt här. <code>INSERT INTO</code> förbereder ändringen, men
-                    <code>commit()</code> sparar den i databasfilen.</p>
+def visa_alla_bocker():
+    conn = None
+    try:
+        conn = sqlite3.connect(DB_FIL)
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM bocker")
+        resultat = cursor.fetchall()
 
-                <h3>Hämta och visa data</h3>
-                <pre><code class="language-python">conn = sqlite3.connect("recept.db")
-cursor = conn.cursor()
+        for bok in resultat:
+            print(f"{bok[0]}. {bok[1]} - {bok[2]}")
 
-cursor.execute("SELECT * FROM recept")
-rader = cursor.fetchall()
+        if not resultat:
+            print("Inga böcker finns än.")
+    except sqlite3.Error as e:
+        print("Kunde inte hämta böcker:", e)
+    finally:
+        if conn:
+            conn.close()</code></pre>
 
-for rad in rader:
-    print(f"Recept: {rad[1]}")
-    print(f"Ingredienser: {rad[2]}")
+                <h2>Huvudfil: main.py</h2>
+                <pre><code class="language-python">import databas
 
-conn.close()</code></pre>
-
-                <p><code>SELECT * FROM recept</code> hämtar alla rader från tabellen. Med <code>fetchall()</code> får du
-                    tillbaka raderna så att du kan loopa igenom dem i Python.</p>
-                <p>Varje rad kommer tillbaka som en tuple. I exemplet betyder <code>rad[0]</code> id,
-                    <code>rad[1]</code> receptets namn och <code>rad[2]</code> ingredienserna.</p>
-
-                <h2>Öva - Gör ett mini-receptregister</h2>
-                <ol>
-                    <li>Skapa ett Pythonprogram med tre funktioner: lägg till ett recept, visa alla recept och avsluta
-                        programmet.</li>
-                    <li>Använd SQLite för att spara recepten i en databas.</li>
-                    <li>Skapa en meny i konsolen för att välja funktion.</li>
-                </ol>
-
-                <h2>Komplett kodexempel</h2>
-                <pre><code class="language-python">import sqlite3
-
-DB_NAMN = "recept.db"
-
-def skapa_databas_och_tabell():
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS recept (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        namn TEXT NOT NULL,
-        ingredienser TEXT
-    )
-    """)
-    conn.commit()
-    conn.close()
-
-def lägg_till_recept(namn, ingredienser):
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
-        (namn, ingredienser)
-    )
-    conn.commit()
-    conn.close()
-    print(f"Receptet '{namn}' har lagts till.")
-
-def visa_alla_recept():
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM recept")
-    rader = cursor.fetchall()
-
-    if not rader:
-        print("Inga recept hittades.")
-    else:
-        for rad in rader:
-            print(f"\nRecept: {rad[1]}")
-            print(f"Ingredienser: {rad[2]}")
-
-    conn.close()
+def visa_meny():
+    print("\nMeny:")
+    print("1. Lägg till bok")
+    print("2. Sök bok")
+    print("3. Visa alla böcker")
+    print("4. Avsluta")
 
 def main():
-    skapa_databas_och_tabell()
+    databas.skapa_databas()
 
     while True:
-        print("\nMeny:")
-        print("1. Lägg till recept")
-        print("2. Visa alla recept")
-        print("3. Avsluta")
-
-        val = input("Välj: ")
+        visa_meny()
+        val = input("Välj alternativ: ")
 
         if val == "1":
-            namn = input("Receptets namn: ")
-            ingredienser = input("Ange ingredienser (kommaseparerade): ")
-            lägg_till_recept(namn, ingredienser)
+            titel = input("Titel: ")
+            forfattare = input("Författare: ")
+            databas.lagg_till_bok(titel, forfattare)
         elif val == "2":
-            visa_alla_recept()
+            nyckelord = input("Sökord (titel/författare): ")
+            databas.sok_bok(nyckelord)
         elif val == "3":
-            print("Avslutar programmet.")
+            databas.visa_alla_bocker()
+        elif val == "4":
+            print("Avslutar...")
             break
         else:
-            print("Ogiltigt val. Försök igen.")
+            print("Ogiltigt val.")
 
 if __name__ == "__main__":
     main()</code></pre>
 
-                <section class="interactive-exercise" data-exercise="chapter-4-sqlite-recipes">
-                    <h2>Interaktiv övning: simulera SQLite-recept</h2>
-                    <p>Testa det kompletta kodexemplet utan att skapa en riktig databasfil. Övningen simulerar tabellen
-                        <code>recept</code>, men visar samma steg som koden använder: skapa tabell, <code>INSERT INTO</code>,
-                        <code>commit()</code>, <code>SELECT</code> och <code>fetchall()</code>.</p>
+                <h2>Förklaring av förbättringarna</h2>
+                <h3>Varför kontrolleras tom titel och författare?</h3>
+                <p>Tabellen kräver att både <code>titel</code> och <code>forfattare</code> har värden. Därför stoppas
+                    tom inmatning redan i <code>lagg_till_bok()</code>:</p>
+                <pre><code class="language-python">if not titel.strip() or not forfattare.strip():
+    print("Titel och författare måste fyllas i.")
+    return</code></pre>
+                <p><code>strip()</code> tar bort mellanslag i början och slutet. Det gör att en användare inte kan
+                    skriva bara blanksteg och ändå få en tom bok sparad.</p>
 
-                    <label class="exercise-label">Receptdata</label>
+                <h3>Varför stoppas tom sökning?</h3>
+                <p>SQL-frågan använder <code>LIKE</code> med procenttecken runt sökordet. Om sökordet är tomt blir
+                    mönstret <code>%%</code>, vilket matchar allt. Därför är det tydligare att stoppa tom sökning och
+                    be användaren skriva ett sökord.</p>
+
+                <h3>Varför <code>sqlite3.Error</code>?</h3>
+                <p><code>except Exception</code> fångar nästan alla fel, även fel som kanske inte har med databasen att
+                    göra. <code>except sqlite3.Error</code> är mer specifikt och säger tydligare: här hanterar vi fel
+                    från SQLite eller <code>sqlite3</code>.</p>
+
+                <h3>Varför <code>finally</code>?</h3>
+                <p><code>finally</code> körs både när koden lyckas och när ett fel uppstår. Därför passar det för
+                    <code>conn.close()</code>. Databasanslutningen stängs även om något går fel efter att anslutningen
+                    har öppnats.</p>
+
+                <h3>Varför delas koden i två filer?</h3>
+                <p><code>main.py</code> ansvarar för användarens val. <code>databas.py</code> ansvarar för databasen.
+                    Det gör programmet lättare att läsa, testa och bygga vidare på. Om du senare vill skapa ett grafiskt
+                    gränssnitt kan du återanvända <code>databas.py</code> utan att skriva om SQL-koden.</p>
+
+                <section class="interactive-exercise" data-exercise="chapter-4-library-sqlite">
+                    <h2>Interaktiv övning: hela bibliotekssystemet</h2>
+                    <p>Testa hur <code>main.py</code> och <code>databas.py</code> samarbetar. Övningen simulerar
+                        <code>bibliotek.db</code> och tabellen <code>bocker</code>, men visar samma SQL-steg som
+                        programmet använder.</p>
+
+                    <label class="exercise-label">Bokdata</label>
                     <div class="exercise-controls">
-                        <input id="chapter-4-6-name" class="exercise-text-input" type="text" value="Pannkakor" aria-label="Receptnamn">
-                        <input id="chapter-4-6-ingredients" class="exercise-text-input" type="text" value="mjölk, mjöl, ägg" aria-label="Ingredienser">
+                        <input id="chapter-4-6-title" class="exercise-title-input" type="text" value="Bröderna Lejonhjärta" aria-label="Titel">
+                        <input id="chapter-4-6-author" class="exercise-author-input" type="text" value="Astrid Lindgren" aria-label="Författare">
+                        <input id="chapter-4-6-search" class="exercise-search-input" type="text" value="Bröderna" aria-label="Sökord">
                     </div>
 
                     <div class="exercise-controls">
-                        <select id="chapter-4-6-action" class="exercise-select" aria-label="Databasåtgärd">
-                            <option value="create">Skapa databas och tabell</option>
-                            <option value="insert">Lägg till recept</option>
-                            <option value="select">Visa alla recept</option>
+                        <select id="chapter-4-6-action" class="exercise-select" aria-label="Menyval">
+                            <option value="create">Starta programmet och skapa databas</option>
+                            <option value="add">1. Lägg till bok</option>
+                            <option value="search">2. Sök bok</option>
+                            <option value="show">3. Visa alla böcker</option>
+                            <option value="exit">4. Avsluta</option>
                             <option value="reset">Töm simuleringen</option>
                         </select>
                     </div>
 
                     <div class="exercise-controls">
-                        <button type="button" class="exercise-run">Kör databassteg</button>
+                        <button type="button" class="exercise-run">Kör menyval</button>
                         <button type="button" class="exercise-reset">Återställ</button>
                     </div>
 
                     <label for="chapter-4-6-result" class="exercise-label">Resultat</label>
-                    <output id="chapter-4-6-result" class="exercise-result">Databasen recept.db är inte skapad i simuleringen ännu.</output>
+                    <output id="chapter-4-6-result" class="exercise-result">Programmet är inte startat i simuleringen ännu.</output>
 
-                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> i ett riktigt program skapas
-                        filen <code>recept.db</code>. Här visas samma logik i webbläsaren så du kan se vad som händer
-                        steg för steg.</p>
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> detta visar hur menyval i
+                        <code>main.py</code> leder till funktionsanrop i <code>databas.py</code>, som i sin tur kör SQL
+                        mot databasen.</p>
                 </section>
+
+                <h2>Att testa</h2>
+                <ul>
+                    <li>Kör <code>main.py</code> och kontrollera att filen <code>bibliotek.db</code> skapas.</li>
+                    <li>Lägg till flera böcker med olika titlar och författare.</li>
+                    <li>Sök på både titel och författare för att se att <code>LIKE</code>-frågan fungerar.</li>
+                    <li>Stäng programmet, starta det igen och kontrollera att böckerna finns kvar.</li>
+                </ul>
+
+                <p>Du kan även öppna <code>bibliotek.db</code> i VS Code med tillägget <strong>SQLite Viewer</strong>
+                    av publisher <strong>Florian Klampfer</strong> för att se tabellen och raderna visuellt.</p>
 
                 <h2>Sammanfattning</h2>
                 <ul>
-                    <li>Du kan nu skapa och använda SQLite-databaser i Python.</li>
-                    <li>Du har använt SQL för att skapa tabeller, lägga till och läsa data.</li>
-                    <li>Du har byggt ett strukturerat program som lagrar information i en riktig databasfil.</li>
+                    <li>Du har skapat en komplett programstruktur för databashantering med SQLite.</li>
+                    <li>Du har använt funktioner och moduler för att organisera koden.</li>
+                    <li>Du har arbetat med SQL-kommandon för att söka, spara och läsa data.</li>
+                    <li>Du är nu redo att ta dig an Lärarbedömd uppgift 4 med god förberedelse.</li>
                 </ul>
             </section>
-
-            <div id="quiz-4-6" aria-label="Quiz Kap 4.6"></div>
 
             <p><a href="chapter-4.html">Tillbaka till Kapitel 4</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
-    <script src="../js/quiz.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            if (window.renderQuiz) {
-                window.renderQuiz(document.getElementById('quiz-4-6'), {
-                    title: 'Quiz: Kap 4.6 - Använda SQLite-databaser',
-                    questions: [
-                        {
-                            question: 'Vad är SQLite?',
-                            options: [
-                                'Ett bildformat för webben',
-                                'En lätt, filbaserad databas utan server',
-                                'Ett kommando för att starta Python',
-                                'En typ av loop i Python'
-                            ],
-                            correct: 1,
-                            feedback: 'SQLite är en filbaserad databas som passar små projekt.',
-                            explanation: 'Till skillnad från större databassystem kräver SQLite ingen separat server.'
-                        },
-                        {
-                            question: 'Vilket Pythonbibliotek används i kapitlet för att arbeta med SQLite?',
-                            options: [
-                                'sqlite3',
-                                'random',
-                                'math',
-                                'datetime'
-                            ],
-                            correct: 0,
-                            feedback: 'sqlite3 är Pythons inbyggda bibliotek för SQLite.',
-                            explanation: 'Du importerar det med import sqlite3.'
-                        },
-                        {
-                            question: 'Vad används SQL-kommandot INSERT INTO till?',
-                            options: [
-                                'För att ta bort en tabell',
-                                'För att hämta alla rader',
-                                'För att lägga till ny data i en tabell',
-                                'För att stänga databasanslutningen'
-                            ],
-                            correct: 2,
-                            feedback: 'INSERT INTO lägger till ny data.',
-                            explanation: 'I exemplet används INSERT INTO för att spara ett nytt recept i tabellen.'
-                        },
-                        {
-                            question: 'Varför används conn.commit() efter att data har lagts till?',
-                            options: [
-                                'För att spara ändringen i databasen',
-                                'För att skriva ut alla rader',
-                                'För att importera sqlite3',
-                                'För att skapa en Pythonlista'
-                            ],
-                            correct: 0,
-                            feedback: 'commit() sparar ändringar i databasen.',
-                            explanation: 'Utan commit riskerar ändringen att inte skrivas till databasfilen.'
-                        },
-                        {
-                            question: 'Vad gör fetchall() efter en SELECT-fråga?',
-                            options: [
-                                'Skapar en ny databasfil',
-                                'Raderar alla recept',
-                                'Byter namn på tabellen',
-                                'Hämtar alla rader som frågan hittade'
-                            ],
-                            correct: 3,
-                            feedback: 'fetchall() hämtar resultatet från SELECT-frågan.',
-                            explanation: 'Sedan kan du loopa igenom raderna i Python.'
-                        }
-                    ]
-                })
-            }
-        })
-    </script>
 </body>
 
 </html>

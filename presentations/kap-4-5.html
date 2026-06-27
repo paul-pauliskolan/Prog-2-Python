@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 4.5 - Använda SQLite-databaser</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 4.5</p>
+                    <h1>Använda SQLite-databaser</h1>
+                    <p class="fragment">Spara strukturerad data i tabeller och arbeta med den från Python.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad SQLite och en relationsdatabas är</li>
+                        <li class="fragment">skapa en databasfil och en tabell</li>
+                        <li class="fragment">lägga till data med <code>INSERT INTO</code></li>
+                        <li class="fragment">hämta data med <code>SELECT</code></li>
+                        <li class="fragment">använda databasresultat i Python</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Från textfil</p>
+                    <h2>Varför använda en databas?</h2>
+                    <pre class="code-block compact-code fragment"><code>Pannkakor|mjölk,ägg,mjöl
+Tomatsoppa|tomater,lök,vatten</code></pre>
+                    <p class="fragment">En textfil fungerar för enkel lagring.</p>
+                    <p class="fragment">Det blir svårare att söka, sortera och uppdatera enskilda poster.</p>
+                    <p class="fragment">En databas organiserar informationen i tabeller.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">SQLite</p>
+                    <h2>Databasen är fortfarande en fil</h2>
+                    <pre class="code-block compact-code fragment"><code>recept.db</code></pre>
+                    <ul>
+                        <li class="fragment">SQLite kräver ingen separat databasserver.</li>
+                        <li class="fragment">Tabeller och data sparas i en databasfil.</li>
+                        <li class="fragment">Det passar bra för mindre program och lokala projekt.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Relationstabell</p>
+                    <h2>Rader och kolumner</h2>
+                    <pre class="code-block compact-code fragment"><code>Tabell: recept
+
+id | namn       | ingredienser
+1  | Pannkakor  | mjölk, mjöl, ägg
+2  | Tomatsoppa | tomater, lök, vatten</code></pre>
+                    <p class="fragment">Varje rad är ett recept.</p>
+                    <p class="fragment">Varje kolumn beskriver en egenskap hos receptet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">VS Code</p>
+                    <h2>Visa databasen med SQLite Viewer</h2>
+                    <p class="fragment">Installera tillägget <strong>SQLite Viewer</strong> av
+                        <strong>Florian Klampfer</strong> i VS Code.</p>
+                    <ol>
+                        <li class="fragment">Öppna Extensions i VS Code.</li>
+                        <li class="fragment">Sök efter <code>SQLite Viewer</code>.</li>
+                        <li class="fragment">Kontrollera att publisher är <code>Florian Klampfer</code>.</li>
+                        <li class="fragment">Installera tillägget.</li>
+                        <li class="fragment">Öppna sedan filen <code>recept.db</code> för att se tabeller och rader.</li>
+                    </ol>
+                    <p class="fragment">Tillägget gör databasen lättare att inspektera, men Pythonkoden fungerar även
+                        utan det.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Begrepp</p>
+                    <h2>SQLite, SQL och sqlite3</h2>
+                    <ul>
+                        <li class="fragment"><strong>SQLite:</strong> databassystemet som sparar data i en fil.</li>
+                        <li class="fragment"><strong>SQL:</strong> språket som används för att skicka kommandon till
+                            databasen.</li>
+                        <li class="fragment"><strong>sqlite3:</strong> Pythons inbyggda bibliotek för SQLite.</li>
+                    </ul>
+                    <pre class="code-block compact-code fragment"><code>import sqlite3</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Arbetsflöde</p>
+                    <h2>Samma fem steg återkommer</h2>
+                    <ol>
+                        <li class="fragment"><code>connect()</code> öppnar databasen.</li>
+                        <li class="fragment"><code>cursor()</code> skapar ett cursor-objekt.</li>
+                        <li class="fragment"><code>execute()</code> kör SQL.</li>
+                        <li class="fragment"><code>commit()</code> sparar ändringar.</li>
+                        <li class="fragment"><code>close()</code> stänger anslutningen.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Anslutning</p>
+                    <h2>Öppna eller skapa databasen</h2>
+                    <pre class="code-block compact-code fragment"><code>conn = sqlite3.connect("recept.db")</code></pre>
+                    <p class="fragment">Om filen finns öppnas den.</p>
+                    <p class="fragment">Om filen saknas skapar SQLite den.</p>
+                    <p class="fragment"><code>conn</code> representerar anslutningen till databasen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Cursor</p>
+                    <h2>Objektet som kör SQL</h2>
+                    <pre class="code-block compact-code fragment"><code>cursor = conn.cursor()
+
+cursor.execute("SELECT * FROM recept")</code></pre>
+                    <p class="fragment"><code>cursor</code> skickar SQL-kommandon genom anslutningen.</p>
+                    <p class="fragment"><code>execute()</code> kör ett SQL-kommando.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Skapa tabell</p>
+                    <h2>Hela SQL-kommandot</h2>
+                    <pre class="code-block compact-code fragment"><code>cursor.execute("""
+CREATE TABLE IF NOT EXISTS recept (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    namn TEXT NOT NULL,
+    ingredienser TEXT
+)
+""")</code></pre>
+                    <p class="fragment">Trippelcitat gör att SQL-kommandot kan skrivas på flera rader.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">CREATE TABLE</p>
+                    <h2>Läs kommandot del för del</h2>
+                    <ul>
+                        <li class="fragment"><code>CREATE TABLE</code> skapar en tabell.</li>
+                        <li class="fragment"><code>IF NOT EXISTS</code> undviker fel om tabellen redan finns.</li>
+                        <li class="fragment"><code>recept</code> är tabellens namn.</li>
+                        <li class="fragment">Innehållet mellan parenteserna beskriver kolumnerna.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kolumner</p>
+                    <h2>Datatyper och regler</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>id INTEGER PRIMARY KEY AUTOINCREMENT</code></pre>
+                        <p>Unikt id som ökar automatiskt.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>namn TEXT NOT NULL</code></pre>
+                        <p>Text som måste ha ett värde.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>ingredienser TEXT</code></pre>
+                        <p>Text med receptets ingredienser.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Spara och stäng</p>
+                    <h2><code>commit()</code> och <code>close()</code></h2>
+                    <pre class="code-block compact-code fragment"><code>conn.commit()
+conn.close()</code></pre>
+                    <p class="fragment"><code>commit()</code> sparar genomförda ändringar i databasfilen.</p>
+                    <p class="fragment"><code>close()</code> avslutar anslutningen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lägga till</p>
+                    <h2><code>INSERT INTO</code></h2>
+                    <pre class="code-block compact-code fragment"><code>namn = "Pannkakor"
+ingredienser = "mjölk, mjöl, ägg"
+
+cursor.execute(
+    "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
+    (namn, ingredienser)
+)</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Platshållare</p>
+                    <h2>Varför används <code>?</code>?</h2>
+                    <pre class="code-block compact-code fragment"><code>VALUES (?, ?)
+(namn, ingredienser)</code></pre>
+                    <p class="fragment">Frågetecknen markerar var värden ska placeras.</p>
+                    <p class="fragment">Värdena skickas separat i en tuple.</p>
+                    <p class="fragment">sqlite3 hanterar värdena säkert utan att vi bygger SQL genom att klistra ihop
+                        strängar.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktigt</p>
+                    <h2><code>INSERT</code> behöver <code>commit()</code></h2>
+                    <pre class="code-block compact-code fragment"><code>cursor.execute(
+    "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
+    (namn, ingredienser)
+)
+
+conn.commit()</code></pre>
+                    <p class="fragment"><code>execute()</code> utför kommandot.</p>
+                    <p class="fragment"><code>commit()</code> gör ändringen bestående i filen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Hämta data</p>
+                    <h2><code>SELECT</code> och <code>fetchall()</code></h2>
+                    <pre class="code-block compact-code fragment"><code>cursor.execute("SELECT * FROM recept")
+rader = cursor.fetchall()</code></pre>
+                    <p class="fragment"><code>SELECT *</code> väljer alla kolumner.</p>
+                    <p class="fragment"><code>FROM recept</code> anger tabellen.</p>
+                    <p class="fragment"><code>fetchall()</code> hämtar alla rader som frågan hittade.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Resultat</p>
+                    <h2>Varje databasrad blir en tuple</h2>
+                    <pre class="code-block compact-code fragment"><code>rad = (1, "Pannkakor", "mjölk, mjöl, ägg")</code></pre>
+                    <ul>
+                        <li class="fragment"><code>rad[0]</code> är <code>id</code>.</li>
+                        <li class="fragment"><code>rad[1]</code> är <code>namn</code>.</li>
+                        <li class="fragment"><code>rad[2]</code> är <code>ingredienser</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Visa data</p>
+                    <h2>Loopa genom resultatet</h2>
+                    <pre class="code-block compact-code fragment"><code>for rad in rader:
+    print(f"Recept: {rad[1]}")
+    print(f"Ingredienser: {rad[2]}")</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Recept: Pannkakor
+Ingredienser: mjölk, mjöl, ägg</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">CRUD</p>
+                    <h2>Fyra vanliga databasoperationer</h2>
+                    <ul>
+                        <li class="fragment"><strong>Create:</strong> skapa eller lägga till data.</li>
+                        <li class="fragment"><strong>Read:</strong> läsa data.</li>
+                        <li class="fragment"><strong>Update:</strong> ändra befintlig data.</li>
+                        <li class="fragment"><strong>Delete:</strong> ta bort data.</li>
+                    </ul>
+                    <p class="fragment">I detta kapitel arbetar vi främst med Create och Read.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Programstruktur</p>
+                    <h2>Dela upp databasansvaret</h2>
+                    <pre class="code-block compact-code fragment"><code>skapa_databas_och_tabell()
+lägg_till_recept(namn, ingredienser)
+visa_alla_recept()
+main()</code></pre>
+                    <p class="fragment">Varje funktion öppnar databasen, gör sin uppgift och stänger anslutningen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Skapa databasen</p>
+                    <h2>Första funktionen</h2>
+                    <pre class="code-block tiny-code fragment"><code>def skapa_databas_och_tabell():
+    conn = sqlite3.connect(DB_NAMN)
+    cursor = conn.cursor()
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS recept (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        namn TEXT NOT NULL,
+        ingredienser TEXT
+    )
+    """)
+    conn.commit()
+    conn.close()</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Lägg till</p>
+                    <h2>Andra funktionen</h2>
+                    <pre class="code-block compact-code fragment"><code>def lägg_till_recept(namn, ingredienser):
+    conn = sqlite3.connect(DB_NAMN)
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
+        (namn, ingredienser)
+    )
+    conn.commit()
+    conn.close()</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Visa alla</p>
+                    <h2>Tredje funktionen</h2>
+                    <pre class="code-block compact-code fragment"><code>def visa_alla_recept():
+    conn = sqlite3.connect(DB_NAMN)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM recept")
+    rader = cursor.fetchall()
+
+    for rad in rader:
+        print(rad[1], rad[2])
+
+    conn.close()</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">main()</p>
+                    <h2>Starta i rätt ordning</h2>
+                    <pre class="code-block compact-code fragment"><code>def main():
+    skapa_databas_och_tabell()
+
+    while True:
+        # Visa meny och läs användarens val.
+        ...
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    <p class="fragment">Tabellen skapas innan menyn börjar användas.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva</p>
+                    <h2>Mini-receptregister</h2>
+                    <ol>
+                        <li class="fragment">Skapa databasfilen och tabellen.</li>
+                        <li class="fragment">Skapa en funktion som lägger till recept.</li>
+                        <li class="fragment">Skapa en funktion som visar alla recept.</li>
+                        <li class="fragment">Bygg en meny som anropar funktionerna.</li>
+                        <li class="fragment">Kör programmet flera gånger och kontrollera att datan finns kvar.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">SQLite sparar en strukturerad databas i en fil.</li>
+                        <li class="fragment"><code>sqlite3</code> kopplar Python till SQLite.</li>
+                        <li class="fragment"><code>execute()</code> kör SQL-kommandon.</li>
+                        <li class="fragment"><code>commit()</code> sparar ändringar.</li>
+                        <li class="fragment"><code>SELECT</code> och <code>fetchall()</code> hämtar rader.</li>
+                        <li class="fragment">Platshållare gör SQL-frågor tydligare och säkrare.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

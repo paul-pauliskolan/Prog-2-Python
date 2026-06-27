@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 4.2 - Try/except och felsökning</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 4.2</p>
+                    <h1>Try/except och felsökning</h1>
+                    <p class="fragment">Hantera förväntade fel och använd felmeddelanden för att hitta buggar.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad ett undantag är</li>
+                        <li class="fragment">fånga vanliga undantag med <code>try/except</code></li>
+                        <li class="fragment">välja rätt undantagstyp för felet</li>
+                        <li class="fragment">läsa en traceback och hitta felraden</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Repetition</p>
+                    <h2>Du har sett grunden tidigare</h2>
+                    <p class="fragment">I kapitel 1.6 fångade du <code>ValueError</code> vid felaktig inmatning.</p>
+                    <p class="fragment">Nu använder vi samma idé för fler feltyper.</p>
+                    <ul>
+                        <li class="fragment"><code>FileNotFoundError</code></li>
+                        <li class="fragment"><code>ZeroDivisionError</code></li>
+                        <li class="fragment"><code>TypeError</code></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Undantag</p>
+                    <h2>Ett fel uppstår under körningen</h2>
+                    <pre class="code-block compact-code fragment"><code>tal = int("hej")</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>ValueError</code></pre>
+                        <p>Texten kan inte tolkas som ett heltal.</p>
+                    </div>
+                    <p class="fragment">Utan felhantering avbryts programmet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Struktur</p>
+                    <h2>Så arbetar <code>try/except</code></h2>
+                    <pre class="code-block compact-code fragment"><code>try:
+    # Kod som kan orsaka ett fel
+except ValueError:
+    # Kod som hanterar just ValueError</code></pre>
+                    <p class="fragment">Python försöker först köra koden i <code>try</code>.</p>
+                    <p class="fragment">Rätt <code>except</code>-block körs endast om det angivna felet uppstår.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">ValueError</p>
+                    <h2>Fånga felaktig inmatning</h2>
+                    <pre class="code-block compact-code fragment"><code>try:
+    tal = int(input("Skriv ett heltal: "))
+    print(f"Du skrev: {tal}")
+except ValueError:
+    print("Fel: Du måste skriva ett heltal!")</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Två flöden</p>
+                    <h2>När inmatningen är giltig</h2>
+                    <pre class="code-block compact-code fragment"><code>Skriv ett heltal: 25</code></pre>
+                    <ol>
+                        <li class="fragment"><code>int("25")</code> ger heltalet <code>25</code>.</li>
+                        <li class="fragment">Resten av <code>try</code>-blocket körs.</li>
+                        <li class="fragment"><code>except</code>-blocket hoppas över.</li>
+                    </ol>
+                    <pre class="code-block compact-code fragment"><code>Du skrev: 25</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Två flöden</p>
+                    <h2>När inmatningen är felaktig</h2>
+                    <pre class="code-block compact-code fragment"><code>Skriv ett heltal: hej</code></pre>
+                    <ol>
+                        <li class="fragment"><code>int("hej")</code> orsakar <code>ValueError</code>.</li>
+                        <li class="fragment">Resterande kod i <code>try</code> hoppas över.</li>
+                        <li class="fragment"><code>except ValueError</code> körs.</li>
+                    </ol>
+                    <pre class="code-block compact-code fragment"><code>Fel: Du måste skriva ett heltal!</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Specifika fel</p>
+                    <h2>Fånga det fel du förväntar dig</h2>
+                    <ul>
+                        <li class="fragment"><code>ValueError</code>: värdet har fel format.</li>
+                        <li class="fragment"><code>FileNotFoundError</code>: filen finns inte.</li>
+                        <li class="fragment"><code>ZeroDivisionError</code>: division med noll.</li>
+                        <li class="fragment"><code>TypeError</code>: typer används på ett olämpligt sätt.</li>
+                    </ul>
+                    <p class="fragment">Ett specifikt <code>except</code> gör felhanteringen tydligare.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Filhantering</p>
+                    <h2>Fånga en fil som saknas</h2>
+                    <pre class="code-block compact-code fragment"><code>try:
+    with open("saknas.txt", "r") as fil:
+        innehåll = fil.read()
+except FileNotFoundError:
+    print("Filen hittades inte.")</code></pre>
+                    <p class="fragment"><code>open()</code> orsakar felet om filen inte finns.</p>
+                    <p class="fragment">Programmet visar ett begripligt meddelande i stället för att krascha.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Koppling till 4.1</p>
+                    <h2><code>"r"</code> kräver en befintlig fil</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>open("data.txt", "r")</code></pre>
+                        <p>Kan ge <code>FileNotFoundError</code>.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>except FileNotFoundError:</code></pre>
+                        <p>Hanterar det förväntade problemet.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Division</p>
+                    <h2>Fånga division med noll</h2>
+                    <pre class="code-block compact-code fragment"><code>try:
+    tal = int(input("Skriv ett tal: "))
+    resultat = 10 / tal
+    print(resultat)
+except ZeroDivisionError:
+    print("Du kan inte dividera med noll!")</code></pre>
+                    <p class="fragment">Om användaren skriver <code>0</code> uppstår <code>ZeroDivisionError</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Upptäck luckan</p>
+                    <h2>Vad händer om användaren skriver text?</h2>
+                    <pre class="code-block compact-code fragment"><code>tal = int(input("Skriv ett tal: "))</code></pre>
+                    <pre class="code-block compact-code fragment"><code>Skriv ett tal: hej</code></pre>
+                    <p class="fragment"><code>int("hej")</code> orsakar <code>ValueError</code>.</p>
+                    <p class="fragment"><code>except ZeroDivisionError</code> fångar inte ett <code>ValueError</code>.</p>
+                    <p class="fragment">Programmet behöver hantera båda förväntade felen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Flera feltyper</p>
+                    <h2>Använd flera <code>except</code>-block</h2>
+                    <pre class="code-block compact-code fragment"><code>try:
+    tal = int(input("Skriv ett tal: "))
+    resultat = 10 / tal
+    print(resultat)
+except ValueError:
+    print("Du måste skriva ett tal!")
+except ZeroDivisionError:
+    print("Du kan inte dividera med noll!")</code></pre>
+                    <p class="fragment">Varje feltyp får ett eget tydligt meddelande.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Traceback</p>
+                    <h2>Python visar var felet finns</h2>
+                    <pre class="code-block tiny-code fragment"><code>Traceback (most recent call last):
+  File "program.py", line 3, in &lt;module&gt;
+    resultat = 10 + "5"
+TypeError: unsupported operand type(s) for +: 'int' and 'str'</code></pre>
+                    <p class="fragment">Traceback visar fil, radnummer, kodrad och feltyp.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Läs traceback</p>
+                    <h2>Börja längst ned</h2>
+                    <ol>
+                        <li class="fragment"><strong>Feltyp:</strong> <code>TypeError</code>.</li>
+                        <li class="fragment"><strong>Förklaring:</strong> <code>int</code> och <code>str</code> kan inte
+                            adderas på detta sätt.</li>
+                        <li class="fragment"><strong>Plats:</strong> <code>program.py</code>, rad 3.</li>
+                        <li class="fragment"><strong>Kodrad:</strong> <code>resultat = 10 + "5"</code>.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Felsökning</p>
+                    <h2>Arbeta systematiskt</h2>
+                    <ol>
+                        <li class="fragment">Läs feltypen och felmeddelandet.</li>
+                        <li class="fragment">Gå till raden som traceback pekar på.</li>
+                        <li class="fragment">Kontrollera värden och typer strax före felet.</li>
+                        <li class="fragment">Testa en mindre del av programmet.</li>
+                        <li class="fragment">Ändra en sak och kör igen.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">print()</p>
+                    <h2>Se vad som händer före felet</h2>
+                    <pre class="code-block compact-code fragment"><code>print(f"tal = {tal}")
+print(f"type(tal) = {type(tal)}")
+
+resultat = 10 + tal</code></pre>
+                    <p class="fragment">Tillfälliga utskrifter kan visa oväntade värden och typer.</p>
+                    <p class="fragment">Ta bort eller ersätt dem när felet är löst.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Åldersprogram</h2>
+                    <ol>
+                        <li class="fragment">Läs in användarens ålder.</li>
+                        <li class="fragment">Omvandla svaret med <code>int()</code>.</li>
+                        <li class="fragment">Fånga <code>ValueError</code>.</li>
+                        <li class="fragment">Kontrollera om åldern är negativ.</li>
+                        <li class="fragment">Skriv ut ungefärligt födelseår för en giltig ålder.</li>
+                        <li class="fragment">Testa med tal, text och ett negativt tal.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment"><code>try</code> innehåller kod som kan orsaka ett fel.</li>
+                        <li class="fragment"><code>except</code> hanterar en bestämd undantagstyp.</li>
+                        <li class="fragment">Olika fel kräver olika undantagstyper.</li>
+                        <li class="fragment">En traceback visar vad som gick fel och var.</li>
+                        <li class="fragment">Felsökning ska ske stegvis och systematiskt.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

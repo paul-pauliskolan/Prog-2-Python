@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 4.3 - Kodstandard och struktur</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 4.3</p>
+                    <h1>Kodstandard och struktur</h1>
+                    <p class="fragment">Skriv kod som är lätt att läsa, förstå, testa och ändra.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara varför kodstandard behövs</li>
+                        <li class="fragment">använda tydliga namn och korrekt indentering</li>
+                        <li class="fragment">skriva kommentarer som förklarar syftet</li>
+                        <li class="fragment">dela upp kod i funktioner med tydliga ansvar</li>
+                        <li class="fragment">undvika onödig duplicering</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktigt</p>
+                    <h2>Fungerande kod kan ändå vara dålig kod</h2>
+                    <p class="fragment">Programmet kan ge rätt resultat men vara svårt att förstå.</p>
+                    <p class="fragment">Svårläst kod blir svårare att felsöka och bygga vidare på.</p>
+                    <p class="fragment">Kod läses ofta fler gånger än den skrivs.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Läsbarhet</p>
+                    <h2>Vem ska förstå koden?</h2>
+                    <ul>
+                        <li class="fragment">Du själv om några veckor.</li>
+                        <li class="fragment">En klasskamrat eller kollega.</li>
+                        <li class="fragment">Den som ska testa programmet.</li>
+                        <li class="fragment">Den som ska rätta eller vidareutveckla det.</li>
+                    </ul>
+                    <p class="fragment">Koden ska kunna förklara sig själv så långt det är möjligt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Jämför</p>
+                    <h2>Ett otydligt exempel</h2>
+                    <pre class="code-block compact-code fragment"><code>def x(a):
+    return a*a</code></pre>
+                    <ul>
+                        <li class="fragment">Vad betyder <code>x</code>?</li>
+                        <li class="fragment">Vad innehåller <code>a</code>?</li>
+                        <li class="fragment">Vad är funktionens syfte?</li>
+                    </ul>
+                    <p class="fragment">Koden fungerar, men namnen ger nästan ingen information.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Förbättra</p>
+                    <h2>Tydliga namn och en docstring</h2>
+                    <pre class="code-block compact-code fragment"><code>def square(number):
+    """Returnerar kvadraten av ett tal."""
+    return number * number</code></pre>
+                    <ul>
+                        <li class="fragment"><code>square</code> beskriver vad funktionen gör.</li>
+                        <li class="fragment"><code>number</code> beskriver parameterns innehåll.</li>
+                        <li class="fragment"><code>"""..."""</code> är en docstring som dokumenterar funktionen.</li>
+                    </ul>
+                    <p class="fragment">Det är inte en vanlig kommentar. Vanliga kommentarer börjar med
+                        <code>#</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Namngivning</p>
+                    <h2>Följ samma konvention</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>total_price
+calculate_average()</code></pre>
+                        <p>Variabler och funktioner använder <code>snake_case</code>.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>class BankAccount:</code></pre>
+                        <p>Klasser använder <code>PascalCase</code>.</p>
+                    </div>
+                    <p class="fragment">Välj namn som beskriver betydelsen, inte bara datatypen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Indentering</p>
+                    <h2>Indrag visar kodens struktur</h2>
+                    <pre class="code-block compact-code fragment"><code>if balance >= amount:
+    balance -= amount
+    print("Uttaget genomfördes.")
+
+print("Programmet fortsätter.")</code></pre>
+                    <p class="fragment">De indragna raderna tillhör <code>if</code>-blocket.</p>
+                    <p class="fragment">Den sista raden ligger utanför blocket.</p>
+                    <p class="fragment">Fel indentering kan ändra programmets beteende eller ge syntaxfel.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kommentarer</p>
+                    <h2>Förklara varför, inte det uppenbara</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code># Öka saldo med 100
+balance += 100</code></pre>
+                        <p>Kommentaren upprepar bara koden.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code># Banken tillåter inte att kontot blir negativt.
+if amount > balance:
+    return balance</code></pre>
+                        <p>Kommentaren förklarar regeln bakom kontrollen.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">DRY</p>
+                    <h2>Don't Repeat Yourself</h2>
+                    <pre class="code-block compact-code fragment"><code>print("1. Visa saldo")
+print("2. Sätt in pengar")
+print("3. Avsluta")</code></pre>
+                    <p class="fragment">Om samma meny skrivs på flera platser måste alla kopior ändras.</p>
+                    <pre class="code-block compact-code fragment"><code>def print_menu():
+    print("1. Visa saldo")
+    print("2. Sätt in pengar")
+    print("3. Avsluta")</code></pre>
+                    <p class="fragment">Nu finns menyn på ett ställe.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Struktur</p>
+                    <h2>En funktion ska ha ett tydligt ansvar</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>print_menu()</code></pre>
+                        <p>Skriver bara ut menyn.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>deposit(balance, amount)</code></pre>
+                        <p>Beräknar ett nytt saldo efter en insättning.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>main()</code></pre>
+                        <p>Styr programmets övergripande flöde.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Före</p>
+                    <h2>All logik i samma block</h2>
+                    <pre class="code-block tiny-code fragment"><code>x = 0
+
+while True:
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
+    v = input("Val: ")
+
+    if v == "1":
+        print(x)
+    elif v == "2":
+        x = x + 100
+    elif v == "3":
+        break</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Problem</p>
+                    <h2>Varför är koden svårläst?</h2>
+                    <ul>
+                        <li class="fragment"><code>x</code> berättar inte att värdet är ett saldo.</li>
+                        <li class="fragment"><code>v</code> berättar inte att värdet är ett menyval.</li>
+                        <li class="fragment">Meny, inmatning och programlogik är blandade.</li>
+                        <li class="fragment">Menykoden kan inte återanvändas separat.</li>
+                    </ul>
+                    <p class="fragment">Problemet är inte att koden är trasig. Problemet är att den är svår att
+                        underhålla.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 1</p>
+                    <h2>Byt till tydliga namn</h2>
+                    <pre class="code-block compact-code fragment"><code>saldo = 0
+
+while True:
+    val = input("Val: ")
+
+    if val == "1":
+        print(saldo)
+    elif val == "2":
+        saldo += 100</code></pre>
+                    <p class="fragment">Beteendet är samma, men variablernas betydelse syns direkt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Steg 2</p>
+                    <h2>Flytta menyn till en funktion</h2>
+                    <pre class="code-block compact-code fragment"><code>def skriv_ut_meny():
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")</code></pre>
+                    <p class="fragment">Funktionen har ett enda ansvar.</p>
+                    <p class="fragment">Huvudloopen kan anropa funktionen när menyn ska visas.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Efter</p>
+                    <h2>Den förbättrade helheten</h2>
+                    <pre class="code-block tiny-code fragment"><code>def skriv_ut_meny():
+    print("1. Visa saldo")
+    print("2. Sätt in 100")
+    print("3. Avsluta")
+
+saldo = 0
+
+while True:
+    skriv_ut_meny()
+    val = input("Val: ")
+
+    if val == "1":
+        print(saldo)
+    elif val == "2":
+        saldo += 100
+    elif val == "3":
+        break</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Riktlinjer</p>
+                    <h2>Praktiska vanor</h2>
+                    <ul>
+                        <li class="fragment">Använd beskrivande namn.</li>
+                        <li class="fragment">Håll funktioner korta och fokuserade.</li>
+                        <li class="fragment">Använd tomma rader mellan logiska delar.</li>
+                        <li class="fragment">Kommentera komplexa beslut, inte självklar kod.</li>
+                        <li class="fragment">Flytta upprepad kod till funktioner.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Strukturera ett bankprogram</h2>
+                    <ol>
+                        <li class="fragment">Skapa <code>print_menu()</code>.</li>
+                        <li class="fragment">Skapa <code>deposit(balance, amount)</code>.</li>
+                        <li class="fragment">Skapa <code>withdraw(balance, amount)</code>.</li>
+                        <li class="fragment">Skapa <code>main()</code> som styr programmet.</li>
+                        <li class="fragment">Använd tydliga variabelnamn.</li>
+                        <li class="fragment">Testa insättning, uttag och felaktiga val.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kontrollera</p>
+                    <h2>Frågor innan koden är klar</h2>
+                    <ul>
+                        <li class="fragment">Förstår man namnen utan extra förklaring?</li>
+                        <li class="fragment">Har varje funktion ett tydligt ansvar?</li>
+                        <li class="fragment">Finns samma logik på flera platser?</li>
+                        <li class="fragment">Förklarar kommentarerna varför något görs?</li>
+                        <li class="fragment">Är koden enkel att testa del för del?</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Kodstandard gör kod lättare att läsa och underhålla.</li>
+                        <li class="fragment">Tydliga namn minskar behovet av kommentarer.</li>
+                        <li class="fragment">Kommentarer ska främst förklara varför.</li>
+                        <li class="fragment">DRY minskar duplicerad kod.</li>
+                        <li class="fragment">Bra struktur är lika viktig som rätt resultat.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>
