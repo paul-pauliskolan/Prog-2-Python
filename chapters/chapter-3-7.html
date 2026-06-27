@@ -215,6 +215,10 @@ class Library:
         print("Böcker i biblioteket:")
         for book in self._books:
             print(f"- {book}")</code></pre>
+                <p><code>from book import Book</code> hämtar klassen <code>Book</code> från filen
+                    <code>book.py</code>. <code>from member import Member</code> hämtar klassen <code>Member</code>
+                    från <code>member.py</code>. Därför kan <code>library.py</code> skapa objekt av båda klasserna
+                    utan att klassernas kod behöver skrivas igen i samma fil.</p>
 
                 <h3>main.py</h3>
                 <pre><code>from library import Library
@@ -233,6 +237,10 @@ if book1 and member:
 
 member.list_books()
 lib.list_books()</code></pre>
+                <p><code>from library import Library</code> hämtar klassen <code>Library</code> från filen
+                    <code>library.py</code>. Därefter kan <code>main.py</code> skapa biblioteksobjektet med
+                    <code>lib = Library()</code>. Ordet före <code>import</code> är filnamnet utan
+                    <code>.py</code>, och ordet efter <code>import</code> är det som hämtas från filen.</p>
 
                 <h2>Alternativa projektstrukturer</h2>
                 <h3>RPG-strid</h3>

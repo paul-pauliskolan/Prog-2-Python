@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 3.8 - Generiska klasser och metoder</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 3.8</p>
+                    <h1>Generiska klasser och metoder</h1>
+                    <p class="fragment">Generisk kod kan användas med flera datatyper utan att tappa tydlighet.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad generisk kod betyder</li>
+                        <li class="fragment">använda <code>TypeVar</code> i enkla funktioner</li>
+                        <li class="fragment">skapa en enkel generisk klass med <code>Generic</code></li>
+                        <li class="fragment">förstå när generisk kod gör koden tydligare</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Idé</p>
+                    <h2>Samma logik, flera typer</h2>
+                    <p class="fragment">Ibland gör koden exakt samma sak oavsett datatyp.</p>
+                    <p class="fragment">Då vill vi slippa skriva nästan samma funktion flera gånger.</p>
+                    <p class="fragment">Generiska typer beskriver vilka typer som hör ihop.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Problem</p>
+                    <h2>Duplicerad kod</h2>
+                    <pre class="code-block compact-code fragment"><code>def first_text(values: list[str]) -> str:
+    return values[0]
+
+def first_number(values: list[int]) -> int:
+    return values[0]</code></pre>
+                    <p class="fragment">Logiken är identisk.</p>
+                    <p class="fragment">Det enda som skiljer är typen.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Import</p>
+                    <h2>Varför importerar vi <code>TypeVar</code>?</h2>
+                    <pre class="code-block compact-code fragment"><code>from typing import TypeVar</code></pre>
+                    <ul>
+                        <li class="fragment"><code>typing</code> är en inbyggd Python-modul med verktyg för
+                            typhintar.</li>
+                        <li class="fragment"><code>TypeVar</code> är ett verktyg i den modulen.</li>
+                        <li class="fragment">Importen gör namnet <code>TypeVar</code> tillgängligt i vår fil.</li>
+                    </ul>
+                    <p class="fragment">Importen skapar inte <code>T</code>. Den hämtar verktyget som kan skapa
+                        <code>T</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Skapa typvariabeln</p>
+                    <h2>Vad gör <code>T = TypeVar("T")</code>?</h2>
+                    <pre class="code-block compact-code fragment"><code>T = TypeVar("T")</code></pre>
+                    <ul>
+                        <li class="fragment"><code>TypeVar("T")</code> skapar en typvariabel med namnet
+                            <code>T</code>.</li>
+                        <li class="fragment">Resultatet sparas under Python-namnet <code>T</code> till vänster.</li>
+                        <li class="fragment"><code>T</code> blir en platshållare för en typ som bestäms när funktionen
+                            används.</li>
+                    </ul>
+                    <p class="fragment"><code>T</code> kan motsvara <code>str</code> i ett anrop och <code>int</code> i
+                        ett annat. Det lagrar inte vanliga värden som <code>"hej"</code> eller <code>10</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Generisk funktion</p>
+                    <h2>En funktion räcker</h2>
+                    <pre class="code-block compact-code fragment"><code>from typing import TypeVar
+
+T = TypeVar("T")
+
+def first(values: list[T]) -> T:
+    return values[0]</code></pre>
+                    <p class="fragment">Funktionen returnerar samma typ som listan innehåller.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Exempel</p>
+                    <h2><code>T</code> byts ut av sammanhanget</h2>
+                    <pre class="code-block compact-code fragment"><code>name = first(["Anna", "Bo", "Cia"])
+score = first([10, 20, 30])
+
+print(name)
+print(score)</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Anna
+10</code></pre>
+                        <p>Första listan ger <code>str</code>. Andra listan ger <code>int</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Blandade typer</p>
+                    <h2><code>T</code> kan motsvara flera möjliga typer</h2>
+                    <pre class="code-block compact-code fragment"><code>mixed_values: list[int | str | float] = [10, "hej", 3.5]
+
+first_value = first(mixed_values)
+print(first_value)</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>10</code></pre>
+                        <p><code>T</code> kan här tolkas som <code>int | str | float</code>.</p>
+                    </div>
+                    <p class="fragment"><code>TypeVar</code> blandar inte typerna. Den beskriver att returvärdet har
+                        någon av listans möjliga elementtyper.</p>
+                    <p class="fragment">Typhinten hjälper editorn och typkontrollen, men kontrollerar normalt inte
+                        listan när programmet körs.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Läs raden</p>
+                    <h2>Vad betyder <code>values: list[T]) -&gt; T</code>?</h2>
+                    <pre class="code-block compact-code fragment"><code>def first(values: list[T]) -> T:
+    return values[0]</code></pre>
+                    <ul>
+                        <li class="fragment"><code>values</code> är parameterns namn.</li>
+                        <li class="fragment"><code>list[T]</code> betyder en lista med element av typen
+                            <code>T</code>.</li>
+                        <li class="fragment"><code>-&gt; T</code> betyder att ett värde av samma typ ska returneras.</li>
+                    </ul>
+                    <p class="fragment"><code>list[str]</code> ger returtypen <code>str</code>.
+                        <code>list[int]</code> ger returtypen <code>int</code>.</p>
+                    <p class="fragment">Typhintarna beskriver sambandet. De omvandlar inga värden.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Flera parametrar</p>
+                    <h2>Vad ska funktionen göra?</h2>
+                    <p class="fragment"><code>contains_value()</code> svarar på frågan:</p>
+                    <p class="fragment"><strong>Finns det här värdet i den här listan?</strong></p>
+                    <p class="fragment">Samma funktion ska fungera för namn, heltal och andra typer.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Läs koden</p>
+                    <h2>Parametrarna kopplas samman</h2>
+                    <pre class="code-block compact-code fragment"><code>def contains_value(value: T, values: list[T]) -> bool:
+    return value in values</code></pre>
+                    <ul>
+                        <li class="fragment"><code>value: T</code> är värdet vi söker efter.</li>
+                        <li class="fragment"><code>values: list[T]</code> är listan vi söker i.</li>
+                        <li class="fragment">Samma <code>T</code> visar att typerna ska höra ihop.</li>
+                        <li class="fragment"><code>-&gt; bool</code> betyder att svaret blir <code>True</code> eller
+                            <code>False</code>.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sökningen</p>
+                    <h2><code>in</code> gör själva arbetet</h2>
+                    <pre class="code-block compact-code fragment"><code>return value in values</code></pre>
+                    <p class="fragment"><code>in</code> undersöker om <code>value</code> finns bland elementen i
+                        <code>values</code>.</p>
+                    <pre class="code-block compact-code fragment"><code>print(contains_value("Anna", ["Anna", "Bo"]))
+print(contains_value(3, [1, 2, 3]))
+print(contains_value(8, [1, 2, 3]))</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>True
+True
+False</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Varför TypeVar?</p>
+                    <h2><code>T</code> beskriver ett samband</h2>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>value: str
+values: list[str]</code></pre>
+                        <p>En sträng söks i en lista med strängar.</p>
+                    </div>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>value: int
+values: list[int]</code></pre>
+                        <p>Ett heltal söks i en lista med heltal.</p>
+                    </div>
+                    <p class="fragment"><code>TypeVar</code> hjälper läsaren, editorn och typkontrollen att se detta
+                        samband.</p>
+                    <p class="fragment"><code>TypeVar</code> söker inte i listan. Det gör <code>in</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktigt</p>
+                    <h2>Typhintar kör inte programmet</h2>
+                    <p class="fragment"><code>list[T]</code>, <code>-&gt; T</code> och <code>Register[Book]</code> är typhintar.</p>
+                    <p class="fragment">De hjälper människor, editorer och typkontrollverktyg.</p>
+                    <p class="fragment">Python stoppar normalt inte alla typfel automatiskt vid körning.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Generic</p>
+                    <h2>Generisk klass</h2>
+                    <pre class="code-block compact-code fragment"><code>from typing import Generic, TypeVar
+
+T = TypeVar("T")
+
+class Box(Generic[T]):
+    def __init__(self, content: T):
+        self._content = content
+
+    def get(self) -> T:
+        return self._content</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Box</p>
+                    <h2>Samma klass, olika typer</h2>
+                    <pre class="code-block compact-code fragment"><code>text_box = Box("Hej")
+number_box = Box(42)
+
+print(text_box.get())
+print(number_box.get())</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Hej
+42</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Register</p>
+                    <h2>Generisk klass för samlingar</h2>
+                    <pre class="code-block compact-code fragment"><code>class Register(Generic[T]):
+    def __init__(self):
+        self._items: list[T] = []
+
+    def add(self, item: T) -> None:
+        self._items.append(item)
+
+    def all_items(self) -> list[T]:
+        return self._items</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Register</p>
+                    <h2>Använd med egna objekt</h2>
+                    <pre class="code-block compact-code fragment"><code>class Book:
+    def __init__(self, title: str):
+        self.title = title
+
+book_register = Register[Book]()
+book_register.add(Book("Python"))
+
+first_book = book_register.all_items()[0]
+print(first_book.title)</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">När?</p>
+                    <h2>När passar generisk kod?</h2>
+                    <ul>
+                        <li class="fragment">När samma logik ska fungera för flera datatyper.</li>
+                        <li class="fragment">När du vill undvika duplicerade funktioner.</li>
+                        <li class="fragment">När editorn ska kunna ge bättre typstöd.</li>
+                        <li class="fragment">När du bygger egna register, samlingar eller lagringsklasser.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">När inte?</p>
+                    <h2>Håll det enkelt</h2>
+                    <ul>
+                        <li class="fragment">När koden bara används på ett ställe.</li>
+                        <li class="fragment">När en vanlig funktion är tydligare.</li>
+                        <li class="fragment">När typmarkeringarna gör lösningen svårare att läsa.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva själv</p>
+                    <h2>Generics</h2>
+                    <ol>
+                        <li class="fragment">Skriv <code>last(values)</code> som returnerar sista värdet.</li>
+                        <li class="fragment">Skapa <code>Pair</code> som lagrar två värden av samma typ.</li>
+                        <li class="fragment">Skapa <code>Student</code> och använd <code>Register[Student]</code>.</li>
+                        <li class="fragment">Fundera när generisk kod är tydligare än duplicerad kod.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Generisk kod kan återanvändas med flera typer.</li>
+                        <li class="fragment"><code>TypeVar</code> skapar en typvariabel.</li>
+                        <li class="fragment"><code>T</code> visar vilka typer som hör ihop.</li>
+                        <li class="fragment"><code>Generic[T]</code> används för generiska klasser.</li>
+                        <li class="fragment">Generics ska göra koden tydligare, inte svårare.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+</body>
+
+</html>

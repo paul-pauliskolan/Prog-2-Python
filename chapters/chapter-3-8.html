@@ -63,16 +63,46 @@ T = TypeVar("T")
 
 def first(values: list[T]) -> T:
     return values[0]</code></pre>
-                <p>Om <code>values</code> är <code>list[str]</code> betyder <code>T</code> text, alltså
-                    <code>str</code>. Om <code>values</code> är <code>list[int]</code> betyder <code>T</code> heltal,
-                    alltså <code>int</code>. Poängen är sambandet: funktionen returnerar samma typ som listan innehåller.</p>
+                <h3>Varför skriver man <code>from typing import TypeVar</code>?</h3>
+                <p><code>TypeVar</code> finns i Pythons inbyggda modul <code>typing</code>. Raden hämtar verktyget
+                    <code>TypeVar</code> och gör namnet tillgängligt i filen. Först därefter kan vi skriva
+                    <code>TypeVar("T")</code>. Importen skapar alltså inte typvariabeln; den hämtar verktyget som
+                    används för att skapa den.</p>
 
-                <h3><code>TypeVar</code></h3>
-                <p><code>TypeVar("T")</code> skapar typvariabeln <code>T</code>. Utan den vet inte Python eller editorn
-                    att <code>T</code> är tänkt att vara en typ.</p>
-                <pre><code class="language-python">from typing import TypeVar
+                <h3>Vad gör <code>T = TypeVar("T")</code>?</h3>
+                <p><code>TypeVar("T")</code> skapar en typvariabel. Resultatet sparas under Python-namnet
+                    <code>T</code> till vänster om likhetstecknet. Texten <code>"T"</code> är typvariabelns namn och
+                    används bland annat av typkontrollverktyg. Man brukar ge båda samma namn för att koden ska vara
+                    lätt att läsa.</p>
+                <p><code>T</code> är en platshållare för en typ som bestäms när funktionen används. Den kan motsvara
+                    <code>str</code> i ett anrop och <code>int</code> i ett annat. Den lagrar inte ett vanligt värde som
+                    <code>10</code> eller <code>"hej"</code>.</p>
 
-T = TypeVar("T")</code></pre>
+                <h3>Vad betyder <code>values: list[T]) -&gt; T</code>?</h3>
+                <pre><code class="language-python">def first(values: list[T]) -&gt; T:</code></pre>
+                <ul>
+                    <li><code>values</code> är parameterns namn.</li>
+                    <li>Kolonet efter <code>values</code> börjar parameterns typhint.</li>
+                    <li><code>list[T]</code> betyder en lista vars element har typen som <code>T</code> representerar.</li>
+                    <li><code>-&gt; T</code> betyder att funktionen ska returnera ett värde av samma typ.</li>
+                </ul>
+                <p>Samma <code>T</code> på båda platserna skapar sambandet. En <code>list[str]</code> ger returtypen
+                    <code>str</code>, medan en <code>list[int]</code> ger returtypen <code>int</code>. Typhintarna
+                    beskriver typerna men omvandlar inte värden och kontrolleras normalt inte automatiskt när
+                    programmet körs.</p>
+                <h3>En lista med blandade typer</h3>
+                <pre><code class="language-python">mixed_values: list[int | str | float] = [10, "hej", 3.5]
+
+first_value = first(mixed_values)
+print(first_value)</code></pre>
+                <p>Listan innehåller <code>int</code>, <code>str</code> och <code>float</code>. Typkontrollen kan därför
+                    tolka <code>T</code> som unionen <code>int | str | float</code>, alltså "någon av dessa typer".
+                    Returvärdet från <code>first()</code> får samma unionstyp, även om värdet i just detta exempel är
+                    heltalet <code>10</code>.</p>
+                <p><code>TypeVar</code> gör alltså inte listan blandad och kontrollerar inte innehållet när programmet
+                    körs. Den hjälper editorn och typkontrollen att beskriva sambandet mellan listans möjliga
+                    elementtyper och funktionens returtyp. När en lista avsiktligt ska vara blandad är
+                    <code>list[int | str | float]</code> en tydlig typhint.</p>
 
                 <h3><code>Generic[T]</code></h3>
                 <p><code>Generic[T]</code> används när en hel klass ska arbeta med en typ som bestäms senare. Klassen
@@ -109,7 +139,7 @@ T = TypeVar("T")
 def first(values: list[T]) -> T:
     return values[0]
 
-name = first(["Adam", "Bo", "Cia"])
+name = first(["Anna", "Bo", "Cia"])
 score = first([10, 20, 30])
 
 print(name)
@@ -120,8 +150,9 @@ print(score)</code></pre>
                     returvärdet <code>int</code>.</p>
 
                 <h2>Generisk funktion med flera parametrar</h2>
-                <p>Samma idé kan användas i metoder, men exemplet nedan är en fristående funktion för att göra grunden
-                    tydlig. Funktionen kontrollerar om ett värde finns i en lista, oavsett vilken typ listan innehåller.</p>
+                <p>Funktionen <code>contains_value()</code> svarar på frågan: <em>Finns det här värdet i den här
+                        listan?</em> Vi vill kunna använda samma funktion för exempelvis namn, heltal och andra typer
+                    utan att skriva en särskild funktion för varje typ.</p>
 
                 <pre><code class="language-python">from typing import TypeVar
 
@@ -130,13 +161,37 @@ T = TypeVar("T")
 def contains_value(value: T, values: list[T]) -> bool:
     return value in values
 
-print(contains_value("Adam", ["Adam", "Bo"]))
-print(contains_value(3, [1, 2, 3]))</code></pre>
+print(contains_value("Anna", ["Anna", "Bo"]))
+print(contains_value(3, [1, 2, 3]))
+print(contains_value(8, [1, 2, 3]))</code></pre>
 
-                <p>Det viktiga är kopplingen mellan <code>value</code> och <code>values</code>: de ska höra ihop
-                    typmässigt. När <code>value</code> är en sträng ska listan också vara en lista med strängar. När
-                    <code>value</code> är ett heltal ska listan vara en lista med heltal. Det gör koden lättare att
-                    förstå och bättre för editorstöd.</p>
+                <h3>Vad gör koden?</h3>
+                <ul>
+                    <li><code>value: T</code> är värdet som funktionen ska söka efter.</li>
+                    <li><code>values: list[T]</code> är listan som funktionen ska söka i.</li>
+                    <li>Samma <code>T</code> används på båda platserna. Det visar att sökvärdet och listans element ska
+                        ha samma typ.</li>
+                    <li><code>-&gt; bool</code> visar att svaret alltid är <code>True</code> eller <code>False</code>.</li>
+                    <li>Uttrycket <code>value in values</code> undersöker om värdet finns i listan.</li>
+                </ul>
+
+                <pre><code class="language-text">True
+True
+False</code></pre>
+                <p><code>"Anna"</code> finns i den första listan och <code>3</code> finns i den andra. Talet
+                    <code>8</code> finns inte i den sista listan, så det anropet ger <code>False</code>.</p>
+
+                <h3>Varför används <code>TypeVar</code> här?</h3>
+                <p>Utan <code>TypeVar</code> kan vi fortfarande skriva en funktion som körs, men typhintarna beskriver
+                    inte lika tydligt att parametrarna måste höra ihop. <code>T</code> kopplar samman typerna:</p>
+                <ul>
+                    <li>Skickar vi in en <code>str</code> ska den andra parametern vara en <code>list[str]</code>.</li>
+                    <li>Skickar vi in en <code>int</code> ska den andra parametern vara en <code>list[int]</code>.</li>
+                </ul>
+                <p>Det hjälper läsaren, editorn och typkontrollverktyg att upptäcka tveksamma anrop, till exempel att
+                    söka efter ett heltal i en lista som är avsedd för strängar. <code>TypeVar</code> utför däremot
+                    inte själva sökningen och stoppar normalt inte felaktiga typer när Python-programmet körs. Det är
+                    operatorn <code>in</code> som gör sökningen.</p>
 
                 <h2>Generisk klass</h2>
                 <p>En generisk klass passar när klassen ska kunna lagra eller hantera olika typer av objekt, men med

@@ -66,6 +66,7 @@ dog.breathe()</code></pre>
                     ärver från <code>Animal</code>.</p>
                 <p>UML-diagrammet visar arvet med en pil från subklassen till basklassen.</p>
                 <pre><code class="language-mermaid">classDiagram
+    direction BT
     Dog --&gt; Animal : inherits
 
     class Animal {
@@ -95,6 +96,7 @@ dog.breathe()</code></pre>
                     <code>Dog</code> kan använda metoder från <code>Animal</code>, men kan också få egna metoder eller
                     skriva om ärvda metoder.</p>
                 <pre><code class="language-mermaid">classDiagram
+    direction BT
     Dog --&gt; Animal : inherits
 
     class Animal {
@@ -128,6 +130,7 @@ for animal in animals:
                 <p>Loopen kör alltid <code>animal.speak()</code>. Ändå blir utskriften olika, eftersom <code>Dog</code>,
                     <code>Cat</code> och <code>Bird</code> har egna versioner av metoden.</p>
                 <pre><code class="language-mermaid">classDiagram
+    direction BT
     Dog --&gt; Animal : inherits
     Cat --&gt; Animal : inherits
     Bird --&gt; Animal : inherits
@@ -170,6 +173,38 @@ for animal in animals:
                 <p>En enkel minnesregel är: <strong>override</strong> betyder att subklassen skriver om metoden.
                     <strong>Polymorfism</strong> betyder att samma metodanrop kan ge olika beteende. Override gör ofta
                     polymorfism möjlig.</p>
+
+                <h3>Kan man ha override utan polymorfism?</h3>
+                <p>Ja. Om du bara skapar ett <code>Dog</code>-objekt och kör metoden på det objektet har
+                    <code>Dog</code> fortfarande gjort override av <code>speak()</code>. Men du använder inte riktigt
+                    polymorfism, eftersom programmet inte behandlar flera olika objekt med samma metodanrop.</p>
+                <pre><code>dog = Dog()
+dog.speak()</code></pre>
+                <p>Här sker <strong>override</strong>, men exemplet visar inte polymorfism i praktiken.</p>
+
+                <h3>Kan man ha polymorfism utan arv?</h3>
+                <p>Ja, i Python kan olika klasser ha samma metodnamn utan att ärva från samma basklass. Om programmet
+                    kan köra samma metodanrop på båda objekten är det fortfarande polymorfism.</p>
+                <pre><code>class Dog:
+    def speak(self):
+        print("Voff")
+
+class Robot:
+    def speak(self):
+        print("Beep")
+
+things = [Dog(), Robot()]
+
+for thing in things:
+    thing.speak()</code></pre>
+                <p><code>Dog</code> och <code>Robot</code> ärver inte från samma klass. Ändå fungerar samma rad:
+                    <code>thing.speak()</code>. Det fungerar eftersom båda objekten har en metod som heter
+                    <code>speak()</code>.</p>
+                <p>I den här kursens OOP-exempel kommer polymorfism ofta tillsammans med arv och override, men i Python
+                    är arv inte ett absolut krav för polymorfism.</p>
+                <p class="exercise-note"><strong>Kort om andra språk:</strong> I vissa språk, till exempel Java och C#,
+                    används ofta interface för polymorfism utan arv från samma klass. I Python räcker det att objekten
+                    har den metod som anropas.</p>
 
                 <h2>När passar arv?</h2>
                 <p>Arv passar bäst när du kan säga "är en". En hund <strong>är ett</strong> djur. En rektangel
@@ -333,6 +368,7 @@ for shape in shapes:
                 <p>Loopen behöver inte veta om objektet är en <code>Rectangle</code> eller en <code>Circle</code>. Den
                     anropar bara <code>shape.area()</code>. Det är polymorfism i praktiken.</p>
                 <pre><code class="language-mermaid">classDiagram
+    direction BT
     Rectangle --&gt; Shape : inherits
     Circle --&gt; Shape : inherits
 
@@ -374,6 +410,7 @@ class Student(Person):
                     <code>self.name</code>. Med <code>super()</code> kan subklassen använda basklassens initiering och
                     bara lägga till det som är nytt: <code>self.school</code>.</p>
                 <pre><code class="language-mermaid">classDiagram
+    direction BT
     Student --&gt; Person : inherits
 
     class Person {

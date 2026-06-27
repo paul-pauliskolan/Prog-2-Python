@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="sv">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 3.6 - Arv och polymorfism</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active">
+                <div class="slide-content">
+                    <p class="slide-kicker">Kap 3.6</p>
+                    <h1>Arv och polymorfism</h1>
+                    <p class="fragment">Vi bygger vidare på klasser och låter samma metodnamn ge olika beteende.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Mål</p>
+                    <h2>Efter lektionen ska du kunna...</h2>
+                    <ul>
+                        <li class="fragment">förklara vad arv innebär</li>
+                        <li class="fragment">skapa en subklass som ärver från en basklass</li>
+                        <li class="fragment">förklara override</li>
+                        <li class="fragment">förklara polymorfism</li>
+                        <li class="fragment">använda <code>super()</code> i enkla exempel</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Viktigt</p>
+                    <h2>Använd arv när det passar</h2>
+                    <p class="fragment">Arv passar när relationen betyder <strong>är en</strong>.</p>
+                    <p class="fragment">En hund är ett djur.</p>
+                    <p class="fragment">En rektangel är en form.</p>
+                    <p class="fragment">En bil är inte en motor. En bil har en motor.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Begrepp</p>
+                    <h2>Orden du behöver</h2>
+                    <ul>
+                        <li class="fragment">basklass: klassen som andra ärver från</li>
+                        <li class="fragment">subklass: klassen som bygger vidare</li>
+                        <li class="fragment">arv: subklassen får metoder från basklassen</li>
+                        <li class="fragment">override: subklassen skriver egen version av en metod</li>
+                        <li class="fragment">polymorfism: samma metodanrop kan ge olika resultat</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Arv</p>
+                    <h2>Dog ärver från Animal</h2>
+                    <pre class="code-block compact-code fragment"><code>class Animal:
+    def breathe(self):
+        print("Djuret andas.")
+
+class Dog(Animal):
+    def wag_tail(self):
+        print("Hunden viftar på svansen.")</code></pre>
+                    <p class="fragment"><code>Dog(Animal)</code> betyder att <code>Dog</code> ärver från <code>Animal</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Arv</p>
+                    <h2>Ärvd metod kan användas</h2>
+                    <pre class="code-block compact-code fragment"><code>dog = Dog()
+dog.breathe()
+dog.wag_tail()</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Djuret andas.
+Hunden viftar på svansen.</code></pre>
+                        <p><code>Dog</code> har ingen egen <code>breathe()</code>, men ärver den.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">UML</p>
+                    <h2>Arv i klassdiagram</h2>
+                    <pre><code class="language-mermaid">classDiagram
+    direction BT
+    Dog --&gt; Animal : inherits
+
+    class Animal {
+        +breathe()
+    }
+
+    class Dog {
+        +wag_tail()
+    }</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Basklass</p>
+                    <h2>Det gemensamma ligger högre upp</h2>
+                    <pre class="code-block compact-code fragment"><code>class Animal:
+    def speak(self):
+        print("Djuret låter.")</code></pre>
+                    <p class="fragment"><code>Animal</code> är den allmänna modellen.</p>
+                    <p class="fragment">Subklasser kan använda eller ändra det som finns där.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Subklass</p>
+                    <h2>Subklassen bygger vidare</h2>
+                    <pre class="code-block compact-code fragment"><code>class Dog(Animal):
+    def wag_tail(self):
+        print("Hunden viftar på svansen.")</code></pre>
+                    <p class="fragment"><code>Dog</code> får metoder från <code>Animal</code>.</p>
+                    <p class="fragment"><code>Dog</code> kan också ha egna metoder.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Override</p>
+                    <h2>Subklassen skriver om metoden</h2>
+                    <pre class="code-block compact-code fragment"><code>class Animal:
+    def speak(self):
+        print("Djuret låter.")
+
+class Dog(Animal):
+    def speak(self):
+        print("Hunden säger voff.")</code></pre>
+                    <p class="fragment"><code>Dog</code> har en egen version av <code>speak()</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Override</p>
+                    <h2>Vilken metod körs?</h2>
+                    <pre class="code-block compact-code fragment"><code>animal = Animal()
+dog = Dog()
+
+animal.speak()
+dog.speak()</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Djuret låter.
+Hunden säger voff.</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Polymorfism</p>
+                    <h2>Samma anrop, olika resultat</h2>
+                    <pre class="code-block compact-code fragment"><code>animals = [Dog(), Cat(), Bird()]
+
+for animal in animals:
+    animal.speak()</code></pre>
+                    <p class="fragment">Loopen behöver inte veta exakt vilken klass objektet har.</p>
+                    <p class="fragment">Den kör bara <code>animal.speak()</code>.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">UML</p>
+                    <h2>Polymorfism i klassdiagram</h2>
+                    <pre><code class="language-mermaid">classDiagram
+    direction BT
+    Dog --&gt; Animal : inherits
+    Cat --&gt; Animal : inherits
+    Bird --&gt; Animal : inherits
+
+    class Animal {
+        +speak()
+    }
+
+    class Dog {
+        +speak()
+    }
+
+    class Cat {
+        +speak()
+    }
+
+    class Bird {
+        +speak()
+    }</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Skillnad</p>
+                    <h2>Override och polymorfism</h2>
+                    <p class="fragment"><strong>Override:</strong> en subklass skriver en egen version av en metod.</p>
+                    <p class="fragment"><strong>Polymorfism:</strong> samma metodanrop fungerar på flera olika objekt.</p>
+                    <p class="fragment">Override gör ofta polymorfism möjlig, men orden betyder inte samma sak.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Override</p>
+                    <h2>Override utan polymorfism</h2>
+                    <pre class="code-block compact-code fragment"><code>dog = Dog()
+dog.speak()</code></pre>
+                    <p class="fragment"><code>Dog</code> har fortfarande skrivit om <code>speak()</code>.</p>
+                    <p class="fragment">Det är override.</p>
+                    <p class="fragment">Men här behandlas inte flera olika objekt på samma sätt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Polymorfism</p>
+                    <h2>Polymorfism utan arv</h2>
+                    <pre class="code-block compact-code fragment"><code>class Dog:
+    def speak(self):
+        print("Voff")
+
+class Robot:
+    def speak(self):
+        print("Beep")
+
+things = [Dog(), Robot()]</code></pre>
+                    <p class="fragment"><code>Dog</code> och <code>Robot</code> ärver inte från samma klass.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Polymorfism</p>
+                    <h2>Samma metodnamn räcker i Python</h2>
+                    <pre class="code-block compact-code fragment"><code>for thing in things:
+    thing.speak()</code></pre>
+                    <div class="code-step fragment">
+                        <pre class="code-block compact-code"><code>Voff
+Beep</code></pre>
+                        <p>Samma rad fungerar eftersom båda objekten har <code>speak()</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Former</p>
+                    <h2>Polymorfism med area</h2>
+                    <pre class="code-block compact-code fragment"><code>shapes = [Rectangle(4, 5), Circle(3)]
+
+for shape in shapes:
+    print("Area:", shape.area())</code></pre>
+                    <p class="fragment">Alla objekt har <code>area()</code>.</p>
+                    <p class="fragment">Men varje klass räknar på sitt eget sätt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">UML</p>
+                    <h2>Shape, Rectangle och Circle</h2>
+                    <pre><code class="language-mermaid">classDiagram
+    direction BT
+    Rectangle --&gt; Shape : inherits
+    Circle --&gt; Shape : inherits
+
+    class Shape {
+        +area()
+    }
+
+    class Rectangle {
+        -width
+        -height
+        +area()
+    }
+
+    class Circle {
+        -radius
+        +area()
+    }</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">super()</p>
+                    <h2>Återanvänd basklassens kod</h2>
+                    <pre class="code-block compact-code fragment"><code>class Student(Person):
+    def __init__(self, name, school):
+        super().__init__(name)
+        self.school = school</code></pre>
+                    <p class="fragment"><code>super().__init__(name)</code> kör basklassens konstruktor.</p>
+                    <p class="fragment">Subklassen lägger bara till det som är nytt.</p>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">UML</p>
+                    <h2>Person och Student</h2>
+                    <pre><code class="language-mermaid">classDiagram
+    direction BT
+    Student --&gt; Person : inherits
+
+    class Person {
+        +name
+        +introduce()
+    }
+
+    class Student {
+        +school
+        +introduce()
+    }</code></pre>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Öva</p>
+                    <h2><code>kap3-6-vehicles.py</code></h2>
+                    <ol>
+                        <li class="fragment">Skapa basklassen <code>Vehicle</code>.</li>
+                        <li class="fragment">Skapa subklasserna <code>Car</code> och <code>Bike</code>.</li>
+                        <li class="fragment">Låt båda skriva över <code>drive()</code>.</li>
+                        <li class="fragment">Skapa en lista med både bilar och cyklar.</li>
+                        <li class="fragment">Kör <code>vehicle.drive()</code> i en loop.</li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="slide">
+                <div class="slide-content">
+                    <p class="slide-kicker">Sammanfattning</p>
+                    <h2>Kom ihåg</h2>
+                    <ul>
+                        <li class="fragment">Arv återanvänder kod från en basklass.</li>
+                        <li class="fragment">Subklasser kan lägga till egna metoder.</li>
+                        <li class="fragment">Override ändrar en ärvd metod.</li>
+                        <li class="fragment">Polymorfism gör att samma metodanrop kan ge olika beteende.</li>
+                        <li class="fragment"><code>super()</code> återanvänder basklassens logik.</li>
+                    </ul>
+                </div>
+            </section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+
+    <script src="presentation.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: 'dark',
+            themeVariables: {
+                lineColor: '#f4f7fb',
+                textColor: '#f4f7fb',
+                primaryBorderColor: '#f4f7fb',
+                relationLabelColor: '#f4f7fb',
+                tertiaryTextColor: '#f4f7fb'
+            }
+        })
+
+        function prepareMermaidForRoot(root = document) {
+            const blocks = root.querySelectorAll
+                ? root.querySelectorAll('code.language-mermaid')
+                : []
+
+            blocks.forEach(code => {
+                if (code.dataset.mermaidProcessed) return
+
+                const container = document.createElement('div')
+                container.className = 'mermaid'
+                container.textContent = code.textContent
+                code.parentNode.replaceWith(container)
+                code.dataset.mermaidProcessed = '1'
+            })
+        }
+
+        async function renderActiveMermaid() {
+            prepareMermaidForRoot(document)
+
+            const activeSlide = document.querySelector('.slide.is-active')
+            if (!activeSlide) return
+
+            const diagrams = Array.from(activeSlide.querySelectorAll('.mermaid:not([data-rendered="true"])'))
+            if (!diagrams.length) return
+
+            await mermaid.run({ nodes: diagrams })
+            diagrams.forEach(diagram => {
+                diagram.dataset.rendered = 'true'
+            })
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderActiveMermaid()
+
+            const deck = document.querySelector('.deck')
+            if (!deck) return
+
+            const observer = new MutationObserver(() => {
+                renderActiveMermaid()
+            })
+
+            observer.observe(deck, {
+                attributes: true,
+                subtree: true,
+                attributeFilter: ['class']
+            })
+        })
+    </script>
+</body>
+
+</html>
