@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 5.4 - Skapa GUI med tkinter</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active"><div class="slide-content">
+                <p class="slide-kicker">Kap 5.4</p>
+                <h1>Skapa GUI med tkinter</h1>
+                <p class="fragment">Bygg ett Pythonprogram med fönster, textfält och knappar.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Mål</p>
+                <h2>Efter lektionen ska du kunna...</h2>
+                <ul>
+                    <li class="fragment">förklara vad ett GUI är</li>
+                    <li class="fragment">skapa ett fönster med <code>tkinter</code></li>
+                    <li class="fragment">använda <code>Label</code>, <code>Entry</code> och <code>Button</code></li>
+                    <li class="fragment">koppla en knapp till en funktion</li>
+                    <li class="fragment">förklara vad <code>mainloop()</code> gör</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">GUI</p>
+                <h2>Ett grafiskt användargränssnitt</h2>
+                <p class="fragment"><strong>GUI</strong> betyder <em>Graphical User Interface</em>.</p>
+                <p class="fragment">Användaren arbetar med visuella delar i stället för att bara skriva i terminalen.</p>
+                <ul>
+                    <li class="fragment">fönster och texter</li>
+                    <li class="fragment">textfält och knappar</li>
+                    <li class="fragment">listor och kryssrutor</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Widget</p>
+                <h2>En grafisk del i gränssnittet</h2>
+                <pre class="code-block compact-code fragment"><code>tk.Label(...)   # visar text
+tk.Entry(...)   # tar emot text
+tk.Button(...)  # kan klickas</code></pre>
+                <p class="fragment">Varje widget skapas som ett Pythonobjekt.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Hela programmet</p>
+                <h2>Vårt första GUI</h2>
+                <pre class="code-block tiny-code fragment"><code>import tkinter as tk
+
+def visa_meddelande():
+    namn = namn_entry.get()
+    resultat_label.config(text=f"Hej, {namn}!")
+
+rot = tk.Tk()
+rot.title("Mitt första GUI")
+
+tk.Label(rot, text="Vad heter du?").pack()
+namn_entry = tk.Entry(rot)
+namn_entry.pack()
+
+tk.Button(rot, text="Säg hej",
+          command=visa_meddelande).pack()
+
+resultat_label = tk.Label(rot, text="")
+resultat_label.pack()
+
+rot.mainloop()</code></pre>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Import</p>
+                <h2>Gör tkinter tillgängligt</h2>
+                <pre class="code-block compact-code fragment"><code>import tkinter as tk</code></pre>
+                <p class="fragment"><code>import tkinter</code> laddar biblioteket.</p>
+                <p class="fragment"><code>as tk</code> ger biblioteket det kortare namnet <code>tk</code>.</p>
+                <p class="fragment">Därför skriver vi exempelvis <code>tk.Button</code>.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Fönster</p>
+                <h2>Skapa programmets huvudfönster</h2>
+                <pre class="code-block compact-code fragment"><code>rot = tk.Tk()
+rot.title("Mitt första GUI")</code></pre>
+                <p class="fragment"><code>tk.Tk()</code> skapar huvudfönstret.</p>
+                <p class="fragment"><code>rot</code> refererar till fönsterobjektet.</p>
+                <p class="fragment"><code>title()</code> bestämmer texten i titelraden.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Label och Entry</p>
+                <h2>Visa och ta emot text</h2>
+                <pre class="code-block compact-code fragment"><code>tk.Label(rot, text="Vad heter du?").pack()
+
+namn_entry = tk.Entry(rot)
+namn_entry.pack()</code></pre>
+                <p class="fragment"><code>Label</code> visar en text.</p>
+                <p class="fragment"><code>Entry</code> skapar ett textfält.</p>
+                <pre class="code-block compact-code fragment"><code>namn = namn_entry.get()</code></pre>
+                <p class="fragment"><code>get()</code> hämtar det som användaren har skrivit.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Layout</p>
+                <h2><code>pack()</code> placerar widgeten</h2>
+                <pre class="code-block compact-code fragment"><code>namn_entry.pack()</code></pre>
+                <p class="fragment">Att skapa en widget räcker inte. Den måste också placeras i fönstret.</p>
+                <p class="fragment"><code>pack()</code> ordnar widgets bredvid eller under varandra.</p>
+                <p class="fragment">tkinter har även <code>grid()</code> och <code>place()</code>.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Button</p>
+                <h2>Koppla knappen till en funktion</h2>
+                <pre class="code-block compact-code fragment"><code>tk.Button(
+    rot,
+    text="Säg hej",
+    command=visa_meddelande
+).pack()</code></pre>
+                <p class="fragment"><code>text</code> är texten på knappen.</p>
+                <p class="fragment"><code>command</code> anger vilken funktion som körs vid ett klick.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Viktigt</p>
+                <h2>Anropa inte funktionen direkt</h2>
+                <pre class="code-block compact-code fragment"><code>command=visa_meddelande     # rätt
+command=visa_meddelande()   # fel här</code></pre>
+                <p class="fragment">Utan parenteser lämnar vi funktionen till tkinter.</p>
+                <p class="fragment">tkinter anropar den när användaren klickar.</p>
+                <p class="fragment">Med parenteser körs funktionen direkt när knappen skapas.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Efter klicket</p>
+                <h2>Funktionen läser och visar</h2>
+                <pre class="code-block compact-code fragment"><code>def visa_meddelande():
+    namn = namn_entry.get()
+    resultat_label.config(
+        text=f"Hej, {namn}!"
+    )</code></pre>
+                <ol>
+                    <li class="fragment"><code>get()</code> läser textfältet.</li>
+                    <li class="fragment">En hälsning skapas med en f-sträng.</li>
+                    <li class="fragment"><code>config()</code> ändrar resultatetiketten.</li>
+                </ol>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Resultat</p>
+                <h2><code>config()</code> ändrar samma widget</h2>
+                <pre class="code-block compact-code fragment"><code>resultat_label = tk.Label(rot, text="")
+resultat_label.pack()</code></pre>
+                <p class="fragment">Etiketten börjar med en tom text.</p>
+                <pre class="code-block compact-code fragment"><code>resultat_label.config(text="Hej, Anna!")</code></pre>
+                <p class="fragment">Efter klicket visas den nya texten i etiketten.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">mainloop</p>
+                <h2>Programmet väntar på händelser</h2>
+                <pre class="code-block compact-code fragment"><code>rot.mainloop()</code></pre>
+                <p class="fragment"><code>mainloop()</code> visar fönstret och startar händelseloopen.</p>
+                <p class="fragment">Loopen väntar på exempelvis klick, tangenttryckningar och stängning.</p>
+                <p class="fragment">Utan den avslutas programmet och fönstret kan inte användas.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Händelsestyrning</p>
+                <h2>Flödet steg för steg</h2>
+                <ol>
+                    <li class="fragment">Programmet skapar fönstret och alla widgets.</li>
+                    <li class="fragment"><code>mainloop()</code> börjar vänta.</li>
+                    <li class="fragment">Användaren skriver ett namn.</li>
+                    <li class="fragment">Användaren klickar på knappen.</li>
+                    <li class="fragment"><code>visa_meddelande()</code> körs.</li>
+                    <li class="fragment">Resultatet visas i fönstret.</li>
+                </ol>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Prova själv</p>
+                <h2>Interaktiv simulering: tkinter-fönster</h2>
+                <div class="tkinter-presentation-simulator">
+                    <div class="tkinter-presentation-window" aria-label="Simulerat tkinter-fönster">
+                        <div class="tkinter-presentation-titlebar">
+                            <span>Mitt första GUI</span>
+                            <span aria-hidden="true">_ □ x</span>
+                        </div>
+                        <div class="tkinter-presentation-body">
+                            <label for="presentation-tkinter-name">Vad heter du?</label>
+                            <input id="presentation-tkinter-name" type="text" value="Anna">
+                            <button type="button" id="presentation-tkinter-button">Säg hej</button>
+                            <p id="presentation-tkinter-greeting" aria-live="polite"></p>
+                        </div>
+                    </div>
+                    <div class="tkinter-presentation-trace">
+                        <h3>Vad händer i koden?</h3>
+                        <output id="presentation-tkinter-trace">mainloop() väntar på att användaren ska skriva eller klicka.</output>
+                        <button type="button" id="presentation-tkinter-reset">Återställ</button>
+                    </div>
+                </div>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Öva själv</p>
+                <h2>Gör ett eget GUI-program</h2>
+                <ol>
+                    <li class="fragment">Skapa ett fönster med ett textfält.</li>
+                    <li class="fragment">Lägg till en knapp som kör en funktion.</li>
+                    <li class="fragment">Visa resultatet i en <code>Label</code>.</li>
+                    <li class="fragment">Lägg till exempelvis en kryssruta eller lista.</li>
+                    <li class="fragment">Koppla GUI:t till en tidigare funktion.</li>
+                </ol>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Sammanfattning</p>
+                <h2>Kom ihåg</h2>
+                <ul>
+                    <li class="fragment"><code>tk.Tk()</code> skapar huvudfönstret.</li>
+                    <li class="fragment">Widgets är gränssnittets grafiska delar.</li>
+                    <li class="fragment"><code>pack()</code> placerar widgets.</li>
+                    <li class="fragment"><code>command</code> kopplar en knapp till en funktion.</li>
+                    <li class="fragment"><code>get()</code> läser och <code>config()</code> ändrar.</li>
+                    <li class="fragment"><code>mainloop()</code> väntar på händelser.</li>
+                </ul>
+            </div></section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+    <script src="presentation.js"></script>
+    <script>
+        (function () {
+            const nameInput = document.getElementById("presentation-tkinter-name");
+            const greeting = document.getElementById("presentation-tkinter-greeting");
+            const trace = document.getElementById("presentation-tkinter-trace");
+            const runButton = document.getElementById("presentation-tkinter-button");
+            const resetButton = document.getElementById("presentation-tkinter-reset");
+
+            function reset() {
+                nameInput.value = "Anna";
+                greeting.textContent = "";
+                trace.textContent = "mainloop() väntar på att användaren ska skriva eller klicka.";
+            }
+
+            nameInput.addEventListener("input", function () {
+                trace.textContent = "Texten finns nu i Entry-widgeten. Funktionen visa_meddelande() har ännu inte körts.";
+            });
+
+            runButton.addEventListener("click", function () {
+                const name = nameInput.value;
+                greeting.textContent = "Hej, " + name + "!";
+                trace.textContent = "1. Knappen klickas.\n2. command kör visa_meddelande().\n3. namn_entry.get() ger " + JSON.stringify(name) + ".\n4. resultat_label.config() visar hälsningen.";
+            });
+
+            resetButton.addEventListener("click", reset);
+            reset();
+        }());
+    </script>
+</body>
+</html>

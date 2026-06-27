@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 5.6 - Kombinera GUI, API och databas</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active"><div class="slide-content">
+                <p class="slide-kicker">Kap 5.6 · Miniuppgift</p>
+                <h1>Kombinera GUI, API och databas</h1>
+                <p class="fragment">Bygg ett skämtregister med tkinter, requests och SQLite.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Mål</p>
+                <h2>Tre tekniker i ett program</h2>
+                <ul>
+                    <li class="fragment"><code>tkinter</code> skapar gränssnittet.</li>
+                    <li class="fragment"><code>requests</code> hämtar data från ett API.</li>
+                    <li class="fragment"><code>sqlite3</code> sparar data lokalt.</li>
+                    <li class="fragment">Funktioner kopplar ihop hela flödet.</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Projektet</p>
+                <h2>Skämtregister</h2>
+                <ol>
+                    <li class="fragment">Hämta ett skämt från ett API.</li>
+                    <li class="fragment">Visa skämtet i GUI:t.</li>
+                    <li class="fragment">Spara skämtet i SQLite.</li>
+                    <li class="fragment">Visa alla sparade skämt.</li>
+                </ol>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Helhetsbild</p>
+                <h2>Så samarbetar delarna</h2>
+                <div class="code-step fragment">
+                    <pre class="code-block compact-code"><code>Klick i tkinter</code></pre>
+                    <p>startar en Pythonfunktion</p>
+                </div>
+                <div class="code-step fragment">
+                    <pre class="code-block compact-code"><code>requests → API → JSON</code></pre>
+                    <p>hämtar ett nytt skämt</p>
+                </div>
+                <div class="code-step fragment">
+                    <pre class="code-block compact-code"><code>sqlite3 → skamt.db</code></pre>
+                    <p>sparar skämtet permanent</p>
+                </div>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Förberedelse</p>
+                <h2>Installera requests</h2>
+                <pre class="code-block compact-code fragment"><code>python3 -m pip install requests</code></pre>
+                <p class="fragment"><code>tkinter</code> och <code>sqlite3</code> ingår normalt i Python.</p>
+                <p class="fragment"><code>requests</code> behöver vanligtvis installeras separat.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Hela programmet · del 1</p>
+                <h2>Import och databas</h2>
+                <pre class="code-block tiny-code fragment"><code>import tkinter as tk
+import requests
+import sqlite3
+
+conn = sqlite3.connect("skamt.db")
+cursor = conn.cursor()
+cursor.execute("""
+    CREATE TABLE IF NOT EXISTS skamt (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        setup TEXT,
+        punchline TEXT
+    )
+""")
+conn.commit()
+
+senaste_skamt = None</code></pre>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Hela programmet · del 2</p>
+                <h2>Programmets funktioner</h2>
+                <pre class="code-block tiny-code fragment"><code>def hamta_skamt():
+    global senaste_skamt
+    response = requests.get(
+        "https://official-joke-api.appspot.com/random_joke"
+    )
+
+    if response.status_code == 200:
+        data = response.json()
+        skamt_label.config(
+            text=f"{data['setup']} - {data['punchline']}"
+        )
+        senaste_skamt = (data["setup"], data["punchline"])
+
+def spara_skamt():
+    if senaste_skamt:
+        cursor.execute(
+            "INSERT INTO skamt (setup, punchline) VALUES (?, ?)",
+            senaste_skamt
+        )
+        conn.commit()
+        skamt_label.config(text="Skämtet sparat!")</code></pre>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Hela programmet · del 3</p>
+                <h2>Visa sparade skämt och skapa GUI</h2>
+                <pre class="code-block tiny-code fragment"><code>def visa_skamt():
+    cursor.execute("SELECT * FROM skamt")
+    rader = cursor.fetchall()
+    output = "\n".join(
+        [f"{rad[1]} - {rad[2]}" for rad in rader]
+    )
+    if len(output) > 300:
+        output = output[:300] + "..."
+    skamt_label.config(text=output)
+
+root = tk.Tk()
+root.title("Skämtregister")
+
+tk.Button(root, text="Hämta skämt", command=hamta_skamt).pack()
+tk.Button(root, text="Spara skämt", command=spara_skamt).pack()
+tk.Button(root, text="Visa alla skämt", command=visa_skamt).pack()
+
+skamt_label = tk.Label(root, text="", wraplength=300, justify="left")
+skamt_label.pack()
+
+root.mainloop()</code></pre>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Databas</p>
+                <h2>Skapa fil och tabell</h2>
+                <pre class="code-block compact-code fragment"><code>conn = sqlite3.connect("skamt.db")
+cursor = conn.cursor()</code></pre>
+                <p class="fragment"><code>connect()</code> öppnar databasen eller skapar filen.</p>
+                <pre class="code-block compact-code fragment"><code>CREATE TABLE IF NOT EXISTS skamt (...)</code></pre>
+                <p class="fragment">Tabellen skapas bara om den inte redan finns.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Tillstånd</p>
+                <h2>Kom ihåg det senast hämtade skämtet</h2>
+                <pre class="code-block compact-code fragment"><code>senaste_skamt = None</code></pre>
+                <p class="fragment"><code>None</code> betyder att inget skämt har hämtats ännu.</p>
+                <pre class="code-block compact-code fragment"><code>senaste_skamt = (
+    data["setup"],
+    data["punchline"]
+)</code></pre>
+                <p class="fragment">Efter API-anropet innehåller variabeln en tuple med två texter.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">global</p>
+                <h2>Funktionen ändrar den yttre variabeln</h2>
+                <pre class="code-block compact-code fragment"><code>def hamta_skamt():
+    global senaste_skamt</code></pre>
+                <p class="fragment"><code>global</code> anger att funktionen ska ändra variabeln utanför funktionen.</p>
+                <p class="fragment">Utan raden skulle en tilldelning skapa en lokal variabel med samma namn.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">API</p>
+                <h2>Hämta och tolka ett skämt</h2>
+                <pre class="code-block compact-code fragment"><code>response = requests.get(url)
+
+if response.status_code == 200:
+    data = response.json()</code></pre>
+                <p class="fragment"><code>requests.get()</code> skickar en GET-förfrågan.</p>
+                <p class="fragment"><code>200</code> betyder att anropet lyckades.</p>
+                <p class="fragment"><code>json()</code> gör svaret till Pythondata.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Visa resultat</p>
+                <h2>API-data blir text i GUI:t</h2>
+                <pre class="code-block compact-code fragment"><code>skamt_label.config(
+    text=f"{data['setup']} - {data['punchline']}"
+)</code></pre>
+                <p class="fragment"><code>setup</code> innehåller skämtets första del.</p>
+                <p class="fragment"><code>punchline</code> innehåller poängen.</p>
+                <p class="fragment"><code>config()</code> ändrar texten i etiketten.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Spara</p>
+                <h2>Spara bara när ett skämt finns</h2>
+                <pre class="code-block compact-code fragment"><code>if senaste_skamt:
+    cursor.execute(
+        "INSERT INTO skamt "
+        "(setup, punchline) VALUES (?, ?)",
+        senaste_skamt
+    )
+    conn.commit()</code></pre>
+                <p class="fragment"><code>?</code> är platshållare för värdena i tuplen.</p>
+                <p class="fragment"><code>commit()</code> sparar ändringen permanent.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Läsa</p>
+                <h2>Hämta alla databasrader</h2>
+                <pre class="code-block compact-code fragment"><code>cursor.execute("SELECT * FROM skamt")
+rader = cursor.fetchall()</code></pre>
+                <p class="fragment"><code>fetchall()</code> ger en lista med alla rader.</p>
+                <pre class="code-block compact-code fragment"><code>output = "\n".join(
+    [f"{rad[1]} - {rad[2]}" for rad in rader]
+)</code></pre>
+                <p class="fragment">Varje rad görs om till en text på en egen rad.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">GUI</p>
+                <h2>Tre knappar, tre funktioner</h2>
+                <pre class="code-block compact-code fragment"><code>tk.Button(
+    root,
+    text="Hämta skämt",
+    command=hamta_skamt
+).pack()</code></pre>
+                <p class="fragment">Varje knapp får sin funktion via <code>command</code>.</p>
+                <ul>
+                    <li class="fragment"><code>hamta_skamt</code> använder API:et.</li>
+                    <li class="fragment"><code>spara_skamt</code> skriver till databasen.</li>
+                    <li class="fragment"><code>visa_skamt</code> läser från databasen.</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Prova själv</p>
+                <h2>Interaktiv simulering: skämtregister</h2>
+                <div class="tkinter-presentation-simulator">
+                    <div class="tkinter-presentation-window" aria-label="Simulerat skämtregister">
+                        <div class="tkinter-presentation-titlebar">
+                            <span>Skämtregister</span><span aria-hidden="true">_ □ x</span>
+                        </div>
+                        <div class="tkinter-presentation-body">
+                            <button type="button" data-joke-action="fetch">Hämta skämt</button>
+                            <button type="button" data-joke-action="save">Spara skämt</button>
+                            <button type="button" data-joke-action="show">Visa alla skämt</button>
+                            <p id="presentation-joke-label" aria-live="polite"></p>
+                        </div>
+                    </div>
+                    <div class="tkinter-presentation-trace">
+                        <h3>Vad händer i koden?</h3>
+                        <output id="presentation-joke-trace">Programmet har skapat skamt.db och väntar på ett knapptryck.</output>
+                        <button type="button" id="presentation-joke-reset">Återställ</button>
+                    </div>
+                </div>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Hela flödet</p>
+                <h2>Från klick till databas</h2>
+                <ol>
+                    <li class="fragment">Användaren klickar på <strong>Hämta skämt</strong>.</li>
+                    <li class="fragment">API-svaret visas och sparas i <code>senaste_skamt</code>.</li>
+                    <li class="fragment">Användaren klickar på <strong>Spara skämt</strong>.</li>
+                    <li class="fragment"><code>INSERT</code> lägger in tuplen i databasen.</li>
+                    <li class="fragment"><code>commit()</code> sparar ändringen.</li>
+                    <li class="fragment"><strong>Visa alla</strong> läser och visar raderna.</li>
+                </ol>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Testning</p>
+                <h2>Kontrollera fler än normalfallet</h2>
+                <ul>
+                    <li class="fragment">Klicka på Spara innan något har hämtats.</li>
+                    <li class="fragment">Spara flera olika skämt.</li>
+                    <li class="fragment">Spara samma skämt flera gånger.</li>
+                    <li class="fragment">Starta om programmet och visa sparade skämt.</li>
+                    <li class="fragment">Testa när API:et eller nätverket inte svarar.</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Förbättring</p>
+                <h2>API-anropet behöver felhantering</h2>
+                <pre class="code-block compact-code fragment"><code>try:
+    response = requests.get(url, timeout=10)
+    response.raise_for_status()
+    data = response.json()
+except requests.exceptions.RequestException:
+    skamt_label.config(
+        text="Kunde inte hämta ett skämt."
+    )</code></pre>
+                <p class="fragment">Grundkoden visar flödet. Den robustare versionen hanterar nätverks- och HTTP-fel.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Bygg vidare</p>
+                <h2>Nästa steg</h2>
+                <ul>
+                    <li class="fragment">lägg till ett sökfält</li>
+                    <li class="fragment">ta bort valda skämt</li>
+                    <li class="fragment">visa skämten i en lista</li>
+                    <li class="fragment">förhindra dubbletter</li>
+                    <li class="fragment">stäng databasanslutningen korrekt</li>
+                    <li class="fragment">kontrollera tabellen med SQLite Viewer</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Sammanfattning</p>
+                <h2>Kom ihåg</h2>
+                <ul>
+                    <li class="fragment">GUI:t startar funktioner genom knapptryck.</li>
+                    <li class="fragment">API:et levererar data som JSON.</li>
+                    <li class="fragment">En tuple håller det senast hämtade skämtet.</li>
+                    <li class="fragment">SQLite sparar skämt mellan programkörningar.</li>
+                    <li class="fragment">Funktionerna binder ihop GUI, API och databas.</li>
+                    <li class="fragment">Testning och felhantering behövs för ett robust program.</li>
+                </ul>
+            </div></section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+    <script src="presentation.js"></script>
+    <script>
+        (function () {
+            const jokes = [
+                ["Vad kallar man en sovande tjur?", "En bulldozer."],
+                ["Varför gick datorn till läkaren?", "Den hade fått ett virus."],
+                ["Vad sa den ena väggen till den andra?", "Vi möts i hörnet."]
+            ];
+            const label = document.getElementById("presentation-joke-label");
+            const trace = document.getElementById("presentation-joke-trace");
+            const fetchButton = document.querySelector('[data-joke-action="fetch"]');
+            const saveButton = document.querySelector('[data-joke-action="save"]');
+            const showButton = document.querySelector('[data-joke-action="show"]');
+            const resetButton = document.getElementById("presentation-joke-reset");
+            let latest = null;
+            let saved = [];
+            let jokeIndex = 0;
+
+            fetchButton.addEventListener("click", function () {
+                latest = jokes[jokeIndex % jokes.length];
+                jokeIndex += 1;
+                label.textContent = latest[0] + " " + latest[1];
+                trace.textContent = "1. hamta_skamt() körs.\n2. API:et returnerar JSON.\n3. Label uppdateras.\n4. senaste_skamt innehåller en tuple.";
+            });
+
+            saveButton.addEventListener("click", function () {
+                if (!latest) {
+                    label.textContent = "Hämta ett skämt först.";
+                    trace.textContent = "senaste_skamt är None. Ingen INSERT körs.";
+                    return;
+                }
+                saved.push(latest.slice());
+                label.textContent = "Skämtet sparat!";
+                trace.textContent = "INSERT sparar setup och punchline.\nconn.commit() gör ändringen permanent.\nSparade rader: " + saved.length;
+            });
+
+            showButton.addEventListener("click", function () {
+                label.textContent = saved.length
+                    ? saved.map(function (joke) { return joke[0] + " " + joke[1]; }).join("\n")
+                    : "Inga skämt är sparade.";
+                trace.textContent = "SELECT * FROM skamt körs.\nfetchall() returnerar " + saved.length + " rad(er).";
+            });
+
+            resetButton.addEventListener("click", function () {
+                latest = null;
+                saved = [];
+                jokeIndex = 0;
+                label.textContent = "";
+                trace.textContent = "Programmet har skapat skamt.db och väntar på ett knapptryck.";
+            });
+        }());
+    </script>
+</body>
+</html>

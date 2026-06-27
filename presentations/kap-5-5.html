@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Presentation Kap 5.5 - Testning, dokumentation och reflektion</title>
+    <link rel="stylesheet" href="presentation.css">
+</head>
+<body class="presentation-body">
+    <main class="presentation-shell">
+        <header class="presentation-topbar">
+            <a href="index.html">Presentationer</a>
+            <span class="slide-counter">Slide <span data-current-slide>1</span>/<span data-total-slides>1</span></span>
+        </header>
+
+        <div class="deck" aria-live="polite">
+            <section class="slide is-active"><div class="slide-content">
+                <p class="slide-kicker">Kap 5.5</p>
+                <h1>Testning, dokumentation och reflektion</h1>
+                <p class="fragment">Kontrollera kvaliteten och visa hur projektet fungerar.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Mål</p>
+                <h2>Efter lektionen ska du kunna...</h2>
+                <ul>
+                    <li class="fragment">testa ett program systematiskt</li>
+                    <li class="fragment">jämföra faktiskt och förväntat resultat</li>
+                    <li class="fragment">skriva kommentarer som förklarar varför</li>
+                    <li class="fragment">skapa en användbar README</li>
+                    <li class="fragment">skriva en konkret reflektion</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Tre delar</p>
+                <h2>Ett projekt är mer än fungerande kod</h2>
+                <div class="code-step fragment">
+                    <pre class="code-block compact-code"><code>Testning</code></pre>
+                    <p>Visar om programmet fungerar i olika situationer.</p>
+                </div>
+                <div class="code-step fragment">
+                    <pre class="code-block compact-code"><code>Dokumentation</code></pre>
+                    <p>Gör programmet begripligt och möjligt att använda.</p>
+                </div>
+                <div class="code-step fragment">
+                    <pre class="code-block compact-code"><code>Reflektion</code></pre>
+                    <p>Visar vad du har lärt dig och hur du löste problem.</p>
+                </div>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Testning</p>
+                <h2>Det lyckade fallet räcker inte</h2>
+                <p class="fragment">Ett test med korrekt indata visar bara att programmet fungerar i bästa fall.</p>
+                <p class="fragment">Testa också när:</p>
+                <ul>
+                    <li class="fragment">användaren skriver fel</li>
+                    <li class="fragment">data saknas</li>
+                    <li class="fragment">värden ligger på en gräns</li>
+                    <li class="fragment">samma funktion körs flera gånger</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Testfall</p>
+                <h2>En bestämd situation att kontrollera</h2>
+                <p class="fragment">Ett testfall beskriver minst:</p>
+                <ol>
+                    <li class="fragment"><strong>vad</strong> som testas</li>
+                    <li class="fragment"><strong>vilken indata</strong> som används</li>
+                    <li class="fragment"><strong>vilket resultat</strong> som förväntas</li>
+                    <li class="fragment"><strong>vilket resultat</strong> testet faktiskt gav</li>
+                </ol>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Fyra typer</p>
+                <h2>Blanda olika testfall</h2>
+                <ul>
+                    <li class="fragment"><strong>Normalt:</strong> förväntad och giltig indata.</li>
+                    <li class="fragment"><strong>Feltest:</strong> text där programmet kräver ett tal.</li>
+                    <li class="fragment"><strong>Gränsfall:</strong> exempelvis <code>0</code> eller tom text.</li>
+                    <li class="fragment"><strong>Upprepat:</strong> samma funktion körs flera gånger.</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Testprotokoll</p>
+                <h2>Skriv vad du förväntar dig</h2>
+                <pre class="code-block compact-code fragment"><code>Test: Lägg till post
+Indata: "Testnamn"
+Förväntat: Posten sparas
+Faktiskt: Posten sparades
+Godkänt: Ja</code></pre>
+                <p class="fragment">Förväntat resultat skrivs före testet.</p>
+                <p class="fragment">Faktiskt resultat fylls i efter testet.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Databasprojekt</p>
+                <h2>Testa både giltig och tom indata</h2>
+                <pre class="code-block compact-code fragment"><code>Funktion: Lägg till
+Indata: namn="Pasta", info="Tomatsås"
+Förväntat: Raden sparas och visas.</code></pre>
+                <pre class="code-block compact-code fragment"><code>Funktion: Lägg till
+Indata: namn="", info="Saknar namn"
+Förväntat: Felmeddelande visas.
+            Raden sparas inte.</code></pre>
+                <p class="fragment">Ett feltest ska även kontrollera att felaktig data inte sparas.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Tänk som en testare</p>
+                <h2>Vad kan gå fel?</h2>
+                <ul>
+                    <li class="fragment">tomma fält</li>
+                    <li class="fragment">fel datatyp</li>
+                    <li class="fragment">specialtecken</li>
+                    <li class="fragment">extremt långa värden</li>
+                    <li class="fragment">avbrott eller trasig anslutning</li>
+                    <li class="fragment">data som redan finns</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Dokumentation</p>
+                <h2>Kommentarer ska tillföra information</h2>
+                <pre class="code-block compact-code fragment"><code># Mindre bra: upprepar koden
+antal = antal + 1  # ökar antal med 1</code></pre>
+                <pre class="code-block compact-code fragment"><code># Bättre: förklarar varför
+antal = antal + 1  # räknar poster som sparades</code></pre>
+                <p class="fragment">Kodens namn bör förklara <em>vad</em>. Kommentaren förklarar vid behov <em>varför</em>.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Kommentar</p>
+                <h2>Förklara logik som inte är självklar</h2>
+                <pre class="code-block compact-code fragment"><code>def add_recipe():
+    # Läser formuläret och sparar receptet
+    # först efter att fälten har validerats.
+    ...</code></pre>
+                <p class="fragment">Kommentarer är särskilt användbara vid:</p>
+                <ul>
+                    <li class="fragment">felhantering</li>
+                    <li class="fragment">databasanslutningar</li>
+                    <li class="fragment">API-anrop</li>
+                    <li class="fragment">ovanliga tekniska beslut</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">README</p>
+                <h2>Projektets startpunkt</h2>
+                <p class="fragment">En README ska hjälpa någon annan att komma igång utan att först läsa all kod.</p>
+                <ul>
+                    <li class="fragment">Vad gör programmet?</li>
+                    <li class="fragment">Vilka funktioner finns?</li>
+                    <li class="fragment">Hur startas programmet?</li>
+                    <li class="fragment">Vilka paket eller tekniker används?</li>
+                    <li class="fragment">Vilka begränsningar finns?</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">README-exempel</p>
+                <h2>En tydlig grundstruktur</h2>
+                <pre class="code-block compact-code fragment"><code># Receptregister
+
+Programmet sparar och söker efter recept.
+
+## Funktioner
+- Lägg till recept
+- Visa recept
+- Sök efter recept
+
+## Så kör du programmet
+1. Öppna projektmappen.
+2. Kör main.py.
+
+## Kända begränsningar
+- Recept kan ännu inte redigeras.</code></pre>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">README-kontroll</p>
+                <h2>Kan en ny användare starta programmet?</h2>
+                <ul>
+                    <li class="fragment">Är syftet tydligt beskrivet?</li>
+                    <li class="fragment">Står det vilken fil som ska köras?</li>
+                    <li class="fragment">Står det om projektet använder <code>sqlite3</code>, <code>requests</code> eller <code>tkinter</code>?</li>
+                    <li class="fragment">Finns ett konkret användningsexempel?</li>
+                    <li class="fragment">Finns kända begränsningar?</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Reflektion</p>
+                <h2>Beskriv vad du faktiskt gjorde</h2>
+                <p class="fragment"><strong>Otydligt:</strong> ”Det gick bra, men databasen var svår.”</p>
+                <p class="fragment"><strong>Tydligare:</strong> ”Min tomma sökning visade alla poster. Jag löste det genom att kontrollera sökordet före SQL-frågan.”</p>
+                <p class="fragment">En konkret reflektion visar problem, orsak, lösning och lärdom.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Reflektionsmall</p>
+                <h2>Frågor att besvara</h2>
+                <ul>
+                    <li class="fragment"><strong>Planering:</strong> Vad hjälpte och vad saknades?</li>
+                    <li class="fragment"><strong>Implementation:</strong> Vad byggde du först och varför?</li>
+                    <li class="fragment"><strong>Problem:</strong> Vilka fel eller svårigheter uppstod?</li>
+                    <li class="fragment"><strong>Lösning:</strong> Hur hittade och åtgärdade du orsaken?</li>
+                    <li class="fragment"><strong>Testning:</strong> Vilka testfall gav viktig information?</li>
+                    <li class="fragment"><strong>Vidare:</strong> Vad skulle du förbättra?</li>
+                </ul>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Före inlämning</p>
+                <h2>Arbetsgång</h2>
+                <ol>
+                    <li class="fragment">Starta programmet från början.</li>
+                    <li class="fragment">Testa normala fall, feltest och gränsfall.</li>
+                    <li class="fragment">Dokumentera testresultaten.</li>
+                    <li class="fragment">Lägg till kommentarer där de hjälper.</li>
+                    <li class="fragment">Uppdatera README-filen.</li>
+                    <li class="fragment">Skriv en konkret reflektion.</li>
+                </ol>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Kontrollfråga</p>
+                <h2>Vilket test saknas?</h2>
+                <pre class="code-block compact-code fragment"><code>Programmet kräver en ålder mellan 0 och 120.
+
+Test 1: 25
+Test 2: "hej"</code></pre>
+                <p class="fragment">Exempel på gränsfall: <code>0</code>, <code>120</code>, <code>-1</code> och <code>121</code>.</p>
+                <p class="fragment">Testa både precis innanför och precis utanför gränsen.</p>
+            </div></section>
+
+            <section class="slide"><div class="slide-content">
+                <p class="slide-kicker">Sammanfattning</p>
+                <h2>Kom ihåg</h2>
+                <ul>
+                    <li class="fragment">Testfall innehåller indata och förväntat resultat.</li>
+                    <li class="fragment">Blanda normala test, feltest, gränsfall och upprepade test.</li>
+                    <li class="fragment">Kommentarer ska förklara sådant som inte redan är tydligt.</li>
+                    <li class="fragment">README visar hur projektet används.</li>
+                    <li class="fragment">Reflektionen beskriver problem, lösningar och lärdomar.</li>
+                </ul>
+            </div></section>
+        </div>
+
+        <footer class="presentation-footer"></footer>
+    </main>
+    <script src="presentation.js"></script>
+</body>
+</html>
