@@ -56,9 +56,11 @@ Kapitel | Fragenummer | Fraga | Felsvar | Antal svar | Andel fel
 =IF(COUNTA(Svar!B2:B)=0;"";QUERY({Svar!C2:E\ARRAYFORMULA(1-N(Svar!H2:H))\ARRAYFORMULA(N(Svar!H2:H))};"select Col1,Col2,Col3,sum(Col4),count(Col5),avg(Col4) where Col1 is not null group by Col1,Col2,Col3 order by sum(Col4) desc, avg(Col4) desc label sum(Col4) '', count(Col5) '', avg(Col4) ''";0))
 ```
 
-Formatera kolumn `F` som procent. Formeln uppdateras automatiskt nar nya svar kommer in och visar samma oversikt som Teknik 2: antal felsvar, antal svar och andel fel per fraga.
+Formatera kolumn `F` som procent. Formeln uppdateras automatiskt nar nya svar kommer in och visar antal felsvar, antal svar och andel fel per fraga.
 
 Frys rad 1 pa bada analysflikarna. Filter behovs bara pa fliken `Svar` eftersom analysflikarna styrs av sina formler.
+
+For Webb 1 ska kalkylarket alltsa heta till exempel `Quizstatistik Webb 1`, och inga andra kurser ska skriva till samma kalkylark.
 
 ## 2. Hamta kalkylarkets id
 
@@ -109,31 +111,49 @@ function clearQuizStatistics() {
 }
 
 function doGet() {
-  return ContentService.createTextOutput("Quizstatistik ar aktiv.");
+  return textResponse("Quizstatistik ar aktiv.");
 }
 
 function doPost(e) {
-  const data = JSON.parse(e.postData.contents);
-  if (!data || !Array.isArray(data.answers) || !data.answers.length) {
-    return ContentService.createTextOutput("Inga svar att spara.");
+  try {
+    if (!e || !e.postData || !e.postData.contents) {
+      return textResponse("Ingen postData mottagen.");
+    }
+
+    const data = JSON.parse(e.postData.contents);
+    if (!data || !Array.isArray(data.answers) || !data.answers.length) {
+      return textResponse("Inga svar att spara.");
+    }
+
+    const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
+    if (!sheet) {
+      return textResponse("Fliken Svar saknas.");
+    }
+
+    const timestamp = new Date();
+    const rows = data.answers.map((answer) => [
+      timestamp,
+      data.quizId || "",
+      data.chapter || "",
+      answer.questionNumber || "",
+      answer.questionText || "",
+      answer.selectedAnswer || "",
+      answer.correctAnswer || "",
+      answer.isCorrect ? 1 : 0,
+      data.pagePath || "",
+    ]);
+
+    sheet.getRange(sheet.getLastRow() + 1, 1, rows.length, rows[0].length).setValues(rows);
+    return textResponse("OK");
+  } catch (error) {
+    return textResponse("Fel: " + error.message);
   }
+}
 
-  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getSheetByName(SHEET_NAME);
-  const timestamp = new Date();
-  const rows = data.answers.map((answer) => [
-    timestamp,
-    data.quizId || "",
-    data.chapter || "",
-    answer.questionNumber || "",
-    answer.questionText || "",
-    answer.selectedAnswer || "",
-    answer.correctAnswer || "",
-    answer.isCorrect ? 1 : 0,
-    data.pagePath || "",
-  ]);
-
-  sheet.getRange(sheet.getLastRow() + 1, 1, rows.length, rows[0].length).setValues(rows);
-  return ContentService.createTextOutput("OK");
+function textResponse(message) {
+  return ContentService
+    .createTextOutput(message)
+    .setMimeType(ContentService.MimeType.TEXT);
 }
 ```
 
@@ -152,7 +172,24 @@ Adressen ser ut ungefar sa har:
 https://script.google.com/macros/s/AKfycb.../exec
 ```
 
-Om du senare andrar `doPost` eller `doGet` maste du skapa en ny version av webbappens implementering. Menyfunktionen `Quizstatistik` syns efter att kalkylarket har laddats om sedan skriptet sparats. Menyn innehaller `Tom insamlade svar` och behaller alltid analysflikarna.
+Viktigt: anvand inte en library-lank. En library-lank ser ut sa har och fungerar inte for quizstatistik:
+
+```text
+https://script.google.com/macros/library/d/.../2
+```
+
+Ratt lank maste innehalla `/macros/s/` och sluta med `/exec`.
+
+Om du senare andrar `doPost` eller `doGet` maste du skapa en ny version av webbappens implementering:
+
+1. Oppna **Implementera > Hantera implementeringar**.
+2. Klicka pa pennan vid webbappen.
+3. Valj **Ny version**.
+4. Kontrollera att **Kor som** ar `Jag`.
+5. Kontrollera att **Vem har atkomst** ar `Alla`.
+6. Klicka pa **Implementera**.
+
+Menyfunktionen `Quizstatistik` syns efter att kalkylarket har laddats om sedan skriptet sparats. Menyn innehaller `Tom insamlade svar` och behaller alltid analysflikarna.
 
 ## 5. Lagg till rapportering i kurswebben
 
@@ -238,8 +275,19 @@ Om inga rader kommer in:
 
 - kontrollera att Apps Script-webbappen har atkomst `Alla`
 - kontrollera att adressen i JavaScript slutar med `/exec`
+- kontrollera att du inte har klistrat in en `/macros/library/d/...`-lank
+- kontrollera att du har skapat en ny version av webbappen efter andringar i `Code.gs`
 - kontrollera att den publicerade kurswebben innehaller den nya JavaScript-koden
+- gor en hard omladdning i webblasaren, till exempel `Cmd + Shift + R` pa Mac
 - kontrollera att `SHEET_NAME` ar exakt `Svar`
+
+Ett fungerande Webb 1-test ska ge detta:
+
+- `/exec`-lanken visar `Quizstatistik ar aktiv.`
+- efter ett rattat quiz skapas en rad per fraga i `Svar`
+- kolumn `B` far Webb 1-quizets `quizId`, till exempel `kapitel-1`
+- kolumn `C` far kapitelnamn eller sidans rubrik
+- analysflikarna fylls automatiskt av formlerna
 
 ## 8. Andra fragor senare
 
@@ -259,6 +307,13 @@ Innan en ny kurs publiceras ska allt nedan stamma:
 - `QUIZ_STATISTICS_ENDPOINT` i kurswebben pekar pa kursens egen `/exec`-adress.
 - Varje quiz skickar `quizId`, `chapter` och en rad per fraga med `questionNumber`, `questionText`, `selectedAnswer`, `correctAnswer` och `isCorrect`.
 - Ett provquiz skapar en rad per fraga i `Svar` och bada analysflikarna uppdateras.
+
+For Webb 1 specifikt:
+
+- Kalkylarket heter `Quizstatistik Webb 1`.
+- Apps Script-koden har Webb 1-kalkylarkets id i `SPREADSHEET_ID`.
+- Webb 1-kurswebben har Webb 1:s egen `/exec`-adress i `QUIZ_STATISTICS_ENDPOINT`.
+- Ingen Webb 1-kod pekar pa Programmering 2:s kalkylark eller webbappsadress.
 
 ## Integritet
 
