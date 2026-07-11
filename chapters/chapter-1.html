@@ -307,7 +307,9 @@ if (button) {
                     return {
                         question,
                         selected: selected ? selected.value : null,
+                        selectedText: selected ? selected.closest("label").textContent.trim() : "",
                         correct: question.dataset.correct,
+                        correctText: question.querySelector(`input[value="${question.dataset.correct}"]`)?.closest("label").textContent.trim() || question.dataset.correct,
                         explanation: question.dataset.explanation || "",
                         feedback: question.querySelector(".quiz-feedback"),
                         index: index + 1,
@@ -347,6 +349,21 @@ if (button) {
                     <ul>${resultItems.join("")}</ul>
                     <p>Gå igenom förklaringarna ovan. Varje fel svar visar varför det var fel och vad som är rätt.</p>
                 `
+
+                if (!quizForm.dataset.statisticsSent) {
+                    window.recordQuizStatistics?.({
+                        quizId: "kapitel-1",
+                        chapter: document.querySelector("h1")?.textContent.trim() || "Kapitel 1",
+                        answers: answers.map((entry) => ({
+                            questionNumber: entry.index,
+                            questionText: entry.question.querySelector("legend")?.textContent.trim() || "",
+                            selectedAnswer: entry.selectedText,
+                            correctAnswer: entry.correctText,
+                            isCorrect: entry.selected === entry.correct,
+                        })),
+                    })
+                    quizForm.dataset.statisticsSent = "true"
+                }
             })
         }
     </script>

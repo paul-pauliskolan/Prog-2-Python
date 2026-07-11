@@ -1,4 +1,7 @@
 const CURRENT_SCRIPT = document.currentScript;
+// Fyll i Apps Script-webbappens /exec-adress nar den ar publicerad.
+const QUIZ_STATISTICS_ENDPOINT =
+  "https://script.google.com/macros/s/AKfycbzTyV7F2EhM6Kkz5M37kCRzckHPR2XvIExaytzdVzvngs2NFTj95Ra0kF67HkEao-4Yww/exec";
 const CHAPTERS_URL = new URL(
   "../data/chapters.json",
   CURRENT_SCRIPT?.src || window.location.href,
@@ -8,6 +11,26 @@ const state = {
   chapters: [],
   loading: null,
 };
+
+function recordQuizStatistics({ quizId, chapter, answers }) {
+  if (!QUIZ_STATISTICS_ENDPOINT || !Array.isArray(answers) || !answers.length) {
+    return;
+  }
+
+  fetch(QUIZ_STATISTICS_ENDPOINT, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify({
+      quizId,
+      chapter,
+      pagePath: window.location.pathname,
+      answers,
+    }),
+  }).catch(() => {
+    // Rattningen ska fungera aven om statistik inte kan skickas.
+  });
+}
 
 function chapterUrl(chapterNumber) {
   const fromChapterFolder = window.location.pathname.includes("/chapters/");
@@ -166,6 +189,8 @@ window.webbook = {
   loadChapters,
   renderChapterPage,
 };
+
+window.recordQuizStatistics = recordQuizStatistics;
 
 document.addEventListener("DOMContentLoaded", initPage);
 

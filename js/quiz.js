@@ -1,6 +1,40 @@
 // Reusable quiz renderer for static chapter pages
 // Usage: window.renderQuiz(containerElement, quizData)
 (function () {
+  function getQuizId(container, quizData) {
+    if (quizData.quizId) return quizData.quizId;
+    if (container.id) return container.id.replace(/^quiz-/, "kapitel-");
+
+    const match = window.location.pathname.match(/chapter-([0-9-]+)\.html$/);
+    return match ? `kapitel-${match[1]}` : "quiz";
+  }
+
+  function getChapterName(quizData) {
+    if (quizData.chapter) return quizData.chapter;
+
+    const heading = document.querySelector("h1");
+    if (heading && heading.textContent.trim()) return heading.textContent.trim();
+
+    return document.title || "";
+  }
+
+  function buildStatisticsAnswers(form, quizData, results) {
+    return quizData.map((question, questionIndex) => {
+      const name = `quiz${questionIndex}`;
+      const selected = form.querySelector(`input[name="${name}"]:checked`);
+      const selectedIndex = selected ? parseInt(selected.value, 10) : null;
+
+      return {
+        questionNumber: questionIndex + 1,
+        questionText: question.question || "",
+        selectedAnswer:
+          selectedIndex === null ? "" : question.options[selectedIndex] || selected.value,
+        correctAnswer: question.options[question.correct] || String(question.correct),
+        isCorrect: Boolean(results[questionIndex]),
+      };
+    });
+  }
+
   function createOption(name, qIndex, optIndex, text) {
     const id = `${name}-q${qIndex}-o${optIndex}`;
     const wrapper = document.createElement("div");
@@ -149,6 +183,15 @@
         s.innerHTML = `<strong>${correctCount} av ${total} rätt.</strong> Korrigera de felaktiga svaren och prova igen.`;
       }
       container.appendChild(s);
+
+      if (!form.dataset.statisticsSent) {
+        window.recordQuizStatistics?.({
+          quizId: getQuizId(container, quizData),
+          chapter: getChapterName(quizData),
+          answers: buildStatisticsAnswers(form, quizData.questions, results),
+        });
+        form.dataset.statisticsSent = "true";
+      }
     });
 
     form.appendChild(btn);
