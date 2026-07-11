@@ -32,6 +32,98 @@ function recordQuizStatistics({ quizId, chapter, answers }) {
   });
 }
 
+function optionText(input) {
+  return input?.closest("label")?.textContent.trim() || "";
+}
+
+function initStaticQuizForms() {
+  document
+    .querySelectorAll("form.quiz-form")
+    .forEach((form) => {
+      if (form.id === "chapter1-quiz" || form.dataset.quizHandlerInitialized) {
+        return;
+      }
+
+      const submitButton = form.querySelector(".quiz-submit");
+      const questions = Array.from(form.querySelectorAll(".quiz-question"));
+      if (!submitButton || !questions.length) return;
+
+      form.dataset.quizHandlerInitialized = "true";
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const status = form.querySelector(".quiz-status, #quiz-status");
+        const summary = form.querySelector(".quiz-summary, #quiz-summary");
+        const answers = questions.map((question, index) => {
+          const selected = question.querySelector("input[type='radio']:checked");
+          const correct = question.dataset.correct || "";
+          const correctInput = question.querySelector(`input[value="${correct}"]`);
+
+          return {
+            question,
+            questionNumber: index + 1,
+            questionText: question.querySelector("legend")?.textContent.trim() || "",
+            selected,
+            selectedAnswer: optionText(selected),
+            correct,
+            correctAnswer: optionText(correctInput) || correct,
+            explanation: question.dataset.explanation || "",
+            feedback: question.querySelector(".quiz-feedback"),
+          };
+        });
+
+        if (answers.some((answer) => !answer.selected)) {
+          if (status) status.textContent = "Alla frågor måste besvaras innan quizet kan rättas.";
+          if (summary) summary.hidden = true;
+          return;
+        }
+
+        let correctCount = 0;
+        const resultItems = answers.map((answer) => {
+          const isCorrect = answer.selected.value === answer.correct;
+          if (isCorrect) correctCount += 1;
+
+          if (answer.feedback) {
+            answer.feedback.textContent = isCorrect
+              ? `Rätt svar. ${answer.explanation}`
+              : `Fel svar. Du valde ${answer.selected.value}, men rätt svar är ${answer.correct}. ${answer.explanation}`;
+          }
+
+          answer.question.dataset.result = isCorrect ? "correct" : "incorrect";
+          return `<li>Fråga ${answer.questionNumber}: ${isCorrect ? "rätt" : "fel"}</li>`;
+        });
+
+        if (status) {
+          status.textContent = `Du fick ${correctCount} av ${answers.length} rätt.`;
+        }
+
+        if (summary) {
+          summary.hidden = false;
+          summary.innerHTML = `
+            <h3>Resultat</h3>
+            <ul>${resultItems.join("")}</ul>
+            <p>Gå igenom förklaringarna ovan. Varje fel svar visar varför det var fel och vad som är rätt.</p>
+          `;
+        }
+
+        if (!form.dataset.statisticsSent) {
+          recordQuizStatistics({
+            quizId: form.id.replace(/^chapter([0-9-]+)-quiz$/, "kapitel-$1"),
+            chapter: document.querySelector("h1")?.textContent.trim() || document.title,
+            answers: answers.map((answer) => ({
+              questionNumber: answer.questionNumber,
+              questionText: answer.questionText,
+              selectedAnswer: answer.selectedAnswer,
+              correctAnswer: answer.correctAnswer,
+              isCorrect: answer.selected.value === answer.correct,
+            })),
+          });
+          form.dataset.statisticsSent = "true";
+        }
+      });
+    });
+}
+
 function chapterUrl(chapterNumber) {
   const fromChapterFolder = window.location.pathname.includes("/chapters/");
   return fromChapterFolder
@@ -176,6 +268,8 @@ async function loadChapters() {
 }
 
 function initPage() {
+  initStaticQuizForms();
+
   loadChapters().then(() => {
     const match = window.location.pathname.match(/chapter-(\d+)\.html$/);
     if (match) {

@@ -35,6 +35,12 @@
     });
   }
 
+  function hasAnsweredAll(form, quizData) {
+    return quizData.every((_, questionIndex) =>
+      form.querySelector(`input[name="quiz${questionIndex}"]:checked`),
+    );
+  }
+
   function createOption(name, qIndex, optIndex, text) {
     const id = `${name}-q${qIndex}-o${optIndex}`;
     const wrapper = document.createElement("div");
@@ -184,7 +190,7 @@
       }
       container.appendChild(s);
 
-      if (!form.dataset.statisticsSent) {
+      if (hasAnsweredAll(form, quizData.questions) && !form.dataset.statisticsSent) {
         window.recordQuizStatistics?.({
           quizId: getQuizId(container, quizData),
           chapter: getChapterName(quizData),
