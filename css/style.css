@@ -3,17 +3,82 @@
 /* Programmering nivå 2 - Webb (HTML, CSS, JavaScript) */
 
 :root {
-  --bg: #08070a;
-  --bg-alt: #120f14;
-  --surface: #161616;
-  --surface-2: #202020;
-  --accent: #f3b35c;
-  --accent-strong: #ff8a3d;
-  --text: #f4f7fb;
-  --text-muted: #c2c2c8;
-  --border: rgba(243, 179, 92, 0.2);
-  --shadow: 0 18px 48px rgba(0, 0, 0, 0.3);
+  color-scheme: light;
+  --page-bg: #f7f4ee;
+  --page-bg-end: #eee9df;
+  --panel-bg: #ffffff;
+  --card-bg: #fbfaf7;
+  --text-primary: #202027;
+  --text-secondary: #55545d;
+  --link: #8a3f0d;
+  --accent: #9a4a16;
+  --accent-strong: #9a3f08;
+  --accent-contrast: #ffffff;
+  --border-color: #c9c1b5;
+  --shadow-color: rgba(39, 31, 24, 0.15);
+  --overlay: rgba(30, 25, 20, 0.48);
+  --hover-bg: #f3e4d5;
+  --hover-border: #9a4a16;
+  --focus-ring: #075ea8;
+  --code-bg: #f1eee8;
+  --code-text: #24222a;
+  --field-bg: #ffffff;
+  --field-text: #202027;
+  --field-border: #8a8176;
+  --success-bg: #e2f4e7;
+  --success-text: #135c2d;
+  --success-border: #2d7a45;
+  --warning-bg: #fff1cc;
+  --warning-text: #715000;
+  --warning-border: #9c7100;
+  --error-bg: #fbe4e4;
+  --error-text: #8f1d1d;
+  --error-border: #b52c2c;
+  --bg: var(--page-bg);
+  --bg-alt: var(--page-bg-end);
+  --surface: var(--panel-bg);
+  --surface-2: var(--card-bg);
+  --surface-color: var(--panel-bg);
+  --accent-color: var(--accent-strong);
+  --text: var(--text-primary);
+  --text-muted: var(--text-secondary);
+  --border: var(--border-color);
+  --shadow: 0 18px 48px var(--shadow-color);
   --reading-width: 72ch;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --page-bg: #08090d;
+  --page-bg-end: #111216;
+  --panel-bg: #18181b;
+  --card-bg: #212126;
+  --text-primary: #f5f5f6;
+  --text-secondary: #c8c8ce;
+  --link: #ffc078;
+  --accent: #f3b35c;
+  --accent-strong: #ff9b55;
+  --accent-contrast: #21130a;
+  --border-color: #5b5148;
+  --shadow-color: rgba(0, 0, 0, 0.38);
+  --overlay: rgba(4, 6, 10, 0.62);
+  --hover-bg: #33281f;
+  --hover-border: #ff9b55;
+  --focus-ring: #73bfff;
+  --code-bg: #090d18;
+  --code-text: #f4f7fb;
+  --field-bg: #10131b;
+  --field-text: #f4f7fb;
+  --field-border: #77727d;
+  --success-bg: #123521;
+  --success-text: #a8efbd;
+  --success-border: #55b978;
+  --warning-bg: #392e0d;
+  --warning-text: #ffe08a;
+  --warning-border: #cfae48;
+  --error-bg: #3e181b;
+  --error-text: #ffb8b8;
+  --error-border: #dd6868;
 }
 
 * {
@@ -29,7 +94,7 @@ body {
   min-height: 100vh;
   font-family: Georgia, "Times New Roman", serif;
   line-height: 1.65;
-  color: var(--text);
+  color: var(--text-primary);
   background:
     radial-gradient(
       circle at top left,
@@ -41,7 +106,7 @@ body {
       rgba(243, 179, 92, 0.08),
       transparent 26%
     ),
-    linear-gradient(180deg, var(--bg) 0%, #111111 100%);
+    linear-gradient(180deg, var(--page-bg) 0%, var(--page-bg-end) 100%);
 }
 
 body.menu-open {
@@ -52,7 +117,7 @@ body.menu-open::before {
   content: "";
   position: fixed;
   inset: 0;
-  background: rgba(4, 6, 10, 0.56);
+  background: var(--overlay);
   z-index: 95;
 }
 
@@ -62,7 +127,7 @@ img {
 }
 
 a {
-  color: var(--accent);
+  color: var(--link);
   text-decoration: none;
 }
 
@@ -105,9 +170,45 @@ ol {
   justify-content: flex-start;
   gap: 1rem;
   padding: 0.95rem 1.25rem;
-  background: rgba(15, 18, 32, 0.86);
+  background: color-mix(in srgb, var(--panel-bg) 88%, transparent);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 0.65rem;
+  right: 0.75rem;
+  z-index: 110;
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  width: auto;
+  height: 2.75rem;
+  margin: 0;
+  padding: 0 0.85rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--card-bg);
+  color: var(--text-primary);
+  font: 700 0.9rem/1 "Trebuchet MS", "Segoe UI", sans-serif;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.theme-toggle-icon { font-size: 1.05rem; }
+
+.theme-toggle:hover { background: var(--hover-bg); border-color: var(--hover-border); }
+.theme-toggle:focus-visible,
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
 }
 
 .site-search {
@@ -1320,6 +1421,151 @@ th {
   .intro-figure img {
     max-width: 200px;
   }
+}
+
+/* Theme-aware component surfaces. Keep deliberately simulated UIs (for
+   example .tkinter-window) visually faithful to what the lesson demonstrates. */
+.hero-copy,
+.hero-card,
+.feature-card,
+.split-mode-panel,
+.chapter-main,
+.chapter-aside,
+.aside-card,
+.content-section,
+.chapter-header,
+.nav-button,
+.site-footer,
+.toc-section {
+  background: var(--panel-bg);
+}
+
+.chapter-link,
+.video-card,
+.resource-item,
+.secondary-link,
+.exercise-hint,
+.chapter-header .chapter-meta span,
+th {
+  background: var(--card-bg);
+}
+
+.chapter-link:hover,
+.nav-button:hover,
+.search-toggle:hover,
+.exercise-reset:hover {
+  background: var(--hover-bg);
+  border-color: var(--hover-border);
+}
+
+.chapter-hero,
+blockquote,
+.key-topics span {
+  background: color-mix(in srgb, var(--accent-strong) 11%, var(--panel-bg));
+}
+
+.key-topics span { color: var(--text-primary); }
+
+pre,
+code,
+.exercise-result {
+  background: var(--code-bg);
+  color: var(--code-text);
+}
+
+pre code { background: transparent; color: inherit; }
+
+.interactive-exercise {
+  background: var(--card-bg);
+  border-color: var(--success-border);
+}
+
+.exercise-code,
+.exercise-input,
+.exercise-select,
+.exercise-text-input,
+.exercise-search-input,
+.exercise-key-input,
+.exercise-value-input,
+.exercise-score-input,
+.exercise-title-input,
+.exercise-author-input,
+.exercise-year-input,
+.exercise-number-input,
+input:not([type="radio"]):not([type="checkbox"]),
+select,
+textarea {
+  background: var(--field-bg);
+  color: var(--field-text);
+  border-color: var(--field-border);
+}
+
+.exercise-run,
+.quiz-submit,
+.practice-menu .chapter-link {
+  background: var(--accent-strong);
+  color: var(--accent-contrast);
+}
+
+.exercise-reset {
+  background: var(--card-bg);
+  color: var(--text-primary);
+}
+
+.quiz-question[data-result="correct"] { border-color: var(--success-border); }
+.quiz-question[data-result="incorrect"] { border-color: var(--error-border); }
+.quiz-feedback { color: var(--text-primary); }
+
+/* Practice-test pages carry their component CSS inline, so these theme rules
+   intentionally take precedence without changing their layout or behaviour. */
+.practice-summary a,
+.practice-check {
+  background: var(--accent-strong) !important;
+  color: var(--accent-contrast) !important;
+}
+
+.practice-card { background: var(--panel-bg) !important; }
+.option-button {
+  background: var(--field-bg) !important;
+  color: var(--field-text) !important;
+  border-color: var(--field-border) !important;
+}
+.option-button:hover:not(:disabled) { background: var(--hover-bg) !important; }
+.option-button.is-selected {
+  background: color-mix(in srgb, var(--focus-ring) 18%, var(--field-bg)) !important;
+  border-color: var(--focus-ring) !important;
+}
+.option-button.is-selected::after { background: var(--focus-ring) !important; color: var(--page-bg) !important; }
+.option-button.is-correct,
+.practice-result.is-complete { background: var(--success-bg) !important; color: var(--success-text) !important; border-color: var(--success-border) !important; }
+.option-button.is-wrong { background: var(--error-bg) !important; color: var(--error-text) !important; border-color: var(--error-border) !important; }
+.practice-result,
+.practice-result.is-incomplete { background: var(--warning-bg) !important; color: var(--warning-text) !important; }
+
+dialog,
+.modal,
+[role="dialog"] {
+  background: var(--panel-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+  box-shadow: var(--shadow);
+}
+
+.site-search .gsc-control-cse,
+.site-search .gsc-completion-container,
+.site-search .gsc-resultsbox-visible {
+  background: var(--panel-bg) !important;
+  color: var(--text-primary) !important;
+}
+
+@media (max-width: 760px) {
+  .theme-toggle {
+    top: 0.55rem;
+    right: 0.55rem;
+    padding-inline: 0.7rem;
+  }
+  .navbar { padding-right: 8.75rem; }
+  .logo { margin-right: auto; }
 }
 
 @media (min-width: 1440px) {
