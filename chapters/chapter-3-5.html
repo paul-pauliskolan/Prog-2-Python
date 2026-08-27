@@ -275,18 +275,75 @@ account = Account("1001", 500)
 customer.add_account(account)
 bank.add_customer(customer)</code></pre>
 
-                <h2>Öva: analysera och skapa UML</h2>
-                <ol>
-                    <li>Skapa ett klassdiagram för en enkel bankapplikation med klasserna <code>Customer</code>, <code>Account</code> och <code>Bank</code>.</li>
-                    <li>Visa vilka attribut och metoder som varje klass har.</li>
-                    <li>Rita ut associationer, till exempel att en kund kan ha flera konton.</li>
-                    <li>Skriv också Python-koden som hör ihop med UML-diagrammet.</li>
-                    <li>Omvandla ett tidigare program du skrivit till ett UML-diagram.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du jämföra med ett lösningsförslag:
-                    <a href="chapter-3-5-bank-uml-losning.html">UML-diagram</a> och
-                    <a href="../p2-python-kod/kap-3/kap-3-5/kap3-5-bank-uml-losningsforslag.py" download>nedladdningsbar Python-kod</a>.
-                </p>
+                <h2>Öva själv</h2>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Läs ett klassdiagram</h2>
+                    <p>Studera UML-diagrammet för <code>Dog</code> tidigare i kapitlet. Skriv ner klassens namn,
+                        attribut, metoder, datatyper och synlighet. Skriv därefter motsvarande Python-klass och skapa
+                        ett objekt som använder båda metoderna.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka delar av UML-diagrammet motsvarar
+                        <code>self</code>-attributen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-5/kap3-5-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Rita klassen Student</h2>
+                    <p>Planera klassen <code>Student</code> med attributen <code>name</code> och <code>points</code> samt
+                        metoderna <code>add_points(amount)</code> och <code>print_info()</code>. Rita ett UML-diagram med
+                        synlighet och datatyper och skriv sedan Python-koden.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför står parametrar inne i metodens
+                        parenteser men attribut i diagrammets mittdel?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-5/kap3-5-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Visa en association</h2>
+                    <p>Skapa ett UML-diagram med klasserna <code>Team</code> och <code>Player</code>. Ett lag ska ha ett
+                        namn och en lista med spelare. En spelare ska ha ett namn. Visa relationen med en enkel pil och
+                        etiketten <code>has</code>. Skriv sedan kod där <code>Team</code> kan lägga till och visa spelare.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Var i Python-koden syns associationen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-5/kap3-5-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Visa arv i UML</h2>
+                    <p>Skapa ett UML-diagram för basklassen <code>Employee</code> och subklassen <code>Teacher</code>.
+                        Båda ska ha metoden <code>print_info()</code>, men läraren ska även ha attributet
+                        <code>subject</code>. Visa arvet med en pil och skriv motsvarande Python-kod med override.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilket attribut behöver bara stå i
+                        subklassen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-5/kap3-5-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Modellera ett bibliotek</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du flera klasser,
+                        associationer, listor och metoder.</p>
+                    <p>Planera klasserna <code>Library</code>, <code>Book</code> och <code>Member</code>. Biblioteket ska
+                        ha listor med böcker och medlemmar. Rita klassernas attribut, metoder och associationer och
+                        skriv kod som lägger till och skriver ut böcker och medlemmar.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken klass ansvarar för samlingarna?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-5/kap3-5-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Modellera en webbutik</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här planerar och kodar du ett helt
+                        objektssystem med tre relaterade klasser.</p>
+                    <p>Skapa UML och Python-kod för <code>Store</code>, <code>Customer</code> och <code>Product</code>.
+                        Butiken ska ha produkter och kunder. Kunden ska ha en kundvagn med produkter och kunna beräkna
+                        totalsumman. Visa alla attribut, metoder och relationer innan du skriver koden.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka relationer ska märkas <code>has</code>
+                        och vilken kan märkas <code>owns</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-5/kap3-5-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Verktyg att använda</h2>
                 <p>Du kan rita UML för hand eller med digitala verktyg.</p>

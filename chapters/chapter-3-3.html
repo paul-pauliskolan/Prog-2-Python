@@ -153,19 +153,129 @@ car1.honk()</textarea>
                         objektets data. <code>change_year()</code> ändrar objektets data efter kontroll.</p>
                 </section>
 
-                <h2>Öva: skriv egna metoder</h2>
-                <ol>
-                    <li>Skapa filen <code>kap3-3-car.py</code>.</li>
-                    <li>Skriv klassen <code>Car</code> med attributen <code>brand</code> och <code>year</code>.</li>
-                    <li>Skriv metoden <code>honk()</code> som visar bilens märke och årtal utan att ändra objektet.</li>
-                    <li>Skriv metoden <code>change_year(new_year)</code> som bara ändrar årtalet om det är större än 0.</li>
-                    <li>Skriv metoden <code>is_old()</code> som returnerar <code>True</code> om bilen är äldre än 20 år,
-                        annars <code>False</code>.</li>
-                    <li>Testa med ett giltigt årtal, ett negativt årtal och två olika bilobjekt.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-3/kap-3-3/kap3-3-car-losningsforslag.py" download>kap3-3-car-losningsforslag.py</a>
-                </p>
+                <h2>Öva själv</h2>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Läs temperaturen</h2>
+                    <p>Skapa klassen <code>Temperatur</code> med attributet <code>grader</code>. Lägg till den läsande
+                        metoden <code>visa()</code>, som skriver ut temperaturen, och metoden <code>ar_frysgrader()</code>,
+                        som returnerar <code>True</code> om temperaturen är högst <code>0</code>, annars
+                        <code>False</code>. Metoderna ska inte ändra objektet.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li>en temperatur över <code>0</code>.</li>
+                        <li>temperaturen <code>0</code>.</li>
+                        <li>en temperatur under <code>0</code>.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Hur vet du att metoderna är läsande?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-3/kap3-3-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Tänd och släck en lampa</h2>
+                    <p>Skapa klassen <code>Lampa</code>. Attributet <code>ar_tand</code> ska vara <code>False</code>
+                        när objektet skapas. Lägg till metoderna <code>tand()</code>, <code>slack()</code> och
+                        <code>visa_status()</code>. De två första metoderna ska ändra objektets tillstånd och den sista
+                        ska läsa och skriva ut det.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Lampan ska vara släckt från början.</li>
+                        <li><code>tand()</code> ska ändra status till tänd.</li>
+                        <li><code>slack()</code> ska ändra status tillbaka till släckt.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka metoder ändrar ett attribut och vilken
+                        metod läser bara attributet?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-3/kap3-3-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Ändra ett produktpris</h2>
+                    <p>Skapa klassen <code>Produkt</code> med attributen <code>namn</code> och <code>pris</code>. Skriv
+                        metoden <code>andra_pris(nytt_pris)</code>, som bara ändrar priset om det nya priset är större
+                        än <code>0</code>. Vid ett ogiltigt pris ska ett felmeddelande visas. Lägg också till en läsande
+                        metod som visar produktens uppgifter.</p>
+                    <h3>Testa metoden med</h3>
+                    <ul>
+                        <li>ett giltigt nytt pris.</li>
+                        <li>priset <code>0</code>.</li>
+                        <li>ett negativt pris.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför är det bättre att ändra priset med en
+                        metod än direkt med punktnotation?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-3/kap3-3-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Spelare som tar skada</h2>
+                    <p>Skapa klassen <code>Spelare</code> med attributen <code>namn</code> och <code>liv</code>. Skriv
+                        metoden <code>ta_skada(skada)</code>. En positiv skada ska minska spelarens liv, men livet får
+                        aldrig bli mindre än <code>0</code>. Om skadan inte är positiv ska ett felmeddelande visas.
+                        Lägg till metoderna <code>ar_vid_liv()</code>, som returnerar ett booleskt värde, och
+                        <code>visa_status()</code>.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>ge spelaren mindre skada än det återstående livet.</li>
+                        <li>ge spelaren mer skada än det återstående livet.</li>
+                        <li>försöka använda en negativ skada.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka två kontroller behövs innan objektets
+                        nya tillstånd är bestämt?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-3/kap3-3-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Överföring mellan konton</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här låter du en validerande metod ändra
+                        två olika objekt.</p>
+                    <p>Skapa klassen <code>Konto</code> med attributen <code>agare</code> och <code>saldo</code>. Lägg
+                        till metoderna <code>satt_in(belopp)</code>, <code>ta_ut(belopp)</code> och
+                        <code>overfor(mottagare, belopp)</code>. Belopp måste vara större än <code>0</code>, och ett
+                        uttag eller en överföring får bara göras om det finns tillräckligt med pengar. Vid en godkänd
+                        överföring ska avsändarens saldo minska och mottagarens saldo öka.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li>en giltig insättning och ett giltigt uttag.</li>
+                        <li>ett uttag som är större än saldot.</li>
+                        <li>en giltig överföring mellan två kontoobjekt.</li>
+                        <li>ett negativt belopp.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilket objekt är <code>self</code> och vilket
+                        objekt finns i parametern <code>mottagare</code> under överföringen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-3/kap3-3-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Bibliotek med utlåning</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du validerande metoder
+                        med objekt, lista, funktioner, sökning och en meny.</p>
+                    <p>Skapa klassen <code>Bok</code> med attributen <code>titel</code> och <code>ar_utlanad</code>.
+                        Lägg till metoderna <code>lana_ut()</code>, <code>lamna_tillbaka()</code> och
+                        <code>visa_info()</code>. En bok får inte lånas ut om den redan är utlånad och får inte lämnas
+                        tillbaka om den redan finns inne. Skapa flera bokobjekt i en lista och bygg en meny där
+                        användaren kan visa alla böcker, låna en bok, lämna tillbaka en bok eller avsluta.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>låna en bok som finns inne.</li>
+                        <li>försöka låna samma bok två gånger.</li>
+                        <li>lämna tillbaka boken och försöka lämna tillbaka den igen.</li>
+                        <li>söka efter en titel som inte finns.</li>
+                        <li>göra ett ogiltigt menyval och sedan avsluta.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka regler ansvarar bokobjektet för och
+                        vilka delar ansvarar menyprogrammet för?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-3/kap3-3-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Sammanfattning</h2>
                 <ul>
