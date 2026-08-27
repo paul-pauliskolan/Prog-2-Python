@@ -144,15 +144,121 @@ except ValueError:
                 </section>
 
                 <h2>Öva själv</h2>
-                <ol>
-                    <li>Skriv ett program som frågar efter ett heltal och skriver ut talet gånger två.</li>
-                    <li>Lägg till <code>try</code> och <code>except ValueError</code>.</li>
-                    <li>Gör så att användaren får försöka igen tills ett giltigt heltal skrivs.</li>
-                    <li>Lägg till ett eget villkor som stoppar ett orimligt värde, till exempel negativ ålder.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-1/kap-1-6/kap1-6-undantag-losningsforslag.py" download>kap1-6-undantag-losningsforslag.py</a>
-                </p>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Dubbla ett heltal</h2>
+                    <p>Skriv ett program som frågar användaren efter ett heltal och skriver ut talet gånger två.
+                        Använd <code>try</code> och <code>except ValueError</code> för att visa meddelandet
+                        <code>"Du måste skriva ett heltal."</code> om inmatningen inte kan omvandlas till ett heltal.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li><code>6</code>, vilket ska ge <code>12</code>.</li>
+                        <li><code>-4</code>, vilket ska ge <code>-8</code>.</li>
+                        <li><code>hej</code>, vilket ska ge felmeddelandet.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken rad i <code>try</code>-blocket kan
+                        orsaka <code>ValueError</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-1/kap-1-6/kap1-6-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Dividera 100 med ett tal</h2>
+                    <p>Skriv ett program som frågar efter ett heltal och skriver ut <code>100</code> dividerat med
+                        talet. Fånga felaktig text med <code>except ValueError</code>. Använd ett villkor för att skriva
+                        <code>"Du kan inte dela med 0."</code> om användaren skriver <code>0</code>.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li><code>4</code>, vilket ska ge <code>25.0</code>.</li>
+                        <li><code>0</code>, vilket ska ge meddelandet om division med noll.</li>
+                        <li><code>fem</code>, vilket ska ge ett tydligt felmeddelande.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför kontrolleras talet <code>0</code> med
+                        ett villkor i stället för att programmet försöker utföra divisionen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-1/kap-1-6/kap1-6-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Fråga tills svaret är giltigt</h2>
+                    <p>Skriv ett program som använder <code>while True</code>, <code>try</code> och
+                        <code>except ValueError</code> för att fortsätta fråga efter ett heltal tills användaren skriver
+                        ett giltigt värde. Skriv ut talet och avsluta loopen med <code>break</code> när inmatningen är
+                        giltig.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li>Ett giltigt heltal direkt.</li>
+                        <li><code>hej</code>, därefter <code>3.5</code> och till sist <code>8</code>.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför ska <code>break</code> bara köras efter
+                        att omvandlingen till heltal har lyckats?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-1/kap-1-6/kap1-6-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Kontrollera en giltig ålder</h2>
+                    <p>Skriv ett program som fortsätter fråga efter en ålder tills användaren skriver ett heltal som
+                        är större än eller lika med <code>0</code>. Text och decimaltal ska hanteras med
+                        <code>except ValueError</code>. Negativa heltal ska hanteras med ett vanligt villkor och ett
+                        eget meddelande.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li><code>Anna</code>, därefter <code>-2</code> och till sist <code>20</code>.</li>
+                        <li><code>0</code>, som ska godkännas direkt.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför orsakar ett negativt heltal inte
+                        <code>ValueError</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-1/kap-1-6/kap1-6-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Funktion för säker inmatning</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du en funktion,
+                        undantagshantering, en loop och <code>return</code>.</p>
+                    <p>Skriv funktionen <code>get_valid_number()</code>. Funktionen ska fråga efter ett heltal tills
+                        inmatningen är giltig och sedan returnera talet. Anropa funktionen tre gånger från
+                        huvudprogrammet och skriv ut summan av de tre talen.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li><code>2</code>, <code>4</code> och <code>6</code>, vilket ska ge summan <code>12</code>.</li>
+                        <li>Minst en felaktig text före ett av de giltiga talen.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Hur gör funktionen att du slipper skriva samma
+                        felhantering tre gånger?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-1/kap-1-6/kap1-6-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Robust miniräknare</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du funktioner,
+                        returvärden, en meny, loopar, villkor och undantagshantering.</p>
+                    <p>Skapa en miniräknare med en meny som har alternativen <code>1. Addera</code>,
+                        <code>2. Dividera</code> och <code>3. Avsluta</code>. Menyn ska visas i en
+                        <code>while True</code>-loop. Vid addition eller division ska programmet fråga efter två heltal
+                        och använda <code>try</code> och <code>except ValueError</code> så att felaktig inmatning inte
+                        kraschar programmet. Kontrollera division med noll med ett villkor. Valet <code>3</code> ska
+                        avsluta programmet med <code>break</code>, och andra menyval ska ge ett tydligt felmeddelande.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>addera <code>4</code> och <code>7</code>.</li>
+                        <li>dividera <code>20</code> med <code>4</code>.</li>
+                        <li>försöka dividera med <code>0</code>.</li>
+                        <li>skriva text när programmet frågar efter ett tal.</li>
+                        <li>välja ett ogiltigt menyalternativ och därefter avsluta med <code>3</code>.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför ligger menyn utanför
+                        <code>try</code>-blocket medan omvandlingen av talen ligger inuti?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-1/kap-1-6/kap1-6-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Reflektion</h2>
                 <ul>
