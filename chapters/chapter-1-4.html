@@ -241,7 +241,86 @@ else:
 
                 <h2>Öva själv</h2>
                 <section class="interactive-exercise">
-                    <h2>Samlad övning: inträde till evenemang</h2>
+                    <h2>Övning 1: Kontrollera positivt tal</h2>
+                    <p>Skriv en funktion som heter <code>check_number(number)</code>. Funktionen ska returnera
+                        <code>"Positivt tal"</code> om talet är större än <code>0</code>. Annars ska den returnera
+                        <code>"Noll eller negativt tal"</code>.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li><code>5</code></li>
+                        <li><code>0</code></li>
+                        <li><code>-3</code></li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför passar <code>else</code> bra för det
+                        andra möjliga resultatet?</p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Bedöm ett provresultat</h2>
+                    <p>Skriv en funktion som heter <code>get_result(points)</code>. Funktionen ska returnera
+                        <code>"Väl godkänt"</code> vid minst <code>80</code> poäng, <code>"Godkänt"</code> vid minst
+                        <code>50</code> poäng och annars <code>"Inte godkänt"</code>.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li><code>90</code></li>
+                        <li><code>65</code></li>
+                        <li><code>40</code></li>
+                        <li>Gränsvärdena <code>80</code> och <code>50</code></li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför behöver kontrollen för minst
+                        <code>80</code> poäng ligga före kontrollen för minst <code>50</code> poäng?</p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Kontrollera användarnamn och lösenord</h2>
+                    <p>Skriv en funktion som heter <code>can_log_in(correct_username, correct_password)</code>.
+                        Parametrarna innehåller antingen <code>True</code> eller <code>False</code>. Funktionen ska
+                        endast returnera <code>True</code> när både användarnamnet och lösenordet är rätt. I alla
+                        andra fall ska den returnera <code>False</code>.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li><code>True, True</code></li>
+                        <li><code>True, False</code></li>
+                        <li><code>False, True</code></li>
+                        <li><code>False, False</code></li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför ska du använda <code>and</code> och
+                        inte <code>or</code> i den här funktionen?</p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Kontrollera ledig dag</h2>
+                    <p>Skriv en funktion som heter <code>is_day_off(day)</code>. Funktionen ska returnera
+                        <code>True</code> om dagen är <code>"lördag"</code> eller <code>"söndag"</code>. Annars ska
+                        den returnera <code>False</code>.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li><code>"lördag"</code></li>
+                        <li><code>"söndag"</code></li>
+                        <li><code>"måndag"</code></li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad skulle hända om du använde
+                        <code>and</code> mellan jämförelserna i stället?</p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Kontrollera om användaren är blockerad</h2>
+                    <p>Skriv en funktion som heter <code>get_access(is_blocked)</code>. Funktionen ska använda
+                        <code>not</code> och returnera <code>"Åtkomst tillåten"</code> om användaren inte är blockerad.
+                        Annars ska den returnera <code>"Åtkomst nekad"</code>.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li><code>False</code></li>
+                        <li><code>True</code></li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilket värde får uttrycket
+                        <code>not is_blocked</code> när <code>is_blocked</code> är <code>False</code>?</p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Samlad övning – inträde till evenemang</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du flera av momenten
+                        från kapitlet i samma program.</p>
                     <p>Skriv in koden i din editor och spara filen som <code>kap1-4-event.py</code>. Programmet
                         kontrollerar om en person får komma in på ett kvällsevenemang. Här tränar du på funktioner,
                         <code>return</code>, <code>if</code>, <code>elif</code>, <code>else</code>,
