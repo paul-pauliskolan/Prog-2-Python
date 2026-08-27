@@ -135,18 +135,70 @@ print(innehåll)</textarea>
     print(fil.read())</code></pre>
 
                 <h2>Öva själv</h2>
-                <p>Skapa filen <code>kap4-1-anteckningar.py</code> i din kursmapp. Programmet ska spara korta
-                    anteckningar i en textfil och sedan läsa upp innehållet.</p>
-                <ol>
-                    <li>Skapa en konstant eller variabel med filnamnet <code>anteckningar.txt</code>.</li>
-                    <li>Skriv funktionen <code>add_note(note)</code> som öppnar filen med <code>"a"</code> och lägger till en rad.</li>
-                    <li>Skriv funktionen <code>show_notes()</code> som öppnar filen med <code>"r"</code> och skriver ut innehållet.</li>
-                    <li>Testa programmet genom att lägga till minst två anteckningar.</li>
-                    <li>Kör programmet flera gånger och kontrollera att anteckningarna ligger kvar i filen.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-4/kap-4-1/kap4-1-anteckningar-losningsforslag.py" download>kap4-1-anteckningar-losningsforslag.py</a>
-                </p>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Skriv en hälsning till en fil</h2>
+                    <p>Öppna <code>halsning.txt</code> med läget <code>"w"</code> och skriv två textrader. Öppna sedan
+                        filen med <code>"r"</code> och skriv ut innehållet.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad händer med gammalt innehåll när
+                        <code>"w"</code> används?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-1/kap4-1-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Lägg till i en loggbok</h2>
+                    <p>Skapa funktionen <code>add_log(message)</code> som öppnar <code>loggbok.txt</code> med läget
+                        <code>"a"</code> och lägger till meddelandet på en ny rad. Anropa funktionen minst tre gånger.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför behövs <code>\n</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-1/kap4-1-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Läs upp en textfil</h2>
+                    <p>Skapa funktionen <code>show_file(filename)</code>. Funktionen ska öppna det angivna filnamnet
+                        med <code>"r"</code>, läsa hela innehållet med <code>read()</code> och skriva ut det.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken datatyp returnerar <code>read()</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-1/kap4-1-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Spara en namnlista</h2>
+                    <p>Skriv funktionen <code>save_names(names)</code> som använder en loop och läget <code>"w"</code>
+                        för att spara varje namn på en egen rad i <code>namn.txt</code>. Läs därefter filen och skriv ut
+                        innehållet.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad är fördelen med att funktionen tar emot en
+                        lista?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-1/kap4-1-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Meny för anteckningar</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du filhantering med
+                        funktioner, meny och loopar.</p>
+                    <p>Bygg ett menyprogram med alternativen <code>1. Lägg till anteckning</code>,
+                        <code>2. Visa anteckningar</code>, <code>3. Töm filen</code> och <code>4. Avsluta</code>. Använd
+                        <code>"a"</code>, <code>"r"</code> och <code>"w"</code> i separata funktioner.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilket filläge ska användas för varje menyval?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-1/kap4-1-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Spara spelresultat</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du filer med objekt,
+                        listor, loopar och funktioner.</p>
+                    <p>Skapa klassen <code>Result</code> med namn och poäng. Skapa flera objekt i en lista. Skriv en
+                        funktion som sparar resultaten i <code>resultat.txt</code>, en rad per objekt, och en funktion
+                        som läser och visar hela filen. Lägg därefter till ett nytt resultat med <code>"a"</code>.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken information måste omvandlas till text
+                        innan den skrivs?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-1/kap4-1-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Sammanfattning</h2>
                 <ul>
