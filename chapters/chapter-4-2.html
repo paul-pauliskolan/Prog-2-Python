@@ -140,19 +140,71 @@ except ZeroDivisionError:
                 </ul>
 
                 <h2>Öva själv</h2>
-                <p>Skapa filen <code>kap4-2-alder.py</code> i din kursmapp. Programmet ska fråga efter användarens
-                    ålder och hantera vanliga fel med <code>try/except</code>.</p>
-                <ol>
-                    <li>Fråga användaren efter ålder med <code>input()</code>.</li>
-                    <li>Försök göra om svaret till ett heltal med <code>int()</code>.</li>
-                    <li>Fånga <code>ValueError</code> om användaren skriver text i stället för ett tal.</li>
-                    <li>Kontrollera om talet är negativt. Skriv då ut ett tydligt felmeddelande.</li>
-                    <li>Om åldern är giltig, skriv ut ungefär vilket år personen föddes.</li>
-                    <li>Testa programmet med ett giltigt tal, text och ett negativt tal.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-4/kap-4-2/kap4-2-alder-losningsforslag.py" download>kap4-2-alder-losningsforslag.py</a>
-                </p>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Säker heltalsinmatning</h2>
+                    <p>Fråga efter ett heltal och försök omvandla svaret med <code>int()</code>. Fånga
+                        <code>ValueError</code> och visa ett tydligt felmeddelande om användaren skriver något annat.</p>
+                    <p class="exercise-note"><strong>Testa:</strong> ett heltal, ett decimaltal och text.</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-2/kap4-2-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Säker division</h2>
+                    <p>Fråga efter ett tal och dividera <code>100</code> med talet. Fånga
+                        <code>ZeroDivisionError</code> om talet är noll. Lägg även till ett separat
+                        <code>except ValueError</code> för felaktig talinmatning.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför behövs två olika
+                        <code>except</code>-block?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-2/kap4-2-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Läs en fil som kanske saknas</h2>
+                    <p>Fråga användaren efter ett filnamn. Försök öppna filen med <code>"r"</code> och skriv ut
+                        innehållet. Fånga <code>FileNotFoundError</code> och skriv vilket filnamn som inte hittades.</p>
+                    <p class="exercise-note"><strong>Testa:</strong> en fil som finns och en som saknas.</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-2/kap4-2-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Fråga tills åldern är giltig</h2>
+                    <p>Skriv funktionen <code>read_age()</code>. Den ska fortsätta fråga i en loop tills användaren
+                        skriver ett heltal mellan <code>0</code> och <code>120</code>. Fånga <code>ValueError</code> och
+                        ge separata meddelanden för text och för tal utanför intervallet.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka fel fångas av <code>except</code> och
+                        vilka upptäcks med ett villkor?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-2/kap4-2-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Läs och summera tal från fil</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du filhantering, listor,
+                        loopar och flera undantag.</p>
+                    <p>Skapa en textfil med ett heltal på varje rad. Skriv en funktion som läser filen, omvandlar
+                        raderna till heltal och skriver ut summan. Hantera både <code>FileNotFoundError</code> och
+                        <code>ValueError</code>. Testa även en fil där en rad innehåller text.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken kodrad kan orsaka respektive fel?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-2/kap4-2-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Robust miniräknare</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du funktioner, meny,
+                        loopar och flera sorters felhantering.</p>
+                    <p>Bygg en miniräknare som frågar efter två decimaltal och ett av räknesätten <code>+</code>,
+                        <code>-</code>, <code>*</code> eller <code>/</code>. Hantera <code>ValueError</code>, division med
+                        noll och ogiltiga räknesätt. Programmet ska fortsätta tills användaren väljer att avsluta.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka problem är undantag och vilket är ett
+                        vanligt ogiltigt val?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-2/kap4-2-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Sammanfattning</h2>
                 <ul>

@@ -143,7 +143,68 @@ if __name__ == "__main__":
                         uppstå utanför ditt eget program.</p>
                 </section>
 
-                <h2>Öva - Skriv ett program som använder ett API</h2>
+                <h2>Öva själv</h2>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Kontrollera ett API-svar</h2>
+                    <p>Skicka ett GET-anrop till skämt-API:et från kapitlet. Skriv först ut statuskoden. Om den är
+                        <code>200</code> ska programmet skriva att anropet lyckades, annars ska det visa ett
+                        felmeddelande med statuskoden.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför bör statuskoden kontrolleras innan
+                        JSON-datan används?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-3/kap5-3-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Plocka ut JSON-värden</h2>
+                    <p>Hämta ett skämt, omvandla svaret med <code>response.json()</code> och skriv ut värdena från
+                        nycklarna <code>type</code>, <code>setup</code> och <code>punchline</code>. Hantera nätverksfel med
+                        <code>try/except</code>.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken Python-datastruktur motsvarar
+                        JSON-objektet?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-3/kap5-3-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Sök efter en Pokémon</h2>
+                    <p>Fråga användaren efter ett Pokémon-namn och använd det i en URL till PokéAPI. Skriv ut namn,
+                        längd och vikt från JSON-svaret. Visa ett särskilt meddelande vid statuskod <code>404</code>
+                        och hantera nätverksfel.</p>
+                    <p class="exercise-note"><strong>Testa:</strong> ett namn som finns och ett som saknas.</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-3/kap5-3-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Visa hundraser</h2>
+                    <p>Hämta listan över alla hundraser från Dog API. JSON-svaret innehåller en dictionary under
+                        nyckeln <code>message</code>. Skriv ut hur många raser som finns och skriv sedan ut varje ras
+                        med en loop. Lägg till statuskontroll, <code>timeout</code> och felhantering.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad loopar programmet över när det går igenom
+                        en dictionary?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-3/kap5-3-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Spara slumpanvändare</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du API, nästlad JSON,
+                        listor, funktioner, filhantering och felhantering.</p>
+                    <p>Hämta tre påhittade användare från Random User Generator. Skriv ut varje persons förnamn,
+                        efternamn och e-postadress. Spara samma uppgifter i <code>anvandare.txt</code>. Programmet ska
+                        hantera statuskoder, nätverksfel och oväntad JSON-data.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka delar i JSON-svaret är listor och vilka
+                        är dictionaries?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-3/kap5-3-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                <h2>Övning 6: Skriv ett program som använder ett API</h2>
+                <p class="exercise-note"><strong>Svårare övning:</strong> Här väljer och undersöker du själv ett
+                    öppet API.</p>
                 <ol>
                     <li>Hitta ett öppet API som du kan använda utan registrering.</li>
                     <li>Skriv kod som hämtar data från API:et.</li>
@@ -152,13 +213,14 @@ if __name__ == "__main__":
                 </ol>
                 <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag som hämtar
                     aktuellt väder från Open-Meteo:
-                    <a href="../p2-python-kod/kap-5/kap-5-3/kap5-3-open-meteo-losningsforslag.py" download>kap5-3-open-meteo-losningsforslag.py</a>.
+                    <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-3/kap5-3-open-meteo-losningsforslag.py" target="_blank" rel="noopener noreferrer">kap5-3-open-meteo-losningsforslag.py på GitHub</a>.
                 </p>
                 <p class="exercise-note">Se även ett
                     <a href="https://vadret.netlify.app/" target="_blank" rel="noopener noreferrer">mer avancerat exempel på en vädertjänst</a>
                     som din lärare har byggt med HTML, CSS och JavaScript. Tjänsten hämtar väderdata från ett API och
                     visar resultatet på en webbsida.
                 </p>
+                </section>
 
                 <h3>Bra gratis API:er utan registrering</h3>
                 <ul>

@@ -161,19 +161,75 @@ while True:
                 </section>
 
                 <h2>Öva själv</h2>
-                <p>Skapa filen <code>kap4-3-kodstruktur.py</code> i din kursmapp. Utgå från ett enkelt bankprogram och
-                    skriv om det så att koden får tydliga namn och tydliga funktioner.</p>
-                <ol>
-                    <li>Skapa funktionen <code>print_menu()</code> som skriver ut menyn.</li>
-                    <li>Skapa funktionen <code>deposit(balance, amount)</code> som returnerar ett nytt saldo.</li>
-                    <li>Skapa funktionen <code>withdraw(balance, amount)</code> som returnerar ett nytt saldo.</li>
-                    <li>Skapa funktionen <code>main()</code> som styr programmet.</li>
-                    <li>Använd tydliga variabelnamn, till exempel <code>balance</code>, <code>choice</code> och <code>amount</code>.</li>
-                    <li>Testa programmet med insättning, uttag, för stort uttag och fel menyval.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-4/kap-4-3/kap4-3-kodstruktur-losningsforslag.py" download>kap4-3-kodstruktur-losningsforslag.py</a>
-                </p>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Ge koden tydliga namn</h2>
+                    <p>Skriv om funktionen <code>def x(a, b): return a * b</code> med ett beskrivande funktionsnamn
+                        och tydliga parameternamn. Anropa funktionen och skriv ut resultatet.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Kan en läsare förstå funktionens syfte utan
+                        att se dess kod?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-3/kap4-3-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Följ Pythons namnstandard</h2>
+                    <p>Skapa en klass för en spelare med två attribut och en metod som visar spelarens status. Använd
+                        PascalCase för klassnamnet och snake_case för variabler och metoder. Använd tydliga namn i hela
+                        programmet.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken namnstandard används för klasser och
+                        vilken används för funktioner?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-3/kap4-3-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Dokumentera med docstrings</h2>
+                    <p>Skriv funktionerna <code>calculate_average(numbers)</code> och <code>find_largest(numbers)</code>.
+                        Ge båda en kort docstring som beskriver vad funktionen returnerar. Använd kommentarer endast om
+                        du behöver förklara varför en kodrad finns.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad är skillnaden mellan en docstring och en
+                        vanlig kommentar?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-3/kap4-3-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Undvik upprepad kod</h2>
+                    <p>Ett program skriver ut namn och poäng för tre spelare med tre nästan identiska kodblock. Skapa
+                        i stället funktionen <code>print_result(name, points)</code>, lägg resultaten i en lista och
+                        använd en loop. Programmet ska ge samma utskrift men följa DRY-principen.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken kod finns nu bara på ett ställe?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-3/kap4-3-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Strukturera ett bankprogram</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här delar du upp ett helt menyprogram i
+                        mindre delar med tydliga ansvar.</p>
+                    <p>Skapa funktionerna <code>print_menu()</code>, <code>read_amount()</code>,
+                        <code>deposit(balance, amount)</code>, <code>withdraw(balance, amount)</code> och
+                        <code>main()</code>. Använd tydliga namn, docstrings och säker talinmatning. Uttag får inte vara
+                        större än saldot.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilket enda ansvar har varje funktion?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-3/kap4-3-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Strukturera ett anteckningsprogram</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du kodstandard med
+                        filhantering, felhantering, funktioner och meny.</p>
+                    <p>Bygg ett program som kan lägga till och visa anteckningar från en textfil. Dela upp programmet i
+                        <code>print_menu()</code>, <code>add_note(filename, note)</code>,
+                        <code>show_notes(filename)</code> och <code>main()</code>. Hantera en saknad fil tydligt och
+                        dokumentera funktionerna med korta docstrings.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Hur gör strukturen programmet enklare att
+                        felsöka och bygga vidare på?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-4/kap-4-3/kap4-3-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Sammanfattning</h2>
                 <ul>

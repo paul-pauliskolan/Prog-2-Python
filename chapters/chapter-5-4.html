@@ -123,20 +123,75 @@ rot.mainloop()</code></pre>
                         först när knappen klickas, inte när knappen skapas.</p>
                 </section>
 
-                <h2>Öva - Gör ett eget GUI-program</h2>
-                <ol>
-                    <li>Skapa ett program med ett fönster där användaren kan skriva in data, till exempel ett namn eller
-                        ett tal.</li>
-                    <li>Lägg till en knapp som kör en funktion.</li>
-                    <li>Visa ett resultat i fönstret med en <code>Label</code>.</li>
-                    <li>Lägg till fler widgets, till exempel en dropdown, checkruta eller lista.</li>
-                    <li>Testa att koppla GUI:t till funktioner du skrivit tidigare i kursen.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner och jämföra med ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-5/kap-5-4/kap5-4-gui-losningsforslag.py" download>kap5-4-gui-losningsforslag.py</a>.
-                    Programmet innehåller ett textfält, knappar, en resultatetikett, en dropdown, en kryssruta och en
-                    lista med tidigare resultat.
-                </p>
+                <h2>Öva själv</h2>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Skapa ett informationsfönster</h2>
+                    <p>Skapa ett tkinter-fönster med en titel och tre <code>Label</code>-widgets som visar ditt namn,
+                        din klass och en hobby. Placera alla widgets med <code>pack()</code> och starta programmet med
+                        <code>mainloop()</code>.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken rad skapar själva fönstret?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-4/kap5-4-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Hälsa med en knapp</h2>
+                    <p>Skapa ett fönster med en <code>Entry</code>, en <code>Button</code> och en tom
+                        <code>Label</code>. När användaren klickar på knappen ska en funktion hämta namnet med
+                        <code>get()</code> och ändra etikettens text med <code>config()</code>.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför skrivs funktionsnamnet utan parenteser i
+                        <code>command</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-4/kap5-4-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Dubbla ett tal</h2>
+                    <p>Skapa ett GUI där användaren skriver ett tal och klickar på <strong>Dubbla</strong>. Visa
+                        resultatet i en <code>Label</code>. Hantera <code>ValueError</code> och visa ett felmeddelande i
+                        samma etikett om inmatningen inte är ett tal.</p>
+                    <p class="exercise-note"><strong>Testa:</strong> heltal, decimaltal och text.</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-4/kap5-4-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Klickräknare</h2>
+                    <p>Skapa ett fönster med en etikett som visar antalet klick och två knappar:
+                        <strong>Öka</strong> och <strong>Nollställ</strong>. Knapparna ska vara kopplade till var sin
+                        funktion och uppdatera etiketten efter varje klick.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilket värde måste finnas kvar mellan flera
+                        knapptryckningar?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-4/kap5-4-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Anteckningar med GUI</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du tkinter med
+                        filhantering, funktioner och felhantering.</p>
+                    <p>Skapa ett GUI med ett textfält och knapparna <strong>Spara anteckning</strong> och
+                        <strong>Visa anteckningar</strong>. Spara texten i <code>anteckningar.txt</code> med läget
+                        <code>"a"</code>. Visa filens innehåll i en etikett och hantera att filen ännu inte finns.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken kod körs endast efter ett knapptryck?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-4/kap5-4-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Väder i ett GUI</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du tkinter med ett
+                        API-anrop, JSON och robust felhantering.</p>
+                    <p>Skapa ett GUI med en knapp som hämtar aktuellt väder för en bestämd plats från Open-Meteo.
+                        Visa temperatur och vindhastighet i en etikett. Använd <code>timeout</code>,
+                        <code>raise_for_status()</code> och <code>try/except</code>. Ett fel ska visas i fönstret och
+                        får inte krascha programmet.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför ska API-anropet ligga i funktionen som
+                        körs av knappen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-5/kap-5-4/kap5-4-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Sammanfattning</h2>
                 <ul>
