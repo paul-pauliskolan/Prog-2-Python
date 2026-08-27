@@ -158,21 +158,124 @@ bok2.skriv_ut_info()</code></pre>
                 <p>OOP är särskilt användbart när du bygger större program. Det gör koden mer strukturerad, lättare att
                     felsöka och enklare att återanvända.</p>
 
-                <h2>Öva: tänk objekt</h2>
-                <p>Föreställ dig att du ska skapa ett program som hanterar elever i en skola. Fundera på:</p>
-                <ul>
-                    <li>Vilka egenskaper har en elev?</li>
-                    <li>Vilka metoder skulle en elev kunna ha?</li>
-                    <li>Hur skulle du representera detta i kod?</li>
-                </ul>
+                <h2>Öva själv</h2>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Skapa klassen Hund</h2>
+                    <p>Skapa klassen <code>Hund</code>. Konstruktorn ska ta emot hundens namn och ras och spara dem i
+                        attributen <code>namn</code> och <code>ras</code>. Skapa ett objekt och skriv ut attributen.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Klassen ska ha en konstruktor som heter <code>__init__()</code>.</li>
+                        <li>Attributen ska sparas med <code>self</code>.</li>
+                        <li>Hundens namn och ras ska skrivas ut.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad är klassen och vad är objektet i ditt
+                        program?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-1/kap3-1-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
 
-                <p>Skriv ner din idé som en klassbeskrivning i pseudokod:</p>
-                <pre><code>Klass: Elev
-Egenskaper: namn, klass, ålder
-Metoder: skriv_ut_info(), byt_klass(ny_klass)</code></pre>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-3/kap-3-1/kap3-1-elev-losningsforslag.py" download>kap3-1-elev-losningsforslag.py</a>
-                </p>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Flera bokobjekt</h2>
+                    <p>Skapa klassen <code>Bok</code> med attributen <code>titel</code> och <code>forfattare</code>.
+                        Lägg till metoden <code>skriv_ut_info()</code>, som skriver ut båda attributen. Skapa tre olika
+                        bokobjekt och anropa metoden på varje objekt.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Alla tre objekten ska vara skapade från samma klass.</li>
+                        <li>Varje objekt ska ha egna värden.</li>
+                        <li>Samma metod ska ge olika utskrift beroende på vilket objekt som används.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför behöver du inte skriva tre olika
+                        metoder för de tre böckerna?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-1/kap3-1-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Ändra ett attribut med en metod</h2>
+                    <p>Skapa klassen <code>Spelare</code> med attributen <code>namn</code> och <code>poang</code>.
+                        Lägg till metoden <code>lagg_till_poang(antal)</code>, som ökar spelarens poäng, och metoden
+                        <code>skriv_ut_info()</code>. Skapa en spelare, lägg till poäng två gånger och skriv ut
+                        resultatet.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>starta spelaren på <code>0</code> poäng.</li>
+                        <li>lägga till två olika poängtal.</li>
+                        <li>kontrollera att den slutliga poängen är summan av båda talen.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför måste metoden använda
+                        <code>self.poang</code> när värdet ska ändras?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-1/kap3-1-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Konto med insättning</h2>
+                    <p>Skapa klassen <code>Konto</code> med attributen <code>agare</code> och <code>saldo</code>. Lägg
+                        till metoden <code>satt_in(belopp)</code>. Metoden ska bara öka saldot om beloppet är större än
+                        <code>0</code>; annars ska den skriva ut ett felmeddelande. Lägg också till en metod som visar
+                        kontots uppgifter.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li>en giltig insättning.</li>
+                        <li>beloppet <code>0</code>.</li>
+                        <li>ett negativt belopp.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken del av klassen är data och vilken del
+                        är funktionalitet?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-1/kap3-1-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Elever i en lista</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du klasser och objekt med
+                        en lista, en funktion och en loop.</p>
+                    <p>Skapa klassen <code>Elev</code> med attributen <code>namn</code>, <code>klassnamn</code> och
+                        <code>alder</code>. Klassen ska ha metoden <code>skriv_ut_info()</code>. Skapa minst tre
+                        elevobjekt, lägg dem i en lista och skriv funktionen <code>skriv_ut_elever(elever)</code>, som
+                        går igenom listan och anropar varje objekts metod.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Listans element ska vara objekt av klassen <code>Elev</code>.</li>
+                        <li>Funktionen ska fungera även när du lägger till ytterligare ett elevobjekt.</li>
+                        <li>Testa också funktionen med en tom lista.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad innehåller loopvariabeln under varje varv
+                        i loopen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-1/kap3-1-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Meny för produkter</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du en klass med objekt,
+                        lista, funktioner, meny, loopar och säker inmatning.</p>
+                    <p>Skapa klassen <code>Produkt</code> med attributen <code>namn</code> och <code>pris</code> samt
+                        metoden <code>skriv_ut_info()</code>. Bygg sedan ett menyprogram med alternativen
+                        <code>1. Lägg till produkt</code>, <code>2. Visa alla produkter</code> och
+                        <code>3. Avsluta</code>. Nya produktobjekt ska sparas i en lista. Priset ska omvandlas till ett
+                        decimaltal och felaktig inmatning ska hanteras med <code>try</code> och
+                        <code>except ValueError</code>.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>visa listan innan någon produkt har lagts till.</li>
+                        <li>lägga till minst tre produkter med olika priser.</li>
+                        <li>skriva text i stället för ett pris.</li>
+                        <li>göra ett ogiltigt menyval och därefter avsluta.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> När skapas ett nytt objekt och när används ett
+                        objekt som redan finns?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-1/kap3-1-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Sammanfattning</h2>
                 <ul>
