@@ -1,3 +1,8 @@
 {
-  "liveServer.settings.port": 5504
+  "liveServer.settings.port": 5504,
+  "git.enabled": true,
+  "git.autorefresh": true,
+  "git.autoRepositoryDetection": true,
+  "git.openRepositoryInParentFolders": "always",
+  "git.repositoryScanMaxDepth": 5
 }

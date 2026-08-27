@@ -326,19 +326,121 @@ main()</textarea>
                 </ul>
 
                 <h2>Öva själv</h2>
-                <ol>
-                    <li>Skapa filen <code>kap2-6-topplista.py</code> i din kursmapp.</li>
-                    <li>Skriv först en kort plan: input, bearbetning, output, datastruktur och funktioner.</li>
-                    <li>Bygg ett menyprogram där användaren kan lägga till resultat, visa hela topplistan och avsluta.</li>
-                    <li>Lägg till ett val som bara visar de tre bästa resultaten.</li>
-                    <li>Testa minst tre kantfall från tabellen och skriv ner vad som händer.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-2/kap-2-6/kap2-6-topplista-losningsforslag.py" download>kap2-6-topplista-losningsforslag.py</a>
-                </p>
-                <p class="exercise-note">Lösningsförslaget använder en lista med dictionaries eftersom varje resultat
-                    får tydliga nycklar: <code>name</code> och <code>points</code>. Det gör programmet lättare att bygga
-                    vidare på än om varje resultat bara sparas som en tuple.</p>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Skriv ut en resultatlista</h2>
+                    <p>Skapa en lista med minst fyra tuples. Varje tuple ska innehålla ett namn och en poäng. Använd en
+                        <code>for</code>-loop och packa upp varje tuple för att skriva ut namn och poäng.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Listan ska innehålla minst fyra resultat.</li>
+                        <li>Varje namn och poäng ska skrivas ut på en egen rad.</li>
+                        <li>Lägg till ett nytt resultat och kontrollera att det också skrivs ut.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad är ett element i listan och vilka värden
+                        finns i elementet?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-6/kap2-6-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Sortera efter poäng</h2>
+                    <p>Utgå från en lista med tuples som innehåller namn och poäng. Sortera listan så att den högsta
+                        poängen kommer först. Använd <code>sort()</code>, <code>key=lambda x: x[1]</code> och
+                        <code>reverse=True</code>. Skriv sedan ut den sorterade listan.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li>resultat som ligger i blandad ordning.</li>
+                        <li>två personer som har samma poäng.</li>
+                        <li>ett nytt resultat som har högst poäng.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför används index <code>1</code> i
+                        lambda-funktionen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-6/kap2-6-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Behåll originalordningen</h2>
+                    <p>Skapa funktionen <code>sort_by_name(results)</code>. Funktionen ska använda
+                        <code>sorted()</code> och returnera en ny lista där resultaten är sorterade efter namn. Den
+                        ursprungliga listan ska inte ändras. Skriv ut båda listorna efter funktionsanropet.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Den nya listan ska vara sorterad efter värdet på index <code>0</code>.</li>
+                        <li>Den ursprungliga listan ska ha kvar sin ordning.</li>
+                        <li>Testa även funktionen med en tom lista.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad är skillnaden mellan <code>sort()</code>
+                        och <code>sorted()</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-6/kap2-6-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Hitta godkända resultat</h2>
+                    <p>Skriv funktionen <code>get_approved(results, limit)</code>. Funktionen ska gå igenom en lista
+                        med resultat-tuples och returnera en ny lista med de resultat som har minst lika många poäng
+                        som gränsen. Skriv ut de godkända resultaten.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li>en gräns som ger flera godkända resultat.</li>
+                        <li>en poäng som är exakt lika med gränsen.</li>
+                        <li>en gräns som gör att den nya listan blir tom.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför är det bra att funktionen skapar och
+                        returnerar en ny lista?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-6/kap2-6-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Klassens resultat</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du en lista med
+                        dictionaries, funktioner, loopar, villkor och beräkningar.</p>
+                    <p>Skapa en lista med minst fyra elev-dictionaries. Varje elev ska ha nycklarna <code>name</code>
+                        och <code>points</code>. Skriv en funktion som räknar ut medelvärdet och en funktion som hittar
+                        eleven med högst poäng. Skriv ut alla elever, medelvärdet och den elev som fick högst poäng.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Båda funktionerna ska ta emot resultatlistan som parameter.</li>
+                        <li>Programmet ska hantera en tom lista utan att krascha.</li>
+                        <li>Ändra en poäng och kontrollera att både medelvärde och högsta resultat uppdateras.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför blir en dictionary tydligare än en
+                        tuple om varje elev senare ska få fler uppgifter?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-6/kap2-6-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Meny för en topplista</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du problemlösning,
+                        lista, dictionaries, funktioner, meny, säker inmatning och sortering med lambda.</p>
+                    <p>Bygg ett menyprogram med alternativen <code>1. Lägg till resultat</code>,
+                        <code>2. Visa hela topplistan</code>, <code>3. Visa de tre bästa</code>,
+                        <code>4. Sök efter spelare</code> och <code>5. Avsluta</code>. Varje resultat ska sparas som en
+                        dictionary med nycklarna <code>name</code> och <code>points</code> i en lista. Poängen ska läsas
+                        in som ett heltal och felaktig inmatning ska hanteras med <code>try</code> och
+                        <code>except ValueError</code>. Topplistan ska sorteras efter poäng med <code>lambda</code>.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>visa topplistan när den är tom.</li>
+                        <li>lägga till minst fyra spelare i blandad poängordning.</li>
+                        <li>visa hela topplistan och därefter de tre bästa.</li>
+                        <li>söka efter en spelare som finns och en som saknas.</li>
+                        <li>skriva text i stället för poäng och sedan avsluta programmet.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka mindre funktioner behöver programmet
+                        delas upp i för att bli lätt att testa?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-6/kap2-6-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Reflektion</h2>
                 <ul>
