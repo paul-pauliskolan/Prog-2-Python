@@ -246,16 +246,104 @@ Välj ett alternativ och tryck på Kör val.</output>
                 </section>
 
                 <h2>Öva själv</h2>
-                <ol>
-                    <li>Skriv en for-loop som skriver ut alla tal från 1 till 20 som är delbara med 3.</li>
-                    <li>Skapa en while-loop som fortsätter att fråga användaren om en gissning tills hen gissar rätt
-                        på ett förutbestämt tal.</li>
-                    <li>Kombinera en meny och funktioner som i exemplet ovan men med tre alternativ: skriv ett namn,
-                        räkna upp till ett tal, avsluta.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap1-5-loopar-losningsforslag.py" download>kap1-5-loopar-losningsforslag.py</a>
-                </p>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Räkna från 1 till 10</h2>
+                    <p>Skriv ett program som använder en <code>for</code>-loop och <code>range</code> för att skriva ut
+                        talen från <code>1</code> till <code>10</code>. Varje tal ska skrivas på en egen rad.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Det första talet som skrivs ut ska vara <code>1</code>.</li>
+                        <li>Det sista talet som skrivs ut ska vara <code>10</code>.</li>
+                        <li>Sammanlagt ska tio tal skrivas ut.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilket stoppvärde behöver du använda i
+                        <code>range</code> för att talet <code>10</code> ska komma med?</p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Tal som är delbara med 4</h2>
+                    <p>Skriv ett program som går igenom talen från <code>1</code> till <code>30</code>. Använd en
+                        <code>for</code>-loop och ett villkor för att bara skriva ut tal som är delbara med
+                        <code>4</code>.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Det första talet som skrivs ut ska vara <code>4</code>.</li>
+                        <li><code>16</code> ska skrivas ut.</li>
+                        <li><code>30</code> ska inte skrivas ut.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Hur kan operatorn <code>%</code> användas för
+                        att kontrollera om ett tal är jämnt delbart med <code>4</code>?</p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Gissa det hemliga talet</h2>
+                    <p>Välj ett hemligt heltal och spara det i en variabel. Programmet ska använda en
+                        <code>while</code>-loop för att fråga användaren efter en gissning tills svaret är rätt. Efter
+                        en felaktig gissning ska programmet skriva <code>"Försök igen"</code>. När användaren gissar
+                        rätt ska programmet skriva <code>"Rätt gissat!"</code>.</p>
+                    <h3>Testa programmet</h3>
+                    <ul>
+                        <li>Gissa rätt direkt och kontrollera att loopen avslutas.</li>
+                        <li>Gissa fel två gånger och därefter rätt.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför passar en <code>while</code>-loop bättre
+                        än en <code>for</code>-loop när du inte vet hur många gissningar som behövs?</p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Hoppa över och avsluta</h2>
+                    <p>Skriv ett program som går igenom talen från <code>1</code> till <code>20</code>. Jämna tal ska
+                        hoppas över med <code>continue</code>. När loopen når talet <code>15</code> ska den avslutas med
+                        <code>break</code>. Övriga tal ska skrivas ut.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Endast udda tal som är mindre än <code>15</code> ska skrivas ut.</li>
+                        <li><code>2</code> och <code>8</code> ska inte skrivas ut.</li>
+                        <li><code>15</code> och talen efter <code>15</code> ska inte skrivas ut.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad är skillnaden mellan hur
+                        <code>continue</code> och <code>break</code> påverkar loopen?</p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Summera jämna tal</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du en funktion,
+                        <code>return</code>, en loop och ett villkor.</p>
+                    <p>Skriv funktionen <code>sum_even_numbers(limit)</code>. Funktionen ska använda en
+                        <code>for</code>-loop för att summera alla jämna tal från <code>1</code> till och med
+                        <code>limit</code> och sedan returnera summan. Huvudprogrammet ska fråga användaren efter
+                        gränsen, anropa funktionen och skriva ut resultatet.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li><code>6</code>, vilket ska ge summan <code>12</code>.</li>
+                        <li><code>10</code>, vilket ska ge summan <code>30</code>.</li>
+                        <li><code>1</code>, vilket ska ge summan <code>0</code>.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför ska variabeln som lagrar summan skapas
+                        före loopen?</p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Kontrollera flera besökare</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du funktioner,
+                        returvärden, logiska uttryck, villkor och en loop.</p>
+                    <p>Skapa ett program som kontrollerar flera besökare till ett evenemang. Skriv en funktion som tar
+                        emot en besökares ålder och om personen har biljett. Funktionen ska returnera <code>True</code>
+                        om personen är minst <code>18</code> år och har biljett, annars <code>False</code>.</p>
+                    <p>Huvudprogrammet ska använda en <code>while</code>-loop och fortsätta fråga efter nya besökare.
+                        Om användaren skriver åldern <code>0</code> ska loopen avslutas med <code>break</code>. För varje
+                        annan besökare ska programmet fråga om biljett och skriva om personen får gå in. Programmet ska
+                        också räkna hur många som får gå in och skriva ut antalet efter loopen.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li>Ålder <code>20</code> och biljett <code>ja</code>.</li>
+                        <li>Ålder <code>17</code> och biljett <code>ja</code>.</li>
+                        <li>Ålder <code>25</code> och biljett <code>nej</code>.</li>
+                        <li>Ålder <code>0</code> för att avsluta och visa antalet godkända besökare.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför behöver kontrollen av åldern
+                        <code>0</code> göras innan programmet frågar om biljett?</p>
+                </section>
 
                 <h2>Reflektion</h2>
                 <ul>
