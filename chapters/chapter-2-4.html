@@ -262,15 +262,121 @@ print(age)</code></pre>
                 </table>
 
                 <h2>Öva själv</h2>
-                <ol>
-                    <li>Skapa en dictionary för en bok med nycklarna <code>title</code>, <code>author</code> och <code>year</code>.</li>
-                    <li>Skriv en funktion som returnerar en tuple med ett namn och en ålder.</li>
-                    <li>Skapa en meny som låter användaren lägga till poster i en dictionary, till exempel användarnamn och poäng.</li>
-                    <li>Skriv ut alla nycklar och värden i en dictionary med hjälp av en for-loop.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-2/kap-2-4/kap2-4-dictionaries-tuples-losningsforslag.py" download>kap2-4-dictionaries-tuples-losningsforslag.py</a>
-                </p>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Skapa en bok-dictionary</h2>
+                    <p>Skapa en dictionary för en bok med nycklarna <code>title</code>, <code>author</code> och
+                        <code>year</code>. Skriv ut varje värde genom att använda rätt nyckel.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Titeln, författaren och året ska skrivas ut.</li>
+                        <li>Ändra bokens titel och kontrollera att utskriften ändras.</li>
+                        <li>Använd <code>get()</code> för att försöka hämta nyckeln <code>isbn</code> med ett eget
+                            standardmeddelande.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad är skillnaden mellan en nyckel och dess
+                        värde?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-4/kap2-4-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Ändra personuppgifter</h2>
+                    <p>Skapa en dictionary med namn, ålder och stad. Ändra åldern, lägg till en e-postadress och ta
+                        bort staden med <code>del</code>. Skriv ut dictionaryn före och efter ändringarna.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Åldern ska ha fått ett nytt värde.</li>
+                        <li>En ny nyckel för e-post ska finnas.</li>
+                        <li>Nyckeln för stad ska vara borttagen.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Hur avgör Python om en tilldelning ändrar ett
+                        värde eller lägger till ett nytt nyckel-värde-par?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-4/kap2-4-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Skriv ut alla nycklar och värden</h2>
+                    <p>Skriv funktionen <code>print_dictionary(dictionary)</code>. Funktionen ska ta emot en
+                        dictionary och använda <code>items()</code> för att skriva ut varje nyckel tillsammans med
+                        dess värde.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li>en dictionary för en person.</li>
+                        <li>en dictionary med användarnamn och poäng.</li>
+                        <li>en tom dictionary.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad innehåller variablerna
+                        <code>key</code> och <code>value</code> under varje varv i loopen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-4/kap2-4-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Returnera och packa upp en tuple</h2>
+                    <p>Skriv funktionen <code>get_user()</code> som returnerar en tuple med ett namn och en ålder.
+                        Anropa funktionen, packa upp tuplen i två variabler och skriv ut värdena separat.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Funktionen ska returnera exakt två värden i en tuple.</li>
+                        <li>Antalet variabler vid uppackningen ska vara två.</li>
+                        <li>Skriv också ut värdet på index <code>0</code> direkt från tuplen.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad händer om antalet variabler inte matchar
+                        antalet värden i tuplen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-4/kap2-4-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Sök i en lista med böcker</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du en lista med
+                        dictionaries, funktioner och linjär sökning.</p>
+                    <p>Skapa en lista som innehåller minst tre bok-dictionaries. Varje bok ska ha nycklarna
+                        <code>title</code>, <code>author</code> och <code>year</code>. Skriv funktionen
+                        <code>find_book(books, target_title)</code> som går igenom listan och returnerar den dictionary
+                        vars titel matchar sökningen. Om ingen bok hittas ska funktionen returnera en tom dictionary.
+                        Skriv ut den hittade bokens uppgifter med <code>items()</code>.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li>titeln på den första boken.</li>
+                        <li>titeln på den sista boken.</li>
+                        <li>en titel som inte finns.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför returnerar funktionen hela bokens
+                        dictionary och inte bara titeln?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-4/kap2-4-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Poängregister med dictionary</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du en dictionary med
+                        funktioner, meny, loopar och säker inmatning.</p>
+                    <p>Skapa ett menyprogram med alternativen <code>1. Lägg till eller ändra poäng</code>,
+                        <code>2. Visa alla poäng</code>, <code>3. Sök efter användare</code> och
+                        <code>4. Avsluta</code>. Användarnamn ska vara nycklar och heltalspoäng ska vara värden.
+                        Felaktig poänginmatning ska hanteras med <code>try</code> och <code>except ValueError</code>.
+                        Använd <code>items()</code> vid utskrift och <code>get()</code> vid sökning.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>visa registret när det är tomt.</li>
+                        <li>lägga till minst tre användare.</li>
+                        <li>ändra poängen för en användare som redan finns.</li>
+                        <li>söka efter en användare som finns och en som saknas.</li>
+                        <li>skriva text i stället för poäng och därefter avsluta.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför ersätts det tidigare värdet när samma
+                        användarnamn används igen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-4/kap2-4-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Reflektion</h2>
                 <ul>

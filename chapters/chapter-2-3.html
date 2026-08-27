@@ -273,23 +273,120 @@ print(bubble_sort([9, 3, 7, 1]))</textarea>
                 </section>
 
                 <h2>Öva själv</h2>
-                <ol>
-                    <li>Använd <code>.sort()</code> för att sortera en lista med användarnamn.</li>
-                    <li>Använd <code>sorted()</code> för att skapa en sorterad kopia utan att ändra originallistan.</li>
-                    <li>Skapa ett program som frågar efter 5 tal, sorterar dem med <code>sort()</code> eller
-                        <code>sorted()</code> och söker efter ett valfritt tal.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-2/kap-2-3/kap2-3-sokning-sortering-losningsforslag.py" download>kap2-3-sokning-sortering-losningsforslag.py</a>
-                </p>
-                <p>Testa dina lösningar med flera olika fall:</p>
-                <ul>
-                    <li>värdet finns först i listan</li>
-                    <li>värdet finns sist i listan</li>
-                    <li>värdet finns inte alls</li>
-                    <li>listan är redan sorterad</li>
-                    <li>listan är i omvänd ordning</li>
-                </ul>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Sortera användarnamn med sort()</h2>
+                    <p>Skapa en lista med minst fem användarnamn i blandad ordning. Skriv ut listan, sortera den med
+                        <code>sort()</code> och skriv ut den igen.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Den första utskriften ska visa den ursprungliga ordningen.</li>
+                        <li>Den andra utskriften ska visa namnen i sorterad ordning.</li>
+                        <li>Testa även med en lista som redan är sorterad.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad har hänt med originallistan efter
+                        <code>sort()</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-3/kap2-3-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Skapa en sorterad kopia</h2>
+                    <p>Skapa en lista med tal i blandad ordning. Använd <code>sorted()</code> för att skapa en ny
+                        sorterad lista. Skriv ut både originallistan och den sorterade listan.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li><code>[8, 2, 10, 4]</code>.</li>
+                        <li>en lista som redan är sorterad.</li>
+                        <li>en lista som ligger i omvänd ordning.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför kan <code>sorted()</code> passa bättre
+                        än <code>sort()</code> när du behöver behålla den ursprungliga ordningen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-3/kap2-3-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Linjär sökning efter ett namn</h2>
+                    <p>Skriv funktionen <code>linear_search(names, target)</code>. Funktionen ska gå igenom listans
+                        index och returnera indexet där namnet finns. Om namnet saknas ska funktionen returnera
+                        <code>-1</code>.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li>ett namn som ligger först i listan.</li>
+                        <li>ett namn som ligger sist i listan.</li>
+                        <li>ett namn som inte finns.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför ligger <code>return -1</code> efter
+                        loopen och inte inuti den?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-3/kap2-3-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Sortera före binär sökning</h2>
+                    <p>Använd funktionen <code>binary_search()</code> från kapitlets exempel. Skapa först en osorterad
+                        lista med tal och gör en sorterad kopia med <code>sorted()</code>. Sök sedan efter ett tal i den
+                        sorterade kopian och skriv ut det returnerade indexet.</p>
+                    <h3>Testa programmet med</h3>
+                    <ul>
+                        <li>ett tal som ligger först i den sorterade listan.</li>
+                        <li>ett tal som ligger sist i den sorterade listan.</li>
+                        <li>ett tal som inte finns.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför ska du inte skicka den osorterade
+                        listan direkt till <code>binary_search()</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-3/kap2-3-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Läs in, sortera och sök</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du funktioner, listor,
+                        säker inmatning, sortering och linjär sökning.</p>
+                    <p>Skapa ett program som frågar efter fem heltal och lägger dem i en lista. Felaktig inmatning ska
+                        hanteras så att användaren får försöka igen. Skapa därefter en sorterad kopia med
+                        <code>sorted()</code>, fråga vilket tal användaren vill söka efter och använd en funktion för
+                        linjär sökning. Skriv ut det hittade indexet eller ett meddelande om talet saknas.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>skriva text när programmet frågar efter ett tal.</li>
+                        <li>söka efter ett tal som finns i listan.</li>
+                        <li>köra programmet igen och söka efter ett tal som saknas.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Söker programmet i originallistan eller den
+                        sorterade kopian, och hur påverkar det indexet som returneras?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-3/kap2-3-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Meny för användarnamn</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du en lista med
+                        funktioner, en meny, sortering och sökning.</p>
+                    <p>Skapa ett menyprogram med alternativen <code>1. Lägg till användarnamn</code>,
+                        <code>2. Visa sorterade användarnamn</code>, <code>3. Sök efter användarnamn</code> och
+                        <code>4. Avsluta</code>. Namnen ska sparas i en lista. Den sorterade utskriften ska göras från
+                        en kopia så att originallistan inte ändras. Sökningen ska använda en egen funktion för linjär
+                        sökning och skriva ut namnets index i originallistan eller att namnet saknas.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>visa listan innan något namn har lagts till.</li>
+                        <li>lägga till minst tre namn i blandad ordning.</li>
+                        <li>visa namnen i sorterad ordning.</li>
+                        <li>söka efter ett namn som finns och ett som saknas.</li>
+                        <li>göra ett ogiltigt menyval och därefter avsluta.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför används en sorterad kopia när namnen
+                        visas men originallistan när indexet söks?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-3/kap2-3-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Reflektion</h2>
                 <ul>
