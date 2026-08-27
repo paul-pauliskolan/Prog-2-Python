@@ -375,15 +375,75 @@ class Register(Generic[T]):
                 </ul>
 
                 <h2>Öva själv</h2>
-                <ol>
-                    <li>Skriv en generisk funktion <code>last(values)</code> som returnerar sista värdet i en lista.</li>
-                    <li>Skapa en generisk klass <code>Pair</code> som lagrar två värden av samma typ.</li>
-                    <li>Skapa en klass <code>Student</code> och använd <code>Register[Student]</code> för att lagra elever.</li>
-                    <li>Fundera: när blir generisk kod tydligare än duplicerad kod?</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-3/kap-3-9/kap3-9-generics-losningsforslag.py" download>kap3-9-generics-losningsforslag.py</a>
-                </p>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Hämta sista värdet</h2>
+                    <p>Importera <code>TypeVar</code>, skapa typvariabeln <code>T</code> och skriv funktionen
+                        <code>last(values: list[T]) -&gt; T</code>. Testa funktionen med en lista av strängar och en
+                        lista av heltal.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken returtyp får respektive anrop?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-9/kap3-9-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Sök generiskt i en lista</h2>
+                    <p>Skriv funktionen <code>find_index(value: T, values: list[T]) -&gt; int</code>. Funktionen ska
+                        returnera värdets index eller <code>-1</code> om värdet saknas. Testa med både text och tal.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Hur visar samma <code>T</code> att sökvärdet och
+                        listans element hör ihop?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-9/kap3-9-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Upprepa ett värde</h2>
+                    <p>Skriv den generiska funktionen <code>repeat(value: T, times: int) -&gt; list[T]</code>. Testa den
+                        med ett decimaltal, en sträng och ett objekt från en enkel klass som du själv skapar.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad beskriver <code>list[T]</code> i
+                        returtypen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-9/kap3-9-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 4: En generisk låda</h2>
+                    <p>Skapa klassen <code>Box(Generic[T])</code>. Konstruktorn ska ta emot ett värde av typen
+                        <code>T</code>. Metoden <code>get()</code> ska returnera värdet och <code>set(value: T)</code> ska
+                        ersätta det. Testa med <code>Box[str]</code> och <code>Box[int]</code>.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka tre platser i klassen kopplas samman av
+                        samma typvariabel?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-9/kap3-9-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Generiskt par med sökning</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du en generisk klass med
+                        flera metoder och en generisk funktion.</p>
+                    <p>Skapa <code>Pair(Generic[T])</code> som lagrar två värden av samma typ. Lägg till metoder som
+                        returnerar det första och det andra värdet samt <code>contains(value: T) -&gt; bool</code>.
+                        Skriv även funktionen <code>print_pair(pair: Pair[T]) -&gt; None</code>. Testa textpar och talpar.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför kan samma klass återanvändas utan att
+                        returtyperna blir <code>object</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-9/kap3-9-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Generiska skolregister</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du generics med egna
+                        klasser, flera register och sökning.</p>
+                    <p>Skapa <code>Register(Generic[T])</code> med metoderna <code>add(item: T)</code>,
+                        <code>all_items() -&gt; list[T]</code> och <code>first() -&gt; T</code>. Skapa klasserna
+                        <code>Student</code> och <code>Course</code>. Använd ett <code>Register[Student]</code> och ett
+                        <code>Register[Course]</code>, lägg till flera objekt och skriv ut innehållet och det första
+                        objektet i varje register.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken exakt returtyp får <code>first()</code>
+                        för de två registren?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-9/kap3-9-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Sammanfattning</h2>
                 <ul>

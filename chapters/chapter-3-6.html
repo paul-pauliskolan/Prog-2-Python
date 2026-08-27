@@ -424,23 +424,78 @@ class Student(Person):
         +introduce()
     }</code></pre>
 
-                <h2>Öva: använd arv</h2>
-                <p>Skapa filen <code>kap3-6-vehicles.py</code>. Målet är att träna på arv, override och polymorfism i
-                    samma program.</p>
-                <ol>
-                    <li>Skapa en basklass <code>Vehicle</code> med metoden <code>drive()</code>.</li>
-                    <li>Skapa två subklasser: <code>Car</code> och <code>Bike</code>, som överskuggar <code>drive()</code>.</li>
-                    <li>Skapa en lista med både bilar och cyklar och låt dem köra i en loop.</li>
-                    <li>Lägg till attributet <code>brand</code> i basklassen och använd <code>super().__init__(brand)</code>
-                        i subklasserna.</li>
-                    <li>Testa att loopen kan köra <code>vehicle.drive()</code> utan att kontrollera om objektet är
-                        <code>Car</code> eller <code>Bike</code>.</li>
-                </ol>
-                <p class="exercise-note">När programmet fungerar ska du kunna lägga till ett nytt objekt i listan utan
-                    att ändra själva loopen.</p>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-3/kap-3-6/kap3-6-vehicles-losningsforslag.py" download>kap3-6-vehicles-losningsforslag.py</a>
-                </p>
+                <h2>Öva själv</h2>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: En metod som ärvs</h2>
+                    <p>Skapa basklassen <code>Animal</code> med metoden <code>breathe()</code>. Skapa subklassen
+                        <code>Dog</code> med den egna metoden <code>wag_tail()</code>. Skapa ett hundobjekt och anropa
+                        både den ärvda och den egna metoden.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> I vilken klass är <code>breathe()</code>
+                        skriven?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-6/kap3-6-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Skriv över en metod</h2>
+                    <p>Skapa basklassen <code>Animal</code> med metoden <code>speak()</code>. Skapa subklasserna
+                        <code>Dog</code> och <code>Cat</code> och skriv en egen version av <code>speak()</code> i varje
+                        subklass. Anropa metoden på alla tre typerna av objekt.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka två metoder är exempel på override?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-6/kap3-6-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Återanvänd konstruktorn med super()</h2>
+                    <p>Skapa basklassen <code>Person</code> med attributet <code>name</code>. Skapa subklassen
+                        <code>Student</code> med det extra attributet <code>school</code>. Använd
+                        <code>super().__init__(name)</code> och skriv över metoden <code>introduce()</code>.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken kod slipper du upprepa tack vare
+                        <code>super()</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-6/kap3-6-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Polymorfism i en lista</h2>
+                    <p>Skapa basklassen <code>Instrument</code> och subklasserna <code>Guitar</code>, <code>Piano</code>
+                        och <code>Drum</code>. Alla ska ha metoden <code>play()</code> med olika utskrift. Lägg ett objekt
+                        av varje subklass i en lista och anropa <code>play()</code> i en loop.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför behöver loopen inte känna till
+                        objektens exakta klasser?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-6/kap3-6-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Fordonsregister</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du arv, override,
+                        <code>super()</code>, listor och polymorfism.</p>
+                    <p>Skapa <code>Vehicle</code> med attributet <code>brand</code> och metoden <code>drive()</code>.
+                        Skapa <code>Car</code>, <code>Bike</code> och <code>Bus</code> som använder basklassens konstruktor
+                        och skriver över metoden. Lägg blandade fordon i en lista och låt alla köra i samma loop.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad behöver ändras i loopen om ytterligare en
+                        subklass läggs till?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-6/kap3-6-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Löner för olika anställda</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här använder du polymorfism för en
+                        beräkning som skiljer sig mellan flera subklasser.</p>
+                    <p>Skapa basklassen <code>Employee</code> med namn och metoden <code>calculate_salary()</code>.
+                        Skapa <code>MonthlyEmployee</code>, som returnerar en månadslön, och
+                        <code>HourlyEmployee</code>, som beräknar timlön gånger antal timmar. Använd
+                        <code>super()</code>, lägg blandade objekt i en lista och skriv ut varje lön samt den totala
+                        lönekostnaden med samma metodanrop.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken del är override och vilken del visar
+                        polymorfism?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-6/kap3-6-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Sammanfattning</h2>
                 <ul>

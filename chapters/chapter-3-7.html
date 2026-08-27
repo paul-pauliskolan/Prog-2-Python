@@ -124,26 +124,83 @@ print(verktyg.kvadrat(5))</textarea>
                 </section>
 
                 <h2>Öva själv</h2>
-                <p>Skapa en projektmapp som heter <code>kap3-7-moduler</code>. Dela upp programmet i tre filer så att
-                    varje fil får ett tydligt ansvar.</p>
-                <ol>
-                    <li>Skapa <code>spelare.py</code> med klassen <code>Player</code>.</li>
-                    <li>Låt <code>Player</code> ha attributen <code>name</code> och <code>health</code>.</li>
-                    <li>Skriv metoderna <code>take_damage(amount)</code>, <code>is_alive()</code> och <code>print_status()</code>.</li>
-                    <li>Skapa <code>strid.py</code> med funktionerna <code>attack(attacker, defender, damage)</code> och <code>print_result(player1, player2)</code>.</li>
-                    <li>Skapa <code>main.py</code> som importerar <code>Player</code> från <code>spelare.py</code> och importerar hela modulen <code>strid</code>.</li>
-                    <li>Testa programmet genom att skapa två spelare, låta dem attackera varandra och skriva ut resultatet.</li>
-                </ol>
-                <p>Importerna i <code>main.py</code> kan se ut så här:</p>
-                <pre><code class="language-python">from spelare import Player
-import strid</code></pre>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-3/kap-3-7/kap3-7-moduler-losningsforslag.zip" download>kap3-7-moduler-losningsforslag.zip</a>.
-                    Du kan också öppna filerna direkt:
-                    <a href="../p2-python-kod/kap-3/kap-3-7/losningsforslag/main.py" download>main.py</a>,
-                    <a href="../p2-python-kod/kap-3/kap-3-7/losningsforslag/spelare.py" download>spelare.py</a> och
-                    <a href="../p2-python-kod/kap-3/kap-3-7/losningsforslag/strid.py" download>strid.py</a>.
-                </p>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Importera en hel modul</h2>
+                    <p>Skapa <code>verktyg.py</code> med funktionerna <code>halsa(namn)</code> och
+                        <code>dubbla(tal)</code>. Skapa <code>main.py</code>, importera hela modulen med
+                        <code>import verktyg</code> och anropa båda funktionerna med modulnamnet.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför skrivs <code>verktyg.</code> före
+                        funktionsnamnet?</p>
+                    <p class="exercise-note">Lösningsförslag på GitHub:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-1/verktyg.py" target="_blank" rel="noopener noreferrer">verktyg.py</a> och
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-1/main.py" target="_blank" rel="noopener noreferrer">main.py</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Importera en funktion</h2>
+                    <p>Skapa <code>berakningar.py</code> med funktionerna <code>summa(a, b)</code> och
+                        <code>produkt(a, b)</code>. Importera bara <code>summa</code> till <code>main.py</code> med
+                        <code>from berakningar import summa</code> och skriv ut resultatet av två anrop.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Behöver du skriva modulnamnet när funktionen
+                        har importerats direkt?</p>
+                    <p class="exercise-note">Lösningsförslag på GitHub:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-2/berakningar.py" target="_blank" rel="noopener noreferrer">berakningar.py</a> och
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-2/main.py" target="_blank" rel="noopener noreferrer">main.py</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Använd ett alias</h2>
+                    <p>Skapa <code>temperatur.py</code> med funktionen <code>celsius_till_fahrenheit(celsius)</code>.
+                        Importera modulen som <code>temp</code> och använd aliaset när funktionen anropas i
+                        <code>main.py</code>.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Ändrar aliaset modulens riktiga filnamn?</p>
+                    <p class="exercise-note">Lösningsförslag på GitHub:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-3/temperatur.py" target="_blank" rel="noopener noreferrer">temperatur.py</a> och
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-3/main.py" target="_blank" rel="noopener noreferrer">main.py</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Flytta en klass till en modul</h2>
+                    <p>Skapa <code>bok.py</code> med klassen <code>Book</code>, attributen <code>title</code> och
+                        <code>author</code> samt metoden <code>print_info()</code>. Importera klassen till
+                        <code>main.py</code>, skapa två objekt och anropa metoden.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken fil ansvarar för klassens definition och
+                        vilken fil startar programmet?</p>
+                    <p class="exercise-note">Lösningsförslag på GitHub:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-4/bok.py" target="_blank" rel="noopener noreferrer">bok.py</a> och
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-4/main.py" target="_blank" rel="noopener noreferrer">main.py</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Dela upp ett stridsspel</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här delar du ansvar mellan tre moduler
+                        och kombinerar klasser, funktioner och import.</p>
+                    <p>Skapa <code>spelare.py</code> med klassen <code>Player</code>, <code>strid.py</code> med
+                        funktionerna <code>attack()</code> och <code>print_result()</code> samt <code>main.py</code> som
+                        importerar delarna, skapar två spelare och genomför en strid.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför hör attacklogiken hemma i en annan fil
+                        än programmets startkod?</p>
+                    <p class="exercise-note">Lösningsförslag på GitHub:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-5/spelare.py" target="_blank" rel="noopener noreferrer">spelare.py</a>,
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-5/strid.py" target="_blank" rel="noopener noreferrer">strid.py</a> och
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-5/main.py" target="_blank" rel="noopener noreferrer">main.py</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Webbutik i tre moduler</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här bygger du ett litet flerfilsprogram
+                        med två klassmoduler och ett huvudprogram.</p>
+                    <p>Skapa <code>produkt.py</code> med klassen <code>Product</code> och <code>kundvagn.py</code> med
+                        klassen <code>Cart</code>. Kundvagnen ska kunna lägga till produktobjekt, visa dem och beräkna
+                        totalpriset. Skapa <code>main.py</code> som importerar båda klasserna och testar programmet med
+                        minst tre produkter.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka beroenden finns mellan de tre filerna?</p>
+                    <p class="exercise-note">Lösningsförslag på GitHub:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-6/produkt.py" target="_blank" rel="noopener noreferrer">produkt.py</a>,
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-6/kundvagn.py" target="_blank" rel="noopener noreferrer">kundvagn.py</a> och
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-7/ovning-6/main.py" target="_blank" rel="noopener noreferrer">main.py</a>.
+                    </p>
+                </section>
 
                 <h2>Varför moduler?</h2>
                 <ul>
