@@ -160,18 +160,118 @@ print_list(["car", "bike", "bus"])</code></pre>
 print(even_numbers(10))  # [0, 2, 4, 6, 8]</code></pre>
 
                 <h2>Öva själv</h2>
-                <ol>
-                    <li>Skapa en lista med fem namn och skriv ut varje namn med en hälsning.</li>
-                    <li>Skapa en funktion som tar emot en lista med tal och returnerar medelvärdet.</li>
-                    <li>Gör en meny där användaren kan lägga till ord i en lista, skriva ut den eller avsluta.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du ladda ner ett lösningsförslag:
-                    <a href="../p2-python-kod/kap-2/kap-2-2/kap2-2-losningsforslag.py" download>kap2-2-losningsforslag.py</a>
-                </p>
-                <p class="exercise-note">Lösningsförslaget använder funktioner från kapitel 1.3, loopar och
-                    <code>break</code> från kapitel 1.5 samt listor, <code>append()</code>, <code>sum()</code> och
-                    <code>len()</code> från det här kapitlet. <code>\n</code> betyder ny rad i en textsträng och
-                    <code>:.2f</code> visar ett decimaltal med två decimaler.</p>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Hälsa på fem personer</h2>
+                    <p>Skapa en lista med fem namn. Använd en <code>for</code>-loop för att skriva ut en personlig
+                        hälsning till varje namn.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li>Listan ska innehålla exakt fem namn.</li>
+                        <li>Varje namn ska skrivas ut tillsammans med en hälsning.</li>
+                        <li>Byt ut ett namn och kontrollera att utskriften ändras.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför behövs bara en <code>print()</code>-rad
+                        för att skriva fem hälsningar?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-2/kap2-2-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Ändra en fruktlista</h2>
+                    <p>Skapa listan <code>["äpple", "banan", "päron"]</code>. Byt ut <code>"banan"</code> mot
+                        <code>"apelsin"</code> med hjälp av index. Lägg sedan till <code>"kiwi"</code> sist och ta bort
+                        <code>"päron"</code>. Skriv till sist ut varje frukt med en <code>for</code>-loop.</p>
+                    <h3>Kontrollera programmet</h3>
+                    <ul>
+                        <li><code>"apelsin"</code> ska finnas i den färdiga listan.</li>
+                        <li><code>"kiwi"</code> ska ligga sist.</li>
+                        <li><code>"banan"</code> och <code>"päron"</code> ska inte finnas kvar.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken operation ändrar ett befintligt värde,
+                        och vilka operationer ändrar listans längd?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-2/kap2-2-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Beräkna medelvärdet</h2>
+                    <p>Skapa funktionen <code>calculate_average(numbers)</code>. Funktionen ska ta emot en lista med
+                        tal och returnera medelvärdet med hjälp av <code>sum()</code> och <code>len()</code>.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li><code>[2, 4, 6]</code>, vilket ska ge <code>4.0</code>.</li>
+                        <li><code>[10, 20, 30, 40]</code>, vilket ska ge <code>25.0</code>.</li>
+                        <li><code>[5]</code>, vilket ska ge <code>5.0</code>.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför divideras summan med listans längd?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-2/kap2-2-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 4: Räkna stora tal</h2>
+                    <p>Skapa funktionen <code>count_large_numbers(numbers)</code>. Funktionen ska gå igenom en lista
+                        och returnera hur många tal som är större än <code>10</code>.</p>
+                    <h3>Testa funktionen med</h3>
+                    <ul>
+                        <li><code>[4, 12, 7, 20]</code>, vilket ska ge <code>2</code>.</li>
+                        <li><code>[1, 2, 3]</code>, vilket ska ge <code>0</code>.</li>
+                        <li><code>[11, 12, 13]</code>, vilket ska ge <code>3</code>.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför måste räknaren skapas före loopen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-2/kap2-2-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Meny för en ordlista</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du en lista med en meny,
+                        funktioner, villkor och en loop.</p>
+                    <p>Gör ett program där användaren kan välja <code>1. Lägg till ord</code>,
+                        <code>2. Skriv ut alla ord</code> eller <code>3. Avsluta</code>. Nya ord ska läggas sist i en
+                        lista med <code>append()</code>. När listan visas ska en <code>for</code>-loop skriva ut ett ord
+                        per rad. Menyn ska fortsätta tills användaren väljer att avsluta.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>visa listan innan något ord har lagts till.</li>
+                        <li>lägga till minst tre ord och sedan visa listan.</li>
+                        <li>göra ett ogiltigt menyval.</li>
+                        <li>avsluta programmet med val <code>3</code>.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför skapas listan före menyloopen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-2/kap2-2-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Resultatregister</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du listor med funktioner,
+                        en meny, beräkningar och undantagshantering.</p>
+                    <p>Skapa ett menyprogram där användaren kan välja <code>1. Lägg till resultat</code>,
+                        <code>2. Visa sammanställning</code> eller <code>3. Avsluta</code>. Resultaten ska vara heltal och
+                        sparas i en lista. Felaktig inmatning ska hanteras med <code>try</code> och
+                        <code>except ValueError</code>. Sammanställningen ska skriva ut varje resultat, medelvärdet och
+                        det största resultatet. Om listan är tom ska ett tydligt meddelande visas.</p>
+                    <h3>Testa programmet genom att</h3>
+                    <ul>
+                        <li>visa sammanställningen när listan är tom.</li>
+                        <li>lägga till <code>10</code>, <code>20</code> och <code>30</code>.</li>
+                        <li>kontrollera att medelvärdet blir <code>20.0</code> och det största resultatet
+                            <code>30</code>.</li>
+                        <li>skriva text i stället för ett resultat.</li>
+                        <li>avsluta programmet med val <code>3</code>.</li>
+                    </ul>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför behöver programmet kontrollera om
+                        listan är tom innan det beräknar medelvärde och största värde?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-2/kap-2-2/kap2-2-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Reflektion</h2>
                 <ul>
