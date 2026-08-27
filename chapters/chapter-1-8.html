@@ -74,21 +74,25 @@
 2. Calculate 100-year message
 3. Exit</code></pre>
 
-                <h2>Exempel på kodstruktur</h2>
-                <pre><code>def hamta_namn_och_alder():
-    namn = input("Vad heter du? ")
-    alder = int(input("Hur gammal är du? "))
-    return namn, alder
+                <h2>Kodmall</h2>
+                <p>Kopiera mallen till din editor och fyll i delarna som saknas. Använd det nuvarande året i
+                    beräkningen.</p>
+                <pre><code>def hamta_namn():
+    # Fråga efter namn och returnera svaret.
+    pass
 
-def berakna_100_arsdag(namn, alder):
-    from datetime import datetime
-    nuvarande_ar = datetime.now().year
-    fyller_100_ar = nuvarande_ar + (100 - alder)
-    return f"{namn}, du fyller 100 år år {fyller_100_ar}."
+def hamta_alder():
+    # Fråga efter ålder och returnera ett heltal.
+    pass
+
+def berakna_ar_for_100(alder):
+    nuvarande_ar = 2026
+    # Beräkna och returnera året då personen fyller 100.
+    pass
 
 def main():
-    namn = None
-    alder = None
+    namn = ""
+    alder = 0
 
     while True:
         print("1. Ange namn och ålder")
@@ -97,23 +101,12 @@ def main():
 
         val = input("Välj ett alternativ: ")
 
-        if val == "1":
-            namn, alder = hamta_namn_och_alder()
-        elif val == "2":
-            if namn is None or alder is None:
-                print("Du måste först ange namn och ålder.")
-            else:
-                print(berakna_100_arsdag(namn, alder))
-        elif val == "3":
-            break
-        else:
-            print("Ogiltigt val.")
+        # Hantera menyvalen med if, elif och else.
+        # Anropa funktionerna ovan där de behövs.
+        # Avsluta loopen när användaren väljer 3.
+        pass
 
 main()</code></pre>
-                <p><code>from datetime import datetime</code> hämtar klassen <code>datetime</code> från Pythons
-                    inbyggda modul <code>datetime</code>. Klassen behövs här för att
-                    <code>datetime.now().year</code> ska kunna läsa det nuvarande året. Importen ligger inne i
-                    funktionen och körs därför när <code>berakna_100_arsdag()</code> anropas.</p>
 
                 <section class="interactive-exercise" data-exercise="chapter-1-choice-program">
                     <h2>Interaktivt exempel: valprogram steg för steg</h2>
@@ -128,43 +121,6 @@ main()</code></pre>
                             <li>välja <code>3</code> för att avsluta programmet</li>
                         </ul>
                     </div>
-
-                    <label for="chapter-1-8-code" class="exercise-label">Kod</label>
-                    <textarea id="chapter-1-8-code" class="exercise-code" rows="30" spellcheck="false">def hamta_namn_och_alder():
-    namn = input("Vad heter du? ")
-    alder = int(input("Hur gammal är du? "))
-    return namn, alder
-
-def berakna_100_arsdag(namn, alder):
-    from datetime import datetime
-    nuvarande_ar = datetime.now().year
-    fyller_100_ar = nuvarande_ar + (100 - alder)
-    return f"{namn}, du fyller 100 år år {fyller_100_ar}."
-
-def main():
-    namn = None
-    alder = None
-
-    while True:
-        print("1. Ange namn och ålder")
-        print("2. Beräkna när du fyller 100 år")
-        print("3. Avsluta")
-
-        val = input("Välj ett alternativ: ")
-
-        if val == "1":
-            namn, alder = hamta_namn_och_alder()
-        elif val == "2":
-            if namn is None or alder is None:
-                print("Du måste först ange namn och ålder.")
-            else:
-                print(berakna_100_arsdag(namn, alder))
-        elif val == "3":
-            break
-        else:
-            print("Ogiltigt val.")
-
-main()</textarea>
 
                     <label class="exercise-label">Inmatning</label>
                     <div class="exercise-controls">
@@ -198,6 +154,10 @@ Välj ett alternativ och tryck på Kör val.</output>
                     <li>Hanterar programmet upprepning och val korrekt?</li>
                     <li>Visar du förståelse för programflöde och logik?</li>
                 </ul>
+
+                <p class="exercise-note">När du har försökt själv:
+                    <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-1/kap-1-8/kap1-8-valprogram-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget på GitHub</a>.
+                </p>
 
                 <h2>Reflektion</h2>
                 <ul>

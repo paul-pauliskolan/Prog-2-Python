@@ -925,6 +925,27 @@ pre code {
   stroke: var(--text) !important;
 }
 
+/* Kapitel 1.7 använder mörka Mermaid-diagram även i det ljusa sidtemat. */
+:root:not([data-theme="dark"]) .chapter-1-7 .mermaid {
+  padding: 1rem;
+  border: 1px solid #343a46;
+  border-radius: 18px;
+  background: #121212;
+}
+
+:root:not([data-theme="dark"]) .chapter-1-7 .mermaid svg .relation,
+:root:not([data-theme="dark"]) .chapter-1-7 .mermaid svg .edgePath .path,
+:root:not([data-theme="dark"]) .chapter-1-7 .mermaid svg path[class*="relation"],
+:root:not([data-theme="dark"]) .chapter-1-7 .mermaid svg line[class*="relation"] {
+  stroke: #ffffff !important;
+}
+
+:root:not([data-theme="dark"]) .chapter-1-7 .mermaid svg marker path,
+:root:not([data-theme="dark"]) .chapter-1-7 .mermaid svg marker polygon {
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
 blockquote {
   margin: 1rem 0;
   padding: 0.9rem 1rem;
