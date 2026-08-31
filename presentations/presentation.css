@@ -112,6 +112,10 @@ body.presentation-body {
   font-size: 0.95rem;
 }
 
+.presentation-topbar {
+  position: relative;
+}
+
 .presentation-topbar a {
   color: var(--slide-accent);
   text-decoration: none;
@@ -119,7 +123,11 @@ body.presentation-body {
 }
 
 .slide-counter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .deck {
