@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Fem muntliga snabbfrågor till kapitel 1.4 – Villkor och logik i funktioner."><title>Snabbfrågor 1.4 – Villkor och logik</title><script src="../js/theme.js"></script><link rel="stylesheet" href="snabbfragor.css"></head>
+<body class="deck-body"><main class="deck-shell">
+    <header class="topbar"><a href="index.html">← Välj kapitel</a><span aria-live="polite"><span data-card-type>Fråga</span> · <span data-question-number>1</span> av 5</span></header>
+    <div class="deck" aria-live="polite">
+        <section class="slide question-slide is-active" data-question="1"><div class="slide-content"><p class="eyebrow">Kapitel 1.4 · Fråga 1</p><h1>Vad används en <code>if</code>-sats till?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="1"><div class="slide-content"><p class="eyebrow">Kapitel 1.4 · Facit 1</p><h1>En <code>if</code>-sats kör kod bara när ett villkor är sant.</h1><pre><code>if ålder >= 18:
+    print("Myndig")</code></pre></div></section>
+        <section class="slide question-slide" data-question="2"><div class="slide-content"><p class="eyebrow">Kapitel 1.4 · Fråga 2</p><h1>Hur fungerar en kedja med <code>if</code>, <code>elif</code> och <code>else</code>?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="2"><div class="slide-content"><p class="eyebrow">Kapitel 1.4 · Facit 2</p><h1>Villkoren prövas uppifrån och bara den första sanna grenen körs.</h1><pre><code>if poäng >= 20:
+    print("A")
+elif poäng >= 10:
+    print("E")
+else:
+    print("F")</code></pre></div></section>
+        <section class="slide question-slide" data-question="3"><div class="slide-content"><p class="eyebrow">Kapitel 1.4 · Fråga 3</p><h1>Vad betyder operatorn <code>and</code>?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="3"><div class="slide-content"><p class="eyebrow">Kapitel 1.4 · Facit 3</p><h1><code>and</code> kräver att båda villkoren är sanna.</h1><pre><code>if ålder >= 18 and har_biljett:
+    print("Välkommen")</code></pre></div></section>
+        <section class="slide question-slide" data-question="4"><div class="slide-content"><p class="eyebrow">Kapitel 1.4 · Fråga 4</p><h1>Vad betyder <code>or</code> och <code>not</code>?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="4"><div class="slide-content"><p class="eyebrow">Kapitel 1.4 · Facit 4</p><h1><code>or</code> kräver minst ett sant villkor. <code>not</code> vänder på ett sanningsvärde.</h1><pre><code>if helg or not skoldag:
+    print("Ledig")</code></pre></div></section>
+        <section class="slide question-slide" data-question="5"><div class="slide-content"><p class="eyebrow">Kapitel 1.4 · Fråga 5</p><h1>Vad är skillnaden mellan <code>return</code> och <code>print()</code>?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="5"><div class="slide-content"><p class="eyebrow">Kapitel 1.4 · Facit 5</p><h1><code>return</code> skickar tillbaka ett värde. <code>print()</code> visar något på skärmen.</h1><pre><code>def är_vuxen(ålder):
+    return ålder >= 18
+
+print(är_vuxen(20))</code></pre></div></section>
+    </div>
+    <footer class="deck-footer"><button type="button" data-previous aria-label="Föregående slide">← Föregående</button><p><kbd>←</kbd> <kbd>→</kbd> byter slide · <kbd>Mellanslag</kbd> visar nästa</p><button type="button" data-next aria-label="Nästa slide">Nästa →</button></footer>
+</main><script src="snabbfragor.js"></script></body></html>

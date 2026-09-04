@@ -16,19 +16,25 @@
 
     <main class="overview">
         <p class="eyebrow">Muntliga snabbfrågor</p>
-        <h1>Välj kapitel</h1>
-        <p class="intro">Tänk ut ditt svar innan du visar facit. Varje kapitel innehåller fem frågor.</p>
+        <h1>Slumpade frågor</h1>
+        <p class="intro">Frågorna från kapitel 1.2–1.5 visas i slumpmässig ordning. Tänk ut ditt svar innan du visar facit.</p>
 
-        <section aria-labelledby="chapter-1-heading">
-            <h2 id="chapter-1-heading">Kapitel 1: Programmeringsgrunder och struktur</h2>
-            <div class="chapter-grid">
-                <a class="chapter-card" href="kap-1-1.html">
-                    <span class="chapter-number">1.1</span>
-                    <strong>Vad är programmering?</strong>
-                    <span>5 frågor</span>
-                </a>
+        <section class="random-card" aria-labelledby="question-heading" aria-live="polite">
+            <div class="random-card-meta">
+                <span data-chapter>Kapitel 1.2</span>
+                <span><span data-position>1</span> av 20</span>
+            </div>
+            <h2 id="question-heading" data-question></h2>
+            <div class="random-answer" data-answer hidden>
+                <p data-answer-text></p>
+                <pre data-code-wrapper hidden><code data-code></code></pre>
+            </div>
+            <div class="random-actions">
+                <button type="button" data-show-answer>Visa facit</button>
+                <button type="button" data-next-question hidden>Nästa slumpfråga →</button>
             </div>
         </section>
     </main>
+    <script src="slumpfragor.js"></script>
 </body>
 </html>

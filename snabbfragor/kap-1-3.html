@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Fem muntliga snabbfrågor till kapitel 1.3 – Strukturerad problemlösning med kod."><title>Snabbfrågor 1.3 – Strukturerad problemlösning</title><script src="../js/theme.js"></script><link rel="stylesheet" href="snabbfragor.css"></head>
+<body class="deck-body"><main class="deck-shell">
+    <header class="topbar"><a href="index.html">← Välj kapitel</a><span aria-live="polite"><span data-card-type>Fråga</span> · <span data-question-number>1</span> av 5</span></header>
+    <div class="deck" aria-live="polite">
+        <section class="slide question-slide is-active" data-question="1"><div class="slide-content"><p class="eyebrow">Kapitel 1.3 · Fråga 1</p><h1>Varför delar man upp ett program i funktioner?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="1"><div class="slide-content"><p class="eyebrow">Kapitel 1.3 · Facit 1</p><h1>Funktioner gör koden lättare att förstå, testa och återanvända.</h1><pre><code>def hälsa():
+    print("Hej!")</code></pre><p>Varje funktion bör helst ha en tydlig uppgift.</p></div></section>
+        <section class="slide question-slide" data-question="2"><div class="slide-content"><p class="eyebrow">Kapitel 1.3 · Fråga 2</p><h1>Vad är en parameter?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="2"><div class="slide-content"><p class="eyebrow">Kapitel 1.3 · Facit 2</p><h1>En parameter är ett namn som tar emot ett värde i en funktion.</h1><pre><code>def dubbla(tal):
+    return tal * 2</code></pre><p><code>tal</code> är funktionens parameter.</p></div></section>
+        <section class="slide question-slide" data-question="3"><div class="slide-content"><p class="eyebrow">Kapitel 1.3 · Fråga 3</p><h1>Vad är skillnaden mellan en parameter och ett argument?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="3"><div class="slide-content"><p class="eyebrow">Kapitel 1.3 · Facit 3</p><h1>Parametern står i definitionen. Argumentet skickas in när funktionen anropas.</h1><pre><code>def dubbla(tal):     # parameter
+    return tal * 2
+
+dubbla(5)           # argument</code></pre></div></section>
+        <section class="slide question-slide" data-question="4"><div class="slide-content"><p class="eyebrow">Kapitel 1.3 · Fråga 4</p><h1>Vad gör <code>return</code> i en funktion?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="4"><div class="slide-content"><p class="eyebrow">Kapitel 1.3 · Facit 4</p><h1><code>return</code> skickar tillbaka ett resultat från funktionen.</h1><pre><code>def addera(a, b):
+    return a + b</code></pre><p>Resultatet kan sparas i en variabel eller användas vidare.</p></div></section>
+        <section class="slide question-slide" data-question="5"><div class="slide-content"><p class="eyebrow">Kapitel 1.3 · Fråga 5</p><h1>Vilken uppgift har en <code>main()</code>-funktion ofta?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="5"><div class="slide-content"><p class="eyebrow">Kapitel 1.3 · Facit 5</p><h1><code>main()</code> samordnar programmets viktigaste steg.</h1><pre><code>def main():
+    resultat = beräkna()
+    visa(resultat)
+
+main()</code></pre><p>Detaljerna placeras i mindre funktioner med tydliga namn.</p></div></section>
+    </div>
+    <footer class="deck-footer"><button type="button" data-previous aria-label="Föregående slide">← Föregående</button><p><kbd>←</kbd> <kbd>→</kbd> byter slide · <kbd>Mellanslag</kbd> visar nästa</p><button type="button" data-next aria-label="Nästa slide">Nästa →</button></footer>
+</main><script src="snabbfragor.js"></script></body></html>

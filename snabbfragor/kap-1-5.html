@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Fem muntliga snabbfrågor till kapitel 1.5 – Loopar och upprepning."><title>Snabbfrågor 1.5 – Loopar och upprepning</title><script src="../js/theme.js"></script><link rel="stylesheet" href="snabbfragor.css"></head>
+<body class="deck-body"><main class="deck-shell">
+    <header class="topbar"><a href="index.html">← Välj kapitel</a><span aria-live="polite"><span data-card-type>Fråga</span> · <span data-question-number>1</span> av 5</span></header>
+    <div class="deck" aria-live="polite">
+        <section class="slide question-slide is-active" data-question="1"><div class="slide-content"><p class="eyebrow">Kapitel 1.5 · Fråga 1</p><h1>Vad är en loop?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="1"><div class="slide-content"><p class="eyebrow">Kapitel 1.5 · Facit 1</p><h1>En loop upprepar ett kodblock.</h1><pre><code>for tal in range(3):
+    print(tal)</code></pre><p>Koden skriver ut <code>0</code>, <code>1</code> och <code>2</code>.</p></div></section>
+        <section class="slide question-slide" data-question="2"><div class="slide-content"><p class="eyebrow">Kapitel 1.5 · Fråga 2</p><h1>När passar en <code>for</code>-loop bäst?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="2"><div class="slide-content"><p class="eyebrow">Kapitel 1.5 · Facit 2</p><h1>När du vet vad du ska gå igenom eller hur många upprepningar som behövs.</h1><pre><code>for namn in ["Ali", "Kim", "Sam"]:
+    print(namn)</code></pre></div></section>
+        <section class="slide question-slide" data-question="3"><div class="slide-content"><p class="eyebrow">Kapitel 1.5 · Fråga 3</p><h1>När passar en <code>while</code>-loop bäst?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="3"><div class="slide-content"><p class="eyebrow">Kapitel 1.5 · Facit 3</p><h1>När loopen ska fortsätta så länge ett villkor är sant.</h1><pre><code>while svar != "ja":
+    svar = input("Skriv ja: ")</code></pre><p>Antalet upprepningar behöver inte vara känt i förväg.</p></div></section>
+        <section class="slide question-slide" data-question="4"><div class="slide-content"><p class="eyebrow">Kapitel 1.5 · Fråga 4</p><h1>Vad gör <code>break</code> och <code>continue</code> i en loop?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="4"><div class="slide-content"><p class="eyebrow">Kapitel 1.5 · Facit 4</p><h1><code>break</code> avslutar loopen. <code>continue</code> hoppar till nästa varv.</h1><pre><code>if tal == 0:
+    continue
+if tal > 10:
+    break</code></pre></div></section>
+        <section class="slide question-slide" data-question="5"><div class="slide-content"><p class="eyebrow">Kapitel 1.5 · Fråga 5</p><h1>Vad riskerar att skapa en oändlig <code>while</code>-loop?</h1><p class="think-prompt">Tänk på svaret först. Tryck sedan på mellanslag för att visa facit.</p></div></section>
+        <section class="slide answer-slide" data-question="5"><div class="slide-content"><p class="eyebrow">Kapitel 1.5 · Facit 5</p><h1>Att villkoret aldrig blir falskt och att loopen saknar ett fungerande avslut.</h1><pre><code>tal = 1
+while tal > 0:
+    print(tal)  # tal ändras aldrig</code></pre><p>Kontrollera att något i loopen påverkar villkoret eller att <code>break</code> kan nås.</p></div></section>
+    </div>
+    <footer class="deck-footer"><button type="button" data-previous aria-label="Föregående slide">← Föregående</button><p><kbd>←</kbd> <kbd>→</kbd> byter slide · <kbd>Mellanslag</kbd> visar nästa</p><button type="button" data-next aria-label="Nästa slide">Nästa →</button></footer>
+</main><script src="snabbfragor.js"></script></body></html>
