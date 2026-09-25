@@ -21,21 +21,27 @@
             </header>
 
             <section class="content-section">
-                <h2>Uppgift</h2>
-                <p>Du ska skapa ett Pythonprogram som består av:</p>
+                <h2>Mål</h2>
+                <p>När du är klar med uppgiften ska du ha:</p>
                 <ul>
-                    <li>En meny som visas i en loop tills användaren väljer att avsluta.</li>
-                    <li>Funktioner för varje menyval.</li>
-                    <li>Villkor, användarinmatning och utskrifter.</li>
-                    <li>Tydlig struktur med <code>main()</code> och minst två egna funktioner.</li>
+                    <li>planerat, byggt och testat ett Pythonprogram från pseudokod till färdig lösning</li>
+                    <li>kunnat förklara hur funktioner, villkor och loopar samverkar i programmet.</li>
                 </ul>
 
-                <h2>Programmet ska innehålla</h2>
+                <h2>Uppgift</h2>
+                <p>Skapa ett interaktivt Pythonprogram med en meny som visas i en loop tills användaren väljer att
+                    avsluta.</p>
+
+                <h2>Programkrav</h2>
                 <ul>
                     <li>Ett alternativ där användaren matar in sitt namn och sin ålder.</li>
                     <li>Ett alternativ där programmet skriver ut vilket år användaren fyller 100.</li>
                     <li>Ett avslutsalternativ.</li>
+                    <li>En huvudfunktion <code>main()</code> och minst två egna funktioner med in- och utdata.</li>
+                    <li>En loop som håller igång programmet och villkor som hanterar menyvalen.</li>
+                    <li><code>input()</code> för inmatning och <code>print()</code> för utskrifter.</li>
                     <li>Felhantering vid ogiltiga menyval.</li>
+                    <li>Läsbar, uppdelad och återanvändbar kod.</li>
                 </ul>
 
                 <h2>Repetera innan du börjar</h2>
@@ -45,6 +51,17 @@
                     <li><a href="chapter-1-5.html">Kap 1.5</a> - loopar och menyprogram.</li>
                 </ul>
 
+                <h2>Förslag på arbetsgång</h2>
+                <ol>
+                    <li><strong>Pseudokod:</strong> Beskriv programmets steg, beslut och upprepningar i ord.</li>
+                    <li><strong>Funktioner:</strong> Skapa funktioner som hämtar namn och ålder samt räknar ut året då
+                        användaren fyller 100.</li>
+                    <li><strong>Struktur:</strong> Bygg menyn med en <code>while</code>-loop och hantera valen med
+                        <code>if</code>, <code>elif</code> och <code>else</code>.</li>
+                    <li><strong>Testning:</strong> Prova normala värden, ett ogiltigt menyval och att avsluta
+                        programmet.</li>
+                </ol>
+
                 <h2>Exempel på användning</h2>
                 <pre><code>1. Ange namn och ålder
 2. Visa vilket år du fyller 100
@@ -53,14 +70,81 @@
 Ange namn: Sofia
 Ange ålder: 25
 > 2
-Sofia, du fyller 100 år 2099.</code></pre>
+Sofia, du fyller 100 år 2101.</code></pre>
+
+                <h2>Kodmall</h2>
+                <p>Kopiera mallen till din editor och fyll i delarna som saknas.</p>
+                <pre><code class="language-python">def hamta_namn():
+    # Fråga efter namn och returnera svaret.
+    pass
+
+def hamta_alder():
+    # Fråga efter ålder och returnera ett heltal.
+    pass
+
+def berakna_ar_for_100(alder):
+    nuvarande_ar = 2026
+    # Beräkna och returnera året då personen fyller 100.
+    pass
+
+def main():
+    namn = ""
+    alder = 0
+
+    while True:
+        print("1. Ange namn och ålder")
+        print("2. Visa vilket år du fyller 100")
+        print("3. Avsluta")
+
+        val = input("Välj ett alternativ: ")
+
+        # Hantera menyvalen och anropa funktionerna ovan.
+        pass
+
+if __name__ == "__main__":
+    main()</code></pre>
+
+                <section class="interactive-exercise" data-exercise="chapter-1-choice-program">
+                    <h2>Prova programflödet</h2>
+                    <p>Testa menyvalen här för att se hur programmet ska bete sig.</p>
+
+                    <div class="exercise-hint">
+                        <h3>Prova till exempel att:</h3>
+                        <ul>
+                            <li>välja <code>2</code> innan du har angett namn och ålder</li>
+                            <li>välja <code>1</code>, fylla i namn och ålder och sedan välja <code>2</code></li>
+                            <li>välja <code>3</code> för att avsluta programmet</li>
+                            <li>välja <code>9</code> för att testa ett ogiltigt val.</li>
+                        </ul>
+                    </div>
+
+                    <label class="exercise-label">Inmatning</label>
+                    <div class="exercise-controls">
+                        <select class="exercise-select" aria-label="Menyval">
+                            <option value="1">1. Ange namn och ålder</option>
+                            <option value="2">2. Beräkna 100-årsmeddelande</option>
+                            <option value="3">3. Avsluta</option>
+                            <option value="9">Ogiltigt val</option>
+                        </select>
+                        <input class="exercise-text-input" type="text" value="Alex" aria-label="Namn">
+                        <input class="exercise-number-input" type="number" value="17" min="0" aria-label="Ålder">
+                        <button type="button" class="exercise-run">Kör val</button>
+                        <button type="button" class="exercise-reset">Starta om</button>
+                    </div>
+
+                    <label for="assignment-1-result" class="exercise-label">Resultat</label>
+                    <output id="assignment-1-result" class="exercise-result">1. Ange namn och ålder
+2. Beräkna när du fyller 100 år
+3. Avsluta
+Välj ett alternativ och tryck på Kör val.</output>
+                </section>
 
                 <h2>Bedömningsaspekter</h2>
                 <ul>
-                    <li>Har du delat upp koden i funktioner på ett tydligt sätt?</li>
-                    <li>Är menyn korrekt uppbyggd med <code>while</code> och <code>if/elif</code>?</li>
-                    <li>Används <code>input()</code> och <code>print()</code> på rätt sätt?</li>
-                    <li>Är programmet körbart utan fel?</li>
+                    <li>Har funktionerna tydliga och meningsfulla ansvarsområden?</li>
+                    <li>Är programflödet logiskt och robust även vid ett ogiltigt val?</li>
+                    <li>Är koden läsbar och återanvändbar?</li>
+                    <li>Är lösningen komplett och körbar utan fel?</li>
                 </ul>
 
                 <h2>Checklista för inlämning</h2>
@@ -103,40 +187,94 @@ Sofia, du fyller 100 år 2099.</code></pre>
                 <h2>Det här ska lämnas in</h2>
                 <ul>
                     <li>Din Pythonfil, till exempel <code>main.py</code>.</li>
-                    <li>En kort kommentar eller text som beskriver vilka testfall du har provat.</li>
+                    <li>En kort kommentar eller text som beskriver vilka testfall du har provat. Skriv den som en
+                        trippelciterad kommentar (<code>''' ... '''</code>) i början av koden.</li>
                 </ul>
 
-                <h2>Tips</h2>
-                <p>Spara namn och ålder i variabler som flera funktioner kan använda. Börja med att få menyn att fungera,
-                    och lägg sedan till beräkningen av 100-årsåret.</p>
-
-                <pre><code class="language-python">def visa_meny():
-    print("1. Ange namn och ålder")
-    print("2. Visa vilket år du fyller 100")
-    print("3. Avsluta")
-
-def main():
-    while True:
-        visa_meny()
-        val = input("> ")
-
-        if val == "1":
-            pass
-        elif val == "2":
-            pass
-        elif val == "3":
-            break
-        else:
-            print("Ogiltigt val")
-
-if __name__ == "__main__":
-    main()</code></pre>
+                <h2>Reflektion</h2>
+                <ul>
+                    <li>Vilka delar gick lätt och vad blev du osäker på?</li>
+                    <li>Hur kan du förbättra programmets struktur eller användarvänlighet?</li>
+                    <li>Vad skulle du vilja lägga till i programmet?</li>
+                </ul>
             </section>
 
-            <p><a href="../index.html">Till startsidan</a></p>
+            <div id="quiz-assignment-1" aria-label="Quiz för Inlämningsuppgift 1"></div>
         </article>
     </main>
     <script src="../js/main.js"></script>
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-assignment-1'), {
+                    title: 'Quiz: Förberedelse inför Inlämningsuppgift 1',
+                    questions: [
+                        {
+                            question: 'Varför är det bra att dela upp ett program i flera funktioner?',
+                            options: [
+                                'För att programmet då alltid körs utan fel',
+                                'För att koden blir lättare att läsa, testa och återanvända',
+                                'För att funktioner gör att variabler inte behövs',
+                                'För att Python kräver minst tre funktioner i varje program'
+                            ],
+                            correct: 1,
+                            feedback: 'Funktioner gör programmet lättare att strukturera, testa och återanvända.',
+                            explanation: 'När varje funktion har ett tydligt ansvar blir programmet enklare att förstå och vidareutveckla.'
+                        },
+                        {
+                            question: 'Varför används en loop i menyprogrammet?',
+                            options: [
+                                'För att skapa en ny fil automatiskt',
+                                'För att ta bort behovet av funktioner',
+                                'För att menyn ska visas igen tills användaren väljer att avsluta',
+                                'För att programmet ska ignorera alla val'
+                            ],
+                            correct: 2,
+                            feedback: 'Loopen håller igång programmet medan användaren gör val.',
+                            explanation: 'En while-loop passar när programmet ska fortsätta tills ett avslutningsvillkor uppfylls.'
+                        },
+                        {
+                            question: 'Vilken roll har villkor i uppgiften?',
+                            options: [
+                                'Att automatiskt rätta stavfel i funktionsnamn',
+                                'Att ersätta all pseudokod',
+                                'Att skriva ut samma svar oavsett användarens val',
+                                'Att bestämma vilket menyval som ska köras'
+                            ],
+                            correct: 3,
+                            feedback: 'Villkor används för att hantera olika menyval.',
+                            explanation: 'Med if, elif och else kan programmet reagera olika beroende på användarens inmatning.'
+                        },
+                        {
+                            question: 'Vad betyder det att en funktion returnerar ett värde?',
+                            options: [
+                                'Att funktionen alltid skriver ut text med print()',
+                                'Att funktionen skickar tillbaka ett resultat som annan kod kan använda',
+                                'Att funktionen avslutar hela programmet',
+                                'Att funktionen bara kan användas en gång'
+                            ],
+                            correct: 1,
+                            feedback: 'Ett returnerat värde skickas tillbaka till den kod som anropade funktionen.',
+                            explanation: 'Resultatet kan sparas i en variabel, skickas vidare eller användas i en beräkning.'
+                        },
+                        {
+                            question: 'Varför är pseudokod ett bra första steg?',
+                            options: [
+                                'För att pseudokod gör att programmet körs utan Python',
+                                'För att pseudokod hjälper dig planera steg, beslut och upprepning innan du kodar',
+                                'För att pseudokod ersätter alla funktioner',
+                                'För att pseudokod alltid är kortare än en kommentar'
+                            ],
+                            correct: 1,
+                            feedback: 'Pseudokod hjälper dig tänka igenom programflödet före implementationen.',
+                            explanation: 'När du vet vilka steg, val och loopar som behövs blir Pythonkoden lättare att skriva.'
+                        }
+                    ]
+                })
+            }
+        })
+    </script>
 </body>
 
 </html>
