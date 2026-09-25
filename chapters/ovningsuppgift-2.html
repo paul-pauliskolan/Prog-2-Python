@@ -7,7 +7,7 @@
     <title>Inlämningsuppgift 2 - Hantera användardata</title>
     <script src="../js/theme.js"></script>
         <link rel="stylesheet" href="../css/style.css">
-    <meta name="description" content="Inlämningsuppgift 2: Skapa ett Pythonprogram som hanterar användardata med listor, dictionaries, sökning och sortering.">
+    <meta name="description" content="Inlämningsuppgift 2: Skapa ett Pythonprogram som lägger till, söker, sorterar och tar bort användardata.">
 </head>
 
 <body class="chapter-page">
@@ -17,7 +17,7 @@
             <header class="chapter-hero">
                 <p class="eyebrow">Inlämningsuppgift</p>
                 <h1>Inlämningsuppgift 2 – Hantera användardata i ett enklare system</h1>
-                <p class="subtitle">Bygg ett menyprogram som lagrar, söker och sorterar användare.</p>
+                <p class="subtitle">Bygg ett menyprogram som lägger till, söker, sorterar och tar bort användare.</p>
             </header>
 
             <section class="content-section">
@@ -30,6 +30,7 @@
                     <li>Skriva funktioner för att strukturera din kod.</li>
                     <li>Använda loopar, villkor och användarinmatning.</li>
                     <li>Använda sökning och sortering i listor.</li>
+                    <li>Kontrollera data och hantera ogiltiga eller dubbla värden.</li>
                     <li>Strukturera din kod så att den är läsbar och lätt att följa.</li>
                 </ul>
 
@@ -37,17 +38,20 @@
                 <p>Skapa ett program där användaren kan hantera en lista med användare. Programmet ska ge användaren
                     möjlighet att:</p>
                 <ol>
-                    <li>Lägga till användare med namn, ålder och e-post.</li>
+                    <li>Lägga till användare med namn, ålder och en unik e-postadress.</li>
                     <li>Söka efter användare via namn eller e-post.</li>
                     <li>Visa alla användare sorterade alfabetiskt efter namn.</li>
+                    <li>Ta bort en användare genom att ange användarens e-postadress.</li>
                     <li>Avsluta programmet.</li>
                 </ol>
 
                 <p>Du ska använda funktioner för att dela upp din kod. Ditt program ska vara användarvänligt, tydligt
-                    kommenterat och skrivet med god struktur.</p>
+                    kommenterat och skrivet med god struktur. Programmet får inte lägga till två användare med samma
+                    e-postadress.</p>
 
                 <h2>Repetera innan du börjar</h2>
                 <ul>
+                    <li><a href="chapter-2-7.html">Kap 2.7</a> - guidad övning med en bibliotekskatalog.</li>
                     <li><a href="chapter-2-2.html">Kap 2.2</a> - listor och iteration.</li>
                     <li><a href="chapter-2-3.html">Kap 2.3</a> - sökning och sortering.</li>
                     <li><a href="chapter-2-4.html">Kap 2.4</a> - dictionaries och tuples.</li>
@@ -59,17 +63,19 @@
                     <li>Användning av listor och dictionaries.</li>
                     <li>Att programmet är uppdelat i funktioner med tydligt syfte.</li>
                     <li>Att menyn fungerar och att programmet är logiskt uppbyggt.</li>
-                    <li>Att du använder villkor, loopar och inmatning korrekt.</li>
+                    <li>Att dubbletter och felaktig inmatning hanteras utan att programmet kraschar.</li>
                     <li>Att du visar förståelse för sortering, sökning och datastrukturer.</li>
                     <li>Att din kod är läsbar och kommenterad.</li>
                 </ul>
 
                 <h2>Checklista före inlämning</h2>
                 <ul>
-                    <li>Jag har en fungerande meny med val 1-4.</li>
+                    <li>Jag har en fungerande meny med val 1-5.</li>
                     <li>Jag använder en lista med dictionaries för att lagra användare.</li>
                     <li>Jag använder en tuple på ett rimligt sätt, till exempel för att returnera två värden från en funktion.</li>
-                    <li>Jag har skapat och använt minst tre egna funktioner.</li>
+                    <li>Jag förhindrar att samma e-postadress registreras mer än en gång.</li>
+                    <li>Jag kan ta bort en användare via e-postadress.</li>
+                    <li>Jag har skapat och använt minst fyra egna funktioner.</li>
                     <li>Jag har testat mitt program så att alla val fungerar.</li>
                     <li>Jag har kommenterat min kod där det behövs.</li>
                 </ul>
@@ -106,6 +112,11 @@ user = {"name": name, "age": age, "email": email}</code></pre>
                             <td>Programmet visar felmeddelande och kraschar inte.</td>
                         </tr>
                         <tr>
+                            <td>Dubblett av e-postadress</td>
+                            <td>Lägg till två användare med anna@example.com</td>
+                            <td>Den andra användaren sparas inte och ett tydligt meddelande visas.</td>
+                        </tr>
+                        <tr>
                             <td>Sök e-post</td>
                             <td>anna@example.com</td>
                             <td>Programmet hittar rätt användare.</td>
@@ -114,6 +125,16 @@ user = {"name": name, "age": age, "email": email}</code></pre>
                             <td>Visa sorterat</td>
                             <td>Flera användare i osorterad ordning</td>
                             <td>Användarna visas alfabetiskt efter namn.</td>
+                        </tr>
+                        <tr>
+                            <td>Ta bort användare</td>
+                            <td>anna@example.com</td>
+                            <td>Rätt användare tas bort och finns inte längre i listan.</td>
+                        </tr>
+                        <tr>
+                            <td>Ta bort okänd användare</td>
+                            <td>saknas@example.com</td>
+                            <td>Programmet visar ett tydligt meddelande och fortsätter.</td>
                         </tr>
                     </tbody>
                 </table>
@@ -129,6 +150,7 @@ user = {"name": name, "age": age, "email": email}</code></pre>
                 <pre><code class="language-python"># Funktion: Lägg till en användare
 def add_user(users):
     # Här ska du skriva kod för att läsa in namn, ålder och e-post.
+    # Kontrollera att e-postadressen inte redan finns.
     # Skapa en dictionary med informationen och lägg till den i listan users.
     pass
 
@@ -144,12 +166,22 @@ def show_users(users):
     # Skriv ut all information om varje användare.
     pass
 
+# Funktion: Ta bort en användare
+def remove_user(users):
+    # Läs in en e-postadress och ta bort rätt användare.
+    # Visa ett meddelande om e-postadressen inte finns.
+    pass
+
 # Huvudfunktion: Sköter meny och programflöde
 def main():
     users = []  # Här lagras användarna som dictionaries
 
     while True:
-        print("\n1. Lägg till användare\n2. Sök användare\n3. Visa alla användare\n4. Avsluta")
+        print("\n1. Lägg till användare")
+        print("2. Sök användare")
+        print("3. Visa alla användare")
+        print("4. Ta bort användare")
+        print("5. Avsluta")
         choice = input("Välj ett alternativ: ")
 
         if choice == "1":
@@ -159,74 +191,14 @@ def main():
         elif choice == "3":
             show_users(users)
         elif choice == "4":
+            remove_user(users)
+        elif choice == "5":
             print("Programmet avslutas.")
             break
         else:
             print("Ogiltigt val, försök igen.")
-
-main()</code></pre>
-
-                <h2>Lösningsförslag</h2>
-                <pre><code class="language-python">def read_name_and_email():
-    name = input("Ange namn: ")
-    email = input("Ange e-post: ")
-    return name, email
-
-def add_user(users):
-    name, email = read_name_and_email()
-
-    try:
-        age = int(input("Ange ålder: "))
-    except ValueError:
-        print("Fel: Åldern måste vara ett heltal.")
-        return
-
-    user = {"name": name, "age": age, "email": email}
-    users.append(user)
-
-def search_user(users):
-    search_term = input("Sök namn eller e-post: ").lower()
-    found = [
-        user for user in users
-        if search_term in user["name"].lower()
-        or search_term in user["email"].lower()
-    ]
-
-    for user in found:
-        print(f"{user['name']} ({user['age']} år) - {user['email']}")
-
-    if not found:
-        print("Ingen träff.")
-
-def show_users(users):
-    sorted_users = sorted(users, key=lambda x: x["name"])
-
-    for user in sorted_users:
-        print(f"{user['name']} ({user['age']} år) - {user['email']}")
-
-def main():
-    users = []
-
-    while True:
-        print("\n1. Lägg till användare\n2. Sök användare\n3. Visa alla\n4. Avsluta")
-        choice = input("Välj ett alternativ: ")
-
-        if choice == "1":
-            add_user(users)
-        elif choice == "2":
-            search_user(users)
-        elif choice == "3":
-            show_users(users)
-        elif choice == "4":
-            print("Programmet avslutas.")
-            break
-        else:
-            print("Ogiltigt val, försök igen.")
-
 main()</code></pre>
             </section>
-
-            <p><a href="../index.html">Till startsidan</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>

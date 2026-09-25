@@ -307,6 +307,7 @@ const LESSON_ORDER = [
   "chapter-2-5.html",
   "chapter-2-6.html",
   "chapter-2-7.html",
+  "ovningsuppgift-2.html",
   "chapter-3-1.html",
   "chapter-3-2.html",
   "chapter-3-3.html",
