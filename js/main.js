@@ -322,7 +322,7 @@ const LESSON_ORDER = [
   "chapter-4-3.html",
   "chapter-4-4.html",
   "chapter-4-5.html",
-  "chapter-4-6.html",
+  "ovningsuppgift-4.html",
   "chapter-5-1.html",
   "chapter-5-2.html",
   "chapter-5-3.html",
@@ -3629,9 +3629,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .querySelectorAll('[data-exercise="chapter-4-sqlite-recipes"]')
     .forEach(runChapterFourSqliteRecipesExercise);
-  document
-    .querySelectorAll('[data-exercise="chapter-4-library-sqlite"]')
-    .forEach(runChapterFourLibrarySqliteExercise);
   document
     .querySelectorAll('[data-exercise="chapter-5-database-project"]')
     .forEach(runChapterFiveDatabaseProjectExercise);

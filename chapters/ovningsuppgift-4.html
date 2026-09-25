@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Inlämningsuppgift 4 - Digitalt bibliotekssystem</title>
     <script src="../js/theme.js"></script>
-        <link rel="stylesheet" href="../css/style.css">
-    <meta name="description" content="Inlämningsuppgift 4: Skapa ett digitalt bibliotekssystem med SQLite, moduler, meny och felhantering.">
+    <link rel="stylesheet" href="../css/style.css">
+    <meta name="description" content="Inlämningsuppgift 4: Skapa ett digitalt bibliotekssystem med SQLite, moduler, validering och felhantering.">
 </head>
 
 <body class="chapter-page">
@@ -17,40 +17,42 @@
             <header class="chapter-hero">
                 <p class="eyebrow">Inlämningsuppgift</p>
                 <h1>Inlämningsuppgift 4 – Skapa ett digitalt bibliotekssystem</h1>
-                <p class="subtitle">Bygg ett modulärt Pythonprogram som sparar och söker böcker i en SQLite-databas.</p>
+                <p class="subtitle">Bygg ett modulärt Pythonprogram som sparar, söker och tar bort böcker i en SQLite-databas.</p>
             </header>
 
             <section class="content-section">
                 <h2>Uppgift</h2>
-                <p>Du ska skapa ett enklare bibliotekssystem där användaren kan:</p>
+                <p>Du ska skapa ett bibliotekssystem där användaren kan:</p>
                 <ul>
                     <li>Lägga till en ny bok med titel och författare.</li>
-                    <li>Söka efter böcker.</li>
+                    <li>Söka efter böcker via titel eller författare.</li>
                     <li>Visa alla böcker.</li>
-                    <li>Lagra och läsa data från en SQLite-databas.</li>
-                    <li>Ha programmet uppdelat i minst två egna moduler.</li>
+                    <li>Ta bort en bok genom att ange bokens ID.</li>
+                    <li>Behålla informationen när programmet avslutas och startas igen.</li>
                 </ul>
 
                 <h2>Syfte</h2>
-                <p>Syftet med uppgiften är att du ska tillämpa dina kunskaper om:</p>
+                <p>Uppgiften ska visa att du kan kombinera:</p>
                 <ul>
-                    <li>Fil- och databashantering.</li>
-                    <li>Undantagshantering med <code>try/except</code>.</li>
-                    <li>Uppdelning av koden i moduler och funktioner.</li>
-                    <li>Kodstandard och struktur.</li>
+                    <li>SQLite och SQL-frågor</li>
+                    <li>undantagshantering med <code>try/except</code></li>
+                    <li>moduler och funktioner</li>
+                    <li>validering, kodstandard och tydlig programstruktur.</li>
                 </ul>
 
                 <h2>Tekniska krav</h2>
                 <ul>
                     <li>Skapa en databasfil, till exempel <code>bibliotek.db</code>.</li>
-                    <li>Databasen ska innehålla en tabell <code>bocker</code> med kolumnerna
-                        <code>id</code>, <code>titel</code> och <code>forfattare</code>.</li>
-                    <li>Använd <code>sqlite3</code> för databasoperationer.</li>
-                    <li>Dela upp programmet i minst två moduler, till exempel <code>databas.py</code> och
+                    <li>Skapa tabellen <code>bocker</code> med kolumnerna <code>id</code>, <code>titel</code> och
+                        <code>forfattare</code>.</li>
+                    <li>Använd <code>sqlite3</code> och parameteriserade SQL-frågor för all inmatad data.</li>
+                    <li>Förhindra att samma kombination av titel och författare sparas flera gånger.</li>
+                    <li>Dela upp programmet i minst två moduler, exempelvis <code>databas.py</code> och
                         <code>main.py</code>.</li>
-                    <li>Implementera en enkel meny i <code>main.py</code>.</li>
-                    <li>Använd <code>try/except</code> vid all fil- och databashantering.</li>
-                    <li>Koden ska vara läsbar, kommenterad och följa kodstandard.</li>
+                    <li>Implementera en meny med fem val i <code>main.py</code>.</li>
+                    <li>Fånga databasfel med <code>sqlite3.Error</code>.</li>
+                    <li>Se till att varje databasanslutning stängs, även om ett fel uppstår.</li>
+                    <li>Skriv läsbar och kommenterad kod som följer kodstandard.</li>
                 </ul>
 
                 <h2>Repetera innan du börjar</h2>
@@ -58,32 +60,55 @@
                     <li><a href="chapter-3-7.html">Kap 3.7</a> - egna moduler och import.</li>
                     <li><a href="chapter-4-3.html">Kap 4.3</a> - kodstandard och struktur.</li>
                     <li><a href="chapter-4-5.html">Kap 4.5</a> - använda SQLite-databaser.</li>
-                    <li><a href="chapter-4-6.html">Kap 4.6</a> - miniuppgift med SQLite-databas.</li>
                 </ul>
+
+                <h2>Viktiga principer</h2>
+                <p>Skicka aldrig användarens text direkt in i en SQL-sträng. Använd platshållaren <code>?</code> och
+                    skicka värdena separat:</p>
+                <pre><code class="language-python">cursor.execute(
+    "SELECT * FROM bocker WHERE titel LIKE ? OR forfattare LIKE ?",
+    (f"%{sokord}%", f"%{sokord}%")
+)</code></pre>
+
+                <p>Fånga specifika databasfel och stäng anslutningen med <code>finally</code> eller en
+                    <code>with</code>-sats:</p>
+                <pre><code class="language-python">conn = None
+try:
+    conn = sqlite3.connect(DB_FIL)
+    # Kör SQL-frågan här.
+except sqlite3.Error as error:
+    print("Databasfel:", error)
+finally:
+    if conn:
+        conn.close()</code></pre>
 
                 <h2>Validering och fel som ska hanteras</h2>
                 <ul>
-                    <li>Tom titel ska inte sparas.</li>
-                    <li>Tom författare ska inte sparas.</li>
+                    <li>Tom titel eller författare ska inte sparas.</li>
+                    <li>En identisk kombination av titel och författare ska inte sparas två gånger.</li>
                     <li>Tom sökning ska ge ett tydligt meddelande i stället för att visa alla böcker.</li>
-                    <li>Databasfel ska fångas med <code>try/except</code> så programmet inte kraschar direkt.</li>
+                    <li>Ett okänt eller ogiltigt ID vid borttagning ska ge ett tydligt meddelande.</li>
+                    <li>En tom databas ska hanteras utan att programmet kraschar.</li>
+                    <li>Databasfel ska fångas så att användaren får ett begripligt felmeddelande.</li>
                 </ul>
 
-                <h2>Exempel på användarflöde</h2>
+                <h2>Exempel på meny</h2>
                 <pre><code>1. Lägg till bok
 2. Sök bok
 3. Visa alla böcker
-4. Avsluta</code></pre>
+4. Ta bort bok
+5. Avsluta</code></pre>
 
                 <h2>Checklista inför inlämning</h2>
                 <ul>
                     <li>Programmet kan köras utan fel.</li>
                     <li>Koden är uppdelad i minst två moduler.</li>
-                    <li>Du använder minst en funktion från varje modul.</li>
-                    <li>Du hanterar undantag vid databasanrop.</li>
-                    <li>SQL används för att spara och läsa data.</li>
-                    <li>Programmet är kommenterat och lätt att följa.</li>
-                    <li>Du har testat att lägga till och visa flera böcker.</li>
+                    <li>Databasen och tabellen skapas automatiskt om de saknas.</li>
+                    <li>SQL används för att spara, söka, läsa och ta bort data.</li>
+                    <li>Databasfel och felaktig inmatning hanteras.</li>
+                    <li>Samma bok kan inte sparas flera gånger.</li>
+                    <li>En bok kan tas bort via sitt ID.</li>
+                    <li>Böckerna finns kvar efter att programmet har startats om.</li>
                 </ul>
 
                 <h2>Testfall</h2>
@@ -98,17 +123,22 @@
                     <tbody>
                         <tr>
                             <td>Lägg till bok</td>
-                            <td>Titel: "Project Hail Mary", Författare: "Andy Weir"</td>
-                            <td>Boken sparas i databasen.</td>
+                            <td>Project Hail Mary, Andy Weir</td>
+                            <td>Boken sparas i databasen och får ett ID.</td>
                         </tr>
                         <tr>
                             <td>Tom titel</td>
-                            <td>Titel: "", Författare: "Andy Weir"</td>
-                            <td>Programmet visar felmeddelande och sparar inte boken.</td>
+                            <td>Titel: "", Författare: Andy Weir</td>
+                            <td>Ett felmeddelande visas och boken sparas inte.</td>
+                        </tr>
+                        <tr>
+                            <td>Dubblett</td>
+                            <td>Samma titel och författare läggs till två gånger</td>
+                            <td>Den andra posten sparas inte och ett tydligt meddelande visas.</td>
                         </tr>
                         <tr>
                             <td>Sök bok</td>
-                            <td>Sökord: "Project"</td>
+                            <td>Sökord: Project</td>
                             <td>Matchande bok visas.</td>
                         </tr>
                         <tr>
@@ -116,33 +146,38 @@
                             <td>Sökord: ""</td>
                             <td>Programmet ber användaren skriva ett sökord.</td>
                         </tr>
+                        <tr>
+                            <td>Ta bort bok</td>
+                            <td>ID för en bok som finns</td>
+                            <td>Rätt bok tas bort från databasen.</td>
+                        </tr>
+                        <tr>
+                            <td>Ogiltigt ID</td>
+                            <td>Ett okänt ID eller text i stället för ett tal</td>
+                            <td>Ett tydligt meddelande visas och programmet fortsätter.</td>
+                        </tr>
+                        <tr>
+                            <td>Beständig lagring</td>
+                            <td>Lägg till en bok och starta om programmet</td>
+                            <td>Boken finns fortfarande kvar efter omstarten.</td>
+                        </tr>
                     </tbody>
                 </table>
 
-                <h2>Förväntade kunskaper och färdigheter</h2>
-                <ul>
-                    <li>Skapa och använda en SQLite-databas i Python.</li>
-                    <li>Strukturera kod med funktioner och moduler.</li>
-                    <li>Följa god kodstandard och arbeta med tydlig felhantering.</li>
-                    <li>Göra en enkel analys av syfte och användarbehov i programupplägget.</li>
-                </ul>
-
                 <h2>Tips på struktur</h2>
-                <p>Låt <code>databas.py</code> innehålla funktioner som skapar tabellen, lägger till böcker, söker och
-                    hämtar alla böcker. Låt <code>main.py</code> innehålla menyn och anropa funktionerna från
-                    <code>databas.py</code>.</p>
+                <p>Låt <code>databas.py</code> innehålla funktioner som skapar tabellen, lägger till, söker, visar och
+                    tar bort böcker. Låt <code>main.py</code> innehålla menyn, kontrollera användarens val och anropa
+                    funktionerna från <code>databas.py</code>. Bygg och testa en funktion i taget.</p>
 
                 <h2>Det här ska lämnas in</h2>
                 <ul>
                     <li><code>main.py</code>.</li>
                     <li><code>databas.py</code>.</li>
                     <li>Eventuell databasfil om läraren vill kontrollera sparad data.</li>
-                    <li>En kort lista över testfall du har provat.</li>
-                    <li>En kort kommentar om hur du delat upp koden mellan modulerna.</li>
+                    <li>En kort beskrivning av testfallen och modulindelningen som en trippelciterad kommentar
+                        (<code>''' ... '''</code>) i början av <code>main.py</code>.</li>
                 </ul>
             </section>
-
-            <p><a href="../index.html">Till startsidan</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
