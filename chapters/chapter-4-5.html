@@ -35,6 +35,9 @@
                     tabell och sedan utför några grundläggande operationer: lägg till, hämta och visa data. Börja med
                     hårdkodad data och utveckla det till att ta in data från användaren. Jämför gärna med hur du tidigare
                     lagrade information i textfiler.</p>
+                <p class="exercise-note">I <a href="chapter-4-4.html">kapitel 4.4</a> sparades samma typ av recept i
+                    en textfil. Här bygger du om receptsamlingen så att informationen i stället lagras strukturerat i
+                    SQLite. Det gör skillnaden mellan textfiler och databaser tydlig.</p>
 
                 <h2>Centrala begrepp</h2>
                 <ul>
@@ -155,47 +158,57 @@ conn.close()</code></pre>
 
                 <h2>Komplett kodexempel</h2>
                 <pre><code class="language-python">import sqlite3
+from contextlib import closing
 
 DB_NAMN = "recept.db"
 
 def skapa_databas_och_tabell():
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS recept (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        namn TEXT NOT NULL,
-        ingredienser TEXT
-    )
-    """)
-    conn.commit()
-    conn.close()
+    try:
+        with closing(sqlite3.connect(DB_NAMN)) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS recept (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    namn TEXT NOT NULL,
+                    ingredienser TEXT
+                )
+            """)
+            conn.commit()
+    except sqlite3.Error as error:
+        print("Kunde inte skapa databasen:", error)
 
 def lägg_till_recept(namn, ingredienser):
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
-        (namn, ingredienser)
-    )
-    conn.commit()
-    conn.close()
-    print(f"Receptet '{namn}' har lagts till.")
+    if not namn.strip():
+        print("Receptets namn får inte vara tomt.")
+        return
+
+    try:
+        with closing(sqlite3.connect(DB_NAMN)) as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
+                (namn.strip(), ingredienser.strip())
+            )
+            conn.commit()
+        print(f"Receptet '{namn.strip()}' har lagts till.")
+    except sqlite3.Error as error:
+        print("Kunde inte lägga till receptet:", error)
 
 def visa_alla_recept():
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM recept")
-    rader = cursor.fetchall()
+    try:
+        with closing(sqlite3.connect(DB_NAMN)) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM recept")
+            rader = cursor.fetchall()
 
-    if not rader:
-        print("Inga recept hittades.")
-    else:
-        for rad in rader:
-            print(f"\nRecept: {rad[1]}")
-            print(f"Ingredienser: {rad[2]}")
-
-    conn.close()
+        if not rader:
+            print("Inga recept hittades.")
+        else:
+            for rad in rader:
+                print(f"\nRecept: {rad[1]}")
+                print(f"Ingredienser: {rad[2]}")
+    except sqlite3.Error as error:
+        print("Kunde inte läsa recepten:", error)
 
 def main():
     skapa_databas_och_tabell()
@@ -222,6 +235,10 @@ def main():
 
 if __name__ == "__main__":
     main()</code></pre>
+
+                <p><code>closing(...)</code> ser till att databasanslutningen stängs även om ett fel uppstår.
+                    <code>sqlite3.Error</code> fångar fel som kommer från SQLite, och frågetecknen i
+                    <code>INSERT</code>-frågan håller användarens data separerad från SQL-koden.</p>
 
                 <section class="interactive-exercise" data-exercise="chapter-4-sqlite-recipes">
                     <h2>Interaktiv övning: simulera SQLite-recept</h2>

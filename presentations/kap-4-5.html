@@ -106,7 +106,8 @@ id | namn       | ingredienser
                             databasen.</li>
                         <li class="fragment"><strong>sqlite3:</strong> Pythons inbyggda bibliotek för SQLite.</li>
                     </ul>
-                    <pre class="code-block compact-code fragment"><code>import sqlite3</code></pre>
+                    <pre class="code-block compact-code fragment"><code>import sqlite3
+from contextlib import closing</code></pre>
                 </div>
             </section>
 
@@ -317,17 +318,18 @@ main()</code></pre>
                     <p class="slide-kicker">Skapa databasen</p>
                     <h2>Första funktionen</h2>
                     <pre class="code-block tiny-code fragment"><code>def skapa_databas_och_tabell():
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute("""
-    CREATE TABLE IF NOT EXISTS recept (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        namn TEXT NOT NULL,
-        ingredienser TEXT
-    )
-    """)
-    conn.commit()
-    conn.close()</code></pre>
+    try:
+        with closing(sqlite3.connect(DB_NAMN)) as conn:
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS recept (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    namn TEXT NOT NULL,
+                    ingredienser TEXT
+                )
+            """)
+            conn.commit()
+    except sqlite3.Error as error:
+        print("Databasfel:", error)</code></pre>
                 </div>
             </section>
 
@@ -336,14 +338,15 @@ main()</code></pre>
                     <p class="slide-kicker">Lägg till</p>
                     <h2>Andra funktionen</h2>
                     <pre class="code-block compact-code fragment"><code>def lägg_till_recept(namn, ingredienser):
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
-        (namn, ingredienser)
-    )
-    conn.commit()
-    conn.close()</code></pre>
+    try:
+        with closing(sqlite3.connect(DB_NAMN)) as conn:
+            conn.execute(
+                "INSERT INTO recept (namn, ingredienser) VALUES (?, ?)",
+                (namn, ingredienser)
+            )
+            conn.commit()
+    except sqlite3.Error as error:
+        print("Databasfel:", error)</code></pre>
                 </div>
             </section>
 
@@ -352,15 +355,14 @@ main()</code></pre>
                     <p class="slide-kicker">Visa alla</p>
                     <h2>Tredje funktionen</h2>
                     <pre class="code-block compact-code fragment"><code>def visa_alla_recept():
-    conn = sqlite3.connect(DB_NAMN)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM recept")
-    rader = cursor.fetchall()
+    try:
+        with closing(sqlite3.connect(DB_NAMN)) as conn:
+            rader = conn.execute("SELECT * FROM recept").fetchall()
 
-    for rad in rader:
-        print(rad[1], rad[2])
-
-    conn.close()</code></pre>
+        for rad in rader:
+            print(rad[1], rad[2])
+    except sqlite3.Error as error:
+        print("Databasfel:", error)</code></pre>
                 </div>
             </section>
 

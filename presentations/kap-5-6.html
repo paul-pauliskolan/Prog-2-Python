@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Presentation Kap 5.6 - Kombinera GUI, API och databas</title>
+    <title>Presentation Kap 5.6 - Övning: Skämtregister med GUI, API och databas</title>
     <script src="../js/theme.js"></script>
     <link rel="stylesheet" href="presentation.css">
 </head>
@@ -16,8 +16,8 @@
 
         <div class="deck" aria-live="polite">
             <section class="slide is-active"><div class="slide-content">
-                <p class="slide-kicker">Kap 5.6 · Miniuppgift</p>
-                <h1>Kombinera GUI, API och databas</h1>
+                <p class="slide-kicker">Kap 5.6 · Guidad övning</p>
+                <h1>Skämtregister med GUI, API och databas</h1>
                 <p class="fragment">Bygg ett skämtregister med tkinter, requests och SQLite.</p>
             </div></section>
 
@@ -70,83 +70,68 @@
 
             <section class="slide"><div class="slide-content">
                 <p class="slide-kicker">Hela programmet · del 1</p>
-                <h2>Import och databas</h2>
+                <h2>Import, konstanter och databas</h2>
                 <pre class="code-block tiny-code fragment"><code>import tkinter as tk
-import requests
 import sqlite3
+from contextlib import closing
 
-conn = sqlite3.connect("skamt.db")
-cursor = conn.cursor()
-cursor.execute("""
-    CREATE TABLE IF NOT EXISTS skamt (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        setup TEXT,
-        punchline TEXT
-    )
-""")
-conn.commit()
+import requests
 
-senaste_skamt = None</code></pre>
+DB_FIL = "skamt.db"
+API_URL = "https://official-joke-api.appspot.com/random_joke"
+senaste_skamt = None
+
+def skapa_databas():
+    try:
+        with closing(sqlite3.connect(DB_FIL)) as conn:
+            conn.execute("CREATE TABLE IF NOT EXISTS skamt (...)")
+            conn.commit()
+    except sqlite3.Error as error:
+        skamt_label.config(text=f"Databasfel: {error}")</code></pre>
             </div></section>
 
             <section class="slide"><div class="slide-content">
                 <p class="slide-kicker">Hela programmet · del 2</p>
-                <h2>Programmets funktioner</h2>
+                <h2>Hämta säkert från API</h2>
                 <pre class="code-block tiny-code fragment"><code>def hamta_skamt():
     global senaste_skamt
-    response = requests.get(
-        "https://official-joke-api.appspot.com/random_joke"
-    )
-
-    if response.status_code == 200:
+    try:
+        response = requests.get(API_URL, timeout=10)
+        response.raise_for_status()
         data = response.json()
-        skamt_label.config(
-            text=f"{data['setup']} - {data['punchline']}"
-        )
         senaste_skamt = (data["setup"], data["punchline"])
-
-def spara_skamt():
-    if senaste_skamt:
-        cursor.execute(
-            "INSERT INTO skamt (setup, punchline) VALUES (?, ?)",
-            senaste_skamt
-        )
-        conn.commit()
-        skamt_label.config(text="Skämtet sparat!")</code></pre>
+        skamt_label.config(text=" - ".join(senaste_skamt))
+    except (requests.RequestException, KeyError, ValueError):
+        senaste_skamt = None
+        skamt_label.config(text="Kunde inte hämta ett skämt.")</code></pre>
             </div></section>
 
             <section class="slide"><div class="slide-content">
                 <p class="slide-kicker">Hela programmet · del 3</p>
-                <h2>Visa sparade skämt och skapa GUI</h2>
-                <pre class="code-block tiny-code fragment"><code>def visa_skamt():
-    cursor.execute("SELECT * FROM skamt")
-    rader = cursor.fetchall()
-    output = "\n".join(
-        [f"{rad[1]} - {rad[2]}" for rad in rader]
-    )
-    if len(output) > 300:
-        output = output[:300] + "..."
-    skamt_label.config(text=output)
+                <h2>Spara och läsa med stängda anslutningar</h2>
+                <pre class="code-block tiny-code fragment"><code>def spara_skamt():
+    if senaste_skamt is None:
+        skamt_label.config(text="Hämta ett skämt först.")
+        return
 
-root = tk.Tk()
-root.title("Skämtregister")
+    with closing(sqlite3.connect(DB_FIL)) as conn:
+        conn.execute(
+            "INSERT INTO skamt (setup, punchline) VALUES (?, ?)",
+            senaste_skamt
+        )
+        conn.commit()
 
-tk.Button(root, text="Hämta skämt", command=hamta_skamt).pack()
-tk.Button(root, text="Spara skämt", command=spara_skamt).pack()
-tk.Button(root, text="Visa alla skämt", command=visa_skamt).pack()
-
-skamt_label = tk.Label(root, text="", wraplength=300, justify="left")
-skamt_label.pack()
-
-root.mainloop()</code></pre>
+def visa_skamt():
+    with closing(sqlite3.connect(DB_FIL)) as conn:
+        rader = conn.execute("SELECT * FROM skamt").fetchall()</code></pre>
             </div></section>
 
             <section class="slide"><div class="slide-content">
                 <p class="slide-kicker">Databas</p>
                 <h2>Skapa fil och tabell</h2>
-                <pre class="code-block compact-code fragment"><code>conn = sqlite3.connect("skamt.db")
-cursor = conn.cursor()</code></pre>
-                <p class="fragment"><code>connect()</code> öppnar databasen eller skapar filen.</p>
+                <pre class="code-block compact-code fragment"><code>with closing(sqlite3.connect(DB_FIL)) as conn:
+    conn.execute("CREATE TABLE IF NOT EXISTS skamt (...)")</code></pre>
+                <p class="fragment"><code>closing()</code> ser till att anslutningen alltid stängs.</p>
                 <pre class="code-block compact-code fragment"><code>CREATE TABLE IF NOT EXISTS skamt (...)</code></pre>
                 <p class="fragment">Tabellen skapas bara om den inte redan finns.</p>
             </div></section>
@@ -175,12 +160,11 @@ cursor = conn.cursor()</code></pre>
             <section class="slide"><div class="slide-content">
                 <p class="slide-kicker">API</p>
                 <h2>Hämta och tolka ett skämt</h2>
-                <pre class="code-block compact-code fragment"><code>response = requests.get(url)
-
-if response.status_code == 200:
-    data = response.json()</code></pre>
+                <pre class="code-block compact-code fragment"><code>response = requests.get(API_URL, timeout=10)
+response.raise_for_status()
+data = response.json()</code></pre>
                 <p class="fragment"><code>requests.get()</code> skickar en GET-förfrågan.</p>
-                <p class="fragment"><code>200</code> betyder att anropet lyckades.</p>
+                <p class="fragment"><code>raise_for_status()</code> upptäcker HTTP-fel.</p>
                 <p class="fragment"><code>json()</code> gör svaret till Pythondata.</p>
             </div></section>
 
@@ -198,13 +182,13 @@ if response.status_code == 200:
             <section class="slide"><div class="slide-content">
                 <p class="slide-kicker">Spara</p>
                 <h2>Spara bara när ett skämt finns</h2>
-                <pre class="code-block compact-code fragment"><code>if senaste_skamt:
-    cursor.execute(
-        "INSERT INTO skamt "
-        "(setup, punchline) VALUES (?, ?)",
-        senaste_skamt
-    )
-    conn.commit()</code></pre>
+                <pre class="code-block compact-code fragment"><code>if senaste_skamt is not None:
+    with closing(sqlite3.connect(DB_FIL)) as conn:
+        conn.execute(
+            "INSERT INTO skamt (setup, punchline) VALUES (?, ?)",
+            senaste_skamt
+        )
+        conn.commit()</code></pre>
                 <p class="fragment"><code>?</code> är platshållare för värdena i tuplen.</p>
                 <p class="fragment"><code>commit()</code> sparar ändringen permanent.</p>
             </div></section>
@@ -212,8 +196,8 @@ if response.status_code == 200:
             <section class="slide"><div class="slide-content">
                 <p class="slide-kicker">Läsa</p>
                 <h2>Hämta alla databasrader</h2>
-                <pre class="code-block compact-code fragment"><code>cursor.execute("SELECT * FROM skamt")
-rader = cursor.fetchall()</code></pre>
+                <pre class="code-block compact-code fragment"><code>with closing(sqlite3.connect(DB_FIL)) as conn:
+    rader = conn.execute("SELECT * FROM skamt").fetchall()</code></pre>
                 <p class="fragment"><code>fetchall()</code> ger en lista med alla rader.</p>
                 <pre class="code-block compact-code fragment"><code>output = "\n".join(
     [f"{rad[1]} - {rad[2]}" for rad in rader]
@@ -296,7 +280,7 @@ except requests.exceptions.RequestException:
     skamt_label.config(
         text="Kunde inte hämta ett skämt."
     )</code></pre>
-                <p class="fragment">Grundkoden visar flödet. Den robustare versionen hanterar nätverks- och HTTP-fel.</p>
+                <p class="fragment">Övningens kod använder denna robustare variant för nätverks- och HTTP-fel.</p>
             </div></section>
 
             <section class="slide"><div class="slide-content">
@@ -307,7 +291,7 @@ except requests.exceptions.RequestException:
                     <li class="fragment">ta bort valda skämt</li>
                     <li class="fragment">visa skämten i en lista</li>
                     <li class="fragment">förhindra dubbletter</li>
-                    <li class="fragment">stäng databasanslutningen korrekt</li>
+                    <li class="fragment">dela upp GUI, API och databas i egna moduler</li>
                     <li class="fragment">kontrollera tabellen med SQLite Viewer</li>
                 </ul>
             </div></section>
@@ -323,6 +307,7 @@ except requests.exceptions.RequestException:
                     <li class="fragment">Funktionerna binder ihop GUI, API och databas.</li>
                     <li class="fragment">Testning och felhantering behövs för ett robust program.</li>
                 </ul>
+                <p class="fragment">Använd arbetsgången som stöd, men lämna inte in grundversionen oförändrad som Inlämningsuppgift 5.</p>
             </div></section>
         </div>
 

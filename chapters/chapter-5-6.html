@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 5.6 - Miniuppgift: Kombinera GUI, API och databas</title>
+    <title>Kap 5.6 - Övning: Skämtregister med GUI, API och databas</title>
     <script src="../js/theme.js"></script>
         <link rel="stylesheet" href="../css/style.css">
-    <meta name="description" content="Kap 5.6: Miniuppgift där du kombinerar tkinter, requests och sqlite3 i ett skämtregister.">
+    <meta name="description" content="Kap 5.6: Guidad övning där du kombinerar tkinter, requests och sqlite3 i ett skämtregister.">
 </head>
 
 <body class="chapter-page">
@@ -15,8 +15,8 @@
     <main class="container chapter-shell">
         <article class="chapter-main">
             <header class="chapter-hero">
-                <p class="eyebrow">Programmering nivå 2</p>
-                <h1>Kap 5.6 – Miniuppgift: Kombinera GUI, API och databas</h1>
+                <p class="eyebrow">Guidad övning</p>
+                <h1>Kap 5.6 – Skämtregister med GUI, API och databas</h1>
                 <p class="subtitle">Bygg ett skämtregister som hämtar data från ett API och sparar det i SQLite.</p>
             </header>
 
@@ -36,9 +36,13 @@
                     Jämför med det större projekt du ska göra senare och fundera på vad du kan återanvända eller
                     förbättra.</p>
 
-                <h2>Miniuppgift: Skapa ett skämtregister</h2>
+                <h2>Övning: Skapa ett skämtregister</h2>
                 <p>Du ska skapa ett GUI-program där användaren kan hämta ett skämt från ett API och spara det i en lokal
                     SQLite-databas.</p>
+                <p class="exercise-note">Det här är en förberedande övning inför
+                    <a href="ovningsuppgift-5.html">Inlämningsuppgift 5</a>. Grundversionen av skämtregistret får inte
+                    lämnas in oförändrad. Välj en annan projektidé eller bygg ut programmet med tydligt egen
+                    funktionalitet, struktur och felhantering.</p>
 
                 <h2>Funktioner</h2>
                 <ul>
@@ -54,49 +58,67 @@
 
                 <h2>Exempelkod - Grundstruktur</h2>
                 <pre><code class="language-python">import tkinter as tk
-import requests
 import sqlite3
+from contextlib import closing
 
-# Skapa databas
-conn = sqlite3.connect("skamt.db")
-cursor = conn.cursor()
-cursor.execute("""
-    CREATE TABLE IF NOT EXISTS skamt (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        setup TEXT,
-        punchline TEXT
-    )
-""")
-conn.commit()
+import requests
 
+DB_FIL = "skamt.db"
+API_URL = "https://official-joke-api.appspot.com/random_joke"
 senaste_skamt = None
 
-# Funktioner
+def skapa_databas():
+    try:
+        with closing(sqlite3.connect(DB_FIL)) as conn:
+            conn.execute("""
+                CREATE TABLE IF NOT EXISTS skamt (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    setup TEXT NOT NULL,
+                    punchline TEXT NOT NULL
+                )
+            """)
+            conn.commit()
+    except sqlite3.Error as error:
+        skamt_label.config(text=f"Databasfel: {error}")
+
 def hamta_skamt():
     global senaste_skamt
-    response = requests.get("https://official-joke-api.appspot.com/random_joke")
 
-    if response.status_code == 200:
+    try:
+        response = requests.get(API_URL, timeout=10)
+        response.raise_for_status()
         data = response.json()
-        skamt_label.config(text=f"{data['setup']} - {data['punchline']}")
         senaste_skamt = (data["setup"], data["punchline"])
+        skamt_label.config(text=" - ".join(senaste_skamt))
+    except (requests.RequestException, KeyError, ValueError):
+        senaste_skamt = None
+        skamt_label.config(text="Kunde inte hämta ett skämt.")
 
 def spara_skamt():
-    if senaste_skamt:
-        cursor.execute(
-            "INSERT INTO skamt (setup, punchline) VALUES (?, ?)",
-            senaste_skamt
-        )
-        conn.commit()
-        skamt_label.config(text="Skämtet sparat!")
+    if senaste_skamt is None:
+        skamt_label.config(text="Hämta ett skämt först.")
+        return
+
+    try:
+        with closing(sqlite3.connect(DB_FIL)) as conn:
+            conn.execute(
+                "INSERT INTO skamt (setup, punchline) VALUES (?, ?)",
+                senaste_skamt
+            )
+            conn.commit()
+        skamt_label.config(text="Skämtet sparades!")
+    except sqlite3.Error as error:
+        skamt_label.config(text=f"Databasfel: {error}")
 
 def visa_skamt():
-    cursor.execute("SELECT * FROM skamt")
-    rader = cursor.fetchall()
-    output = "\n".join([f"{r[1]} - {r[2]}" for r in rader])
-    skamt_label.config(text=output[:300] + "..." if len(output) > 300 else output)
+    try:
+        with closing(sqlite3.connect(DB_FIL)) as conn:
+            rader = conn.execute("SELECT * FROM skamt").fetchall()
+        output = "\n".join(f"{rad[1]} - {rad[2]}" for rad in rader)
+        skamt_label.config(text=output or "Inga skämt är sparade.")
+    except sqlite3.Error as error:
+        skamt_label.config(text=f"Databasfel: {error}")
 
-# GUI
 root = tk.Tk()
 root.title("Skämtregister")
 
@@ -107,6 +129,7 @@ tk.Button(root, text="Visa alla skämt", command=visa_skamt).pack()
 skamt_label = tk.Label(root, text="", wraplength=300, justify="left")
 skamt_label.pack()
 
+skapa_databas()
 root.mainloop()</code></pre>
 
                 <h2>Hur flödet fungerar</h2>
@@ -158,7 +181,8 @@ root.mainloop()</code></pre>
                     <li>Testa att spara flera skämt.</li>
                     <li>Bygg ett sökfält för att söka bland sparade skämt.</li>
                     <li>Lägg till en funktion för att ta bort skämt.</li>
-                    <li>Lägg till bättre felhantering om API:et inte svarar.</li>
+                    <li>Testa felhanteringen när API:et eller nätverket inte svarar.</li>
+                    <li>Dela upp GUI, API-anrop och databasfunktioner i egna moduler.</li>
                     <li>Öppna <code>skamt.db</code> med SQLite Viewer i VS Code och kontrollera att raderna sparas.</li>
                 </ul>
 
