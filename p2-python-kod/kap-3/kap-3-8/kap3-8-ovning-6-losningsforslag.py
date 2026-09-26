@@ -1,3 +1,4 @@
+# Lösningsförslag kap 3.8, övning 6
 from typing import Generic, TypeVar
 
 T = TypeVar("T")

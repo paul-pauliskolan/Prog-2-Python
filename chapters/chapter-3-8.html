@@ -4,11 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Kap 3.8 - Objektorienterat projekt</title>
+    <title>Kap 3.8 - Generiska klasser och metoder</title>
     <script src="../js/theme.js"></script>
         <link rel="stylesheet" href="../css/style.css">
     <meta name="description"
-        content="Kap 3.8: Planera och bygg ett objektorienterat Pythonprojekt med flera samverkande klasser.">
+        content="Kap 3.8: Lär dig använda generiska funktioner, metoder och klasser i Python med TypeVar och Generic.">
 </head>
 
 <body class="chapter-page">
@@ -17,349 +17,531 @@
         <article class="chapter-main">
             <header class="chapter-hero">
                 <p class="eyebrow">Programmering nivå 2</p>
-                <h1>Kap 3.8 – Objektorienterat projekt</h1>
-                <p class="subtitle">Planera, strukturera och bygg ett projekt med flera samverkande klasser.</p>
+                <h1>Kap 3.8 – Generiska klasser och metoder</h1>
+                <p class="subtitle">Skriv återanvändbar kod som kan fungera med flera olika datatyper utan att tappa
+                    tydlighet.</p>
             </header>
 
             <section class="content-section">
                 <h2>Mål med lektionen</h2>
                 <p>När du har arbetat klart med denna lektion ska du:</p>
                 <ul>
-                    <li>Självständigt kunna planera och strukturera ett objektorienterat program.</li>
-                    <li>Använda flera samverkande klasser med inkapsling, relationer och metodanrop.</li>
-                    <li>Skapa kod som är organiserad, dokumenterad och återanvändbar.</li>
+                    <li>Förstå vad generisk kod betyder i Python.</li>
+                    <li>Kunna skriva enkla generiska funktioner och metoder med <code>TypeVar</code>.</li>
+                    <li>Kunna skapa en enkel generisk klass med <code>Generic</code>.</li>
+                    <li>Förstå när generiska klasser och metoder gör kod mer återanvändbar och testbar.</li>
                 </ul>
 
                 <h2>Så här lär du dig bäst</h2>
-                <p>Börja med att rita ett klassdiagram över ditt projekt. Fundera över vilka objekt som behövs, hur de
-                    ska kommunicera och vilka metoder varje klass ska ha. Bygg först en enkel version och testa varje
-                    del
-                    för sig innan du sätter ihop helheten. Kommentera din kod tydligt.</p>
+                <p>Börja med att jämföra två funktioner som gör samma sak för olika datatyper. Fundera sedan på vad
+                    som egentligen är gemensamt. Generiska typer är inte främst till för att göra koden svårare, utan
+                    för att beskriva tydligare vilka typer som hänger ihop.</p>
 
                 <h2>Centrala begrepp</h2>
                 <ul>
-                    <li><strong>Klassstruktur:</strong> hur du planerar upp programmet i olika klasser.</li>
-                    <li><strong>Objektsamverkan:</strong> hur objekten kommunicerar och använder varandra.</li>
-                    <li><strong>Modularisering:</strong> att dela upp programmet i separata, återanvändbara delar.</li>
-                    <li><strong>Projektmappstruktur:</strong> hur du organiserar filer och moduler i Python.</li>
+                    <li><strong>Generisk kod:</strong> kod som kan användas med flera datatyper.</li>
+                    <li><strong>Typvariabel:</strong> en symbolisk typ, ofta <code>T</code>, som betyder "samma typ som
+                        används här".</li>
+                    <li><strong><code>TypeVar</code>:</strong> används för att skapa en typvariabel i Python.</li>
+                    <li><strong><code>Generic</code>:</strong> används när en klass ska vara generisk.</li>
+                    <li><strong>Typhint:</strong> en markering som hjälper läsaren och editorn förstå vilka typer koden
+                        arbetar med.</li>
                 </ul>
 
-                <h2>Uppgift: planera och skapa ett OOP-baserat projekt</h2>
-                <p>Du ska skapa ett mindre Pythonprojekt där flera klasser samarbetar. Projektet ska ha en tydlig
-                    struktur, ett klassdiagram och kod som visar att du förstår objektorienterad programmering.</p>
+                <h2>Varför behövs generiska typer?</h2>
+                <p>Tänk att du vill skriva en funktion som hämtar första värdet ur en lista. Funktionen fungerar på
+                    samma sätt oavsett om listan innehåller tal, text eller objekt.</p>
 
-                <h2>Förslag på projektidéer</h2>
-                <ol>
-                    <li>
-                        <strong>Bibliotekssystem:</strong> hantera böcker, låntagare och utlåningar.
-                        Klasser kan vara <code>Book</code>, <code>Member</code> och <code>Library</code>.
-                    </li>
-                    <li>
-                        <strong>RPG-strid:</strong> låt en spelare slåss mot fiender i turordning.
-                        Klasser kan vara <code>Character</code>, <code>Player</code>, <code>Enemy</code> och
-                        <code>Item</code>.
-                    </li>
-                    <li>
-                        <strong>Receptplanerare:</strong> låt användaren lägga till recept, söka och skapa inköpslistor.
-                        Klasser kan vara <code>Recipe</code>, <code>Ingredient</code> och <code>MealPlanner</code>.
-                    </li>
-                </ol>
+                <pre><code class="language-python">def first_text(values: list[str]) -> str:
+    return values[0]
 
-                <h2>Steg-för-steg-struktur</h2>
-                <ol>
-                    <li>
-                        <strong>Designa:</strong> skapa ett UML-diagram med minst tre klasser. Beskriv attribut,
-                        metoder,
-                        relationer, inkapsling och arv där det passar.
-                    </li>
-                    <li>
-                        <strong>Bygg grundstruktur:</strong> skapa en huvudfil, till exempel <code>main.py</code>, och
-                        separata filer per klass.
-                    </li>
-                    <li>
-                        <strong>Utöka med arv och logik:</strong> lägg till subklasser där det passar och använd
-                        <code>super()</code> när du bygger vidare på en basklass.
-                    </li>
-                    <li>
-                        <strong>Testa objekt och metodanrop:</strong> skapa instanser och prova att anropa metoder i ett
-                        konkret scenario.
-                    </li>
-                    <li>
-                        <strong>Dokumentera:</strong> kommentera varje klass och metod. Lägg till en README-fil där du
-                        förklarar programmets syfte och hur det körs.
-                    </li>
-                </ol>
+def first_number(values: list[int]) -> int:
+    return values[0]</code></pre>
 
-                <h2>Lösningsförslag: bibliotekssystem</h2>
-                <p>Det här är ett exempel på hur ett projekt kan struktureras. Använd det som stöd, men skapa gärna en
-                    egen variant.</p>
+                <p>Det här ger duplicerad kod. Logiken är identisk. Det enda som skiljer är typen. Med en generisk
+                    funktion kan vi beskriva samma idé en gång.</p>
 
-                <pre><code class="language-mermaid">classDiagram
-    Library --> Book : contains
-    Library --> Member : registers
-    Member --> Book : borrows
+                <h2>Steg 1: importera <code>TypeVar</code></h2>
+                <pre><code class="language-python">from typing import TypeVar</code></pre>
+                <p><code>TypeVar</code> finns i Pythons inbyggda modul <code>typing</code>. Importen hämtar verktyget
+                    och gör namnet <code>TypeVar</code> tillgängligt i filen. Importen skapar ännu ingen typvariabel.</p>
 
-    class Book {
-        -string title
-        -string author
-        -bool available
-        +borrow() bool
-        +return_book() void
-        +get_title() string
-        +__str__() string
-    }
+                <h2>Steg 2: skapa typvariabeln <code>T</code></h2>
+                <pre><code class="language-python">T = TypeVar("T")</code></pre>
+                <p><code>TypeVar("T")</code> skapar en typvariabel. Resultatet sparas under Python-namnet
+                    <code>T</code> till vänster. Texten <code>"T"</code> är namnet som typverktyg använder för
+                    typvariabeln. Man brukar ge båda samma namn.</p>
+                <p><code>T</code> är en platshållare för en typ. Den kan motsvara <code>str</code> i ett anrop och
+                    <code>int</code> i ett annat. Den lagrar inte vanliga värden som <code>"hej"</code> eller
+                    <code>10</code>.</p>
 
-    class Member {
-        -string name
-        -list borrowed_books
-        +borrow_book(book) void
-        +return_book(book) void
-        +list_books() void
-        +get_name() string
-    }
+                <h2>Steg 3: skriv den generiska funktionen</h2>
+                <pre><code class="language-python">from typing import TypeVar
 
-    class Library {
-        -list books
-        -list members
-        +add_book(title, author) void
-        +register_member(name) void
-        +find_book(title) Book
-        +find_member(name) Member
-        +list_books() void
-    }</code></pre>
+T = TypeVar("T")
 
-                <h3>book.py</h3>
-                <pre><code>class Book:
-    def __init__(self, title, author):
-        self._title = title
-        self._author = author
-        self._available = True
+def first(values: list[T]) -> T:
+    return values[0]</code></pre>
 
-    def borrow(self):
-        if self._available:
-            self._available = False
-            return True
-        return False
+                <h3>Läs funktionshuvudet del för del</h3>
+                <ul>
+                    <li><code>values</code> är parameterns namn.</li>
+                    <li>Kolonet efter <code>values</code> börjar parameterns typhint.</li>
+                    <li><code>list[T]</code> betyder en lista vars element har typen som <code>T</code> representerar.</li>
+                    <li><code>-&gt; T</code> betyder att funktionen returnerar ett värde av samma typ.</li>
+                </ul>
+                <p>Samma <code>T</code> kopplar ihop listans elementtyp och returtypen. Typhintarna beskriver sambandet;
+                    de omvandlar inga värden.</p>
+                <p>Funktionen använder <code>values[0]</code> och förutsätter därför att listan innehåller minst ett
+                    element. En tom lista skulle ge <code>IndexError</code>. <code>TypeVar</code> skyddar inte mot det;
+                    den beskriver bara typernas samband.</p>
 
-    def return_book(self):
-        self._available = True
+                <h2>Steg 4: anropa funktionen</h2>
+                <pre><code class="language-python">name = first(["Anna", "Bo", "Cia"])
+score = first([10, 20, 30])
 
-    def get_title(self):
-        return self._title
+print(name)
+print(score)</code></pre>
+                <pre><code class="language-text">Anna
+10</code></pre>
+                <p>I det första anropet motsvarar <code>T</code> typen <code>str</code>. I det andra motsvarar
+                    <code>T</code> typen <code>int</code>.</p>
 
-    def __str__(self):
-        status = "Tillgänglig" if self._available else "Utlånad"
-        return f"{self._title} av {self._author} - {status}"</code></pre>
+                <h2>Generisk funktion med flera parametrar</h2>
+                <p>Funktionen <code>contains_value()</code> svarar på frågan: <em>Finns det här värdet i den här
+                        listan?</em> Vi vill kunna använda samma funktion för exempelvis namn, heltal och andra typer
+                    utan att skriva en särskild funktion för varje typ.</p>
 
-                <h3>member.py</h3>
-                <pre><code>class Member:
-    def __init__(self, name):
-        self._name = name
-        self._borrowed_books = []
+                <pre><code class="language-python">from typing import TypeVar
 
-    def borrow_book(self, book):
-        if book.borrow():
-            self._borrowed_books.append(book)
-            print(f"{self._name} lånade {book.get_title()}.")
-        else:
-            print(f"{book.get_title()} är redan utlånad.")
+T = TypeVar("T")
 
-    def return_book(self, book):
-        if book in self._borrowed_books:
-            book.return_book()
-            self._borrowed_books.remove(book)
-            print(f"{self._name} lämnade tillbaka {book.get_title()}.")
-        else:
-            print(f"{self._name} har inte {book.get_title()}.")
+def contains_value(value: T, values: list[T]) -> bool:
+    return value in values
 
-    def list_books(self):
-        if not self._borrowed_books:
-            print(f"{self._name} har inga böcker.")
-        else:
-            print(f"{self._name} har lånat:")
-            for book in self._borrowed_books:
-                print(f"- {book}")
+print(contains_value("Anna", ["Anna", "Bo"]))
+print(contains_value(3, [1, 2, 3]))
+print(contains_value(8, [1, 2, 3]))</code></pre>
 
-    def get_name(self):
-        return self._name</code></pre>
+                <h3>Vad gör koden?</h3>
+                <ul>
+                    <li><code>value: T</code> är värdet som funktionen ska söka efter.</li>
+                    <li><code>values: list[T]</code> är listan som funktionen ska söka i.</li>
+                    <li>Samma <code>T</code> används på båda platserna. Det visar att sökvärdet och listans element ska
+                        ha samma typ.</li>
+                    <li><code>-&gt; bool</code> visar att svaret alltid är <code>True</code> eller <code>False</code>.</li>
+                    <li>Uttrycket <code>value in values</code> undersöker om värdet finns i listan.</li>
+                </ul>
 
-                <h3>library.py</h3>
-                <pre><code>from book import Book
-from member import Member
+                <pre><code class="language-text">True
+True
+False</code></pre>
+                <p><code>"Anna"</code> finns i den första listan och <code>3</code> finns i den andra. Talet
+                    <code>8</code> finns inte i den sista listan, så det anropet ger <code>False</code>.</p>
 
-class Library:
+                <h3>Varför används <code>TypeVar</code> här?</h3>
+                <p>Utan <code>TypeVar</code> kan vi fortfarande skriva en funktion som körs, men typhintarna beskriver
+                    inte lika tydligt att parametrarna måste höra ihop. <code>T</code> kopplar samman typerna:</p>
+                <ul>
+                    <li>Skickar vi in en <code>str</code> ska den andra parametern vara en <code>list[str]</code>.</li>
+                    <li>Skickar vi in en <code>int</code> ska den andra parametern vara en <code>list[int]</code>.</li>
+                </ul>
+                <p>Det hjälper läsaren, editorn och typkontrollverktyg att upptäcka tveksamma anrop, till exempel att
+                    söka efter ett heltal i en lista som är avsedd för strängar. <code>TypeVar</code> utför däremot
+                    inte själva sökningen och stoppar normalt inte felaktiga typer när Python-programmet körs. Det är
+                    operatorn <code>in</code> som gör sökningen.</p>
+
+                <h2>Tydligt exempel: bevara typen från indata till resultat</h2>
+                <p>Funktionen <code>repeat()</code> upprepar ett värde och returnerar en lista. Samma funktion ska
+                    fungera för många typer, men editorn ska fortfarande kunna veta exakt vad den returnerade listan
+                    innehåller.</p>
+                <pre><code class="language-python">from typing import TypeVar
+
+T = TypeVar("T")
+
+def repeat(value: T, times: int) -> list[T]:
+    return [value] * times
+
+temperatures = repeat(18.5, 3)
+names = repeat("Anna", 2)
+
+print(temperatures)
+print(names)</code></pre>
+                <pre><code class="language-text">[18.5, 18.5, 18.5]
+['Anna', 'Anna']</code></pre>
+                <ul>
+                    <li><code>value: T</code> betyder att värdet kan ha olika typer i olika anrop.</li>
+                    <li><code>-&gt; list[T]</code> betyder att listan innehåller samma typ som <code>value</code>.</li>
+                    <li><code>repeat(18.5, 3)</code> får returtypen <code>list[float]</code>.</li>
+                    <li><code>repeat("Anna", 2)</code> får returtypen <code>list[str]</code>.</li>
+                </ul>
+
+                <h2>Den konkreta fördelen med <code>TypeVar</code></h2>
+                <p>Vi skulle kunna använda typen <code>object</code>, eftersom alla Pythonvärden är objekt:</p>
+                <pre><code class="language-python">def repeat(value: object, times: int) -> list[object]:
+    return [value] * times
+
+temperatures = repeat(18.5, 3)  # list[object]</code></pre>
+                <p>Koden fungerar, men returtypen blir bara <code>list[object]</code>. Editorn har då tappat
+                    informationen att listan faktiskt innehåller <code>float</code>.</p>
+                <p>Med <code>TypeVar</code> kopplas returtypen till typen på argumentet:</p>
+                <pre><code class="language-python">def repeat(value: T, times: int) -> list[T]:
+    return [value] * times
+
+temperatures = repeat(18.5, 3)  # list[float]</code></pre>
+                <p>Nu vet editorn att elementen är <code>float</code> och kan föreslå float-metoder samt varna om koden
+                    försöker använda elementen som en olämplig typ. Vi får alltså både en återanvändbar funktion och
+                    en exakt returtyp.</p>
+                <p><strong>Använd generisk kod</strong> när samma återanvändbara funktion eller klass ska bevara ett
+                    tydligt samband mellan flera typer. <strong>Använd vanlig kod</strong> när lösningen är liten,
+                    endast används på ett ställe eller blir lättare att förstå utan generics. Generics förändrar inte
+                    vad algoritmen gör; de gör typförhållandet tydligare och ger bättre stöd från editorn och
+                    typkontrollverktyg.</p>
+
+                <h2>Fördjupning: listor med blandade typer</h2>
+                <p>Det här avsnittet bygger vidare på grunderna ovan. En lista kan också vara avsedd att innehålla
+                    flera tillåtna typer.</p>
+                <pre><code class="language-python">mixed_values: list[int | str | float] = [10, "hej", 3.5]
+
+first_value = first(mixed_values)</code></pre>
+                <p><code>int | str | float</code> är en union och betyder att varje element får vara
+                    <code>int</code>, <code>str</code> eller <code>float</code>. Alla tillåtna typer ska skrivas i
+                    typhinten. Typhinten kräver däremot inte att minst ett värde av varje typ finns i listan. Även
+                    <code>[10, 20]</code> är därför tillåten av samma typhint.</p>
+                <p>Om listan senare även ska få innehålla <code>bytes</code> måste det anges i typhinten, exempelvis
+                    <code>list[int | str | float | bytes]</code>. Utan en uttrycklig typhint kan en typkontroll ibland
+                    härleda typer från värdena, men det är inte samma sak som att typer automatiskt läggs till i den
+                    skrivna koden.</p>
+                <p>När den blandade listan skickas till <code>first()</code> kan <code>T</code> motsvara unionen
+                    <code>int | str | float</code>. Returtypen blir då också <code>int | str | float</code>, även om det
+                    första värdet i just detta exempel är heltalet <code>10</code>.</p>
+
+                <h2>Typhintar kör inte programmet åt dig</h2>
+                <p><code>list[T]</code>, <code>-&gt; T</code> och andra typhintar är främst hjälp för människor,
+                    editorer och typkontrollverktyg. Python stoppar normalt inte automatiskt ett anrop med fel typ
+                    när programmet körs. Koden behöver fortfarande testas och vid behov kontrollera värden själv.</p>
+
+                <h2>Generisk klass</h2>
+                <p>En generisk klass passar när klassen ska kunna lagra eller hantera olika typer av objekt, men med
+                    samma logik. Här är en enkel låda som kan innehålla vad som helst.</p>
+                <p><code>Generic</code> importeras från <code>typing</code>. När klassen ärver från
+                    <code>Generic[T]</code> talar vi om att hela klassen använder typvariabeln <code>T</code>. Då kan
+                    attribut, parametrar och returtyper i klassens metoder kopplas till samma typ.</p>
+
+                <pre><code class="language-python">from typing import Generic, TypeVar
+
+T = TypeVar("T")
+
+class Box(Generic[T]):
+    def __init__(self, content: T):
+        self._content = content
+
+    def get(self) -> T:
+        return self._content
+
+text_box: Box[str] = Box("Hej")
+number_box: Box[int] = Box(42)
+
+print(text_box.get())
+print(number_box.get())</code></pre>
+
+                <p><code>Box[str]</code> betyder en låda för text. Därför är både parametern <code>content</code>,
+                    attributet <code>_content</code> och returvärdet från <code>get()</code> kopplade till
+                    <code>str</code>. <code>Box[int]</code> skapar motsvarande samband för heltal. Python tvingar
+                    normalt inte detta vid körning, men typhintarna hjälper programmeraren, editorn och testningen.</p>
+
+                <h2>Exempel: register i ett skolsystem</h2>
+                <p>Ett skolsystem kan behöva separata register för elever, lärare och kurser. Alla registren behöver
+                    samma grundfunktioner, till exempel att lägga till objekt och hämta alla objekt. I stället för att
+                    skriva tre nästan identiska registerklasser kan vi återanvända <code>Register[T]</code>.</p>
+
+                <pre><code class="language-python">from typing import Generic, TypeVar
+
+T = TypeVar("T")
+
+class Register(Generic[T]):
     def __init__(self):
-        self._books = []
-        self._members = []
+        self._items: list[T] = []
 
-    def add_book(self, title, author):
-        book = Book(title, author)
-        self._books.append(book)
+    def add(self, item: T) -> None:
+        self._items.append(item)
 
-    def register_member(self, name):
-        member = Member(name)
-        self._members.append(member)
+    def all_items(self) -> list[T]:
+        return self._items
 
-    def find_book(self, title):
-        for book in self._books:
-            if book.get_title() == title:
-                return book
-        return None
+class Student:
+    def __init__(self, name: str):
+        self.name = name
 
-    def find_member(self, name):
-        for member in self._members:
-            if member.get_name() == name:
-                return member
-        return None
+class Teacher:
+    def __init__(self, name: str):
+        self.name = name
 
-    def list_books(self):
-        print("Böcker i biblioteket:")
-        for book in self._books:
-            print(f"- {book}")</code></pre>
-                <p><code>from book import Book</code> hämtar klassen <code>Book</code> från filen
-                    <code>book.py</code>. <code>from member import Member</code> hämtar klassen <code>Member</code>
-                    från <code>member.py</code>. Därför kan <code>library.py</code> skapa objekt av båda klasserna
-                    utan att klassernas kod behöver skrivas igen i samma fil.</p>
+class Course:
+    def __init__(self, title: str):
+        self.title = title
 
-                <h3>main.py</h3>
-                <pre><code>from library import Library
+student_register: Register[Student] = Register()
+teacher_register: Register[Teacher] = Register()
+course_register: Register[Course] = Register()
 
-lib = Library()
+student_register.add(Student("Anna"))
+teacher_register.add(Teacher("Erik"))
+course_register.add(Course("Programmering 2"))
 
-lib.add_book("1984", "George Orwell")
-lib.add_book("Sagan om ringen", "J.R.R. Tolkien")
-lib.register_member("Oskar")
+first_student = student_register.all_items()[0]
+first_teacher = teacher_register.all_items()[0]
+first_course = course_register.all_items()[0]
 
-book1 = lib.find_book("1984")
-member = lib.find_member("Oskar")
+print(first_student.name)
+print(first_teacher.name)
+print(first_course.title)</code></pre>
 
-if book1 and member:
-    member.borrow_book(book1)
+                <pre><code class="language-text">Anna
+Erik
+Programmering 2</code></pre>
 
-member.list_books()
-lib.list_books()</code></pre>
-                <p><code>from library import Library</code> hämtar klassen <code>Library</code> från filen
-                    <code>library.py</code>. Därefter kan <code>main.py</code> skapa biblioteksobjektet med
-                    <code>lib = Library()</code>. Ordet före <code>import</code> är filnamnet utan
-                    <code>.py</code>, och ordet efter <code>import</code> är det som hämtas från filen.</p>
+                <h3>Vad vinner vi på detta?</h3>
+                <ul>
+                    <li><code>Register</code> behöver bara skrivas och testas en gång.</li>
+                    <li><code>student_register.add()</code> är avsedd för <code>Student</code>-objekt.</li>
+                    <li><code>student_register.all_items()</code> får returtypen <code>list[Student]</code>.</li>
+                    <li>Lärarregistret och kursregistret återanvänder samma logik men behåller sina egna typer.</li>
+                </ul>
+                <p>Det här är användbart i ett verkligt skolsystem eftersom programmet hanterar flera slags objekt med
+                    samma registerfunktioner. Om registren hörde till helt separata program skulle en gemensam generisk
+                    klass inte nödvändigtvis vara motiverad.</p>
 
-                <h2>Alternativa projektstrukturer</h2>
-                <h3>RPG-strid</h3>
-                <pre><code class="language-mermaid">classDiagram
-    Player --&gt; Character : inherits
-    Enemy --&gt; Character : inherits
-    Player --> Item : uses
+                <section class="interactive-exercise" data-exercise="chapter-3-generics">
+                    <h2>Interaktiv övning: generiska typer</h2>
+                    <p>Välj exempel och kör koden. Lägg märke till att <code>T</code> används för att visa vilka typer
+                        som hör ihop: listans innehåll, värdet som skickas in och värdet som returneras.</p>
 
-    class Character
-    Character : name
-    Character : hp
-    Character : attack
-    Character : is_alive()
-    Character : take_damage(amount)
-    Character : deal_damage(target)
+                    <label for="chapter-3-8-code" class="exercise-label">Kod</label>
+                    <textarea id="chapter-3-8-code" class="exercise-code" rows="24" spellcheck="false">from typing import Generic, TypeVar
 
-    class Player
-    Player : inventory
-    Player : use_item(item)
+T = TypeVar("T")
 
-    class Enemy
-    Enemy : name
-    Enemy : hp
+def first(values: list[T]) -> T:
+    return values[0]
 
-    class Item
-    Item : name
-    Item : effect
-    Item : use(target)</code></pre>
+def contains_value(value: T, values: list[T]) -> bool:
+    return value in values
 
-                <h3>Receptplanerare</h3>
-                <pre><code class="language-mermaid">classDiagram
-    MealPlanner --> Recipe : stores
-    Recipe --> Ingredient : contains
+class Register(Generic[T]):
+    def __init__(self):
+        self._items: list[T] = []
 
-    class Ingredient {
-        -string name
-        -float amount
-        -string unit
-        +__str__() string
-    }
+    def add(self, item: T) -> None:
+        self._items.append(item)
 
-    class Recipe {
-        -string name
-        -list ingredients
-        +add_ingredient(name, amount, unit) void
-        +list_ingredients() void
-    }
+    def all_items(self) -> list[T]:
+        return self._items</textarea>
 
-    class MealPlanner {
-        -list recipes
-        +add_recipe(recipe) void
-        +list_all_recipes() void
-        +generate_shopping_list() void
-    }</code></pre>
+                    <div class="exercise-controls">
+                        <select id="chapter-3-8-mode" class="exercise-select" aria-label="Exempel">
+                            <option value="first">Generisk funktion: first()</option>
+                            <option value="contains">Generisk funktion: contains_value()</option>
+                            <option value="register">Generisk klass: Register[T]</option>
+                        </select>
+                    </div>
 
-                <h2>Öva: planera ditt eget projekt</h2>
-                <ol>
-                    <li>Välj ett av förslagen ovan eller kom på ett eget projekt.</li>
-                    <li>Rita upp ett klassdiagram.</li>
-                    <li>Lista attribut och metoder för varje klass.</li>
-                    <li>Skapa kod för minst tre samverkande klasser.</li>
-                    <li>Presentera din kodstruktur och vad varje del gör.</li>
-                </ol>
-                <p class="exercise-note">När du har försökt själv kan du jämföra med ett lösningsförslag:
-                    <a href="chapter-3-8-bibliotek-losning.html">bibliotekssystem med UML</a> och
-                    <a href="../p2-python-kod/kap-3/kap-3-8/kap3-8-bibliotek-projekt-losningsforslag.py" download>nedladdningsbar Python-kod</a>.
-                </p>
+                    <div class="exercise-controls">
+                        <button type="button" class="exercise-run">Kör exempel</button>
+                        <button type="button" class="exercise-reset">Återställ</button>
+                    </div>
+
+                    <label for="chapter-3-8-result" class="exercise-label">Resultat</label>
+                    <output id="chapter-3-8-result" class="exercise-result">Välj ett exempel och tryck på Kör exempel.</output>
+
+                    <p class="exercise-note"><strong>Programmering 2-koppling:</strong> generiska typer ändrar inte
+                        själva körningen av Python-koden här. De gör däremot sambandet mellan typer tydligare för
+                        programmeraren och editorn.</p>
+                </section>
+
+                <h2>När ska du använda generiska klasser och metoder?</h2>
+                <ul>
+                    <li>När samma logik ska fungera för flera datatyper.</li>
+                    <li>När du vill undvika duplicerade funktioner som bara skiljer sig i typ.</li>
+                    <li>När du vill att editorn ska kunna ge bättre stöd och varna för fel typ.</li>
+                    <li>När du bygger egna samlingar, register, köer eller lagringsklasser.</li>
+                </ul>
+
+                <h2>När behövs det inte?</h2>
+                <ul>
+                    <li>När koden bara används på ett enda ställe.</li>
+                    <li>När en vanlig funktion eller klass är tydligare.</li>
+                    <li>När generiska typer gör lösningen svårare att läsa än problemet kräver.</li>
+                </ul>
+
+                <h2>Öva själv</h2>
+                <section class="interactive-exercise">
+                    <h2>Övning 1: Hämta sista värdet</h2>
+                    <p>Importera <code>TypeVar</code>, skapa typvariabeln <code>T</code> och skriv funktionen
+                        <code>last(values: list[T]) -&gt; T</code>. Testa funktionen med en lista av strängar och en
+                        lista av heltal.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken returtyp får respektive anrop?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-8/kap3-8-ovning-1-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 1 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 2: Sök generiskt i en lista</h2>
+                    <p>Skriv funktionen <code>find_index(value: T, values: list[T]) -&gt; int</code>. Funktionen ska
+                        returnera värdets index eller <code>-1</code> om värdet saknas. Testa med både text och tal.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Hur visar samma <code>T</code> att sökvärdet och
+                        listans element hör ihop?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-8/kap3-8-ovning-2-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 2 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 3: Upprepa ett värde</h2>
+                    <p>Skriv den generiska funktionen <code>repeat(value: T, times: int) -&gt; list[T]</code>. Testa den
+                        med ett decimaltal, en sträng och ett objekt från en enkel klass som du själv skapar.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vad beskriver <code>list[T]</code> i
+                        returtypen?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-8/kap3-8-ovning-3-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 3 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 4: En generisk låda</h2>
+                    <p>Skapa klassen <code>Box(Generic[T])</code>. Konstruktorn ska ta emot ett värde av typen
+                        <code>T</code>. Metoden <code>get()</code> ska returnera värdet och <code>set(value: T)</code> ska
+                        ersätta det. Testa med <code>Box[str]</code> och <code>Box[int]</code>.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilka tre platser i klassen kopplas samman av
+                        samma typvariabel?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-8/kap3-8-ovning-4-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 4 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 5: Generiskt par med sökning</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du en generisk klass med
+                        flera metoder och en generisk funktion.</p>
+                    <p>Skapa <code>Pair(Generic[T])</code> som lagrar två värden av samma typ. Lägg till metoder som
+                        returnerar det första och det andra värdet samt <code>contains(value: T) -&gt; bool</code>.
+                        Skriv även funktionen <code>print_pair(pair: Pair[T]) -&gt; None</code>. Testa textpar och talpar.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Varför kan samma klass återanvändas utan att
+                        returtyperna blir <code>object</code>?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-8/kap3-8-ovning-5-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 5 på GitHub</a>.
+                    </p>
+                </section>
+                <section class="interactive-exercise">
+                    <h2>Övning 6: Generiska skolregister</h2>
+                    <p class="exercise-note"><strong>Svårare övning:</strong> Här kombinerar du generics med egna
+                        klasser, flera register och sökning.</p>
+                    <p>Skapa <code>Register(Generic[T])</code> med metoderna <code>add(item: T)</code>,
+                        <code>all_items() -&gt; list[T]</code> och <code>first() -&gt; T</code>. Skapa klasserna
+                        <code>Student</code> och <code>Course</code>. Använd ett <code>Register[Student]</code> och ett
+                        <code>Register[Course]</code>, lägg till flera objekt och skriv ut innehållet och det första
+                        objektet i varje register.</p>
+                    <p class="exercise-note"><strong>Fundera:</strong> Vilken exakt returtyp får <code>first()</code>
+                        för de två registren?</p>
+                    <p class="exercise-note">När du har försökt själv:
+                        <a href="https://github.com/paul-pauliskolan/Prog-2-Python/blob/main/p2-python-kod/kap-3/kap-3-8/kap3-8-ovning-6-losningsforslag.py" target="_blank" rel="noopener noreferrer">visa lösningsförslaget till övning 6 på GitHub</a>.
+                    </p>
+                </section>
 
                 <h2>Sammanfattning</h2>
                 <ul>
-                    <li>Ett objektorienterat projekt bygger på samspel mellan flera klasser.</li>
-                    <li>Bra planering, till exempel via UML, gör det lättare att bygga upp strukturen.</li>
-                    <li>Du använder inkapsling, arv och modularisering för att skapa en hållbar kodbas.</li>
-                    <li>Testa varje klass för sig innan du sätter ihop hela programmet.</li>
+                    <li>Generisk kod kan återanvändas med flera datatyper.</li>
+                    <li><code>TypeVar</code> beskriver en typ som återkommer på flera platser.</li>
+                    <li><code>Generic[T]</code> används när en klass ska fungera med valfri men sammanhängande typ.</li>
+                    <li>Generiska klasser och metoder kan göra kod mer läsbar, testbar och återanvändbar.</li>
                 </ul>
             </section>
+
+            <div id="quiz-3-8" aria-label="Quiz Kap 3.8"></div>
 
             <p><a href="chapter-3.html">Tillbaka till Kapitel 3</a></p>
         </article>
     </main>
     <script src="../js/main.js"></script>
-    <script type="module">
-        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs'
-
-        mermaid.initialize({
-            startOnLoad: false,
-            theme: 'dark',
-            themeVariables: {
-                lineColor: '#f4f7fb',
-                textColor: '#f4f7fb',
-                primaryBorderColor: '#f4f7fb',
-                relationLabelColor: '#f4f7fb',
-                tertiaryTextColor: '#f4f7fb'
+    <script src="../js/quiz.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.renderQuiz) {
+                window.renderQuiz(document.getElementById('quiz-3-8'), {
+                    title: 'Quiz: Kap 3.8 - Generiska klasser och metoder',
+                    questions: [
+                        {
+                            question: 'Vad betyder generisk kod?',
+                            options: [
+                                'Kod som bara fungerar med strängar',
+                                'Kod som kan fungera med flera datatyper',
+                                'Kod som saknar funktioner',
+                                'Kod som alltid kräver en databas'
+                            ],
+                            correct: 1,
+                            feedback: 'Generisk kod kan användas med flera datatyper.',
+                            explanation: 'Exempelvis kan samma funktion hämta första värdet ur både list[str] och list[int].'
+                        },
+                        {
+                            question: 'Vad används TypeVar till i Python?',
+                            options: [
+                                'Att skapa en typvariabel som kan återanvändas i typhintar',
+                                'Att skriva ut text på skärmen',
+                                'Att starta en SQLite-databas',
+                                'Att fånga ValueError'
+                            ],
+                            correct: 0,
+                            feedback: 'TypeVar skapar en typvariabel, till exempel T.',
+                            explanation: 'T kan visa att indata och returvärde hör ihop typmässigt.'
+                        },
+                        {
+                            question: 'Vad betyder returtypen T i funktionen def first(values: list[T]) -> T?',
+                            options: [
+                                'Funktionen returnerar alltid text',
+                                'Funktionen returnerar alltid en lista',
+                                'Funktionen returnerar samma typ som listans element',
+                                'Funktionen returnerar alltid None'
+                            ],
+                            correct: 2,
+                            feedback: 'Returvärdet har samma typ som elementen i listan.',
+                            explanation: 'Om värden är list[int] blir returvärdet int. Om värden är list[str] blir returvärdet str.'
+                        },
+                        {
+                            question: 'Vad betyder typhinten list[int | str | float]?',
+                            options: [
+                                'Listan måste innehålla minst ett värde av varje typ',
+                                'Varje element får vara int, str eller float',
+                                'Python omvandlar alla element till float',
+                                'Listan får bara innehålla tre element'
+                            ],
+                            correct: 1,
+                            feedback: 'Varje element får ha någon av de angivna typerna.',
+                            explanation: 'Unionen anger tillåtna typer. Alla typer behöver inte förekomma i den aktuella listan.'
+                        },
+                        {
+                            question: 'När passar en generisk klass särskilt bra?',
+                            options: [
+                                'När klassen bara ska skriva ut en fast text',
+                                'När klassen ska hantera samma logik för olika typer av objekt',
+                                'När man vill undvika alla typhintar',
+                                'När programmet inte använder objekt'
+                            ],
+                            correct: 1,
+                            feedback: 'Generiska klasser passar för återanvändbar logik över flera typer.',
+                            explanation: 'I ett skolsystem kan samma Register[T] användas för separata elev-, lärar- och kursregister.'
+                        },
+                        {
+                            question: 'Vad är en rimlig fördel med generiska klasser och metoder?',
+                            options: [
+                                'De gör att Python aldrig kan krascha',
+                                'De ersätter all testning',
+                                'De kan minska duplicerad kod och ge bättre editorstöd',
+                                'De gör att kod inte behöver struktureras'
+                            ],
+                            correct: 2,
+                            feedback: 'Generiska typer kan minska duplicering och göra typkopplingar tydligare.',
+                            explanation: 'De hjälper läsaren och editorn förstå vilka typer som hör ihop, men de ersätter inte testning.'
+                        }
+                    ]
+                })
             }
-        })
-
-        function renderMermaidForRoot(root = document) {
-            const blocks = root.querySelectorAll
-                ? root.querySelectorAll('code.language-mermaid')
-                : []
-            const toRender = []
-
-            blocks.forEach(code => {
-                if (code.dataset.mermaidProcessed) return
-
-                const container = document.createElement('div')
-                container.className = 'mermaid'
-                container.textContent = code.textContent
-                code.parentNode.replaceWith(container)
-                code.dataset.mermaidProcessed = '1'
-                toRender.push(container)
-            })
-
-            if (toRender.length) mermaid.init(undefined, toRender)
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderMermaidForRoot(document)
         })
     </script>
 </body>

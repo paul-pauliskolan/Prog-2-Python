@@ -1,4 +1,4 @@
-# Losningsforslag kap 3.8 - Generiska klasser och metoder
+# Lösningsförslag kap 3.8 - Generiska klasser och metoder
 
 from typing import Generic, TypeVar
 
