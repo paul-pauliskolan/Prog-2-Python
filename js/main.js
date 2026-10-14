@@ -36,6 +36,49 @@ function optionText(input) {
   return input?.closest("label")?.textContent.trim() || "";
 }
 
+const IMPROVED_STATIC_QUIZZES = {
+  "chapter1-quiz": [
+    ["En rubrik, två stycken och en länk ska få semantisk struktur. Vilket språk ansvarar främst för den delen?", "HTML", "CSS", "JavaScript", "Git", "HTML beskriver webbsidans innehåll och struktur; CSS presenterar den och JavaScript ger beteende."],
+    ["Webbsidan ska köra main.js efter att HTML-dokumentet har tolkats. Vilken inkoppling passar kapitlets arbetssätt?", "<script src=\"main.js\" defer></script>", "<link href=\"main.js\" rel=\"stylesheet\">", "<meta src=\"main.js\" defer>", "<style src=\"main.js\"></style>", "script laddar JavaScript och defer väntar med körningen tills dokumentet har tolkats."],
+    ["Du vill kunna se vad som ändrats, återgå till en tidigare version och dela projektet. Vilket arbetssätt stödjer detta?", "Versionshantera projektet med Git och lagra det på GitHub", "Lägg all kod i samma HTML-element", "Döp om projektmappen efter varje ändring", "Flytta CSS-reglerna till JavaScript", "Git sparar versionshistorik och GitHub kan lagra och dela repositoriet."],
+    ["Samma HTML ska visas i två kolumner på bred skärm men i en kolumn på mobil. Var hör den lösningen hemma?", "I CSS-regler för layout och responsivitet", "I HTML-taggar som versionshanterar sidan", "I Git-commits som körs i webbläsaren", "I JavaScriptvariabler för allt textinnehåll", "CSS styr presentation, layout och responsiva anpassningar utan att innehållsstrukturen behöver bytas."],
+  ],
+  "chapter2-quiz": [
+    ["JavaScript ska lyssna på submit och samla användarens val som en enhet. Vilket HTML-element bör omsluta frågorna?", "form", "main", "article", "nav", "Ett form-element grupperar formulärkontroller och ger en submit-händelse för gemensam behandling."],
+    ["Quizet fungerar men frågor och feedback är svåra att skilja visuellt. Vilken ändring hör främst hemma i CSS?", "Justera avstånd, kontrast och layout för quizets komponenter", "Ändra vilket data-correct som är facit", "Lägga till submit-logik för rättningen", "Byta namn på Git-repositoriet", "CSS ansvarar för läsbar presentation; facit hör till data och rättningen till JavaScript."],
+    ["Rättningskoden går igenom ett fieldset och behöver veta vilket radiovärde som är rätt. Varför passar data-correct?", "Det lagrar frågans facit som data som JavaScript kan läsa", "Det markerar radioknappen åt användaren", "Det skapar feedbacktext automatiskt", "Det ersätter input-elementens value", "Ett data-attribut kopplar maskinläsbar information till elementet utan att visa svaret."],
+    ["Alla frågor är besvarade och rättningen är klar. Vilken ansvarsfördelning är rimlig?", "Status visar poängen och sammanfattningen visar resultatets detaljer", "Status lagrar facit och sammanfattningen skickar formuläret", "Status skapar CSS och sammanfattningen laddar JavaScript", "Båda elementen ersätter frågornas radioknappar", "De två ytorna ger snabb återkoppling respektive en tydligare resultatöversikt."],
+  ],
+  "chapter3-quiz": [
+    ["Klassen Konto beskriver gemensamma attribut och metoder. konto1 = Konto() skapas. Hur ska de två begreppen beskrivas?", "Konto är klassen och konto1 är en instans", "Konto är instansen och konto1 är metoden", "Båda är klasser", "Båda är samma globala variabel", "Klassen är modellen; konstruktoranropet skapar ett konkret objekt, en instans."],
+    ["En grupp vill granska klassen Bok med attribut, metoder och relationen till Författare. Vilket diagram passar bäst?", "Ett UML-klassdiagram", "Ett sekvensdiagram", "Ett flödesschema", "Ett användningsfallsdiagram", "Klassdiagram visar statisk struktur: klasser, deras medlemmar och relationer."],
+    ["Kravet säger: Bibliotekarien registrerar en bok och systemet bekräftar registreringen. Vad är detta främst?", "Ett användningsfall som beskriver aktörens mål och systemets respons", "Ett klassdiagram med privata attribut", "Ett sekvensdiagram utan tidsordning", "En färdig metodimplementation", "Användningsfall beskriver funktionalitet ur en aktörs perspektiv, inte kodens detaljer."],
+    ["Du behöver visa i vilken ordning Användare, Meny och Databas skickar meddelanden när en bok sparas. Vilket diagram passar?", "Ett sekvensdiagram", "Ett klassdiagram", "Ett användningsfallsdiagram", "Ett tillståndslöst flödesschema", "Sekvensdiagram visar interaktioner mellan deltagare i tidsordning."],
+  ],
+};
+
+function applyImprovedStaticQuiz(form) {
+  const rows = IMPROVED_STATIC_QUIZZES[form.id];
+  const fields = Array.from(form.querySelectorAll(".quiz-question"));
+  if (!rows || rows.length !== fields.length) return;
+  fields.forEach((field, index) => {
+    const [question, correctText, ...rest] = rows[index];
+    const explanation = rest.pop();
+    const choices = [correctText, ...rest];
+    const shift = index % choices.length;
+    const options = choices.slice(shift).concat(choices.slice(0, shift));
+    const letters = ["A", "B", "C", "D"];
+    field.querySelector("legend").textContent = `${index + 1}. ${question}`;
+    field.dataset.correct = letters[options.indexOf(correctText)];
+    field.dataset.explanation = explanation;
+    field.querySelectorAll("label").forEach((label, optionIndex) => {
+      const input = label.querySelector("input");
+      input.value = letters[optionIndex];
+      label.replaceChildren(input, ` ${letters[optionIndex]}. ${options[optionIndex]}`);
+    });
+  });
+}
+
 function initStaticQuizForms() {
   document
     .querySelectorAll("form.quiz-form")
@@ -400,6 +443,8 @@ function insertPrevNextLinks() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll("form.quiz-form").forEach(applyImprovedStaticQuiz);
+  initPage();
   try {
     insertPrevNextLinks();
   } catch (e) {
