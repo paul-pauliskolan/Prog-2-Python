@@ -1,7 +1,7 @@
 const CURRENT_SCRIPT = document.currentScript;
 // Fyll i Apps Script-webbappens /exec-adress nar den ar publicerad.
 const QUIZ_STATISTICS_ENDPOINT =
-  "https://script.google.com/macros/s/AKfycbzTyV7F2EhM6Kkz5M37kCRzckHPR2XvIExaytzdVzvngs2NFTj95Ra0kF67HkEao-4Yww/exec";
+  "https://script.google.com/macros/s/AKfycbysmehMs8DOSK_XNSJ5FRC9TTtU1FWWZ2AgaFOOTlIQlh0BgExrPTiA86GnQubmffei9A/exec";
 const CHAPTERS_URL = new URL(
   "../data/chapters.json",
   CURRENT_SCRIPT?.src || window.location.href,
