@@ -651,6 +651,6 @@ Kontroller genomförda 10 november 2026:
 
 Befintligt kalkylark använder tidszonen America/Los_Angeles; den inställningen behölls för att inte påverka äldre flikar. Elevens MD-datum använder Europe/Stockholm.
 
-Publik URL-kontroll dokumenteras när GitHub Pages har publicerat filerna.
+**Publicering verifierad:** den publika provadressen gav HTTP 200 och det hämtade HTML-innehållet var identiskt med den lokalt verifierade filen. Provadressen är https://paul-pauliskolan.github.io/Prog-2-Python/p2-kapitel-1-3-5-testprov-m8v4q2.html . Kursnavigationen och äldre provfiler är oförändrade. Hela provet genomfördes dessutom på den publika adressen med facitkontrollerade svar: **20/20 (100 %)**. Inga webbläsarfel rapporterades. Testnamnet `TEST-P2-PUBLIK-M8V4Q2` och poängen 20 lästes tillbaka från den nya Google-fliken; därefter togs endast den raden bort. Även det tidigare blandade webbläsartestet 5/20 och dess testrad är städade.
 
 Provet är olistat och tillagt i en separat HTML-fil utan länk i kursnavigationen. Olistat betyder inte lösenordsskyddat.
