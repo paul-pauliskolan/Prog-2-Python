@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="description" content="Olistat testprov för kapitel 1 till och med 3.5 i Programmering 2.">
+  <title>Testprov – Programmering 2, kapitel 1 till och med 3.5</title>
+  <script src="js/theme.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .test-shell{max-width:900px;margin:0 auto}.test-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:clamp(1rem,3vw,2rem);box-shadow:var(--shadow)}
+    .test-meta,.test-actions,.question-nav{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}.test-meta{color:var(--text-muted);margin:1rem 0}.test-meta span{background:var(--surface-2);border-radius:999px;padding:.3rem .75rem}
+    .progress-track{height:.7rem;background:var(--surface-2);border-radius:999px;overflow:hidden;margin:1rem 0}.progress-bar{height:100%;background:var(--accent);transition:width .2s ease}
+    fieldset{border:0;padding:0;margin:0}legend{font:700 clamp(1.2rem,3vw,1.65rem)/1.25 "Trebuchet MS","Segoe UI",sans-serif;margin-bottom:1rem;width:100%}
+    .question-kind{color:var(--accent);font-weight:700;margin-bottom:.4rem}.code-block{white-space:pre-wrap;background:var(--code-bg);color:var(--code-text);border-radius:12px;padding:1rem;overflow:auto;font:1rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .option{display:flex;gap:.7rem;align-items:flex-start;background:var(--option-bg);border:2px solid transparent;border-radius:12px;padding:.85rem;margin:.6rem 0;cursor:pointer}.option:hover{background:var(--option-hover)}.option:has(input:checked){border-color:var(--accent)}.option input{margin-top:.3rem;accent-color:var(--accent)}
+    button{font:700 1rem "Trebuchet MS","Segoe UI",sans-serif;border:1px solid var(--border);border-radius:999px;padding:.7rem 1.1rem;cursor:pointer;background:var(--surface-2);color:var(--text)}button.primary{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}button:disabled{opacity:.45;cursor:not-allowed}button:focus-visible,input:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+    .question-nav{justify-content:space-between;margin-top:1.5rem}.status-message{min-height:1.7rem;color:var(--danger-border);font-weight:700}.hidden{display:none!important}
+    .result-score{font:700 clamp(2rem,7vw,4rem)/1 "Trebuchet MS","Segoe UI",sans-serif;color:var(--accent);margin:.5rem 0}.result-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem;margin:1.25rem 0}.result-panel{background:var(--surface-2);border-radius:14px;padding:1rem}.result-panel h3{margin-bottom:.75rem}.review-item{border-left:5px solid var(--danger-border);background:var(--surface-2);padding:1rem;margin:1rem 0;border-radius:0 12px 12px 0}.review-item h3{margin-bottom:.5rem}.review-item p{white-space:pre-wrap;overflow-wrap:anywhere}.summary-text{width:100%;min-height:12rem;background:var(--code-bg);color:var(--code-text);border:1px solid var(--border);border-radius:12px;padding:1rem;font:1rem/1.5 ui-monospace,SFMono-Regular,Consolas,monospace}
+    .saved-result{border:1px dashed var(--border-accent);border-radius:12px;padding:1rem;margin:1rem 0}.student-name{display:grid;gap:.4rem;max-width:28rem;margin:1.25rem 0}.student-name label{font-weight:700}.student-name input{font:inherit;color:var(--text);background:var(--surface);border:2px solid var(--border);border-radius:10px;padding:.75rem}.noscript{background:var(--danger-bg);border:1px solid var(--danger-border);padding:1rem}
+    @media(max-width:560px){.question-nav button{flex:1}.test-actions button{width:100%}}
+    @media(prefers-reduced-motion:reduce){.progress-bar{transition:none}}
+  </style>
+</head>
+<body class="chapter-page">
+  <nav class="navbar" aria-label="Provhuvud"><span class="logo">🐍 Programmering 2</span></nav>
+  <main class="container test-shell" id="main-content">
+    <noscript><p class="noscript">JavaScript måste vara aktiverat för att provet ska kunna rättas.</p></noscript>
+    <article class="test-card" id="intro-view">
+      <p class="eyebrow">Olistat testprov · version 1.0</p>
+      <h1>Testprov: kapitel 1 till och med 3.5</h1>
+      <p>Provet innehåller 20 frågor om programmeringsgrunder, undantag, algoritmer, datastrukturer, register, klasser, objekt, metoder, inkapsling och UML. Alla frågor måste besvaras innan provet kan rättas.</p>
+      <div class="test-meta"><span>20 frågor</span><span>Rekommenderad tid: 40–50 minuter</span><span>En fråga i taget</span></div>
+      <p>Provet är olistat, men inte lösenordsskyddat. Resultatet används som repetitionsstöd, inte för automatisk betygssättning. Ett provresultat är ett ögonblicksmått. Använd återkopplingen för att välja vad du ska repetera och kontrollera kunskapen igen senare.</p>
+      <div class="saved-result hidden" id="saved-result" aria-live="polite"></div>
+      <div class="student-name">
+        <label for="student-name">Elevens förnamn</label>
+        <input id="student-name" name="given-name" type="text" autocomplete="given-name" maxlength="50" required aria-describedby="name-help name-status">
+        <small id="name-help">Förnamn, antal rätt och repetitionsråd skickas till lärarens kalkylark. Enskilda svar skickas inte. Resultatet sparas även på den här enheten och kan laddas ner som Markdown.</small>
+        <span class="status-message" id="name-status" role="alert"></span>
+      </div>
+      <button class="primary" id="start-button" type="button">Starta provet</button>
+    </article>
+
+    <article class="test-card hidden" id="quiz-view">
+      <p class="eyebrow" id="question-position"></p>
+      <div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progress-bar"></div></div>
+      <form id="quiz-form"><div id="question-root"></div></form>
+      <p class="status-message" id="status-message" role="alert"></p>
+      <div class="question-nav">
+        <button id="previous-button" type="button">← Föregående</button>
+        <button id="next-button" type="button">Nästa →</button>
+        <button class="primary hidden" id="submit-button" type="button">Lämna in hela provet</button>
+      </div>
+    </article>
+
+    <article class="test-card hidden" id="result-view" tabindex="-1">
+      <p class="eyebrow">Resultat och återkoppling</p>
+      <h1>Testprovet är rättat</h1>
+      <p class="result-score" id="result-score"></p>
+      <p id="result-note"></p>
+      <div class="result-grid">
+        <section class="result-panel"><h3>Rekommenderad repetition</h3><ul id="chapter-recommendations"></ul></section>
+        <section class="result-panel"><h3>Felaktiga frågor</h3><p id="wrong-numbers"></p></section>
+      </div>
+      <section class="result-panel" aria-labelledby="overall-heading">
+        <h2 id="overall-heading">Kort sammanfattning</h2><p id="overall-summary"></p>
+        <h3>Så kan du repetera</h3><ul id="practice-recommendations"></ul>
+      </section>
+      <section id="review-list" aria-labelledby="review-heading"><h2 id="review-heading">Förklaringar till felaktiga svar</h2></section>
+      <section aria-labelledby="summary-heading"><h2 id="summary-heading">Enkel resultatsammanfattning</h2><textarea class="summary-text" id="summary-text" readonly></textarea></section>
+      <div class="test-actions">
+        <button class="primary" id="download-md-button" type="button">Ladda ner allt i MD-fil</button>
+        <button id="copy-button" type="button">Kopiera sammanfattning</button>
+      </div>
+      <p class="status-message" id="result-status" aria-live="polite"></p>
+    </article>
+  </main>
+  <script>
+  (function(){
+    "use strict";
+    const STORAGE_KEY="p2-testprov-kap1-3-5-m8v4q2-latest";
+    const TEST_SUMMARY_ENDPOINT="https://script.google.com/macros/s/AKfycbysmehMs8DOSK_XNSJ5FRC9TTtU1FWWZ2AgaFOOTlIQlh0BgExrPTiA86GnQubmffei9A/exec";
+    const TEST_SUMMARY_COLLECTION_ENABLED=true;
+    const TEST_ID="prog2-kapitel-1-3-5-m8v4q2";
+    const chapters={"1.1–1.2": "Programmering och lokal Pythonmiljö", "1.3": "Funktioner och returvärden", "1.4": "Villkor och logik", "1.5": "Loopar och upprepning", "1.6": "Undantagshantering", "1.7": "Flödesscheman och pseudokod", "2.1": "Algoritmer", "2.2": "Listor och iteration", "2.3": "Sökning och sortering", "2.4": "Dictionaries och tuples", "2.5": "Algoritmtänk och testfall", "2.6": "Problemlösning med listor", "2.7": "Register och bibliotekskatalog", "3.1": "Objektorienteringens begrepp", "3.2": "Skapa klasser och objekt", "3.3": "Metoder som ändrar objekt", "3.4": "Inkapsling och attribut", "3.5": "UML för objektmodeller"};
+    const practiceAdvice={"1.1–1.2": "Beskriv en lösning i tre steg, översätt den till Python och spara och kör .py-filen lokalt. Jämför instruktioner med utdata.", "1.3": "Skriv en funktion med två parametrar och return. Spåra tre anrop och beräkna hur returvärdet används efter anropet.", "1.4": "Gör en sannings- och testtabell för ett intervall. Testa under, på och över båda gränserna och jämför and med or.", "1.5": "Gör en spårtabell med loopvärde och ackumulator. Markera vilka varv continue hoppar över och jämför med break.", "1.6": "Bygg en inmatningsloop med int, try och except ValueError. Testa text, ett giltigt tal och flera fel i följd.", "1.7": "Skriv pseudokod och rita ett flödesschema som räknar negativa tal. Placera initiering, inläsning och beslut tydligt.", "2.1": "Skriv en algoritm för medelvärde. Markera startvärde, upprepning, beräkning och utdata och spåra den för tre tal.", "2.2": "Skriv ut en lista efter varje ändring med index, append och pop. Förutsäg innehållet innan du kör koden.", "2.3": "Sök samma värde linjärt och binärt. Förklara varför binär sökning kräver sortering och testa även ett saknat värde.", "2.4": "Skapa en dictionary med ett tuple-värde. Hämta en saknad nyckel med get, uppdatera ett värde och packa upp tuplen.", "2.5": "Planera en bokning för 1–8 personer och skriv testfall precis utanför och på båda gränserna före implementationen.", "2.6": "Sortera en lista av namn–poäng-par med lambda, både stigande och fallande. Jämför originalet efter sorted och sort.", "2.7": "Skriv en sökfunktion för ett register. Testa första posten, sista posten, saknad post och tom lista; placera retur efter loopen.", "3.1": "Skriv en egen klass och markera klass, instans, konstruktor, attribut och metod. Förklara skillnaden mellan data och beteende.", "3.2": "Skapa två objekt med olika startvärden. Ändra ett objekt och kontrollera det andra. Förklara parameter jämfört med self.attribut.", "3.3": "Spåra en metod som ändrar ett lager. Testa ett giltigt uttag, noll och ett för stort uttag och kontrollera tillståndet efter varje anrop.", "3.4": "Skriv en setter som endast tillåter 0–10 och en getter. Testa giltiga och ogiltiga värden och förklara vad understrecket signalerar.", "3.5": "Rita två klasser med attribut, metoder och en has-relation. Översätt modellen till Python och förklara +, - och skillnaden mellan har och är."};
+    const questions=[
+  {
+    "chapter": "1.1–1.2",
+    "area": "algoritm och lokal körning",
+    "kind": "Tillämpning",
+    "prompt": "Du har beskrivit en lösning i numrerade steg och vill nu provköra den som Python. Vilken arbetsgång passar?",
+    "options": [
+      "Översätt stegen till Python, spara en .py-fil och kör den i den lokala Pythonmiljön.",
+      "Spara stegen som en .py-fil; vanlig löptext blir då automatiskt körbar Python.",
+      "Öppna Pythonfilen som en webbsida; webbläsaren tolkar då Pythonkoden.",
+      "Spara endast programmets förväntade utskrift; Python skapar instruktionerna från den."
+    ],
+    "answer": 0,
+    "explanation": "En algoritm beskriver lösningens steg. De behöver uttryckas som giltig Pythonkod för att kunna köras i Pythonmiljön.",
+    "misconception": "Algoritm, källkod och programmets utdata blandas ihop."
+  },
+  {
+    "chapter": "1.3",
+    "area": "parametrar och returvärde",
+    "kind": "Kodförståelse",
+    "prompt": "Vilket tal skrivs ut?",
+    "options": [
+      "36",
+      "12",
+      "24",
+      "3"
+    ],
+    "answer": 0,
+    "explanation": "Anropet ger bredd=6 och hojd=4. Funktionen returnerar 24, som sedan adderas med 12 innan utskriften.",
+    "code": "def yta(bredd, hojd):\n    return bredd * hojd\n\nprint(yta(6, 4) + 12)",
+    "misconception": "Returvärdet förväxlas med argumenten eller den senare beräkningen."
+  },
+  {
+    "chapter": "1.4",
+    "area": "villkor och gränsvärden",
+    "kind": "Felsökning",
+    "prompt": "Funktionen ska godkänna åldrarna 16 till och med 19. Vilket villkor ska ersätta den markerade raden?",
+    "options": [
+      "age >= 16 and age <= 19",
+      "age > 16 and age < 19",
+      "age >= 16 or age <= 19",
+      "not (age >= 16 and age <= 19)"
+    ],
+    "answer": 0,
+    "explanation": "Båda gränserna ingår och båda kraven måste gälla. or skulle godkänna även åldrar utanför intervallet.",
+    "code": "def kan_delta(age):\n    if VILLKOR:\n        return True\n    return False",
+    "misconception": "Inkluderande gränser och skillnaden mellan and och or är osäkra."
+  },
+  {
+    "chapter": "1.5",
+    "area": "loop och ackumulator",
+    "kind": "Kodförståelse",
+    "prompt": "Vad skrivs ut?",
+    "options": [
+      "16",
+      "20",
+      "12",
+      "2"
+    ],
+    "answer": 0,
+    "explanation": "range(2, 9, 2) ger 2, 4, 6, 8. continue hoppar över tillägget av 4. Summan blir 2 + 6 + 8 = 16.",
+    "code": "total = 0\nfor tal in range(2, 9, 2):\n    if tal == 4:\n        continue\n    total += tal\nprint(total)",
+    "misconception": "range-gränsen, continue eller ackumulering misstolkas."
+  },
+  {
+    "chapter": "1.6",
+    "area": "undantag och återförsök",
+    "kind": "Felsökning",
+    "prompt": "En användare skriver \"tre\". Vilken ändring gör att programmet hanterar omvandlingsfelet och ber om ett nytt svar?",
+    "options": [
+      "Byt except TypeError mot except ValueError.",
+      "Flytta break till början av while-loopen.",
+      "Ta bort int så att alla svar blir giltiga heltal.",
+      "Byt while True mot if True och behåll resten."
+    ],
+    "answer": 0,
+    "explanation": "int(\"tre\") ger ValueError. När det undantaget fångas fortsätter while-loopen med ett nytt inmatningsförsök.",
+    "code": "while True:\n    try:\n        antal = int(input(\"Antal: \"))\n        break\n    except TypeError:\n        print(\"Skriv ett heltal.\")",
+    "misconception": "Feltyp, typomvandling eller återförsök förväxlas."
+  },
+  {
+    "chapter": "1.7",
+    "area": "pseudokod och beslut",
+    "kind": "Tillämpning",
+    "prompt": "Vilken pseudokod räknar hur många av fem temperaturer som är under noll?",
+    "options": [
+      "Sätt antal=0; upprepa fem gånger: läs temperatur, öka antal om temperatur<0; skriv sedan antal.",
+      "Sätt antal=0; läs en temperatur; upprepa fem gånger: öka antal om samma temperatur<0; skriv antal.",
+      "Sätt antal=0; läs fem temperaturer och addera deras värden; skriv antal.",
+      "Läs fem temperaturer; sätt antal=0 efter varje inläsning; skriv antal."
+    ],
+    "answer": 0,
+    "explanation": "En ny temperatur behöver läsas varje varv. Räknaren initieras före loopen och ökas bara när villkoret uppfylls.",
+    "misconception": "Inläsning, räknare och summering får fel plats eller betydelse."
+  },
+  {
+    "chapter": "2.1",
+    "area": "algoritmens ordning",
+    "kind": "Begrepp",
+    "prompt": "Vilket steg saknas för att algoritmen ska beräkna medelvärdet korrekt?",
+    "options": [
+      "Sätt summa till 0 innan talen gås igenom.",
+      "Sätt summa till 0 efter att alla tal har adderats.",
+      "Dividera varje tal med summa innan talet adderas.",
+      "Skriv ut listans första tal i stället för medelvärdet."
+    ],
+    "answer": 0,
+    "explanation": "En ackumulator behöver ett bestämt startvärde innan den används. Då kan samtliga tal adderas och summan divideras med antalet.",
+    "code": "Förutsättning: listan innehåller minst ett tal.\n1. Gå igenom listan och lägg varje tal till summa.\n2. Dividera summa med antalet tal.\n3. Visa resultatet.",
+    "misconception": "Startvärde och ordning i en algoritm förbises."
+  },
+  {
+    "chapter": "2.2",
+    "area": "index och listmetoder",
+    "kind": "Kodförståelse",
+    "prompt": "Hur ser listan ut när den skrivs ut?",
+    "options": [
+      "[11, 7, 5]",
+      "[11, 7, 9]",
+      "[5, 7, 11]",
+      "[11, 7, 9, 5]"
+    ],
+    "answer": 0,
+    "explanation": "Index -1 är sista platsen och blir 5. append lägger till 9, och pop() tar sedan bort det sista elementet, 9. Kvar blir [11, 7, 5].",
+    "code": "varden = [11, 7, 3]\nvarden[-1] = 5\nvarden.append(9)\nvarden.pop()\nprint(varden)",
+    "misconception": "Negativt index eller vad append och pop ändrar är oklart."
+  },
+  {
+    "chapter": "2.3",
+    "area": "binär och linjär sökning",
+    "kind": "Tillämpning",
+    "prompt": "En lista med varunummer kommer i slumpmässig ordning. Du vill använda binär sökning. Vad måste du först säkerställa?",
+    "options": [
+      "Att listan är sorterad i den ordning som sökalgoritmen använder.",
+      "Att listan innehåller fler än hundra varunummer.",
+      "Att varje varunummer förekommer exakt två gånger.",
+      "Att varunumret som söks ligger på listans första plats."
+    ],
+    "answer": 0,
+    "explanation": "Binär sökning väljer bort en halva med hjälp av ordningen. Listans längd eller antalet dubbletter ersätter inte sorteringskravet.",
+    "misconception": "Effektiv sökning antas fungera utan att dess förutsättningar är uppfyllda."
+  },
+  {
+    "chapter": "2.4",
+    "area": "dictionary och tuple",
+    "kind": "Kodförståelse",
+    "prompt": "Vilka två tal skrivs ut, i ordning?",
+    "options": [
+      "4 och 2",
+      "2 och 4",
+      "0 och 2",
+      "KeyError och 2"
+    ],
+    "answer": 0,
+    "explanation": "get ger standardvärdet 0 när antal saknas. Efter tillägget blir antal 4. Tuple-värdet (2, 5) packas upp så att x blir 2.",
+    "code": "post = {\"position\": (2, 5)}\npost[\"antal\"] = post.get(\"antal\", 0) + 4\nx, y = post[\"position\"]\nprint(post[\"antal\"])\nprint(x)",
+    "misconception": "get-standardvärde, nyckelåtkomst eller tuple-uppackning misstolkas."
+  },
+  {
+    "chapter": "2.5",
+    "area": "planering och gränstest",
+    "kind": "Tillämpning",
+    "prompt": "En bokningsfunktion får godkänna 1–8 deltagare, inklusive gränserna. Vilken uppsättning testar både gränserna och värden precis utanför?",
+    "options": [
+      "0, 1, 8, 9",
+      "2, 3, 4, 5",
+      "1, 1, 8, 8",
+      "0, 3, 6, 9"
+    ],
+    "answer": 0,
+    "explanation": "0 och 9 ska nekas; 1 och 8 ska godkännas. Alla fyra behövs för att kontrollera båda gränserna och deras utsidor.",
+    "misconception": "Testfall täcker typiska värden men missar övergången mellan tillåtet och otillåtet."
+  },
+  {
+    "chapter": "2.6",
+    "area": "sortering med lambda",
+    "kind": "Kodförståelse",
+    "prompt": "Vilket namn står först i sorterat, och vad händer med resultat?",
+    "options": [
+      "Omar står först; resultat behåller sin ursprungliga ordning.",
+      "Liv står först; resultat behåller sin ursprungliga ordning.",
+      "Omar står först; resultat får också den nya ordningen.",
+      "Nora står först; resultat sorteras i bokstavsordning."
+    ],
+    "answer": 0,
+    "explanation": "key väljer poängen i varje par. reverse=True ger högst poäng först. sorted skapar en ny lista och ändrar inte resultat.",
+    "code": "resultat = [(\"Liv\", 14), (\"Omar\", 22), (\"Nora\", 18)]\nsorterat = sorted(resultat, key=lambda rad: rad[1], reverse=True)",
+    "misconception": "Sorteringsnyckel, fallande ordning och sorted kontra sort blandas ihop."
+  },
+  {
+    "chapter": "2.7",
+    "area": "sökning i register",
+    "kind": "Felsökning",
+    "prompt": "Funktionen ska kunna hitta vilken post som helst i listan. Varför hittar den inte posten med id 8?",
+    "options": [
+      "return None ligger i loopen och avslutar sökningen efter första posten.",
+      "for kan inte gå igenom dictionaries som ligger i en lista.",
+      "return post skickar bara tillbaka postens id, aldrig hela posten.",
+      "Sökning med == kräver att listan först har sorterats."
+    ],
+    "answer": 0,
+    "explanation": "Första posten har id 3. Då körs return None och funktionen avslutas. Raden ska ligga efter loopen så att alla poster kan undersökas.",
+    "code": "def hitta(poster, sok_id):\n    for post in poster:\n        if post[\"id\"] == sok_id:\n            return post\n        return None\n\nposter = [{\"id\": 3}, {\"id\": 8}]\nprint(hitta(poster, 8))",
+    "misconception": "Tidig retur inuti en loop och linjär sökning missförstås."
+  },
+  {
+    "chapter": "3.1",
+    "area": "klass, objekt, attribut och metod",
+    "kind": "Begrepp",
+    "prompt": "Hur beskrivs delarna i modellen korrekt?",
+    "options": [
+      "Cykel är klassen; cykel1 är ett objekt; farg är ett attribut; ring är en metod.",
+      "cykel1 är klassen; Cykel är ett objekt; ring är ett attribut; farg är en metod.",
+      "Cykel är en metod; cykel1 är ett attribut; farg är en klass; ring är ett objekt.",
+      "Cykel och cykel1 är samma klass; farg och ring är båda fristående funktioner."
+    ],
+    "answer": 0,
+    "explanation": "Klassen är mallen. Anropet Cykel(\"blå\") skapar en instans vars attribut farg lagrar data och vars metod ring kan anropas.",
+    "code": "class Cykel:\n    def __init__(self, farg):\n        self.farg = farg\n\n    def ring(self):\n        print(\"Pling!\")\n\ncykel1 = Cykel(\"blå\")",
+    "misconception": "Klass och instans eller data och beteende blandas ihop."
+  },
+  {
+    "chapter": "3.2",
+    "area": "egna attribut per objekt",
+    "kind": "Kodförståelse",
+    "prompt": "Vad skrivs ut?",
+    "options": [
+      "15 och 40",
+      "15 och 15",
+      "10 och 40",
+      "55 och 55"
+    ],
+    "answer": 0,
+    "explanation": "Två separata objekt skapas. Tilldelningen ändrar endast a.minuter; b.minuter behåller 40.",
+    "code": "class Timer:\n    def __init__(self, minuter):\n        self.minuter = minuter\n\na = Timer(10)\nb = Timer(40)\na.minuter += 5\nprint(a.minuter, b.minuter)",
+    "misconception": "Separata instanser antas dela samma attributvärde."
+  },
+  {
+    "chapter": "3.2",
+    "area": "self och initiering",
+    "kind": "Felsökning",
+    "prompt": "Metoden visa ger AttributeError eftersom objektet saknar namn-attributet. Vilken rad ska ersätta namn = namn?",
+    "options": [
+      "self.namn = namn",
+      "namn = self.namn",
+      "self = namn",
+      "return namn"
+    ],
+    "answer": 0,
+    "explanation": "Parametern namn är lokal i __init__. self.namn = namn sparar argumentet i objektet så att andra metoder kan läsa det.",
+    "code": "class Station:\n    def __init__(self, namn):\n        namn = namn\n\n    def visa(self):\n        print(self.namn)\n\ns = Station(\"Viken\")\ns.visa()",
+    "misconception": "Lokal parameter förväxlas med ett attribut på objektet."
+  },
+  {
+    "chapter": "3.3",
+    "area": "metod som ändrar tillstånd",
+    "kind": "Kodförståelse",
+    "prompt": "Vilket värde har k.lager efter anropen?",
+    "options": [
+      "5",
+      "1",
+      "3",
+      "-3"
+    ],
+    "answer": 0,
+    "explanation": "Första uttaget minskar 9 till 5. Uttaget 8 nekas eftersom det överstiger lagret. Även 0 nekas, så lagret är fortfarande 5.",
+    "code": "class Kiosk:\n    def __init__(self):\n        self.lager = 9\n\n    def ta(self, antal):\n        if 0 < antal <= self.lager:\n            self.lager -= antal\n\nk = Kiosk()\nk.ta(4)\nk.ta(8)\nk.ta(0)",
+    "misconception": "Alla metodanrop antas ändra tillstånd även när villkoret inte uppfylls."
+  },
+  {
+    "chapter": "3.4",
+    "area": "inkapsling och interna attribut",
+    "kind": "Begrepp",
+    "prompt": "Varför bör övrig kod använda set_niva i stället för att direkt ändra _niva?",
+    "options": [
+      "Metoden kontrollerar intervallet; understrecket markerar intern användning men hindrar inte direkt åtkomst tekniskt.",
+      "Understrecket gör att Python alltid stoppar all direkt läsning och skrivning.",
+      "Metoden gör att alla objekt automatiskt får samma nivå.",
+      "Understrecket gör automatiskt värdet oföränderligt efter __init__."
+    ],
+    "answer": 0,
+    "explanation": "Inkapsling ger en kontrollerad väg för ändringar. Ett inledande understreck är en konvention i Python, inte ett absolut åtkomstskydd.",
+    "code": "class Lampa:\n    def __init__(self):\n        self._niva = 0\n\n    def set_niva(self, niva):\n        if 0 <= niva <= 10:\n            self._niva = niva",
+    "misconception": "En Pythonkonvention förväxlas med tekniskt åtkomstförbud eller oföränderlighet."
+  },
+  {
+    "chapter": "3.5",
+    "area": "läsa klassdiagram",
+    "kind": "Tillämpning",
+    "prompt": "Vilken Pythonkod motsvarar attributet och metoden i klassdiagrammet enligt kursens konventioner?",
+    "options": [
+      "def __init__(self):\n    self._antal = 0\n\ndef fyll_pa(self, antal):\n    self._antal += antal",
+      "def __init__(self):\n    antal = 0\n\ndef fyll_pa(self, antal):\n    antal += antal",
+      "def __init__(self):\n    self._antal = \"tom\"\n\ndef fyll_pa(self, antal):\n    return antal",
+      "def __init__(self):\n    self._antal = 0\n\ndef fyll_pa(self, antal):\n    self._antal = 0"
+    ],
+    "answer": 0,
+    "explanation": "Minustecknet markerar privat/internt attribut, int anger heltal och plus markerar en publik metod. Den beskrivna metoden ska öka objektets antal.",
+    "code": "Klass: Behallare\n--------------------------\n- antal: int\n--------------------------\n+ fyllPa(antal: int): void\n\nStartvärde: 0. fyllPa ska öka antalet med argumentets värde.\nAlternativen visar innehållet inuti klassen.",
+    "misconception": "UML-synlighet, datatyp eller kopplingen mellan attribut och metod är osäker."
+  },
+  {
+    "chapter": "3.5",
+    "area": "association i objektmodell",
+    "kind": "Tillämpning",
+    "prompt": "En Spellista lagrar en lista av Lat-objekt. Hur beskrivs relationen enligt den enkla notation som används i kapitel 3.5?",
+    "options": [
+      "Spellista --> Lat : has",
+      "Spellista --> Lat : inherits",
+      "Lat --> Spellista : inherits",
+      "Spellista och Lat ska alltid modelleras som samma klass."
+    ],
+    "answer": 0,
+    "explanation": "Spellistan har låtar, vilket är en association. Den är inte en sorts låt, så relationen ska inte beskrivas som arv.",
+    "misconception": "Har-en-relation förväxlas med är-en-relation."
+  }
+];
+    const intro=document.getElementById("intro-view"),quiz=document.getElementById("quiz-view"),result=document.getElementById("result-view"),root=document.getElementById("question-root"),position=document.getElementById("question-position"),bar=document.getElementById("progress-bar"),status=document.getElementById("status-message"),previous=document.getElementById("previous-button"),next=document.getElementById("next-button"),submit=document.getElementById("submit-button");
+    let current=0,quizQuestions=[],answers=[],studentName="",markdownResult="",teacherSummarySent=false;
+    function show(view){[intro,quiz,result].forEach(item=>item.classList.add("hidden"));view.classList.remove("hidden");}
+    function shuffleArray(items){for(let i=items.length-1;i>0;i-=1){const j=Math.floor(Math.random()*(i+1));[items[i],items[j]]=[items[j],items[i]];}return items;}
+    function shuffleQuestions(){const correctPositions=shuffleArray(questions.map((_,index)=>index%4));quizQuestions=shuffleArray(questions.map((question,sourceIndex)=>({...question,sourceIndex:sourceIndex+1}))).map((question,index)=>{const correctOption=question.options[question.answer],otherOptions=shuffleArray(question.options.filter((_,optionIndex)=>optionIndex!==question.answer)),answer=correctPositions[index],options=[...otherOptions];options.splice(answer,0,correctOption);return {...question,options,answer};});answers=Array(quizQuestions.length).fill(null);current=0;}
+    function render(){const q=quizQuestions[current];position.textContent=`Fråga ${current+1} av ${quizQuestions.length} · Kapitel ${q.chapter}`;bar.style.width=`${((current+1)/quizQuestions.length)*100}%`;root.replaceChildren();const fieldset=document.createElement("fieldset"),legend=document.createElement("legend"),kind=document.createElement("p");kind.className="question-kind";kind.textContent=`${q.kind} · ${q.area}`;legend.textContent=q.prompt;fieldset.append(kind,legend);if(q.code){const pre=document.createElement("pre"),code=document.createElement("code");pre.className="code-block";code.textContent=q.code;pre.append(code);fieldset.append(pre);}q.options.forEach((option,index)=>{const label=document.createElement("label"),input=document.createElement("input"),span=document.createElement("span");label.className="option";input.type="radio";input.name=`question-${current}`;input.value=String(index);input.checked=answers[current]===index;input.addEventListener("change",()=>{answers[current]=index;status.textContent="";});span.style.whiteSpace="pre-wrap";span.textContent=`${"ABCD"[index]}. ${option}`;label.append(input,span);fieldset.append(label);});legend.tabIndex=-1;root.append(fieldset);legend.focus();previous.disabled=current===0;next.classList.toggle("hidden",current===quizQuestions.length-1);submit.classList.toggle("hidden",current!==quizQuestions.length-1);status.textContent="";}
+    function move(step){if(answers[current]===null){status.textContent="Välj ett svar innan du går vidare.";return;}current+=step;render();window.scrollTo({top:0,behavior:"smooth"});}
+    function formatList(items){if(!items.length)return "Inga";if(items.length===1)return String(items[0]);return `${items.slice(0,-1).join(", ")} och ${items[items.length-1]}`;}
+    function sendTeacherSummary(recommendations){if(!TEST_SUMMARY_COLLECTION_ENABLED||teacherSummarySent||!TEST_SUMMARY_ENDPOINT)return;const score=quizQuestions.reduce((sum,q,index)=>sum+(answers[index]===q.answer?1:0),0),total=quizQuestions.length,percent=Math.round(score/total*100);teacherSummarySent=true;fetch(TEST_SUMMARY_ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({type:"testSummary",testId:TEST_ID,studentName,score,total,percent,recommendations,pagePath:window.location.pathname})}).then(()=>{document.getElementById("result-status").textContent="Sammanfattningen har sänts. Mottagningen i kalkylarket kan inte bekräftas här. Spara gärna MD-filen.";}).catch(()=>{teacherSummarySent=false;document.getElementById("result-status").textContent="Sammanfattningen kunde inte skickas automatiskt. Ladda ner MD-filen och lämna den till läraren.";});}
+    function mdAnswer(text){return text.includes("\n")?"\n\n```python\n"+text+"\n```\n":" "+text;}
+    function grade(){if(answers[current]===null){status.textContent="Välj ett svar innan du lämnar in.";return;}const unanswered=answers.map((a,i)=>a===null?i+1:null).filter(Boolean);if(unanswered.length){current=unanswered[0]-1;render();status.textContent=`Besvara först fråga ${formatList(unanswered)}.`;return;}const wrong=quizQuestions.map((q,i)=>answers[i]===q.answer?null:i).filter(i=>i!==null),score=quizQuestions.length-wrong.length,percent=Math.round(score/quizQuestions.length*100),chapterMisses={};wrong.forEach(i=>{chapterMisses[quizQuestions[i].chapter]=(chapterMisses[quizQuestions[i].chapter]||0)+1;});const timestamp=new Date(),saved={testId:TEST_ID,studentName,score,total:quizQuestions.length,percent,wrong:wrong.map(i=>i+1),date:timestamp.toISOString()};try{localStorage.setItem(STORAGE_KEY,JSON.stringify(saved));}catch(_error){}
+      document.getElementById("result-score").textContent=`${studentName}: ${score} av ${quizQuestions.length} rätt · ${percent} %`;document.getElementById("result-note").textContent="Resultatet visar vad du kunde vid detta tillfälle. Repetera osäkra områden och gör en ny kontroll senare.";document.getElementById("wrong-numbers").textContent=wrong.length?formatList(wrong.map(i=>i+1)):"Inga – alla svar var rätt.";
+      const recommendations=document.getElementById("chapter-recommendations");recommendations.replaceChildren();const chapterEntries=Object.entries(chapterMisses).sort((a,b)=>b[1]-a[1]);if(!chapterEntries.length){const li=document.createElement("li");li.textContent="Ingen omedelbar repetition utpekad. Kontrollera kunskapen igen vid ett senare tillfälle.";recommendations.append(li);}else chapterEntries.slice(0,3).forEach(([chapter,count])=>{const li=document.createElement("li");li.textContent=`Kapitel ${chapter}: ${chapters[chapter]} (${count} fel)`;recommendations.append(li);});
+      const overall=document.getElementById("overall-summary"),practice=document.getElementById("practice-recommendations");practice.replaceChildren();const priority=chapterEntries.slice(0,3);if(!priority.length){overall.textContent="Du visar en god överblick över de testade avsnitten. Befäst kunskapen genom att lösa en ny blandad koduppgift utan stöd.";const li=document.createElement("li");li.textContent="Välj en blandad tillämpningsuppgift och förklara lösningen steg för steg innan du kontrollkör.";practice.append(li);}else{const names=priority.map(([chapter])=>`kapitel ${chapter} (${chapters[chapter].toLowerCase()})`);overall.textContent=`Du behöver främst öva mer på ${formatList(names)}. Börja med området där du hade flest fel och kontrollera sedan kunskapen med nya exempel.`;priority.forEach(([chapter])=>{const li=document.createElement("li");li.textContent=`Kapitel ${chapter}: ${practiceAdvice[chapter]}`;practice.append(li);});}
+      const review=document.getElementById("review-list");review.querySelectorAll(".review-item").forEach(item=>item.remove());wrong.forEach(i=>{const q=quizQuestions[i],section=document.createElement("section"),heading=document.createElement("h3"),choice=document.createElement("p"),correct=document.createElement("p"),explanation=document.createElement("p");section.className="review-item";heading.textContent=`Fråga ${i+1} · Kapitel ${q.chapter}: ${q.area}`;choice.textContent=`Ditt svar: ${q.options[answers[i]]}`;correct.textContent=`Rätt svar: ${q.options[q.answer]}`;explanation.textContent=q.explanation;const prompt=document.createElement("p");prompt.textContent=q.prompt;section.append(heading,prompt);if(q.code){const pre=document.createElement("pre");pre.className="code-block";pre.textContent=q.code;section.append(pre);}section.append(choice,correct,explanation);review.append(section);});
+      const recLines=chapterEntries.length?chapterEntries.slice(0,3).map(([c])=>`- Kapitel ${c}: ${chapters[c]}`).join("\n"):"- Ingen omedelbar repetition utpekad; följ upp senare.";const adviceLines=priority.length?priority.map(([c])=>`- Kapitel ${c}: ${practiceAdvice[c]}`).join("\n"):"- Lös en ny blandad koduppgift och gör en ny kontroll senare.";const summary=`Elev: ${studentName}\nResultat: ${score} av ${quizQuestions.length} rätt, ${percent} %\nDatum: ${timestamp.toLocaleDateString("sv-SE",{timeZone:"Europe/Stockholm"})}\n\nKort sammanfattning:\n${overall.textContent}\n\nRekommenderad repetition:\n${recLines}\n\nSå kan eleven repetera:\n${adviceLines}\n\nFelaktiga frågor: ${wrong.length?formatList(wrong.map(i=>i+1)):"Inga"}\n\nObservera: Resultatet är ett ögonblicksmått och visar inte permanent behärskning.`;const errorSections=wrong.length?wrong.map(i=>{const q=quizQuestions[i];return `## Fråga ${i+1} – Kapitel ${q.chapter}: ${q.area}\n\n${q.prompt}\n\n${q.code?"```"+(q.chapter==="3.5"?"text":"python")+"\n"+q.code+"\n```\n\n":""}- **Frågetyp:** ${q.kind}\n- **Elevens svar:**${mdAnswer(q.options[answers[i]])}\n- **Rätt svar:**${mdAnswer(q.options[q.answer])}\n- **Förklaring:** ${q.explanation}\n- **Rekommenderad träning:** ${practiceAdvice[q.chapter]}`;}).join("\n\n"):"## Felaktiga frågor\n\nInga felaktiga svar.";markdownResult=`# Individuell återkoppling – Programmering 2\n\n- **Elev:** ${studentName}\n- **Datum:** ${timestamp.toLocaleDateString("sv-SE",{timeZone:"Europe/Stockholm"})}\n- **Resultat:** ${score} av ${quizQuestions.length} rätt (${percent} %)\n\n## Sammanfattning\n\n${overall.textContent}\n\n## Kapitel att repetera\n\n${recLines}\n\n## Rekommenderad träning\n\n${adviceLines}\n\n## Felaktiga frågor\n\n${wrong.length?formatList(wrong.map(i=>i+1)):"Inga"}\n\n${errorSections}\n\n## Nästa steg\n\nGör övningarna ovan och kontrollera sedan kunskapen med nya frågor eller kodexempel. Resultatet är ett ögonblicksmått och visar inte permanent behärskning.\n`;try{localStorage.setItem(STORAGE_KEY,JSON.stringify({...saved,summary,markdown:markdownResult,recommendations:adviceLines}));}catch(_error){}document.getElementById("summary-text").value=summary;show(result);sendTeacherSummary(adviceLines.replace(/^- /gm,"").replace(/\n/g," | "));result.focus();window.scrollTo({top:0});}
+    function loadSaved(){let saved=null;try{saved=JSON.parse(localStorage.getItem(STORAGE_KEY));}catch(_error){}if(!saved)return;const box=document.getElementById("saved-result");box.classList.remove("hidden");const date=new Date(saved.date).toLocaleDateString("sv-SE");box.textContent=`Senaste lokala resultat: ${saved.score} av 20 rätt (${saved.percent} %) den ${date}. Det är ett tidigare ögonblicksmått, inte permanent behärskning.`;}
+    document.getElementById("start-button").addEventListener("click",()=>{const input=document.getElementById("student-name"),nameStatus=document.getElementById("name-status");studentName=input.value.trim().replace(/\s+/g," ");if(!studentName){nameStatus.textContent="Skriv elevens förnamn innan provet startar.";input.focus();return;}nameStatus.textContent="";shuffleQuestions();show(quiz);render();});previous.addEventListener("click",()=>{current-=1;render();});next.addEventListener("click",()=>move(1));submit.addEventListener("click",grade);document.getElementById("download-md-button").addEventListener("click",()=>{const safeName=studentName.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")||"elev";const blob=new Blob([markdownResult],{type:"text/markdown;charset=utf-8"}),url=URL.createObjectURL(blob),link=document.createElement("a");link.href=url;link.download=`resultat-${safeName}-prog2-kap1-3-5.md`;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);document.getElementById("result-status").textContent=`Markdown-filen för ${studentName} har laddats ner.`;});document.getElementById("copy-button").addEventListener("click",async()=>{const text=document.getElementById("summary-text").value,out=document.getElementById("result-status");try{await navigator.clipboard.writeText(text);out.textContent="Sammanfattningen har kopierats.";}catch(_error){document.getElementById("summary-text").select();out.textContent="Kopiera den markerade texten med Ctrl+C eller Cmd+C.";}});document.addEventListener("keydown",event=>{if(quiz.classList.contains("hidden")||event.target.matches("input,button,textarea"))return;if(event.key==="ArrowLeft"&&!previous.disabled)previous.click();if(event.key==="ArrowRight"&&!next.classList.contains("hidden"))next.click();});document.getElementById("quiz-form").addEventListener("submit",event=>event.preventDefault());loadSaved();
+  }());
+  </script>
+</body>
+</html>
